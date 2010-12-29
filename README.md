@@ -17,6 +17,7 @@ Roadmap
     * If not, create a system to enter and store IPs manually.
         * Consider also creating an system for LANdrop peers to automatically share IP addresses - that way if there's a client "out of the loop" on a faraway subnet, adding him manually on one computer will bring him into the loop - he'll see *all* the other peers on the network, and vice-versa.
 * Fancy "incoming transfer" notifications - kind of like Outlook 2003's "new mail" box. Much better than MessageBox()es. 
+* Rewrite protocol to use JSON and/or ProtoBuff for cross-platform compatibility
 * Drop Codes - a simple password that you can set; anyone with the password can send you a file without having to wait for you to accept it (also useful for sending files for yourself).
 * The ability to send snippets of text to people really easily (code, URLs, etc). You'd right click the user in the list and go to "Send Clipboard Contents" - the rest would be done for you. Incoming snippets are **automatically accepted** and put in a queue where you can read them whenever you want.
 * Log off, shut down, or hibernate after transfer is complete. 
