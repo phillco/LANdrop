@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Peering\MulticastManager.cs" />
+    <Compile Include="Peering\Peer.cs" />
+    <Compile Include="Transfers\IncomingTransferListener.cs" />
+    <Compile Include="Transfers\Protocol.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
-    <Content Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

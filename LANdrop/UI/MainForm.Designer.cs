@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -44,6 +44,7 @@
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -127,10 +128,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4} );
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 212, 214 );
@@ -156,6 +157,12 @@
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
             this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
+            // 
+            // refreshPeerListTimer
+            // 
+            this.refreshPeerListTimer.Enabled = true;
+            this.refreshPeerListTimer.Interval = 1000;
+            this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
             // 
             // MainForm
             // 
@@ -193,6 +200,7 @@
         private System.Windows.Forms.ListView receipientList;
         private System.Windows.Forms.ContextMenuStrip recipientContextMenu;
         private System.Windows.Forms.ToolStripMenuItem sendFileToToolStripMenuItem;
+        private System.Windows.Forms.Timer refreshPeerListTimer;
     }
 }
 

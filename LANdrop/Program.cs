@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using LANdrop.Peering;
 using LANdrop.UI;
 
 namespace LANdrop
@@ -15,7 +16,13 @@ namespace LANdrop
         {
             Application.EnableVisualStyles( );
             Application.SetCompatibleTextRenderingDefault( false );
-            Application.Run( new MainForm( ) );
+
+            MainForm mainForm = new MainForm( );
+
+            MulticastManager.Init( mainForm );
+
+            Application.Run( mainForm );
+            Environment.Exit( 0 );
         }
     }
 }

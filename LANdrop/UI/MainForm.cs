@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using LANdrop.Peering;
 
 namespace LANdrop.UI
 {
@@ -14,6 +15,12 @@ namespace LANdrop.UI
         // A cache 
         private ListViewItem lastItemHovered;
 
+        enum OnlineIconStates
+        {
+            Offline = 0,
+            Online = 1
+        }
+
         public MainForm( )
         {
             InitializeComponent( );
@@ -21,6 +28,28 @@ namespace LANdrop.UI
             Random r = new Random( );
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
+        }
+
+        public void UpdatePeerList( )
+        {
+            if ( InvokeRequired ) // If this method was called by a different thread, invoke it to run on the form thread.
+            {
+                BeginInvoke( new MethodInvoker( delegate( ) { UpdatePeerList( ); } ) );
+                return;
+            }
+
+            receipientList.Items.Clear( );
+            foreach ( Peer p in MulticastManager.Peers )
+            {
+                receipientList.Items.Add( new ListViewItem
+                {
+                    Text = p.Name,
+                    ImageIndex = p.IsOnline() ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline
+                } );
+            }
+
+            if ( selectedIndex < receipientList.Items.Count )
+            receipientList.Items[selectedIndex].Selected = true;
         }
 
         /// <summary>
@@ -96,11 +125,16 @@ namespace LANdrop.UI
         {
             List<FileInfo> files = new List<FileInfo>( );
 
-            string[] fileNames = (string[]) e.Data.GetData( DataFormats.FileDrop );            
+            string[] fileNames = (string[]) e.Data.GetData( DataFormats.FileDrop );
             foreach ( string file in fileNames )
                 files.Add( new FileInfo( file ) );
 
             return files;
+        }
+
+        private void refreshPeerListTimer_Tick( object sender, EventArgs e )
+        {
+            UpdatePeerList( );
         }
     }
 }
