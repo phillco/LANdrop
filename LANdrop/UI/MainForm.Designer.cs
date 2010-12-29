@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -45,6 +45,7 @@
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
+            this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -70,7 +71,7 @@
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size( 198, 17 );
+            this.lblStatus.Size = new System.Drawing.Size( 229, 17 );
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "Ready";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -130,10 +131,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8} );
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 212, 214 );
@@ -149,15 +150,16 @@
             // recipientContextMenu
             // 
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.sendFileToToolStripMenuItem} );
+            this.sendFileToToolStripMenuItem,
+            this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 133, 26 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 153, 70 );
             // 
             // sendFileToToolStripMenuItem
             // 
             this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
             // 
             // refreshPeerListTimer
@@ -165,6 +167,13 @@
             this.refreshPeerListTimer.Enabled = true;
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
+            // 
+            // copyIPAddressToolStripMenuItem
+            // 
+            this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
+            this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -203,6 +212,7 @@
         private System.Windows.Forms.ContextMenuStrip recipientContextMenu;
         private System.Windows.Forms.ToolStripMenuItem sendFileToToolStripMenuItem;
         private System.Windows.Forms.Timer refreshPeerListTimer;
+        private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
     }
 }
 

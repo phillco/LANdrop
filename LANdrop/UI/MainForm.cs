@@ -151,5 +151,11 @@ namespace LANdrop.UI
         {
             UpdatePeerList( );
         }
+
+        private void copyIPAddressToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( receipientList.SelectedItems.Count > 0 )
+                Clipboard.SetText( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ) );
+        }
     }
 }
