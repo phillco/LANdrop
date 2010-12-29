@@ -35,7 +35,7 @@ namespace LANdrop.UI
             // If this method was called by a different thread, invoke it to run on the form thread.
             if ( InvokeRequired )
             {
-                BeginInvoke( new MethodInvoker( delegate( ) { UpdatePeerList( ); } ) );
+                BeginInvoke( new MethodInvoker( delegate { UpdatePeerList( ); } ) );
                 return;
             }
 
@@ -119,7 +119,7 @@ namespace LANdrop.UI
             List<FileInfo> files = getDraggedFiles( e );
 
             if ( files.Count > 0 && hoverItem != null )
-                MessageBox.Show( "Send " + files[0].Name + " to " + hoverItem.Text, "Next Step", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                MessageBox.Show( "Send " + files[0].Name + " to " + (Peer) hoverItem.Tag, "Next Step", MessageBoxButtons.OK, MessageBoxIcon.Information );
         }
 
         /// <summary>
