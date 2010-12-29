@@ -57,6 +57,9 @@ namespace LANdrop.Peering
                 message.Write( GetLocalAddress( ).ToString( ) );
 
                 socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
+
+                // Remove timed-out peers while we're at it.
+                RemoveOldPeers( );
                 Thread.Sleep( 1000 );
             }
 
@@ -112,6 +115,14 @@ namespace LANdrop.Peering
             }
 
             Peers.Add( newPeer );
+        }
+
+        private static void RemoveOldPeers( )
+        {
+            Peers.RemoveAll( ( Peer p ) =>
+            {
+                return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 30 );
+            } );           
         }
 
         /// <summary>
