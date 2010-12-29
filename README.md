@@ -30,4 +30,6 @@ Roadmap
 * Sending multiple files.
 * Sending to multiple recipients.
 * Tray icon, run at startup.
+* Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
+* Identity verification (otherwise anyone can give themselves your name). Maybe something with a public key web-of-trust?
 * Support for transferring files that are *themselves* being transferred. That way you can start a download on one computer and stream it to another.
