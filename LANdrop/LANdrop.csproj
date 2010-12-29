@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Peering\MulticastManager.cs" />
     <Compile Include="Peering\Peer.cs" />
+    <Compile Include="Transfers\IncomingTransfer.cs" />
     <Compile Include="Transfers\IncomingTransferListener.cs" />
+    <Compile Include="Transfers\OutgoingTransfer.cs" />
     <Compile Include="Transfers\Protocol.cs" />
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>

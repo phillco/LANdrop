@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using LANdrop.Peering;
+using LANdrop.Transfers;
 
 namespace LANdrop.UI
 {
@@ -55,7 +56,7 @@ namespace LANdrop.UI
                 {
                     Tag = p,
                     Text = p.Name,
-                    ImageIndex = p.IsOnline() ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline
+                    ImageIndex = p.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline
                 } );
             }
 
@@ -119,7 +120,7 @@ namespace LANdrop.UI
             List<FileInfo> files = getDraggedFiles( e );
 
             if ( files.Count > 0 && hoverItem != null )
-                MessageBox.Show( "Send " + files[0].Name + " to " + (Peer) hoverItem.Tag, "Next Step", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                new OutgoingTransfer( files[0], (Peer) hoverItem.Tag );
         }
 
         /// <summary>
