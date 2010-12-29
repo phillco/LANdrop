@@ -6,7 +6,7 @@ using System.Net;
 namespace LANdrop.Peering
 {
     /// <summary>
-    /// Another LANdrop client on the network that we could connect to.
+    /// Another LANdrop client on the network that we might interact with.
     /// </summary>
     public class Peer
     {
@@ -16,7 +16,7 @@ namespace LANdrop.Peering
 
         public DateTime LastSeen { get; set; }
 
-        public void See( )
+        public void UpdateLastSeen( )
         {
             LastSeen = DateTime.Now;
         }

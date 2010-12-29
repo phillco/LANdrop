@@ -19,76 +19,90 @@ namespace LANdrop.Peering
     {
         public static List<Peer> Peers { get; private set; }
 
-        private static IPAddress multicastAddress = IPAddress.Parse( "224.5.6.7" );
+        private static IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
         private static MainForm form;
 
+        /// <summary>
+        /// Starts announcing and listening for other clients.
+        /// </summary>
         public static void Init( MainForm mainForm )
         {
             form = mainForm;
             Peers = new List<Peer>( );
-            new Thread( new ThreadStart( SendToGroup ) ).Start( );
-            new Thread( new ThreadStart( JoinGroup ) ).Start( );
+            new Thread( new ThreadStart( SendLoop ) ).Start( );
+            new Thread( new ThreadStart( ListenLoop ) ).Start( );
         }
 
-        public static void SendToGroup( )
+        /// <summary>
+        /// Perpetually announces our information every second.
+        /// </summary>
+        public static void SendLoop( )
         {
-            Socket s = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            s.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
-            s.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 2 );
-            IPEndPoint ipep = new IPEndPoint( multicastAddress, 4567 );
-            s.Connect( ipep );
+            // Connect to the multicast group.
+            Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
+            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
+            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
+            socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
 
+            // Perpetually announce every second.
             while ( true )
             {
                 BinaryWriter message = new BinaryWriter( new MemoryStream( ) );
 
+                // Send our name and IP.
                 message.Write( Environment.UserName );
                 message.Write( Dns.GetHostName( ) );
-                message.Write( getLocalAddress( ).ToString( ) );
+                message.Write( GetLocalAddress( ).ToString( ) );
 
-                byte[] array = ( (MemoryStream) message.BaseStream ).ToArray( );
-                s.Send( array, array.Length, SocketFlags.None );
-
+                socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
                 Thread.Sleep( 1000 );
             }
 
-            s.Close( );
+            socket.Close( );
         }
 
-        public static void JoinGroup( )
+        /// <summary>
+        /// Perpetually listens for another LANdrop clients' announcements.
+        /// </summary>
+        public static void ListenLoop( )
         {
-            Socket s = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            IPEndPoint ipep = new IPEndPoint( IPAddress.Any, 4567 );
-            s.Bind( ipep );
+            // Connect to the multicast group (for listening).
+            Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
+            listenSocket.Bind( new IPEndPoint( IPAddress.Any, Protocol.MulticastPortNumber ) );
+            listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
-            s.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
-
+            // Perpetually listen for announcements.
             while ( true )
             {
-                byte[] b = new byte[1024];
-                s.Receive( b );
+                byte[] bytes = new byte[1024];
+                listenSocket.Receive( bytes ); // Halt here until a packet is received.
 
-                BinaryReader message = new BinaryReader( new MemoryStream( b ) );
+                BinaryReader message = new BinaryReader( new MemoryStream( bytes ) );
 
-                processPeer( new Peer
+                // Parse in the peer, and add it to the list (or update an existing one).
+                ProcessPeer( new Peer
                 {
                     Name = message.ReadString( ) + " on " + message.ReadString( ),
-                    Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.PORT_NUMBER ),
+                    Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
                     LastSeen = DateTime.Now
                 } );
 
+                // Update the UI.
                 form.UpdatePeerList( );
             }
         }
 
-        private static void processPeer( Peer newPeer )
+        /// <summary>
+        /// Adds the peer to the list if it is new (or updates the existing one).
+        /// </summary>
+        private static void ProcessPeer( Peer newPeer )
         {
             foreach ( Peer p in Peers )
             {
                 if ( p.Equals( newPeer ) )
                 {
-                    p.See( );
+                    p.UpdateLastSeen( );
                     return;
                 }
             }
@@ -96,7 +110,11 @@ namespace LANdrop.Peering
             Peers.Add( newPeer );
         }
 
-        private static IPAddress getLocalAddress( )
+        /// <summary>
+        /// Returns the computer's IP list.
+        /// TODO: This is a depreciated and overly simplistic method (computers can have multiple IPs).
+        /// </summary>
+        private static IPAddress GetLocalAddress( )
         {
             return Dns.GetHostByName( Dns.GetHostName( ) ).AddressList[0];
         }
