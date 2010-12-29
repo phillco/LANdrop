@@ -93,7 +93,17 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            listenSocket.Bind( new IPEndPoint( IPAddress.Any, Protocol.MulticastPortNumber ) );
+
+            for ( int port = Protocol.MulticastPortNumber; port < Protocol.MulticastPortNumber + 100; port++ )
+            {
+                try
+                {
+                    listenSocket.Bind( new IPEndPoint( IPAddress.Any, port ) );
+                    break;
+                }
+                catch ( SocketException ) { }
+            }
+
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
@@ -112,7 +122,7 @@ namespace LANdrop.Peering
                         Name = message.ReadString( ) + " on " + message.ReadString( ),
                         Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
                         LastSeen = DateTime.Now
-                    }, message.ReadBoolean() );
+                    }, message.ReadBoolean( ) );
                 }
 
                 // Update the UI.
@@ -149,7 +159,7 @@ namespace LANdrop.Peering
             Peers.RemoveAll( ( Peer p ) =>
             {
                 return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 10 );
-            } );           
+            } );
         }
 
         /// <summary>
