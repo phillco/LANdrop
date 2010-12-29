@@ -50,7 +50,8 @@ namespace LANdrop.Peering
             {
                 BinaryWriter message = new BinaryWriter( new MemoryStream( ) );
 
-                // Send our name and IP.
+                // Send our name, protocol versions and IP.
+                message.Write( (Int32) Protocol.ProtocolVersion );
                 message.Write( Environment.UserName );
                 message.Write( Dns.GetHostName( ) );
                 message.Write( GetLocalAddress( ).ToString( ) );
@@ -80,13 +81,16 @@ namespace LANdrop.Peering
 
                 BinaryReader message = new BinaryReader( new MemoryStream( bytes ) );
 
-                // Parse in the peer, and add it to the list (or update an existing one).
-                ProcessPeer( new Peer
+                if ( message.ReadInt32( ) == Protocol.ProtocolVersion ) // Can only peer with the same version of LANdrop.
                 {
-                    Name = message.ReadString( ) + " on " + message.ReadString( ),
-                    Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
-                    LastSeen = DateTime.Now
-                } );
+                    // Parse in the peer, and add it to the list (or update an existing one).
+                    ProcessPeer( new Peer
+                    {
+                        Name = message.ReadString( ) + " on " + message.ReadString( ),
+                        Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
+                        LastSeen = DateTime.Now
+                    } );
+                }
 
                 // Update the UI.
                 form.UpdatePeerList( );

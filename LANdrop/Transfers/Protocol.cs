@@ -9,10 +9,12 @@ namespace LANdrop.Transfers
     /// </summary>
     class Protocol
     {
+        public const int ProtocolVersion = 100;
+
         public const int TransferPortNumber = 50900;
 
         public const int MulticastPortNumber = 60900;
 
-        public const string MulticastGroupAddress = "239.76.65.78"; // Surprise inside.
+        public const string MulticastGroupAddress = "239.76.65.78"; // Surprise inside.        
     }
 }
