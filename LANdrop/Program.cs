@@ -22,7 +22,7 @@ namespace LANdrop
             MulticastManager.Init( mainForm );
 
             Application.Run( mainForm );
-            Environment.Exit( 0 );
+            MulticastManager.Disconnect( );
         }
     }
 }

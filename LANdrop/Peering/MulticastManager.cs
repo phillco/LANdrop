@@ -23,15 +23,26 @@ namespace LANdrop.Peering
 
         private static MainForm form;
 
+        private static bool connected;
+
         /// <summary>
         /// Starts announcing and listening for other clients.
         /// </summary>
         public static void Init( MainForm mainForm )
         {
             form = mainForm;
+            connected = true;
             Peers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
             new Thread( new ThreadStart( ListenLoop ) ).Start( );
+        }
+
+        /// <summary>
+        /// Stops the announce & listening loops and sends a "goodbye" message to the other peers.
+        /// </summary>
+        public static void Disconnect( )
+        {
+            connected = false;
         }
 
         /// <summary>
@@ -46,24 +57,33 @@ namespace LANdrop.Peering
             socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
 
             // Perpetually announce every second.
-            while ( true )
+            while ( connected )
             {
-                BinaryWriter message = new BinaryWriter( new MemoryStream( ) );
-
-                // Send our name, protocol versions and IP.
-                message.Write( (Int32) Protocol.ProtocolVersion );
-                message.Write( Environment.UserName );
-                message.Write( Dns.GetHostName( ) );
-                message.Write( GetLocalAddress( ).ToString( ) );
-
-                socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
+                SendAnnouncement( socket );
 
                 // Remove timed-out peers while we're at it.
                 RemoveOldPeers( );
                 Thread.Sleep( 1000 );
             }
 
+            // Send a goodbye message so we're removed immediately.
+            SendAnnouncement( socket );
+
             socket.Close( );
+        }
+
+        private static void SendAnnouncement( Socket socket )
+        {
+            BinaryWriter message = new BinaryWriter( new MemoryStream( ) );
+
+            // Send our name, protocol versions and IP.
+            message.Write( (Int32) Protocol.ProtocolVersion );
+            message.Write( Environment.UserName );
+            message.Write( Dns.GetHostName( ) );
+            message.Write( GetLocalAddress( ).ToString( ) );
+            message.Write( connected );
+
+            socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
         }
 
         /// <summary>
@@ -77,7 +97,7 @@ namespace LANdrop.Peering
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
-            while ( true )
+            while ( connected )
             {
                 byte[] bytes = new byte[1024];
                 listenSocket.Receive( bytes ); // Halt here until a packet is received.
@@ -92,7 +112,7 @@ namespace LANdrop.Peering
                         Name = message.ReadString( ) + " on " + message.ReadString( ),
                         Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
                         LastSeen = DateTime.Now
-                    } );
+                    }, message.ReadBoolean() );
                 }
 
                 // Update the UI.
@@ -103,8 +123,15 @@ namespace LANdrop.Peering
         /// <summary>
         /// Adds the peer to the list if it is new (or updates the existing one).
         /// </summary>
-        private static void ProcessPeer( Peer newPeer )
+        private static void ProcessPeer( Peer newPeer, bool connected )
         {
+            // If this peer is saying goodbye, simply remove it.
+            if ( !connected )
+            {
+                Peers.Remove( newPeer );
+                return;
+            }
+
             foreach ( Peer p in Peers )
             {
                 if ( p.Equals( newPeer ) )
@@ -121,7 +148,7 @@ namespace LANdrop.Peering
         {
             Peers.RemoveAll( ( Peer p ) =>
             {
-                return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 30 );
+                return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 10 );
             } );           
         }
 
