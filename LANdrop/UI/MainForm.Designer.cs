@@ -70,8 +70,10 @@
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size( 39, 17 );
+            this.lblStatus.Size = new System.Drawing.Size( 198, 17 );
+            this.lblStatus.Spring = true;
             this.lblStatus.Text = "Ready";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // contentPanel
             // 
