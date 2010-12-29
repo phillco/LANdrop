@@ -32,24 +32,39 @@ namespace LANdrop.UI
 
         public void UpdatePeerList( )
         {
-            if ( InvokeRequired ) // If this method was called by a different thread, invoke it to run on the form thread.
+            // If this method was called by a different thread, invoke it to run on the form thread.
+            if ( InvokeRequired )
             {
                 BeginInvoke( new MethodInvoker( delegate( ) { UpdatePeerList( ); } ) );
                 return;
             }
 
+            // Back up which peers are selected.
+            List<Peer> selectedPeers = new List<Peer>( );
+            foreach ( ListViewItem item in receipientList.Items )
+            {
+                if ( item.Selected )
+                    selectedPeers.Add( (Peer) item.Tag );
+            }
+
+            // Recreate the listview from the peer list.
             receipientList.Items.Clear( );
             foreach ( Peer p in MulticastManager.Peers )
             {
                 receipientList.Items.Add( new ListViewItem
                 {
+                    Tag = p,
                     Text = p.Name,
                     ImageIndex = p.IsOnline() ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline
                 } );
             }
 
-            if ( selectedIndex < receipientList.Items.Count )
-            receipientList.Items[selectedIndex].Selected = true;
+            // Restore the selected items.
+            foreach ( ListViewItem item in receipientList.Items )
+            {
+                if ( selectedPeers.Contains( (Peer) item.Tag ) )
+                    item.Selected = true;
+            }
         }
 
         /// <summary>
