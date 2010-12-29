@@ -23,7 +23,7 @@ namespace LANdrop.Peering
 
         public bool IsOnline( )
         {
-            return ( DateTime.Now.Subtract( LastSeen ).Seconds < 10 );
+            return ( DateTime.Now.Subtract( LastSeen ).Seconds < 3 );
         }
 
         public override String ToString( )
