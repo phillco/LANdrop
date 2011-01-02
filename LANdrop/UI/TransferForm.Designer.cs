@@ -1,6 +1,6 @@
 ﻿namespace LANdrop.UI
 {
-    partial class OutgoingTransferForm
+    partial class TransferForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent( )
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( OutgoingTransferForm ) );
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( TransferForm ) );
             this.lblStatus = new System.Windows.Forms.Label( );
             this.progressBar = new System.Windows.Forms.ProgressBar( );
             this.btnCancel = new System.Windows.Forms.Button( );
@@ -91,7 +91,7 @@
             this.groupDetails.Text = "Details";
             this.groupDetails.Visible = false;
             // 
-            // OutgoingTransferForm
+            // TransferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,8 +104,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "$this.Icon" ) ) );
             this.MaximizeBox = false;
-            this.Name = "OutgoingTransferForm";
-            this.Text = "Outgoing Transfer";
+            this.Name = "TransferForm";
+            this.Text = "Transfer";
             this.groupDetails.ResumeLayout( false );
             this.groupDetails.PerformLayout( );
             this.ResumeLayout( false );

@@ -16,8 +16,7 @@ namespace LANdrop.Transfers
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
         public IncomingTransfer( TcpClient client )
-        {
-            this.Form = new IncomingTransferForm( );
+        {            
             this.TcpClient = client;
             new Thread( new ThreadStart( DoTransfer ) ).Start( );
         }
@@ -39,6 +38,8 @@ namespace LANdrop.Transfers
                 NetworkOutStream.Write( false );
                 return;
             }
+
+            this.Form = new TransferForm( this );
 
             // Open handle to the file.
             fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + fileName ) );

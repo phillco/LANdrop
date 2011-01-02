@@ -9,16 +9,23 @@ using LANdrop.Transfers;
 
 namespace LANdrop.UI
 {
-    public partial class OutgoingTransferForm : Form, ITransferForm
+    public partial class TransferForm : Form, ITransferForm
     {
-        private OutgoingTransfer transfer;
+        private Transfer transfer;
 
-        public OutgoingTransferForm( OutgoingTransfer transfer )
+        private bool incoming;
+
+        public TransferForm( Transfer transfer )
         {
             InitializeComponent( );
 
             this.transfer = transfer;
-            this.Text = "Sending " + transfer.File.Name + " to " + transfer.Recipient.Name;
+            this.incoming = ( typeof( IncomingTransfer ) == transfer.GetType( ) );
+
+            if ( incoming )
+                this.Text = "Receiving " + transfer.FileName + " from " + transfer.Partner;
+            else
+                this.Text = "Sending " + transfer.FileName + " to " + transfer.Partner;
 
             UpdateState( );
             Show( );
@@ -29,10 +36,10 @@ namespace LANdrop.UI
             switch ( transfer.CurrentState )
             {
                 case Transfer.State.WAITING:
-                    lblStatus.Text = "Waiting for " + transfer.Recipient.Name + " to accept...";
+                    lblStatus.Text = "Waiting for " + transfer.Partner + " to accept...";
                     break;
                 case Transfer.State.FAILED_CONNECTION:
-                    lblStatus.Text = "Failed to connect to " + transfer.Recipient.Name + ".";
+                    lblStatus.Text = "Failed to connect to " + transfer.Partner + ".";
                     break;
                 case Transfer.State.TRANSFERRING:
                     lblDataStatus.Text = Util.FormatFileSize( transfer.NumBytesTransferred ) + " of " + Util.FormatFileSize( transfer.FileSize ) + " sent";

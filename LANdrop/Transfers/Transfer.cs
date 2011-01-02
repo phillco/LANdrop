@@ -9,8 +9,12 @@ using System.Net.Sockets;
 namespace LANdrop.Transfers
 {
     public abstract class Transfer
-    {       
+    {
         public State CurrentState { get; private set; }
+
+        public string FileName { get; protected set; }
+
+        public string Partner { get; protected set; }
 
         public long NumBytesTransferred { get; private set; }
 
@@ -18,11 +22,12 @@ namespace LANdrop.Transfers
 
         protected TcpClient TcpClient { get; set; }
 
+
         protected BinaryReader NetworkInStream { get; set; }
 
         protected BinaryWriter NetworkOutStream { get; set; }
 
-        protected ITransferForm Form { get; set; }
+        protected TransferForm Form { get; set; }
 
         public enum State { WAITING, FAILED_CONNECTION, REJECTED, TRANSFERRING, VERIFYING, FINISHED, FAILED }
 
@@ -56,7 +61,8 @@ namespace LANdrop.Transfers
         protected void SetState( State newState )
         {
             this.CurrentState = newState;
-            Form.UpdateState( );
+            if ( Form != null )
+                Form.UpdateState( );
         }
 
         protected void UpdateNumBytesTransferred( long bytesTransferred )
