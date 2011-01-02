@@ -27,11 +27,11 @@ namespace LANdrop.Transfers
 
             // Read in the transfer info.
             int protocolVersion = NetworkInStream.ReadInt32( );
-            string fileName = NetworkInStream.ReadString( );
+            FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
 
             // Ask the user if they want to receive the file.
-            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", fileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
+            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", FileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
                 NetworkOutStream.Write( true );
             else
             {
@@ -43,7 +43,7 @@ namespace LANdrop.Transfers
             Form = new TransferForm( this );
 
             // Open handle to the file.
-            fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + fileName ) );
+            fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + FileName ) );
 
             // Transfer chunks.
             while ( NumBytesTransferred < FileSize )
