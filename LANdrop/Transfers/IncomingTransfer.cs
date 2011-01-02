@@ -19,10 +19,10 @@ namespace LANdrop.Transfers
         {
             this.Form = new IncomingTransferForm( );
             this.TcpClient = client;
-            new Thread( new ThreadStart( Connect ) ).Start( );
+            new Thread( new ThreadStart( DoTransfer ) ).Start( );
         }
 
-        public void Connect( )
+        protected override void Connect( )
         {
             SetupStreams( TcpClient.GetStream( ) );
 

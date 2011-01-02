@@ -32,6 +32,21 @@ namespace LANdrop.Transfers
             this.NumBytesTransferred = this.FileSize = 0;
         }
 
+        protected void DoTransfer( )
+        {
+            try
+            {
+                Connect( );
+            }
+            catch ( IOException ex )
+            {
+                SetState( State.FAILED );
+                return;
+            }
+        }
+
+        protected abstract void Connect( );
+
         protected void SetupStreams( Stream dataStream )
         {
             NetworkInStream = new BinaryReader( dataStream );

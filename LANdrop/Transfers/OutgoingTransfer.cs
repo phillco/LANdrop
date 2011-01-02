@@ -25,10 +25,10 @@ namespace LANdrop.Transfers
             // Create and show the form.
             Form = new OutgoingTransferForm( this );
 
-            new Thread( new ThreadStart( Connect ) ).Start( );
-        }
+            new Thread( new ThreadStart( DoTransfer ) ).Start( );
+        }        
 
-        private void Connect( )
+        protected override void Connect( )
         {
             // Connect to the peer's listening server.
             TcpClient = new TcpClient( );
