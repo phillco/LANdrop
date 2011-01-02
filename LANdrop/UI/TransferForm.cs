@@ -28,6 +28,9 @@ namespace LANdrop.UI
                 this.Text = "Sending " + transfer.FileName + " to " + transfer.Partner;
 
             UpdateState( );
+
+            // Show the form, but make sure it happens on the main UI thread or there'll be hell to pay.
+            MainForm.ShowFormOnUIThread( this ); 
         }
 
         public void UpdateState( )
