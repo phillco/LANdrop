@@ -46,6 +46,13 @@
     <Compile Include="Transfers\IncomingTransferListener.cs" />
     <Compile Include="Transfers\OutgoingTransfer.cs" />
     <Compile Include="Transfers\Protocol.cs" />
+    <Compile Include="Transfers\Transfer.cs" />
+    <Compile Include="UI\IncomingTransferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\IncomingTransferForm.Designer.cs">
+      <DependentUpon>IncomingTransferForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +61,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\IncomingTransferForm.resx">
+      <DependentUpon>IncomingTransferForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -61,6 +72,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OutgoingTransferForm.resx">
+      <DependentUpon>OutgoingTransferForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -76,6 +91,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\OutgoingTransferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OutgoingTransferForm.Designer.cs">
+      <DependentUpon>OutgoingTransferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ITransferForm.cs">
+    </Compile>
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />

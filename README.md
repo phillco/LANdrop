@@ -13,6 +13,7 @@ Roadmap
 =============
 
 * The transfers themselves.
+    * Checksumming of transferred files.
 * Determine if multicasting works across different subnets.
     * If not, create a system to enter and store IPs manually.
         * Consider also creating an system for LANdrop peers to automatically share IP addresses - that way if there's a client "out of the loop" on a faraway subnet, adding him manually on one computer will bring him into the loop - he'll see *all* the other peers on the network, and vice-versa.
@@ -36,3 +37,4 @@ Roadmap
 * Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
 * Identity verification (otherwise anyone can give themselves your name). Maybe something with a public key web-of-trust?
 * Support for transferring files that are *themselves* being transferred. That way you can start a download on one computer and stream it to another.
+* Statistics - number of transfers failed, succeeded, bytes transferred, average speed. Stats on website. For fun, all opt-in.

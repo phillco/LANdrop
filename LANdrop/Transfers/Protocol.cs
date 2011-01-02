@@ -15,6 +15,8 @@ namespace LANdrop.Transfers
 
         public const int MulticastPortNumber = 60900;
 
-        public const string MulticastGroupAddress = "239.76.65.78"; // Surprise inside.        
+        public const string MulticastGroupAddress = "239.76.65.78"; // Surprise inside.
+      
+        public const int TransferChunkSize = ( 1024 * 4 );
     }
 }
