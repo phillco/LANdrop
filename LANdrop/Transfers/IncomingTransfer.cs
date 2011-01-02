@@ -38,8 +38,10 @@ namespace LANdrop.Transfers
                 NetworkOutStream.Write( false );
                 return;
             }
-
-            this.Form = new TransferForm( this );
+  
+            // Create the form, and show it using the UI thread.
+            Form = new TransferForm( this );
+            MainForm.ShowFormOnUIThread( Form );      
 
             // Open handle to the file.
             fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + fileName ) );

@@ -17,6 +17,8 @@ namespace LANdrop.UI
         // A cache 
         private ListViewItem lastItemHovered;
 
+        private static MainForm instance;
+
         enum OnlineIconStates
         {
             Offline = 0,
@@ -27,9 +29,20 @@ namespace LANdrop.UI
         {
             InitializeComponent( );
 
+            instance = this;
+
             Random r = new Random( );
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
+        }
+
+        /// <summary>
+        /// Displays (and starts the message loop of) the given form on the UI thread, the thread MainForm is using.
+        /// In C#, all new forms must be created on the UI thread.
+        /// </summary>
+        public static void ShowFormOnUIThread( Form form )
+        {
+            instance.Invoke( new MethodInvoker( delegate { form.Show(); } ) );
         }
 
         public void UpdatePeerList( )
@@ -167,6 +180,6 @@ namespace LANdrop.UI
                 Name = "Other Client",
                 Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port == Protocol.TransferPortNumber ? Protocol.TransferPortNumber + 1 : Protocol.TransferPortNumber )
             } );
-        }
+        }        
     }
 }

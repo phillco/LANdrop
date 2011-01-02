@@ -26,6 +26,7 @@ namespace LANdrop.Transfers
 
             // Create and show the form.
             Form = new TransferForm( this );
+            Form.Show( );
 
             new Thread( new ThreadStart( DoTransfer ) ).Start( );
         }        

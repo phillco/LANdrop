@@ -28,7 +28,6 @@ namespace LANdrop.UI
                 this.Text = "Sending " + transfer.FileName + " to " + transfer.Partner;
 
             UpdateState( );
-            Show( );
         }
 
         public void UpdateState( )
