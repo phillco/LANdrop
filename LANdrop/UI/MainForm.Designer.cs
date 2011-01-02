@@ -39,13 +39,13 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
             this.contentPanel = new System.Windows.Forms.Panel( );
             this.btnSend = new System.Windows.Forms.Button( );
-            this.btnAddUser = new System.Windows.Forms.Button( );
+            this.btnSendFile = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -79,7 +79,7 @@
             // contentPanel
             // 
             this.contentPanel.Controls.Add( this.btnSend );
-            this.contentPanel.Controls.Add( this.btnAddUser );
+            this.contentPanel.Controls.Add( this.btnSendFile );
             this.contentPanel.Controls.Add( this.label1 );
             this.contentPanel.Controls.Add( this.receipientList );
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,15 +100,16 @@
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
             // 
-            // btnAddUser
+            // btnSendFile
             // 
-            this.btnAddUser.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.btnAddUser.Location = new System.Drawing.Point( 14, 267 );
-            this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size( 91, 25 );
-            this.btnAddUser.TabIndex = 3;
-            this.btnAddUser.Text = "Add user...";
-            this.btnAddUser.UseVisualStyleBackColor = true;
+            this.btnSendFile.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.btnSendFile.Location = new System.Drawing.Point( 14, 267 );
+            this.btnSendFile.Name = "btnSendFile";
+            this.btnSendFile.Size = new System.Drawing.Size( 91, 25 );
+            this.btnSendFile.TabIndex = 3;
+            this.btnSendFile.Text = "Send file";
+            this.btnSendFile.UseVisualStyleBackColor = true;
+            this.btnSendFile.Click += new System.EventHandler( this.btnSendFile_Click );
             // 
             // label1
             // 
@@ -153,27 +154,27 @@
             this.sendFileToToolStripMenuItem,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 153, 70 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 133, 48 );
             // 
             // sendFileToToolStripMenuItem
             // 
             this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
+            // 
+            // copyIPAddressToolStripMenuItem
+            // 
+            this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
+            this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
+            this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
             // refreshPeerListTimer
             // 
             this.refreshPeerListTimer.Enabled = true;
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
-            // 
-            // copyIPAddressToolStripMenuItem
-            // 
-            this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
-            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
-            this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -206,7 +207,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.Button btnAddUser;
+        private System.Windows.Forms.Button btnSendFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView receipientList;
         private System.Windows.Forms.ContextMenuStrip recipientContextMenu;

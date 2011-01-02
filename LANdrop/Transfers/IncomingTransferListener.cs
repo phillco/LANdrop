@@ -25,21 +25,17 @@ namespace LANdrop.Transfers
 
         public static void ListenForClients( )
         {
-            bool secondInstance = false;
-
             for ( int port = Protocol.TransferPortNumber; port < Protocol.TransferPortNumber + 100; port++ )
             {
                 try
                 {
                     listener = new TcpListener( IPAddress.Any, port );
                     listener.Start( );
+                    Port = port;
                     break;
                 }
-                catch ( SocketException ) { secondInstance = true; }
-            }
-
-            if ( secondInstance )
-                StartDummyTransfer( );
+                catch ( SocketException ) {}
+            }            
 
             while ( true )
             {

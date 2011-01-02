@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using LANdrop.Peering;
 using LANdrop.Transfers;
+using System.Net;
 
 namespace LANdrop.UI
 {
@@ -157,6 +158,15 @@ namespace LANdrop.UI
         {
             if ( receipientList.SelectedItems.Count > 0 )
                 Clipboard.SetText( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ) );
+        }
+
+        private void btnSendFile_Click( object sender, EventArgs e )
+        {
+            new OutgoingTransfer( new FileInfo( "GitExtensions208.msi" ), new Peer
+            {
+                Name = "Other Client",
+                Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port == Protocol.TransferPortNumber ? Protocol.TransferPortNumber + 1 : Protocol.TransferPortNumber )
+            } );
         }
     }
 }
