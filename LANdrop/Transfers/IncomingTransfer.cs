@@ -22,7 +22,7 @@ namespace LANdrop.Transfers
             new Thread( new ThreadStart( Connect ) ).Start( );
         }
 
-        public void Connect()
+        public void Connect( )
         {
             SetupStreams( TcpClient.GetStream( ) );
 
@@ -31,9 +31,14 @@ namespace LANdrop.Transfers
             string fileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
 
-            // Auto-accept for now.
-            Thread.Sleep( 1000 );
-            NetworkOutStream.Write( true );
+            // Ask the user if they want to receive the file.
+            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", fileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
+                NetworkOutStream.Write( true );
+            else
+            {
+                NetworkOutStream.Write( false );
+                return;
+            }
 
             // Open handle to the file.
             fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + fileName ) );
