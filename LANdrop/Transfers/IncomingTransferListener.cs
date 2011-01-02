@@ -34,23 +34,14 @@ namespace LANdrop.Transfers
                     Port = port;
                     break;
                 }
-                catch ( SocketException ) {}
-            }            
+                catch ( SocketException ) { }
+            }
 
             while ( true )
             {
                 TcpClient client = listener.AcceptTcpClient( ); // Halt until a client connects.
                 new IncomingTransfer( client ); // Create the transfer.
             }
-        }
-
-        private static void StartDummyTransfer( )
-        {
-            new OutgoingTransfer( new FileInfo( "GitExtensions208.msi" ), new Peer
-            {
-                Name = "First Client",
-                Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), Protocol.TransferPortNumber )
-            } );
-        }
+        }       
     }
 }
