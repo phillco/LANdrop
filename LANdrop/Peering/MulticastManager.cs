@@ -52,6 +52,7 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
+            socket.Bind(new IPEndPoint(IPAddress.Any, Protocol.MulticastPortNumber+1));
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
             socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
