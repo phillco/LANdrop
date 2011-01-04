@@ -15,9 +15,9 @@ namespace LANdrop.UI
         private Peer recipient;
 
         public SendTextSnippetForm( Peer recipient  )
-        {
-            Util.UseProperSystemFont( this );
+        {            
             InitializeComponent( );
+            Util.UseProperSystemFont( this );
             
             this.recipient = recipient;
             this.Text = "Send text snippet to " + recipient.Name;

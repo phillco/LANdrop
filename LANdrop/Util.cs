@@ -22,9 +22,9 @@ namespace LANdrop
             {
                 float size = control.Font.Size;
 
-                // Don't use the old size if it wasn't customized.
-                if ( control.Font.Size == SystemFonts.DefaultFont.Size )
-                    size = SystemFonts.MessageBoxFont.Size;
+                // Use 8pt wherever possible.
+                if ( control.Font.Size == SystemFonts.MessageBoxFont.Size )
+                    size = SystemFonts.DefaultFont.Size;
 
                 control.Font = new Font( SystemFonts.MessageBoxFont.FontFamily.Name, size, control.Font.Style );
             }
