@@ -28,6 +28,7 @@ namespace LANdrop.UI
         public MainForm( )
         {
             InitializeComponent( );
+            Util.UseProperSystemFont( this );
 
             instance = this;
 
