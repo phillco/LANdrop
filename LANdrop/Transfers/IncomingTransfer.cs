@@ -27,6 +27,9 @@ namespace LANdrop.Transfers
 
             // Read in the transfer info.
             int protocolVersion = NetworkInStream.ReadInt32( );
+            if ( protocolVersion != Protocol.ProtocolVersion )
+                return;
+
             FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
 
