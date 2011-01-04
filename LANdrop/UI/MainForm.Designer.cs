@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -44,9 +44,9 @@
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
-            this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -115,11 +115,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font( "Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label1.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label1.Location = new System.Drawing.Point( 16, 14 );
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size( 156, 17 );
+            this.label1.Size = new System.Drawing.Size( 169, 16 );
             this.label1.TabIndex = 0;
             this.label1.Text = "Select a user to send to:";
             // 
@@ -133,10 +133,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4} );
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 212, 214 );
@@ -156,19 +156,26 @@
             this.sendClipboardToolStripMenuItem,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 133, 48 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 70 );
             // 
             // sendFileToToolStripMenuItem
             // 
-            this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
+            // 
+            // sendClipboardToolStripMenuItem
+            // 
+            this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
+            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
+            this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
             // 
             // copyIPAddressToolStripMenuItem
             // 
             this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
-            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
             this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
             this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
@@ -178,13 +185,6 @@
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
             // 
-            // sendClipboardToolStripMenuItem
-            // 
-            this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
-            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
-            this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
-            this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -192,7 +192,7 @@
             this.ClientSize = new System.Drawing.Size( 244, 326 );
             this.Controls.Add( this.contentPanel );
             this.Controls.Add( this.statusStrip );
-            this.Font = new System.Drawing.Font( "Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "$this.Icon" ) ) );
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size( 300, 600 );
