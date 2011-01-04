@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -47,6 +47,8 @@
             this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
+            this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -133,10 +135,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8} );
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 212, 214 );
@@ -153,10 +155,12 @@
             // 
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFileToToolStripMenuItem,
+            this.sendTextToolStripMenuItem,
             this.sendClipboardToolStripMenuItem,
+            this.toolStripSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 70 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 120 );
             // 
             // sendFileToToolStripMenuItem
             // 
@@ -184,6 +188,18 @@
             this.refreshPeerListTimer.Enabled = true;
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
+            // 
+            // sendTextToolStripMenuItem
+            // 
+            this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
+            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendTextToolStripMenuItem.Text = "Send text...";
+            this.sendTextToolStripMenuItem.Click += new System.EventHandler( this.sendTextToolStripMenuItem_Click );
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 152, 6 );
             // 
             // MainForm
             // 
@@ -224,6 +240,8 @@
         private System.Windows.Forms.Timer refreshPeerListTimer;
         private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

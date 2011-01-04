@@ -43,7 +43,7 @@ namespace LANdrop.UI
         /// </summary>
         public static void ShowFormOnUIThread( Form form )
         {
-            instance.Invoke( new MethodInvoker( delegate { form.Show(); } ) );
+            instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
         public void UpdatePeerList( )
@@ -185,7 +185,15 @@ namespace LANdrop.UI
 
         private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
-        }        
+            // TODO: Add error support...
+            if ( receipientList.SelectedItems.Count > 0 )
+                new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
+        }
+
+        private void sendTextToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            if ( receipientList.SelectedItems.Count > 0 )
+                new SendTextSnippetForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog();
+        }
     }
 }
