@@ -36,7 +36,8 @@ namespace LANdrop.Transfers
                 case Protocol.IncomingCommunicationTypes.FileTransfer:
                     break;
                 case Protocol.IncomingCommunicationTypes.TextSnippet:
-                    MessageBox.Show( "Snippet received:\n\n" + NetworkInStream.ReadString(), "Incoming text snippet received...", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                    Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ));
+                    MainForm.ShowFormOnUIThread( form );
                     return;
             }
 

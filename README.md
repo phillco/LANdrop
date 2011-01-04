@@ -38,3 +38,11 @@ Roadmap
 * Identity verification (otherwise anyone can give themselves your name). Maybe something with a public key web-of-trust?
 * Support for transferring files that are *themselves* being transferred. That way you can start a download on one computer and stream it to another.
 * Statistics - number of transfers failed, succeeded, bytes transferred, average speed. Stats on website. For fun, all opt-in.
+
+
+
+Credits
+=========
+
+All development by Phillip Cohen. Icons from the excellent [FatCow Icons Pack](http://www.fatcow.com/free-icons).
+

@@ -48,6 +48,12 @@
     <Compile Include="Transfers\OutgoingTransfer.cs" />
     <Compile Include="Transfers\Protocol.cs" />
     <Compile Include="Transfers\Transfer.cs" />
+    <Compile Include="UI\IncomingTextSnippetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\IncomingTextSnippetForm.Designer.cs">
+      <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +62,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\IncomingTextSnippetForm.resx">
+      <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -76,6 +86,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -104,6 +115,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\note_go.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
