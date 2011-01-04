@@ -28,7 +28,7 @@ namespace LANdrop.Transfers
             Form = new TransferForm( this );
 
             new Thread( new ThreadStart( DoTransfer ) ).Start( );
-        }        
+        }
 
         protected override void Connect( )
         {
@@ -55,16 +55,17 @@ namespace LANdrop.Transfers
         {
             // Send the file information.
             NetworkOutStream.Write( (Int32) Protocol.ProtocolVersion );
+            NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.FileTransfer );
             NetworkOutStream.Write( File.Name );
             NetworkOutStream.Write( File.Length );
             TcpClient.GetStream( ).Flush( );
 
             // Wait for the response.
-            if ( NetworkInStream.ReadBoolean() )
+            if ( NetworkInStream.ReadBoolean( ) )
                 SendFile( );
             else
                 SetState( State.REJECTED );
-        }       
+        }
 
         private void SendFile( )
         {
@@ -83,8 +84,8 @@ namespace LANdrop.Transfers
                 fileInStream.Read( chunk, 0, numBytes );
                 NetworkOutStream.Write( chunk );
                 TcpClient.GetStream( ).Flush( );
-                
-                UpdateNumBytesTransferred( NumBytesTransferred + numBytes);
+
+                UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
             }
 
             // ...and we're done.

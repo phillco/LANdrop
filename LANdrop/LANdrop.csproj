@@ -44,6 +44,7 @@
     <Compile Include="Peering\Peer.cs" />
     <Compile Include="Transfers\IncomingTransfer.cs" />
     <Compile Include="Transfers\IncomingTransferListener.cs" />
+    <Compile Include="Transfers\OutgoingTextSnippet.cs" />
     <Compile Include="Transfers\OutgoingTransfer.cs" />
     <Compile Include="Transfers\Protocol.cs" />
     <Compile Include="Transfers\Transfer.cs" />

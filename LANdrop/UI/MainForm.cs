@@ -181,6 +181,11 @@ namespace LANdrop.UI
                 Name = "Other Client",
                 Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port == Protocol.TransferPortNumber ? Protocol.TransferPortNumber + 1 : Protocol.TransferPortNumber )
             } );
+        }
+
+        private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
         }        
     }
 }

@@ -9,7 +9,13 @@ namespace LANdrop.Transfers
     /// </summary>
     class Protocol
     {
-        public const int ProtocolVersion = 101;
+        public const int ProtocolVersion = 102;
+
+        public enum IncomingCommunicationTypes
+        {
+            FileTransfer = 0,
+            TextSnippet = 1
+        }
 
         public const int TransferPortNumber = 50900;
 

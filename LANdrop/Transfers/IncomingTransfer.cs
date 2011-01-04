@@ -30,6 +30,16 @@ namespace LANdrop.Transfers
             if ( protocolVersion != Protocol.ProtocolVersion )
                 return;
 
+            // Determine what kind of transfer this is.
+            switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
+            {
+                case Protocol.IncomingCommunicationTypes.FileTransfer:
+                    break;
+                case Protocol.IncomingCommunicationTypes.TextSnippet:
+                    MessageBox.Show( "Snippet received:\n\n" + NetworkInStream.ReadString(), "Incoming text snippet received...", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                    return;
+            }
+
             FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
 

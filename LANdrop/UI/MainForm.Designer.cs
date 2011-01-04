@@ -46,6 +46,7 @@
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
+            this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -152,6 +153,7 @@
             // 
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFileToToolStripMenuItem,
+            this.sendClipboardToolStripMenuItem,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
             this.recipientContextMenu.Size = new System.Drawing.Size( 133, 48 );
@@ -175,6 +177,13 @@
             this.refreshPeerListTimer.Enabled = true;
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
+            // 
+            // sendClipboardToolStripMenuItem
+            // 
+            this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
+            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 132, 22 );
+            this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
+            this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -214,6 +223,7 @@
         private System.Windows.Forms.ToolStripMenuItem sendFileToToolStripMenuItem;
         private System.Windows.Forms.Timer refreshPeerListTimer;
         private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendClipboardToolStripMenuItem;
     }
 }
 
