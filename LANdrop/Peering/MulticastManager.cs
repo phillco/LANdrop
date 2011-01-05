@@ -52,7 +52,7 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            if ( !Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber ) )
+            if ( Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber ) == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
@@ -98,7 +98,7 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            if ( !Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ) )
+            if ( Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ) == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );

@@ -51,21 +51,21 @@ namespace LANdrop
 
         /// <summary>
         /// Binds the socket to the given port. If that port is unavailable, the method will try up to the next 100 ports, sequentially, until one is free.
-        /// Returns whether successful.
+        /// Returns the port number if successful, or -1.
         /// </summary>
-        public static bool BindToFirstPossiblePort( Socket socket, int startPort )
+        public static int BindToFirstPossiblePort( Socket socket, int startPort )
         {
             for ( int port = startPort; port < startPort + 100; port++ )
             {
                 try
                 {
                     socket.Bind( new IPEndPoint( IPAddress.Any, port ) );
-                    return true;
+                    return port;
                 }
                 catch ( SocketException ) { }
             }
 
-            return false;
+            return -1;
         }
     }
 }
