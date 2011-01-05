@@ -110,10 +110,10 @@ namespace LANdrop.Peering
                 Environment.Exit( -1 );
             }
             else if ( listenPort != Protocol.MulticastPortNumber )
-                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")."+
+                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")." +
                     "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            
-            Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );            
+
+            Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
