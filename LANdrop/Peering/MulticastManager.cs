@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 using LANdrop.Transfers;
 using LANdrop.UI;
 
@@ -52,11 +53,15 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            if ( Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber ) == -1 )
+            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.TransferPortNumber );
+            if ( sendPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
+            else
+                Trace.WriteLine( "Multicast sender bound to port " + sendPort + "." );
+
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
             socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
@@ -98,11 +103,15 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            if ( Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ) == -1 )
+            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber );
+            if ( listenPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
+            else
+                Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
+            
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
@@ -137,6 +146,7 @@ namespace LANdrop.Peering
             // If this peer is saying goodbye, simply remove it.
             if ( !connected )
             {
+                Debug.WriteLine( newPeer + " disconnected (goodbye)." );
                 Peers.Remove( newPeer );
                 return;
             }

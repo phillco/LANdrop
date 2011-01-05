@@ -4,6 +4,9 @@ using System.Windows.Forms;
 using LANdrop.Peering;
 using LANdrop.UI;
 using LANdrop.Transfers;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 
 namespace LANdrop
 {
@@ -18,12 +21,24 @@ namespace LANdrop
             Application.EnableVisualStyles( );
             Application.SetCompatibleTextRenderingDefault( false );
 
+            // Start the log.
+            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( "LANdrop_" + Dns.GetHostName( )+".log", FileMode.Create ) ) );
+            Trace.AutoFlush = true;
+            Trace.WriteLine( "LANdrop started!" );
+            Trace.Indent( );
+            Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
+            Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
+            Trace.WriteLine( "User: " + Environment.UserName );
+            Trace.WriteLine( "Protocol Version: " + Protocol.ProtocolVersion );
+            Trace.Unindent( );
+
             MainForm mainForm = new MainForm( );
 
             MulticastManager.Init( mainForm );
             IncomingTransferListener.Start( );
 
             Application.Run( mainForm );
+            Trace.Flush( );
             MulticastManager.Disconnect( );
             Environment.Exit( 0 );
         }

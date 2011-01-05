@@ -54,6 +54,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.diagnosticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -236,6 +237,7 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.diagnosticsToolStripMenuItem,
             this.aboutToolStripMenuItem} );
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 40, 20 );
@@ -243,11 +245,16 @@
             // 
             // aboutToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.personals;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
+            // 
+            // diagnosticsToolStripMenuItem
+            // 
+            this.diagnosticsToolStripMenuItem.Name = "diagnosticsToolStripMenuItem";
+            this.diagnosticsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.diagnosticsToolStripMenuItem.Text = "Diagnostics...";
             // 
             // MainForm
             // 
@@ -299,6 +306,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem diagnosticsToolStripMenuItem;
     }
 }
 

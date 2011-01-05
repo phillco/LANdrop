@@ -6,6 +6,8 @@ using System.Threading;
 using System.Net;
 using System.IO;
 using LANdrop.Peering;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LANdrop.Transfers
 {
@@ -36,6 +38,14 @@ namespace LANdrop.Transfers
                 }
                 catch ( SocketException ) { }
             }
+
+            if ( Port == 0 )
+            {
+                MessageBox.Show( "Failed to bind the listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Environment.Exit( -1 );
+            }
+
+            Trace.WriteLine( "Listener bound to port " + Port + "." );
 
             while ( true )
             {
