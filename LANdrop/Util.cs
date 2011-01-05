@@ -70,15 +70,37 @@ namespace LANdrop
         }
 
         /// <summary>
+        /// If the given filename is in use, iteratively appends (#) to the end of the name until one is free. (ex "example" -> "example (2).txt")
+        /// </summary>
+        public static string FindFreeFileName( string fileName )
+        {
+            // If the file is free, just use it.
+            if ( !File.Exists( fileName ) )
+                return fileName;
+
+            FileInfo fileInfo = new FileInfo( fileName );
+
+            // Otherwise, keep trying files with new
+            for ( int i = 1; i < 1000; i++ )
+            {
+                string newFilename = String.Format( "{0} ({1}){2}", fileInfo.Name.Substring( 0, fileInfo.Name.Length - fileInfo.Extension.Length ), i, fileInfo.Extension );
+                if ( !File.Exists( newFilename ) )
+                    return newFilename;
+            }
+
+            throw new IOException( "A free filename was not found." );
+        }
+
+        /// <summary>
         /// Returns a version of the given filename, but without any illegal characters (they'll be converted to underscores).
         /// Adapted from http://stackoverflow.com/questions/333175/is-there-a-way-of-making-strings-file-path-safe-in-c.
         /// </summary>
         public static string MakeFilenameSafe( string fileName )
         {
             string safeVersion = fileName;
-            
+
             foreach ( char c in Path.GetInvalidFileNameChars( ) )
-                safeVersion = safeVersion.Replace( c.ToString( ), "_" );            
+                safeVersion = safeVersion.Replace( c.ToString( ), "_" );
 
             return safeVersion;
         }
