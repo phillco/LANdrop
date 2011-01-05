@@ -53,7 +53,7 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.TransferPortNumber );
+            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber + 50 );
             if ( sendPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
@@ -103,15 +103,17 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber );
+            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ); // Must get this one to receive the multicast messages.
             if ( listenPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
-            else
-                Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
+            else if ( listenPort != Protocol.MulticastPortNumber )
+                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")."+
+                    "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
             
+            Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );            
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
