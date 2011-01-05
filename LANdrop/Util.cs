@@ -4,6 +4,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
+using System.Net.Sockets;
+using System.Net;
 
 namespace LANdrop
 {
@@ -45,6 +47,25 @@ namespace LANdrop
             if ( numBytes > 0 )
                 index = Math.Min( types.Length - 1, (int) ( Math.Log( numBytes ) / Math.Log( 1024 ) ) );
             return String.Format( "{0:0.##}", (double) numBytes / Math.Pow( 1024, index ) ) + " " + types[index];
+        }
+
+        /// <summary>
+        /// Binds the socket to the given port. If that port is unavailable, the method will try up to the next 100 ports, sequentially, until one is free.
+        /// Returns whether successful.
+        /// </summary>
+        public static bool BindToFirstPossiblePort( Socket socket, int startPort )
+        {
+            for ( int port = startPort; port < startPort + 100; port++ )
+            {
+                try
+                {
+                    socket.Bind( new IPEndPoint( IPAddress.Any, port ) );
+                    return true;
+                }
+                catch ( SocketException ) { }
+            }
+
+            return false;
         }
     }
 }

@@ -52,7 +52,11 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            socket.Bind(new IPEndPoint(IPAddress.Any, Protocol.MulticastPortNumber+1));
+            if ( !Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber ) )
+            {
+                MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Environment.Exit( -1 );
+            }
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
             socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
@@ -94,17 +98,11 @@ namespace LANdrop.Peering
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-
-            for ( int port = Protocol.MulticastPortNumber; port < Protocol.MulticastPortNumber + 100; port++ )
+            if ( !Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ) )
             {
-                try
-                {
-                    listenSocket.Bind( new IPEndPoint( IPAddress.Any, port ) );
-                    break;
-                }
-                catch ( SocketException ) { }
+                MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Environment.Exit( -1 );
             }
-
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
             // Perpetually listen for announcements.
