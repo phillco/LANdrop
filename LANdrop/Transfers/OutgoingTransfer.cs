@@ -7,6 +7,8 @@ using System.Net.Sockets;
 using LANdrop.Peering;
 using LANdrop.UI;
 using System.Threading;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LANdrop.Transfers
 {
@@ -53,22 +55,32 @@ namespace LANdrop.Transfers
 
         private void SendInvitation( )
         {
+            Debug.WriteLine( "OUTGOING FILE TRANSFER!" );
+            Debug.Indent( );
+            Debug.WriteLine( "Name: " + File.Name );
+            Debug.WriteLine( "Size: " + Util.FormatFileSize( File.Length ) );
+            Debug.Unindent( );
+
             // Send the file information.
             NetworkOutStream.Write( (Int32) Protocol.ProtocolVersion );
             NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.FileTransfer );
             NetworkOutStream.Write( File.Name );
             NetworkOutStream.Write( File.Length );
-            TcpClient.GetStream( ).Flush( );
+            NetworkOutStream.Flush( );
 
             // Wait for the response.
             if ( NetworkInStream.ReadBoolean( ) )
                 SendFile( );
             else
+            {
+                Debug.WriteLine( "Outgoing: Transfer rejected!" );
                 SetState( State.REJECTED );
+            }
         }
 
         private void SendFile( )
         {
+            Debug.WriteLine( "Outgoing: Transfer accepted!" );
             SetState( State.TRANSFERRING );
 
             FileStream fileInStream = new FileStream( File.FullName, FileMode.Open );
@@ -83,14 +95,20 @@ namespace LANdrop.Transfers
                 byte[] chunk = new byte[numBytes];
                 fileInStream.Read( chunk, 0, numBytes );
                 NetworkOutStream.Write( chunk );
-                TcpClient.GetStream( ).Flush( );
-
+                NetworkOutStream.Flush( );
+                
                 UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
+                Debug.WriteLine( "Outgoing: Sent " + Util.FormatFileSize( NumBytesTransferred ) + "." );
             }
 
             // ...and we're done.
-            fileInStream.Close( );
-            SetState( State.FINISHED );
+            Debug.WriteLine( "Outgoing: Done sending, waiting for final signal..." );
+            // fileInStream.Close( );
+            SetState( State.VERIFYING );
+
+            bool success = NetworkInStream.ReadBoolean( );
+
+            SetState( success ? State.FINISHED : State.FAILED );
         }
     }
 }

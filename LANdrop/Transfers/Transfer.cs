@@ -22,12 +22,13 @@ namespace LANdrop.Transfers
 
         protected TcpClient TcpClient { get; set; }
 
-
         protected BinaryReader NetworkInStream { get; set; }
 
         protected BinaryWriter NetworkOutStream { get; set; }
 
         protected TransferForm Form { get; set; }
+
+        protected int LastRefreshTime = 0;
 
         public enum State { WAITING, FAILED_CONNECTION, REJECTED, TRANSFERRING, VERIFYING, FINISHED, FAILED }
 
@@ -68,7 +69,12 @@ namespace LANdrop.Transfers
         protected void UpdateNumBytesTransferred( long bytesTransferred )
         {
             this.NumBytesTransferred = bytesTransferred;
-            Form.UpdateState( );
+
+            if ( Environment.TickCount - LastRefreshTime > 100 )
+            {
+                Form.UpdateState( );
+                LastRefreshTime = Environment.TickCount;
+            }
         }
 
         public bool IsComplete( )

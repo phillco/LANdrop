@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 using LANdrop.UI;
+using System.Diagnostics;
 
 namespace LANdrop.Transfers
 {
@@ -45,32 +46,47 @@ namespace LANdrop.Transfers
             FileSize = NetworkInStream.ReadInt64( );
 
             // Ask the user if they want to receive the file.
-            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", FileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
+          //  if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", FileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
                 NetworkOutStream.Write( true );
-            else
+           /* else
             {
                 NetworkOutStream.Write( false );
                 return;
-            }
+            }*/
 
-            // Create and show the form.
+            Debug.WriteLine( "INCOMING FILE TRANSFER!" );
+            Debug.Indent( );
+            Debug.WriteLine( "Name: " + FileName );
+            Debug.WriteLine( "Size: " + Util.FormatFileSize( FileSize ) );
+            Debug.Unindent( );
+
+            // Create and show the form.                
             Form = new TransferForm( this );
 
             // Open handle to the file.
-            fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, "/" + FileName ) );
+            SetState( State.TRANSFERRING );
+            fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, FileName ) );
 
             // Transfer chunks.
             while ( NumBytesTransferred < FileSize )
             {
-                byte[] chunk = NetworkInStream.ReadBytes( Protocol.TransferChunkSize );
+                byte[] chunk = NetworkInStream.ReadBytes( (int) Math.Min( Protocol.TransferChunkSize, FileSize - NumBytesTransferred ) );
 
                 if ( chunk.Length > 0 )
-                {
+                {                    
                     fileOutputStream.Write( chunk );
+                    fileOutputStream.Flush( );
                     UpdateNumBytesTransferred( NumBytesTransferred + chunk.Length );
+                    Debug.WriteLine( "Incoming: Received " + Util.FormatFileSize( NumBytesTransferred ) + "." );
                 }
             }
 
+            Debug.WriteLine( "Complete, sending final signal..." );
+
+            NetworkOutStream.Write( true );
+            NetworkOutStream.Flush( );
+
+            SetState( State.FINISHED );
         }
     }
 }

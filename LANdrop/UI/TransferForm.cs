@@ -18,23 +18,31 @@ namespace LANdrop.UI
         public TransferForm( Transfer transfer )
         {
             InitializeComponent( );
+            Util.UseProperSystemFont( this );
 
             this.transfer = transfer;
             this.incoming = ( typeof( IncomingTransfer ) == transfer.GetType( ) );
 
             if ( incoming )
-                this.Text = "Receiving " + transfer.FileName + " from " + transfer.Partner;
+                this.Text = "Receiving " + transfer.FileName;
             else
                 this.Text = "Sending " + transfer.FileName + " to " + transfer.Partner;
 
             UpdateState( );
 
             // Show the form, but make sure it happens on the main UI thread or there'll be hell to pay.
-            MainForm.ShowFormOnUIThread( this ); 
+            MainForm.ShowFormOnUIThread( this );
         }
 
         public void UpdateState( )
         {
+            // If this method was called by a different thread, invoke it to run on the form thread.
+            if ( InvokeRequired )
+            {
+                BeginInvoke( new MethodInvoker( delegate { UpdateState( ); } ) );
+                return;
+            }
+
             switch ( transfer.CurrentState )
             {
                 case Transfer.State.WAITING:
@@ -44,10 +52,18 @@ namespace LANdrop.UI
                     lblStatus.Text = "Failed to connect to " + transfer.Partner + ".";
                     break;
                 case Transfer.State.TRANSFERRING:
-                    lblDataStatus.Text = Util.FormatFileSize( transfer.NumBytesTransferred ) + " of " + Util.FormatFileSize( transfer.FileSize ) + " sent";
+                    lblStatus.Text = ( incoming ? "Receiving" : "Sending" ) + " " + transfer.FileName;
+                    lblDataStatus.Text = Util.FormatFileSize( transfer.NumBytesTransferred ) + " of " + Util.FormatFileSize( transfer.FileSize ) + " " + ( incoming ? "received" : "sent" );
+                    progressBar.Value = (int) Math.Round( 100.0 * transfer.NumBytesTransferred / transfer.FileSize );
+                    break;
+                case Transfer.State.VERIFYING:
+                    lblStatus.Text = "Verifying...";
                     break;
                 case Transfer.State.FINISHED:
-                    lblStatus.Text = "File sent successfully!";
+                    lblStatus.Text = "File " + ( incoming ? "received" : "sent" ) + " successfully!";
+                    break;
+                case Transfer.State.FAILED:
+                    lblStatus.Text = "Transmission failure!";
                     break;
             }
 
@@ -64,8 +80,10 @@ namespace LANdrop.UI
             else
             {
                 groupDetails.Visible = false;
-                this.Height = 80;
+                //  this.Height = 80;
             }
+
+            Invalidate( );
         }
 
         private void btnCancel_Click( object sender, EventArgs e )

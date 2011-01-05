@@ -40,10 +40,10 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font( "Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.lblStatus.Location = new System.Drawing.Point( 12, 9 );
+            this.lblStatus.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblStatus.Location = new System.Drawing.Point( 13, 14 );
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size( 209, 21 );
+            this.lblStatus.Size = new System.Drawing.Size( 181, 16 );
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "A boring status label here.";
             // 
@@ -75,7 +75,7 @@
             this.lblDataStatus.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lblDataStatus.Location = new System.Drawing.Point( 15, 22 );
             this.lblDataStatus.Name = "lblDataStatus";
-            this.lblDataStatus.Size = new System.Drawing.Size( 153, 13 );
+            this.lblDataStatus.Size = new System.Drawing.Size( 151, 13 );
             this.lblDataStatus.TabIndex = 3;
             this.lblDataStatus.Text = "60 KB of 13.37 MB received...";
             // 
@@ -100,7 +100,7 @@
             this.Controls.Add( this.groupDetails );
             this.Controls.Add( this.btnCancel );
             this.Controls.Add( this.lblStatus );
-            this.Font = new System.Drawing.Font( "Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "$this.Icon" ) ) );
             this.MaximizeBox = false;
