@@ -30,13 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( AboutForm ) );
             this.panel1 = new System.Windows.Forms.Panel( );
-            this.label1 = new System.Windows.Forms.Label( );
-            this.label2 = new System.Windows.Forms.Label( );
             this.label3 = new System.Windows.Forms.Label( );
+            this.label2 = new System.Windows.Forms.Label( );
+            this.label1 = new System.Windows.Forms.Label( );
+            this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
-            this.pictureBox1 = new System.Windows.Forms.PictureBox( );
-            this.label4 = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -54,13 +53,15 @@
             this.panel1.Size = new System.Drawing.Size( 316, 69 );
             this.panel1.TabIndex = 1;
             // 
-            // label1
+            // label3
             // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point( 0, 67 );
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size( 500, 2 );
-            this.label1.TabIndex = 2;
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label3.Location = new System.Drawing.Point( 51, 36 );
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size( 124, 13 );
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Created by Phillip Cohen";
             // 
             // label2
             // 
@@ -72,15 +73,23 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "LANdrop";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point( 51, 36 );
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size( 124, 13 );
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Created by Phillip Cohen";
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point( 0, 67 );
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size( 500, 2 );
+            this.label1.TabIndex = 2;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::LANdrop.Properties.Resources.draw_calligraphic;
+            this.pictureBox1.Location = new System.Drawing.Point( 12, 17 );
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size( 32, 32 );
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // btnClose
             // 
@@ -107,25 +116,6 @@
             this.checkBox1.Text = "I love LANdrop";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::LANdrop.Properties.Resources.draw_calligraphic;
-            this.pictureBox1.Location = new System.Drawing.Point( 12, 17 );
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size( 32, 32 );
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point( 9, 84 );
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size( 134, 13 );
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Early development version";
-            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnClose;
@@ -133,7 +123,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size( 316, 149 );
-            this.Controls.Add( this.label4 );
             this.Controls.Add( this.checkBox1 );
             this.Controls.Add( this.btnClose );
             this.Controls.Add( this.panel1 );
@@ -160,6 +149,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label4;
     }
 }
