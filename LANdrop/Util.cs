@@ -83,7 +83,7 @@ namespace LANdrop
             // Otherwise, keep trying files with new
             for ( int i = 1; i < 1000; i++ )
             {
-                string newFilename = String.Format( "{0} ({1}){2}", fileInfo.Name.Substring( 0, fileInfo.Name.Length - fileInfo.Extension.Length ), i, fileInfo.Extension );
+                string newFilename = String.Format( "{0} ({1}){2}", fileInfo.FullName.Substring( 0, fileInfo.FullName.Length - fileInfo.Extension.Length ), i, fileInfo.Extension );
                 if ( !File.Exists( newFilename ) )
                     return newFilename;
             }
