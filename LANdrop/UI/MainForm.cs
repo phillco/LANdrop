@@ -35,6 +35,8 @@ namespace LANdrop.UI
             Random r = new Random( );
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
+
+            UpdateState( );
         }
 
         /// <summary>
@@ -46,8 +48,18 @@ namespace LANdrop.UI
             instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
+        private void UpdateState( )
+        {            
+            UpdatePeerList( );
+            sendClipboardToolStripMenuItem.Enabled = ( Clipboard.ContainsText( ) );
+        }
+
         public void UpdatePeerList( )
         {
+            // Only do this once the multicast manager has been set up.
+            if ( MulticastManager.Peers == null )
+                return;
+
             // If this method was called by a different thread, invoke it to run on the form thread.
             if ( InvokeRequired )
             {
@@ -165,7 +177,7 @@ namespace LANdrop.UI
 
         private void refreshPeerListTimer_Tick( object sender, EventArgs e )
         {
-            UpdatePeerList( );
+            UpdateState( );
         }
 
         private void copyIPAddressToolStripMenuItem_Click( object sender, EventArgs e )
