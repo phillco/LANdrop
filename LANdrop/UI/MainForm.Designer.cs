@@ -44,14 +44,20 @@
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
-            this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
+            this.mainMenu = new System.Windows.Forms.MenuStrip( );
+            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
+            this.mainMenu.SuspendLayout( );
             this.SuspendLayout( );
             // 
             // onlineIcons
@@ -86,17 +92,17 @@
             this.contentPanel.Controls.Add( this.label1 );
             this.contentPanel.Controls.Add( this.receipientList );
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contentPanel.Location = new System.Drawing.Point( 0, 0 );
+            this.contentPanel.Location = new System.Drawing.Point( 0, 24 );
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Padding = new System.Windows.Forms.Padding( 16, 42, 16, 48 );
-            this.contentPanel.Size = new System.Drawing.Size( 244, 304 );
+            this.contentPanel.Size = new System.Drawing.Size( 244, 280 );
             this.contentPanel.TabIndex = 6;
             // 
             // btnSend
             // 
             this.btnSend.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnSend.Enabled = false;
-            this.btnSend.Location = new System.Drawing.Point( 144, 267 );
+            this.btnSend.Location = new System.Drawing.Point( 144, 243 );
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size( 84, 25 );
             this.btnSend.TabIndex = 4;
@@ -106,7 +112,7 @@
             // btnSendFile
             // 
             this.btnSendFile.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.btnSendFile.Location = new System.Drawing.Point( 14, 267 );
+            this.btnSendFile.Location = new System.Drawing.Point( 14, 243 );
             this.btnSendFile.Name = "btnSendFile";
             this.btnSendFile.Size = new System.Drawing.Size( 91, 25 );
             this.btnSendFile.TabIndex = 3;
@@ -141,7 +147,7 @@
             listViewItem4} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
-            this.receipientList.Size = new System.Drawing.Size( 212, 214 );
+            this.receipientList.Size = new System.Drawing.Size( 212, 190 );
             this.receipientList.SmallImageList = this.onlineIcons;
             this.receipientList.TabIndex = 2;
             this.receipientList.UseCompatibleStateImageBehavior = false;
@@ -160,7 +166,7 @@
             this.toolStripSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 120 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 98 );
             // 
             // sendFileToToolStripMenuItem
             // 
@@ -169,12 +175,24 @@
             this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
             // 
+            // sendTextToolStripMenuItem
+            // 
+            this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
+            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendTextToolStripMenuItem.Text = "Send text...";
+            this.sendTextToolStripMenuItem.Click += new System.EventHandler( this.sendTextToolStripMenuItem_Click );
+            // 
             // sendClipboardToolStripMenuItem
             // 
             this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
             this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
             this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
             this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 152, 6 );
             // 
             // copyIPAddressToolStripMenuItem
             // 
@@ -189,17 +207,47 @@
             this.refreshPeerListTimer.Interval = 1000;
             this.refreshPeerListTimer.Tick += new System.EventHandler( this.refreshPeerListTimer_Tick );
             // 
-            // sendTextToolStripMenuItem
+            // mainMenu
             // 
-            this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
-            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
-            this.sendTextToolStripMenuItem.Text = "Send text...";
-            this.sendTextToolStripMenuItem.Click += new System.EventHandler( this.sendTextToolStripMenuItem_Click );
+            this.mainMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem1,
+            this.helpToolStripMenuItem1} );
+            this.mainMenu.Location = new System.Drawing.Point( 0, 0 );
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size( 244, 24 );
+            this.mainMenu.TabIndex = 7;
+            this.mainMenu.Text = "Main Menu";
             // 
-            // toolStripSeparator1
+            // fileToolStripMenuItem1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 152, 6 );
+            this.fileToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem} );
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size( 35, 20 );
+            this.fileToolStripMenuItem1.Text = "&File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 103, 22 );
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem} );
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 40, 20 );
+            this.helpToolStripMenuItem1.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.personals;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -208,8 +256,10 @@
             this.ClientSize = new System.Drawing.Size( 244, 326 );
             this.Controls.Add( this.contentPanel );
             this.Controls.Add( this.statusStrip );
+            this.Controls.Add( this.mainMenu );
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "$this.Icon" ) ) );
+            this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size( 300, 600 );
             this.MinimumSize = new System.Drawing.Size( 230, 250 );
@@ -220,6 +270,8 @@
             this.contentPanel.ResumeLayout( false );
             this.contentPanel.PerformLayout( );
             this.recipientContextMenu.ResumeLayout( false );
+            this.mainMenu.ResumeLayout( false );
+            this.mainMenu.PerformLayout( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -242,6 +294,11 @@
         private System.Windows.Forms.ToolStripMenuItem sendClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.MenuStrip mainMenu;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

@@ -195,5 +195,15 @@ namespace LANdrop.UI
             if ( receipientList.SelectedItems.Count > 0 )
                 new SendTextSnippetForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog();
         }
+
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Close( );
+        }
+
+        private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new AboutForm( ).ShowDialog( );
+        }
     }
 }
