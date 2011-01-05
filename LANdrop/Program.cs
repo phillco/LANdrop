@@ -21,8 +21,8 @@ namespace LANdrop
             Application.EnableVisualStyles( );
             Application.SetCompatibleTextRenderingDefault( false );
 
-            // Start the log.
-            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( "LANdrop_" + Dns.GetHostName( )+".log", FileMode.Create ) ) );
+            // Start the log.            
+            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.MakeFilenameSafe( "*LANdrop_" + Dns.GetHostName( ) + ".log" ), FileMode.Create ) ) );
             Trace.AutoFlush = true;
             Trace.WriteLine( "LANdrop started!" );
             Trace.Indent( );

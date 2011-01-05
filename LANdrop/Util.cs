@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
+using System.IO;
 
 namespace LANdrop
 {
@@ -67,5 +68,20 @@ namespace LANdrop
 
             return -1;
         }
+
+        /// <summary>
+        /// Returns a version of the given filename, but without any illegal characters (they'll be converted to underscores).
+        /// Adapted from http://stackoverflow.com/questions/333175/is-there-a-way-of-making-strings-file-path-safe-in-c.
+        /// </summary>
+        public static string MakeFilenameSafe( string fileName )
+        {
+            string safeVersion = fileName;
+            
+            foreach ( char c in Path.GetInvalidFileNameChars( ) )
+                safeVersion = safeVersion.Replace( c.ToString( ), "_" );            
+
+            return safeVersion;
+        }
+
     }
 }
