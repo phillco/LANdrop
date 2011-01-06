@@ -98,7 +98,7 @@ namespace LANdrop.Transfers
                 NetworkOutStream.Flush( );
                 
                 UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
-                Debug.WriteLine( "Outgoing: Sent " + Util.FormatFileSize( NumBytesTransferred ) + "." );
+               // Debug.WriteLine( "Outgoing: Sent " + Util.FormatFileSize( NumBytesTransferred ) + "." );
             }
 
             // ...and we're done.
@@ -109,6 +109,7 @@ namespace LANdrop.Transfers
             bool success = NetworkInStream.ReadBoolean( );
 
             SetState( success ? State.FINISHED : State.FAILED );
+            Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " sent in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + "/s)." );
         }
     }
 }

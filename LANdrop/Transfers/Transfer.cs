@@ -20,9 +20,9 @@ namespace LANdrop.Transfers
 
         public long FileSize { get; protected set; }
 
-        public DateTime StartTime { get; protected set; }
+        public int StartTime { get; protected set; }
 
-        public DateTime StopTime { get; protected set; }
+        public int StopTime { get; protected set; }
 
         protected TcpClient TcpClient { get; set; }
 
@@ -71,9 +71,9 @@ namespace LANdrop.Transfers
 
             // Start the clock.
             if ( newState == State.TRANSFERRING )
-                StartTime = DateTime.Now;
+                StartTime = Environment.TickCount;
             else if ( newState == State.VERIFYING )
-                StopTime = DateTime.Now;
+                StopTime = Environment.TickCount;
         }
        
         /// <summary>
@@ -81,10 +81,10 @@ namespace LANdrop.Transfers
         /// </summary>
         public double GetCurrentSpeed( )
         {
-            DateTime endTime = DateTime.Now;
+            int endTime = ( CurrentState == State.TRANSFERRING ? Environment.TickCount : StopTime );
             if ( StartTime == endTime )
                 return 0;
-            return ( NumBytesTransferred / endTime.Subtract( StartTime ).Milliseconds );
+            return ( NumBytesTransferred / ( endTime - StartTime ));
         }
 
         protected void UpdateNumBytesTransferred( long bytesTransferred )
