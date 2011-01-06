@@ -94,11 +94,8 @@ namespace LANdrop.Transfers
                 // Read in the chunk from a file, write it to the network.
                 byte[] chunk = new byte[numBytes];
                 fileInStream.Read( chunk, 0, numBytes );
-                NetworkOutStream.Write( chunk );
-                NetworkOutStream.Flush( );
-                
+                NetworkOutStream.Write( chunk );                
                 UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
-               // Debug.WriteLine( "Outgoing: Sent " + Util.FormatFileSize( NumBytesTransferred ) + "." );
             }
 
             // ...and we're done.

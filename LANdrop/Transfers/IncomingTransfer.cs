@@ -70,7 +70,8 @@ namespace LANdrop.Transfers
             // Transfer chunks.
             while ( NumBytesTransferred < FileSize )
             {
-                byte[] chunk = NetworkInStream.ReadBytes( (int) Math.Min( Protocol.TransferChunkSize, FileSize - NumBytesTransferred ) );
+                byte[] chunk = new byte[Protocol.TransferChunkSize * 10];
+                TcpClient.GetStream( ).Read( chunk, 0, chunk.Length ); 
 
                 if ( chunk.Length > 0 )
                 {
