@@ -57,7 +57,7 @@ namespace LANdrop.UI
         public void UpdatePeerList( )
         {
             // Only do this once the multicast manager has been set up.
-            if ( MulticastManager.Peers == null )
+            if ( MulticastManager.GetAllUsers() == null )
                 return;
 
             // If this method was called by a different thread, invoke it to run on the form thread.
@@ -77,7 +77,7 @@ namespace LANdrop.UI
 
             // Recreate the listview from the peer list.
             receipientList.Items.Clear( );
-            foreach ( Peer p in MulticastManager.Peers )
+            foreach ( Peer p in MulticastManager.GetAllUsers() )
             {
                 receipientList.Items.Add( new ListViewItem
                 {
@@ -188,11 +188,14 @@ namespace LANdrop.UI
 
         private void btnSendFile_Click( object sender, EventArgs e )
         {
-            new OutgoingTransfer( new FileInfo( "GitExtensions208.msi" ), new Peer
+            new AddUserForm( ).ShowDialog();
+            UpdateState( );
+
+            /*new OutgoingTransfer( new FileInfo( "Seal.mp3" ), new Peer
             {
                 Name = "Other Client",
-                Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port == Protocol.TransferPortNumber ? Protocol.TransferPortNumber + 1 : Protocol.TransferPortNumber )
-            } );
+                Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port )
+            } );*/
         }
 
         private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )

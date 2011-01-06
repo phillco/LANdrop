@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,20 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="personals" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\personals.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="draw_calligraphic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\draw_calligraphic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="note_go" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\note_go.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="user_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8B////Af///wH///8B////Af///wH///8B////Af///wEAAAAfAAAAMwAAADMAAAAzAAAAH///
+        /wH///8B////AQAAAA8AAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAAzAIBJqQCNTP8Ai0r/AIxM/wB+
+        Ra0AAAAf////Af///wF0PQxvp1MN+6dSCv+nUgr/p1IJ/6lRCf+1Twf/SnMv/wCbXv8Au4b/d+DG/wC7
+        hv8AmVz/AH5Frf///wH///8BsV8W/9eXWv/ip23/4qZs/+KlbP/lpWz/9aVs/wCOTf8Awo7/ALyD////
+        //8AvIP/AMGN/wCMTP////8B////AcB2M//ouY3/359d/9+cWf/fmlX/4ppW//WdWv8AiUb/c+fO////
+        /////////////3fnzv8Ai0n/////Af///wHKhkj/7cuq/+qta//qr2//9vr+/+/w8v//sXH/AIZC/wDL
+        l/8AyZD//////wDJkP8AzZn/AIxL/////wH///8B05VZ//Tfzf/2v33///Hf///+/v/39fP/+t/K/2ai
+        X/8An2H/ANSe/3bv1v8A1J//AKNn/wCOTpf///8B////AdGIP+vrxJ///+zW/7PZ7/9docX/PX+k/4Cd
+        sv//897/Xp5m/wCJSf8AiUj/AItK/wCOTpf///8B////Af///wH///8B4JNHp/CqY/+9w7v/YJm4/0N6
+        mP+UlIv/+K9p//CVSqf///8B////Af///wH///8B////Af///wH///8B////Af///wEhKCkpfK3E/3i6
+        3v9qq8//YpCo/wAAABn///8B////Af///wH///8B////Af///wH///8B////Af///wH///8BACxep5ri
+        //+Gx+j/d7bY/22u0P8CLl+X////Af///wH///8B////Af///wH///8B////Af///wH///8B////AQY0
+        Zf+v9///ltn4/4bI5/9/weD/BShb/////wH///8B////Af///wH///8B////Af///wH///8B////Af//
+        /wEOP2//ImGQ/1SIsv98s9X/Z5u+/w4uXv////8B////Af///wH///8B////Af///wH///8B////Af//
+        /wH///8BEkZ1/zB9r/9Ojrz/UX+s/y1Ld/8RMmH/////Af///wH///8B////Af///wH///8B////Af//
+        /wH///8B////ARE9btUld6n/PIi6/zx6qf8iSnX/ETZn1f///wH///8B////Af///wH///8B////Af//
+        /wH///8B////Af///wERQHMjEUR06RpYiv8ZUYL/Ej9w6RFCdSP///8B////Af///wH///8B////Af//
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
+</value>
   </data>
 </root>

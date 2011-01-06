@@ -127,5 +127,14 @@ namespace LANdrop
             return Util.FindFreeFileName( logFilename  );
         }
 
+        /// <summary>
+        /// Returns the computer's IP list.
+        /// TODO: This is a depreciated and overly simplistic method (computers can have multiple IPs).
+        /// </summary>
+        public static IPAddress GetLocalAddress( )
+        {
+            return Dns.GetHostByName( Dns.GetHostName( ) ).AddressList[0];
+        }
+
     }
 }

@@ -18,7 +18,9 @@ namespace LANdrop.Peering
     /// </summary>
     class MulticastManager
     {
-        public static List<Peer> Peers { get; private set; }
+        private static List<Peer> discoveredPeers = new List<Peer>();
+
+        private static List<Peer> manuallyAddedUsers = new List<Peer>();
 
         private static IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
@@ -33,9 +35,32 @@ namespace LANdrop.Peering
         {
             form = mainForm;
             connected = true;
-            Peers = new List<Peer>( );
+            discoveredPeers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
             new Thread( new ThreadStart( ListenLoop ) ).Start( );
+        }
+
+        /// <summary>
+        /// Returns a list of all users available to send to (includes discovered and manually added ones).
+        /// </summary>
+        public static List<Peer> GetAllUsers( )
+        {
+            List<Peer> list = new List<Peer>( discoveredPeers );
+            list.AddRange( manuallyAddedUsers );
+            return list;
+        }
+
+        /// <summary>
+        /// Adds the user at the given address to the list.
+        /// </summary>
+        /// <param name="address"></param>
+        public static void AddUserManually( string address )
+        {
+            manuallyAddedUsers.Add( new Peer
+            {
+                Name = "User at " + address,
+                Address = new IPEndPoint( IPAddress.Parse( address), Protocol.TransferPortNumber )
+            } );
         }
 
         /// <summary>
@@ -90,7 +115,7 @@ namespace LANdrop.Peering
             message.Write( (Int32) Protocol.ProtocolVersion );
             message.Write( Environment.UserName );
             message.Write( Dns.GetHostName( ) );
-            message.Write( GetLocalAddress( ).ToString( ) );
+            message.Write( Util.GetLocalAddress( ).ToString( ) );
             message.Write( connected );
 
             socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
@@ -112,7 +137,7 @@ namespace LANdrop.Peering
             else if ( listenPort != Protocol.MulticastPortNumber )
                 MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")." +
                     "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-
+            
             Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
@@ -149,11 +174,11 @@ namespace LANdrop.Peering
             if ( !connected )
             {
                 Debug.WriteLine( newPeer + " disconnected (goodbye)." );
-                Peers.Remove( newPeer );
+                discoveredPeers.Remove( newPeer );
                 return;
             }
 
-            foreach ( Peer p in Peers )
+            foreach ( Peer p in discoveredPeers )
             {
                 if ( p.Equals( newPeer ) )
                 {
@@ -162,24 +187,15 @@ namespace LANdrop.Peering
                 }
             }
 
-            Peers.Add( newPeer );
+            discoveredPeers.Add( newPeer );
         }
 
         private static void RemoveOldPeers( )
         {
-            Peers.RemoveAll( ( Peer p ) =>
+            discoveredPeers.RemoveAll( ( Peer p ) =>
             {
                 return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 10 );
             } );
-        }
-
-        /// <summary>
-        /// Returns the computer's IP list.
-        /// TODO: This is a depreciated and overly simplistic method (computers can have multiple IPs).
-        /// </summary>
-        private static IPAddress GetLocalAddress( )
-        {
-            return Dns.GetHostByName( Dns.GetHostName( ) ).AddressList[0];
-        }
+        }        
     }
 }

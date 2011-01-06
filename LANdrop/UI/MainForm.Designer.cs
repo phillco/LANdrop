@@ -39,7 +39,7 @@
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
             this.contentPanel = new System.Windows.Forms.Panel( );
             this.btnSend = new System.Windows.Forms.Button( );
-            this.btnSendFile = new System.Windows.Forms.Button( );
+            this.btnAddPerson = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
@@ -54,7 +54,6 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.diagnosticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -89,7 +88,7 @@
             // contentPanel
             // 
             this.contentPanel.Controls.Add( this.btnSend );
-            this.contentPanel.Controls.Add( this.btnSendFile );
+            this.contentPanel.Controls.Add( this.btnAddPerson );
             this.contentPanel.Controls.Add( this.label1 );
             this.contentPanel.Controls.Add( this.receipientList );
             this.contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -110,16 +109,16 @@
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
             // 
-            // btnSendFile
+            // btnAddPerson
             // 
-            this.btnSendFile.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.btnSendFile.Location = new System.Drawing.Point( 14, 243 );
-            this.btnSendFile.Name = "btnSendFile";
-            this.btnSendFile.Size = new System.Drawing.Size( 91, 25 );
-            this.btnSendFile.TabIndex = 3;
-            this.btnSendFile.Text = "Send file";
-            this.btnSendFile.UseVisualStyleBackColor = true;
-            this.btnSendFile.Click += new System.EventHandler( this.btnSendFile_Click );
+            this.btnAddPerson.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.btnAddPerson.Location = new System.Drawing.Point( 14, 243 );
+            this.btnAddPerson.Name = "btnAddPerson";
+            this.btnAddPerson.Size = new System.Drawing.Size( 98, 25 );
+            this.btnAddPerson.TabIndex = 3;
+            this.btnAddPerson.Text = "Add user...";
+            this.btnAddPerson.UseVisualStyleBackColor = true;
+            this.btnAddPerson.Click += new System.EventHandler( this.btnSendFile_Click );
             // 
             // label1
             // 
@@ -237,7 +236,6 @@
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.diagnosticsToolStripMenuItem,
             this.aboutToolStripMenuItem} );
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 40, 20 );
@@ -249,12 +247,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
-            // 
-            // diagnosticsToolStripMenuItem
-            // 
-            this.diagnosticsToolStripMenuItem.Name = "diagnosticsToolStripMenuItem";
-            this.diagnosticsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.diagnosticsToolStripMenuItem.Text = "Diagnostics...";
             // 
             // MainForm
             // 
@@ -291,7 +283,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.Button btnSendFile;
+        private System.Windows.Forms.Button btnAddPerson;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView receipientList;
         private System.Windows.Forms.ContextMenuStrip recipientContextMenu;
@@ -306,7 +298,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem diagnosticsToolStripMenuItem;
     }
 }
 
