@@ -65,7 +65,7 @@ namespace LANdrop.Transfers
 
             // Open handle to the file.
             SetState( State.TRANSFERRING );
-            fileOutputStream = new StreamWriter( Path.Combine( DefaultSaveFolder, FileName ) );
+            Stream fileStream = new FileStream( Path.Combine( DefaultSaveFolder, FileName ), FileMode.Create );
 
             // Transfer chunks.
             while ( NumBytesTransferred < FileSize )
@@ -73,9 +73,9 @@ namespace LANdrop.Transfers
                 byte[] chunk = NetworkInStream.ReadBytes( (int) Math.Min( Protocol.TransferChunkSize, FileSize - NumBytesTransferred ) );
 
                 if ( chunk.Length > 0 )
-                {                    
-                    fileOutputStream.Write( chunk );
-                    fileOutputStream.Flush( );
+                {
+                    fileStream.Write( chunk, 0, chunk.Length );
+                    fileStream.Flush( );                    
                     UpdateNumBytesTransferred( NumBytesTransferred + chunk.Length );
                     Debug.WriteLine( "Incoming: Received " + Util.FormatFileSize( NumBytesTransferred ) + "." );
                 }
