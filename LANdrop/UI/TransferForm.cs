@@ -53,7 +53,8 @@ namespace LANdrop.UI
                     break;
                 case Transfer.State.TRANSFERRING:
                     lblStatus.Text = ( incoming ? "Receiving" : "Sending" ) + " " + transfer.FileName;
-                    lblDataStatus.Text = Util.FormatFileSize( transfer.NumBytesTransferred ) + " of " + Util.FormatFileSize( transfer.FileSize ) + " " + ( incoming ? "received" : "sent" );
+                    lblDataStatus.Text = Util.FormatFileSize( transfer.NumBytesTransferred ) + " of " + Util.FormatFileSize( transfer.FileSize ) + " " + ( incoming ? "received" : "sent" )
+                        + " (at " + Util.FormatFileSize( transfer.GetCurrentSpeed( ) * 1000 ) + "/s)";
                     progressBar.Value = (int) Math.Round( 100.0 * transfer.NumBytesTransferred / transfer.FileSize );
                     break;
                 case Transfer.State.VERIFYING:
@@ -61,6 +62,9 @@ namespace LANdrop.UI
                     break;
                 case Transfer.State.FINISHED:
                     lblStatus.Text = "File " + ( incoming ? "received" : "sent" ) + " successfully!";
+                    lblDataStatus.Text = Util.FormatFileSize( transfer.FileSize ) + " " + ( incoming ? "received" : "sent" )
+                       + " (at " + Util.FormatFileSize( transfer.GetCurrentSpeed( ) * 1000 ) + "/s)";
+                    progressBar.Value = 100;
                     break;
                 case Transfer.State.FAILED:
                     lblStatus.Text = "Transmission failure!";
@@ -72,7 +76,7 @@ namespace LANdrop.UI
                 btnCancel.Text = "Close";
             }
 
-            if ( transfer.CurrentState == Transfer.State.TRANSFERRING )
+            if ( transfer.CurrentState == Transfer.State.TRANSFERRING || transfer.CurrentState == Transfer.State.FINISHED )
             {
                 groupDetails.Visible = true;
                 this.Height = 173;

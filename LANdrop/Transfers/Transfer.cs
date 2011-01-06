@@ -20,6 +20,10 @@ namespace LANdrop.Transfers
 
         public long FileSize { get; protected set; }
 
+        public DateTime StartTime { get; protected set; }
+
+        public DateTime StopTime { get; protected set; }
+
         protected TcpClient TcpClient { get; set; }
 
         protected BinaryReader NetworkInStream { get; set; }
@@ -64,6 +68,23 @@ namespace LANdrop.Transfers
             this.CurrentState = newState;
             if ( Form != null )
                 Form.UpdateState( );
+
+            // Start the clock.
+            if ( newState == State.TRANSFERRING )
+                StartTime = DateTime.Now;
+            else if ( newState == State.VERIFYING )
+                StopTime = DateTime.Now;
+        }
+       
+        /// <summary>
+        /// Returns the current speed of the transfer, in bytes/millisecond.
+        /// </summary>
+        public double GetCurrentSpeed( )
+        {
+            DateTime endTime = DateTime.Now;
+            if ( StartTime == endTime )
+                return 0;
+            return ( NumBytesTransferred / endTime.Subtract( StartTime ).Milliseconds );
         }
 
         protected void UpdateNumBytesTransferred( long bytesTransferred )

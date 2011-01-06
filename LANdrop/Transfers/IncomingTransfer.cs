@@ -78,9 +78,11 @@ namespace LANdrop.Transfers
                     fileStream.Flush( );                    
                     UpdateNumBytesTransferred( NumBytesTransferred + chunk.Length );
                     Debug.WriteLine( "Incoming: Received " + Util.FormatFileSize( NumBytesTransferred ) + "." );
+                    Debug.WriteLine( "Incoming: Speed is " + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + "/s." );
                 }
             }
 
+            SetState( State.VERIFYING );
             Debug.WriteLine( "Complete, sending final signal..." );
 
             NetworkOutStream.Write( true );

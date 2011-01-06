@@ -52,7 +52,7 @@
             this.progressBar.Location = new System.Drawing.Point( 18, 47 );
             this.progressBar.MarqueeAnimationSpeed = 30;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size( 181, 23 );
+            this.progressBar.Size = new System.Drawing.Size( 205, 23 );
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressBar.TabIndex = 1;
             this.progressBar.Value = 20;
@@ -85,7 +85,7 @@
             this.groupDetails.Controls.Add( this.progressBar );
             this.groupDetails.Location = new System.Drawing.Point( 12, 45 );
             this.groupDetails.Name = "groupDetails";
-            this.groupDetails.Size = new System.Drawing.Size( 222, 88 );
+            this.groupDetails.Size = new System.Drawing.Size( 242, 88 );
             this.groupDetails.TabIndex = 4;
             this.groupDetails.TabStop = false;
             this.groupDetails.Text = "Details";

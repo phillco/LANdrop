@@ -40,7 +40,7 @@ namespace LANdrop
         /// <summary>
         /// Formats the given number of bytes into human-readable format (e.g. "72.75 KB").
         /// </summary>
-        public static String FormatFileSize( long numBytes )
+        public static String FormatFileSize( double numBytes )
         {
             string[] types = { "bytes", "KB", "MB", "GB", "TB", "PB", "XB", "ZB", "YB" };
 
