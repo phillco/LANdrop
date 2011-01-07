@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using LANdrop.Peering;
-using LANdrop.Transfers;
+using LANdrop.Networking;
 using System.Net;
 
 namespace LANdrop.UI

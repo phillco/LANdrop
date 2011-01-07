@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Net.Sockets;
-using LANdrop.Peering;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     public class OutgoingTextSnippet : Transfer
     {

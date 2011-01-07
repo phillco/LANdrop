@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     /// <summary>
     /// The universal LANdrop network protocol.

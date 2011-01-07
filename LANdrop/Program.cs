@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using LANdrop.Peering;
 using LANdrop.UI;
-using LANdrop.Transfers;
+using LANdrop.Networking;
 using System.Diagnostics;
 using System.IO;
 using System.Net;

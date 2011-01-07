@@ -40,14 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Peering\MulticastManager.cs" />
-    <Compile Include="Peering\Peer.cs" />
-    <Compile Include="Transfers\IncomingTransfer.cs" />
-    <Compile Include="Transfers\IncomingTransferListener.cs" />
-    <Compile Include="Transfers\OutgoingTextSnippet.cs" />
-    <Compile Include="Transfers\OutgoingTransfer.cs" />
-    <Compile Include="Transfers\Protocol.cs" />
-    <Compile Include="Transfers\Transfer.cs" />
+    <Compile Include="Networking\MulticastManager.cs" />
+    <Compile Include="Networking\Peer.cs" />
+    <Compile Include="Networking\IncomingTransfer.cs" />
+    <Compile Include="Networking\IncomingTransferListener.cs" />
+    <Compile Include="Networking\OutgoingTextSnippet.cs" />
+    <Compile Include="Networking\OutgoingTransfer.cs" />
+    <Compile Include="Networking\Protocol.cs" />
+    <Compile Include="Networking\Transfer.cs" />
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>

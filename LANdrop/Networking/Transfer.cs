@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using LANdrop.Peering;
 using LANdrop.UI;
 using System.Net.Sockets;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     public abstract class Transfer
     {

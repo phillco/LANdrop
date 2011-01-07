@@ -7,10 +7,10 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using LANdrop.Transfers;
+using LANdrop.Networking;
 using LANdrop.UI;
 
-namespace LANdrop.Peering
+namespace LANdrop.Networking
 {
     /// <summary>
     /// Handles the broadcasting and listening for LANdrop multicast messages.

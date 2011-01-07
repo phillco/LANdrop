@@ -9,7 +9,7 @@ using LANdrop.UI;
 using System.Diagnostics;
 using System.Security.Cryptography;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     class IncomingTransfer : Transfer
     {

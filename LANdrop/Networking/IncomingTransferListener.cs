@@ -5,11 +5,10 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Net;
 using System.IO;
-using LANdrop.Peering;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     /// <summary>
     /// Perpetually listens for new incoming transfers, then defers them to the UI.

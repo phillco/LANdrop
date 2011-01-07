@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-namespace LANdrop.Peering
+namespace LANdrop.Networking
 {
     /// <summary>
     /// Another LANdrop client on the network that we might interact with.

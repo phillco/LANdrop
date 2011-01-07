@@ -4,14 +4,13 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using LANdrop.Peering;
 using LANdrop.UI;
 using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Security.Cryptography;
 
-namespace LANdrop.Transfers
+namespace LANdrop.Networking
 {
     public class OutgoingTransfer : Transfer
     {
