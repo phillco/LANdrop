@@ -36,6 +36,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
+            this.lblProtocolVersion = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -116,6 +117,15 @@
             this.checkBox1.Text = "I love LANdrop";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // lblProtocolVersion
+            // 
+            this.lblProtocolVersion.AutoSize = true;
+            this.lblProtocolVersion.Location = new System.Drawing.Point( 12, 83 );
+            this.lblProtocolVersion.Name = "lblProtocolVersion";
+            this.lblProtocolVersion.Size = new System.Drawing.Size( 109, 13 );
+            this.lblProtocolVersion.TabIndex = 4;
+            this.lblProtocolVersion.Text = "Protocol version: 666";
+            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnClose;
@@ -123,6 +133,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size( 316, 149 );
+            this.Controls.Add( this.lblProtocolVersion );
             this.Controls.Add( this.checkBox1 );
             this.Controls.Add( this.btnClose );
             this.Controls.Add( this.panel1 );
@@ -149,5 +160,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label lblProtocolVersion;
     }
 }

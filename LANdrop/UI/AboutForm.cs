@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using LANdrop.Transfers;
 
 namespace LANdrop.UI
 {
@@ -13,6 +14,9 @@ namespace LANdrop.UI
         public AboutForm( )
         {
             InitializeComponent( );
+            Util.UseProperSystemFont( this );
+
+            lblProtocolVersion.Text = "Protocol version: " + Protocol.ProtocolVersion;
         }
     }
 }
