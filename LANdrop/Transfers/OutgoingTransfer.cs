@@ -9,6 +9,7 @@ using LANdrop.UI;
 using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace LANdrop.Transfers
 {
@@ -83,29 +84,37 @@ namespace LANdrop.Transfers
             Debug.WriteLine( "Outgoing: Transfer accepted!" );
             SetState( State.TRANSFERRING );
 
-            FileStream fileInStream = new FileStream( File.FullName, FileMode.Open );
+            // Create the MD5 checksummer.
+            HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
+            hasher.Initialize( );
 
-            // Iterate through the file in chunk-sized increments.
-            for ( long i = 0; i < FileSize; i += Protocol.TransferChunkSize )
+            using ( FileStream fileInStream = new FileStream( File.FullName, FileMode.Open ) )
             {
-                // Calculate the number of bytes we're about to send.
-                int numBytes = (int) Math.Min( Protocol.TransferChunkSize, FileSize - i );
+                // Iterate through the file in chunk-sized increments.
+                for ( long i = 0; i < FileSize; i += Protocol.TransferChunkSize )
+                {
+                    // Calculate the number of bytes we're about to send.
+                    int numBytes = (int) Math.Min( Protocol.TransferChunkSize, FileSize - i );
 
-                // Read in the chunk from a file, write it to the network.
-                byte[] chunk = new byte[numBytes];
-                fileInStream.Read( chunk, 0, numBytes );
-                NetworkOutStream.Write( chunk );                
-                UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
+                    // Read in the chunk from a file, write it to the network.
+                    byte[] chunk = new byte[numBytes];
+                    fileInStream.Read( chunk, 0, numBytes );
+                    NetworkOutStream.Write( chunk );
+                    hasher.TransformBlock( chunk, 0, numBytes, null, 0 );
+                    UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
+                }
             }
 
-            // ...and we're done.
-            Debug.WriteLine( "Outgoing: Done sending, waiting for final signal..." );
-            // fileInStream.Close( );
+            // Finalize the hash.
+            hasher.TransformFinalBlock( new byte[0], 0, 0 );
+            Console.WriteLine( "Outgoing: Finished sending data, with hash of: " + Util.HashToHexString( hasher.Hash ));           
+            
             SetState( State.VERIFYING );
-
+            NetworkOutStream.Write( Util.HashToHexString( hasher.Hash ) );
+            NetworkOutStream.Flush( );
             bool success = NetworkInStream.ReadBoolean( );
+            SetState( success ? State.FINISHED : State.FAILED );            
 
-            SetState( success ? State.FINISHED : State.FAILED );
             Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " sent in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + "/s)." );
         }
     }

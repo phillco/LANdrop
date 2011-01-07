@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using LANdrop.UI;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace LANdrop.Transfers
 {
@@ -65,26 +66,47 @@ namespace LANdrop.Transfers
 
             // Open handle to the file.
             SetState( State.TRANSFERRING );
-            Stream fileStream = new FileStream( Path.Combine( DefaultSaveFolder, FileName ), FileMode.Create );
 
-            // Transfer chunks.
-            while ( NumBytesTransferred < FileSize )
+            // Create the MD5 checksummer.
+            HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
+            hasher.Initialize( );
+
+            using ( Stream fileStream = new FileStream( Path.Combine( DefaultSaveFolder, FileName ), FileMode.Create ) )
             {
-                byte[] chunk = new byte[Protocol.TransferChunkSize * 10];
-                TcpClient.GetStream( ).Read( chunk, 0, chunk.Length ); 
-
-                if ( chunk.Length > 0 )
+                // Transfer chunks.
+                while ( NumBytesTransferred < FileSize )
                 {
-                    fileStream.Write( chunk, 0, chunk.Length );
-                    fileStream.Flush( );                    
-                    UpdateNumBytesTransferred( NumBytesTransferred + chunk.Length );
+                    byte[] chunk = new byte[Protocol.TransferChunkSize * 10];
+                    int numBytes = TcpClient.GetStream( ).Read( chunk, 0, chunk.Length );
+                    hasher.TransformBlock( chunk, 0, numBytes, null, 0 );
+
+                    if ( chunk.Length > 0 )
+                    {
+                        fileStream.Write( chunk, 0, numBytes );
+                        fileStream.Flush( );
+                        UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
+                    }
                 }
             }
 
             SetState( State.VERIFYING );
-            Debug.WriteLine( "Complete, sending final signal..." );
 
-            NetworkOutStream.Write( true );
+            // Finalize the hash.
+            hasher.TransformFinalBlock( new byte[0], 0, 0 );
+            Console.WriteLine( "Incoming: Finished receiving data, with hash of: " + Util.HashToHexString( hasher.Hash ) );
+
+            // Wait for the senders's hash code.
+            if ( NetworkInStream.ReadString( ) == Util.HashToHexString( hasher.Hash ) )
+            {
+                NetworkOutStream.Write( true );
+                SetState( State.FINISHED );
+            }
+            else
+            {
+                NetworkOutStream.Write( false);
+                SetState( State.FAILED );
+            }
+            
             NetworkOutStream.Flush( );
 
             SetState( State.FINISHED );

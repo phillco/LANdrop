@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace LANdrop
 {
@@ -113,7 +114,7 @@ namespace LANdrop
             // The "Logs" folder is in LANdrop's application folder.
             string logFolder = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ), "LANdrop\\Logs\\" );
             Directory.CreateDirectory( logFolder );
-            
+
             // Create the filename based on the information we have.
             string logFilename = "LANdrop_" + Dns.GetHostName( ) + "_" + DateTime.Now.ToString( "yyyy_MM_dd-H_MM_ss" ) + ".log";
 
@@ -124,7 +125,7 @@ namespace LANdrop
             logFilename = Path.Combine( logFolder, logFilename );
 
             // Lastly, just in case there's already a file with this name, add a (2) to the end.
-            return Util.FindFreeFileName( logFilename  );
+            return Util.FindFreeFileName( logFilename );
         }
 
         /// <summary>
@@ -136,5 +137,16 @@ namespace LANdrop
             return Dns.GetHostByName( Dns.GetHostName( ) ).AddressList[0];
         }
 
+        /// <summary>
+        /// Converts the given byte-array hash to a human-readible hex string.
+        /// </summary>
+        public static string HashToHexString( byte[] hash )
+        {
+            StringBuilder builder = new StringBuilder( );
+            for ( int i = 0; i < hash.Length; i++ )
+                builder.Append( hash[i].ToString( "X2" ) );
+
+            return builder.ToString( );
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace LANdrop.Transfers
     /// </summary>
     class Protocol
     {
-        public const int ProtocolVersion = 102;
+        public const int ProtocolVersion = 103;
 
         public enum IncomingCommunicationTypes
         {
