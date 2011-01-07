@@ -71,7 +71,7 @@ namespace LANdrop.Transfers
             HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
             hasher.Initialize( );
 
-            using ( Stream fileStream = new FileStream( Path.Combine( DefaultSaveFolder, FileName ), FileMode.Create ) )
+            using ( Stream fileStream = new FileStream( Util.FindFreeFileName( Path.Combine( DefaultSaveFolder, FileName )), FileMode.Create ) )
             {
                 // Transfer chunks.
                 while ( NumBytesTransferred < FileSize )
