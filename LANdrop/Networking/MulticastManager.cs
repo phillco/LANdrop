@@ -171,6 +171,11 @@ namespace LANdrop.Networking
             }
         }
 
+        public static Peer GetPeerForAddress( IPEndPoint address )
+        {
+            return peers.Find( p => p.Address == address );
+        }
+
         /// <summary>
         /// Adds the peer to the list if it is new (or updates the existing one).
         /// </summary>

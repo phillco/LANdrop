@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
+using System.IO;
 
 namespace LANdrop.Networking
 {
@@ -17,6 +18,10 @@ namespace LANdrop.Networking
         public DateTime LastSeen { get; set; }
 
         public DateTime LastLookedUp { get; set; }
+
+        public DateTime LastExchangedPeers { get; set; }
+
+        public Peer( ) { }
 
         public bool IsOnline( )
         {
@@ -34,6 +39,19 @@ namespace LANdrop.Networking
                 return false;
 
             return Address.Equals( ( (Peer) other ).Address );
+        }
+
+        public void ToStream( BinaryWriter output )
+        {
+            output.Write( Name );
+            output.Write( Address.Address.ToString() );
+            output.Write( (Int32) Address.Port );
+        }
+
+        public Peer( BinaryReader input )
+        {
+            Name = input.ReadString( );
+            Address = new IPEndPoint( IPAddress.Parse( input.ReadString( ) ), input.ReadInt32( ) );
         }
     }
 }

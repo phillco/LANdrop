@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
+using System.Diagnostics;
 
 namespace LANdrop.Networking
 {
@@ -18,7 +19,7 @@ namespace LANdrop.Networking
         public OutgoingWhosThere( Peer peerToUpdate )
         {
             this.Peer = peerToUpdate;
-            ThreadPool.QueueUserWorkItem( delegate { SendAsync(); } );
+            ThreadPool.QueueUserWorkItem( delegate { SendAsync( ); } );
         }
 
         private void SendAsync( )
@@ -29,29 +30,40 @@ namespace LANdrop.Networking
             {
                 client.SendTimeout = 30;
                 client.Connect( Peer.Address );
-            }
-            catch ( SocketException )
-            {                
-                return;
-            }
 
-            using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
-            using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
-            {
-                // Send protocol information.
-                NetworkOutStream.Write( (Int32) Protocol.Version );
-                NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
-                NetworkOutStream.Flush( );
+                using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
+                using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
+                {
+                    // Send protocol information.
+                    NetworkOutStream.Write( (Int32) Protocol.Version );
+                    NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
+                    NetworkOutStream.Write( (Int32) Protocol.TransferPortNumber );
+                    NetworkOutStream.Flush( );
 
-                // First send our information...
-                NetworkOutStream.Write( Environment.UserName );
-                NetworkOutStream.Write( Dns.GetHostName( ) );
-                NetworkOutStream.Write( (Int32) IncomingTransferListener.Port );
+                    // Is it time to do a peer exchange?
+                    bool doPeerExchange = ( DateTime.Now.Subtract( Peer.LastExchangedPeers ).TotalMinutes > 2.0 );
+                    NetworkOutStream.Write( doPeerExchange );
+                    Trace.WriteLine( String.Format( "Sending a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
 
-                // ...and then read in theirs.
-                Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString();
-                Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
+                    // Read in their attributes...
+                    Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString( );
+                    Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
+                    MulticastManager.ProcessPeer( Peer, true );
+
+                    // ...and their peer list!
+                    if ( NetworkInStream.ReadBoolean( ) )
+                    {
+                        for ( int i = 0, num = NetworkInStream.ReadInt32( ); i < num; i++ )
+                        {
+                            Peer newPeer = new Peer( NetworkInStream );
+                            Trace.WriteLine( "Received " + newPeer + " from " + Peer + "'s peer exchange..." );
+                            MulticastManager.ProcessPeer( newPeer, true );
+                        }
+                    }
+                }
             }
+            catch ( SocketException ) { }
+            catch ( IOException ) { }
         }
     }
 }

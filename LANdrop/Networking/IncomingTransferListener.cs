@@ -85,17 +85,36 @@ namespace LANdrop.Networking
                         break; ;
                     case Protocol.IncomingCommunicationTypes.WhosThere:
 
-                        // Add in their information.
-                        Peer peerToAdd = new Peer
-                        {
-                            Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString( ),
-                            Address = new IPEndPoint( ((IPEndPoint) client.Client.RemoteEndPoint).Address, NetworkInStream.ReadInt32())
-                        };
-                        Trace.WriteLine( "Received peer " + peerToAdd + " via Peer Exchange." );
-                        MulticastManager.ProcessPeer( peerToAdd, true );
+                        int port = NetworkInStream.ReadInt32( );
+                        IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, Protocol.TransferPortNumber );
+                        Peer existingPeer = MulticastManager.GetPeerForAddress( address );
 
+                        // Send our basic information.
+                        Trace.WriteLine( String.Format( "Replying to a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
                         NetworkOutStream.Write( Environment.UserName );
                         NetworkOutStream.Write( Dns.GetHostName( ) );
+
+                        // ...and our peer list, if they want it.
+                        if ( NetworkInStream.ReadBoolean( ) )
+                        {
+                            NetworkOutStream.Write( true ); // Yes, we're sending the list (TODO: we might want to prevent flooding)
+
+                            // Only send fresh, active peers.
+                            List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
+                            NetworkOutStream.Write( (Int32) peersToSend.Count );
+                            foreach ( Peer p in peersToSend )
+                                p.ToStream( NetworkOutStream );
+
+                            Trace.WriteLine( "Sent " + peersToSend.Count + " peers as part of the peer exchange." );
+                        }
+
+                        // If this is a brand new peer to us, immediately look them up, too.
+                        if ( existingPeer == null )
+                        {
+                            Trace.WriteLine( "User is unknown, so we'll look them up too." );
+                            new OutgoingWhosThere( new Peer { Address = address } );
+                        }
+
                         break;
                 }
             }
