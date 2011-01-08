@@ -89,9 +89,9 @@ namespace LANdrop.Networking
                         Peer peerToAdd = new Peer
                         {
                             Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString( ),
-                            Address = (IPEndPoint) client.Client.RemoteEndPoint
+                            Address = new IPEndPoint( ((IPEndPoint) client.Client.RemoteEndPoint).Address, NetworkInStream.ReadInt32())
                         };
-                        Console.WriteLine( "Received peer " + peerToAdd + " via Peer Exchange." );
+                        Trace.WriteLine( "Received peer " + peerToAdd + " via Peer Exchange." );
                         MulticastManager.ProcessPeer( peerToAdd, true );
 
                         NetworkOutStream.Write( Environment.UserName );

@@ -46,6 +46,7 @@ namespace LANdrop.Networking
                 // First send our information...
                 NetworkOutStream.Write( Environment.UserName );
                 NetworkOutStream.Write( Dns.GetHostName( ) );
+                NetworkOutStream.Write( (Int32) IncomingTransferListener.Port );
 
                 // ...and then read in theirs.
                 Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString();
