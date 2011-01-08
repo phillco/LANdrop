@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Networking\MulticastManager.cs" />
+    <Compile Include="Networking\OutgoingWhosThere.cs" />
     <Compile Include="Networking\Peer.cs" />
     <Compile Include="Networking\IncomingTransfer.cs" />
     <Compile Include="Networking\IncomingTransferListener.cs" />

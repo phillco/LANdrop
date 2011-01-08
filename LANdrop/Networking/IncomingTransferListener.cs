@@ -82,7 +82,11 @@ namespace LANdrop.Networking
                     case Protocol.IncomingCommunicationTypes.TextSnippet:
                         Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ) );
                         MainForm.ShowFormOnUIThread( form );
-                        return;
+                        break; ;
+                    case Protocol.IncomingCommunicationTypes.WhosThere:
+                        NetworkOutStream.Write( Environment.UserName );
+                        NetworkOutStream.Write( Dns.GetHostName( ) );
+                        break;
                 }
             }
         }

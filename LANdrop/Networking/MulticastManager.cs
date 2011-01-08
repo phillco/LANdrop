@@ -56,11 +56,14 @@ namespace LANdrop.Networking
         /// <param name="address"></param>
         public static void AddUserManually( string address )
         {
-            manuallyAddedUsers.Add( new Peer
+            Peer p = new Peer
             {
                 Name = "User at " + address,
                 Address = new IPEndPoint( IPAddress.Parse( address), Protocol.TransferPortNumber )
-            } );
+            };
+
+            manuallyAddedUsers.Add( p );
+            new OutgoingWhosThere( p );
         }
 
         /// <summary>
