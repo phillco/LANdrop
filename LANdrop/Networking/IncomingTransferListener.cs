@@ -7,6 +7,7 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
+using LANdrop.UI;
 
 namespace LANdrop.Networking
 {
@@ -24,6 +25,9 @@ namespace LANdrop.Networking
             new Thread( new ThreadStart( ListenForClients ) ).Start( );
         }
 
+        /// <summary>
+        /// Perpetually listens for new connections.
+        /// </summary>
         public static void ListenForClients( )
         {
             for ( int port = Protocol.TransferPortNumber; port < Protocol.TransferPortNumber + 100; port++ )
@@ -49,8 +53,38 @@ namespace LANdrop.Networking
             while ( true )
             {
                 TcpClient client = listener.AcceptTcpClient( ); // Halt until a client connects.
-                new IncomingTransfer( client ); // Create the transfer.
+
+                // Respond to the request in a new thread.
+                ThreadPool.QueueUserWorkItem( delegate( object state ) { RespondToNewConnection( client ); } );
             }
-        }       
+        }
+
+        /// <summary>
+        /// Responds to a new connection (typically called in a new thread).
+        /// </summary>
+        private static void RespondToNewConnection( TcpClient client )
+        {
+            // Read in the transfer info.
+            using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
+            using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
+            {
+                // First check the protocol version. Don't accept requests from different protocol versions.
+                int protocolVersion = NetworkInStream.ReadInt32( );
+                if ( protocolVersion != Protocol.ProtocolVersion )
+                    return;
+
+                // Determine what kind of transfer this is.
+                switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
+                {
+                    case Protocol.IncomingCommunicationTypes.FileTransfer:
+                        new IncomingTransfer( client, NetworkInStream, NetworkOutStream );
+                        break;
+                    case Protocol.IncomingCommunicationTypes.TextSnippet:
+                        Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ) );
+                        MainForm.ShowFormOnUIThread( form );
+                        return;
+                }
+            }
+        }
     }
 }

@@ -17,43 +17,30 @@ namespace LANdrop.Networking
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
-        public IncomingTransfer( TcpClient client )
+        public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
             this.TcpClient = client;
-            new Thread( new ThreadStart( DoTransfer ) ).Start( );
+            this.NetworkInStream = netInStream;
+            this.NetworkOutStream = netOutStream;
+
+            DoTransfer( );
         }
 
         protected override void Connect( )
         {
-            SetupStreams( TcpClient.GetStream( ) );
-
-            // Read in the transfer info.
-            int protocolVersion = NetworkInStream.ReadInt32( );
-            if ( protocolVersion != Protocol.ProtocolVersion )
-                return;
-
-            // Determine what kind of transfer this is.
-            switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
-            {
-                case Protocol.IncomingCommunicationTypes.FileTransfer:
-                    break;
-                case Protocol.IncomingCommunicationTypes.TextSnippet:
-                    Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ));
-                    MainForm.ShowFormOnUIThread( form );
-                    return;
-            }
-
+        
             FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
 
             // Ask the user if they want to receive the file.
-          //  if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1})?", FileName, Util.FormatFileSize( FileSize ) ), "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
+            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1}) from {2}?", FileName, Util.FormatFileSize( FileSize ), TcpClient.Client.RemoteEndPoint ),
+                "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
                 NetworkOutStream.Write( true );
-           /* else
+            else
             {
                 NetworkOutStream.Write( false );
                 return;
-            }*/
+            }
 
             Debug.WriteLine( "INCOMING FILE TRANSFER!" );
             Debug.Indent( );
