@@ -18,9 +18,7 @@ namespace LANdrop.Networking
     /// </summary>
     class MulticastManager
     {
-        private static List<Peer> discoveredPeers = new List<Peer>();
-
-        private static List<Peer> manuallyAddedUsers = new List<Peer>();
+        private static List<Peer> peers = new List<Peer>( );
 
         private static IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
@@ -35,7 +33,7 @@ namespace LANdrop.Networking
         {
             form = mainForm;
             connected = true;
-            discoveredPeers = new List<Peer>( );
+            peers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
             new Thread( new ThreadStart( ListenLoop ) ).Start( );
         }
@@ -45,9 +43,7 @@ namespace LANdrop.Networking
         /// </summary>
         public static List<Peer> GetAllUsers( )
         {
-            List<Peer> list = new List<Peer>( discoveredPeers );
-            list.AddRange( manuallyAddedUsers );
-            return list;
+            return peers;
         }
 
         /// <summary>
@@ -59,10 +55,10 @@ namespace LANdrop.Networking
             Peer p = new Peer
             {
                 Name = "User at " + address,
-                Address = new IPEndPoint( IPAddress.Parse( address), Protocol.TransferPortNumber )
+                Address = new IPEndPoint( IPAddress.Parse( address ), Protocol.TransferPortNumber )
             };
 
-            manuallyAddedUsers.Add( p );
+            peers.Add( p );
             new OutgoingWhosThere( p );
         }
 
@@ -101,6 +97,12 @@ namespace LANdrop.Networking
 
                 // Remove timed-out peers while we're at it.
                 RemoveOldPeers( );
+
+                // Look up peers we haven't looked up in a while.
+                List<Peer> peersToLookUp = peers.FindAll( p => DateTime.Now.Subtract( p.LastLookedUp ).Seconds > 30 );
+                foreach ( Peer p in peersToLookUp )
+                    new OutgoingWhosThere( p );
+
                 Thread.Sleep( 1000 );
             }
 
@@ -140,7 +142,7 @@ namespace LANdrop.Networking
             else if ( listenPort != Protocol.MulticastPortNumber )
                 MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")." +
                     "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            
+
             Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
@@ -159,7 +161,8 @@ namespace LANdrop.Networking
                     {
                         Name = message.ReadString( ) + " on " + message.ReadString( ),
                         Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
-                        LastSeen = DateTime.Now
+                        LastSeen = DateTime.Now,
+                        LastLookedUp = DateTime.Now
                     }, message.ReadBoolean( ) );
                 }
 
@@ -177,28 +180,26 @@ namespace LANdrop.Networking
             if ( !connected )
             {
                 Debug.WriteLine( newPeer + " disconnected (goodbye)." );
-                discoveredPeers.Remove( newPeer );
+                peers.Remove( newPeer );
                 return;
             }
 
-            foreach ( Peer p in discoveredPeers )
+            foreach ( Peer p in peers )
             {
                 if ( p.Equals( newPeer ) )
                 {
-                    p.UpdateLastSeen( );
+                    p.LastSeen = DateTime.Now;
+                    p.LastLookedUp = DateTime.Now;
                     return;
                 }
             }
 
-            discoveredPeers.Add( newPeer );
+            peers.Add( newPeer );
         }
 
         private static void RemoveOldPeers( )
         {
-            discoveredPeers.RemoveAll( ( Peer p ) =>
-            {
-                return ( DateTime.Now.Subtract( p.LastSeen ).Seconds > 10 );
-            } );
-        }        
+            peers.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).Seconds > 120 );
+        }
     }
 }

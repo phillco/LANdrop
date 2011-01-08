@@ -43,6 +43,7 @@ namespace LANdrop.Networking
                 NetworkOutStream.Flush( );
 
                 Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString();
+                Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
             }
         }
     }

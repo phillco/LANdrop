@@ -16,14 +16,11 @@ namespace LANdrop.Networking
 
         public DateTime LastSeen { get; set; }
 
-        public void UpdateLastSeen( )
-        {
-            LastSeen = DateTime.Now;
-        }
+        public DateTime LastLookedUp { get; set; }
 
         public bool IsOnline( )
         {
-            return ( DateTime.Now.Subtract( LastSeen ).Seconds < 3 );
+            return ( DateTime.Now.Subtract( LastSeen ).Seconds < 60 );
         }
 
         public override String ToString( )
