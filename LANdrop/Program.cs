@@ -28,7 +28,7 @@ namespace LANdrop
             Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
             Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
             Trace.WriteLine( "User: " + Environment.UserName );
-            Trace.WriteLine( "Protocol Version: " + Protocol.ProtocolVersion );
+            Trace.WriteLine( "Protocol Version: " + Protocol.Version );
             Trace.Unindent( );
 
             MainForm mainForm = new MainForm( );

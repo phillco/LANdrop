@@ -70,7 +70,7 @@ namespace LANdrop.Networking
             {
                 // First check the protocol version. Don't accept requests from different protocol versions.
                 int protocolVersion = NetworkInStream.ReadInt32( );
-                if ( protocolVersion != Protocol.ProtocolVersion )
+                if ( protocolVersion != Protocol.Version )
                     return;
 
                 // Determine what kind of transfer this is.

@@ -40,7 +40,7 @@ namespace LANdrop.Networking
             SetupStreams( TcpClient.GetStream( ) );
             
             // Send the file information.
-            NetworkOutStream.Write( (Int32) Protocol.ProtocolVersion );
+            NetworkOutStream.Write( (Int32) Protocol.Version );
             NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.TextSnippet );
             NetworkOutStream.Write( message );
             TcpClient.GetStream( ).Flush( );

@@ -16,7 +16,7 @@ namespace LANdrop.UI
             InitializeComponent( );
             Util.UseProperSystemFont( this );
 
-            lblProtocolVersion.Text = "Protocol version: " + Protocol.ProtocolVersion;
+            lblProtocolVersion.Text = "Protocol version: " + Protocol.Version;
         }
     }
 }

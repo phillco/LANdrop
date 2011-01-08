@@ -38,7 +38,7 @@ namespace LANdrop.Networking
             using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
             using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
             {
-                NetworkOutStream.Write( (Int32) Protocol.ProtocolVersion );
+                NetworkOutStream.Write( (Int32) Protocol.Version );
                 NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
                 NetworkOutStream.Flush( );
 

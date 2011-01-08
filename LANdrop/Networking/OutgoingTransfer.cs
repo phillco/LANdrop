@@ -62,7 +62,7 @@ namespace LANdrop.Networking
             Debug.Unindent( );
 
             // Send the file information.
-            NetworkOutStream.Write( (Int32) Protocol.ProtocolVersion );
+            NetworkOutStream.Write( (Int32) Protocol.Version );
             NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.FileTransfer );
             NetworkOutStream.Write( File.Name );
             NetworkOutStream.Write( File.Length );

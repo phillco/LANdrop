@@ -115,7 +115,7 @@ namespace LANdrop.Networking
             BinaryWriter message = new BinaryWriter( new MemoryStream( ) );
 
             // Send our name, protocol versions and IP.
-            message.Write( (Int32) Protocol.ProtocolVersion );
+            message.Write( (Int32) Protocol.Version );
             message.Write( Environment.UserName );
             message.Write( Dns.GetHostName( ) );
             message.Write( Util.GetLocalAddress( ).ToString( ) );
@@ -152,7 +152,7 @@ namespace LANdrop.Networking
 
                 BinaryReader message = new BinaryReader( new MemoryStream( bytes ) );
 
-                if ( message.ReadInt32( ) == Protocol.ProtocolVersion ) // Can only peer with the same version of LANdrop.
+                if ( message.ReadInt32( ) == Protocol.Version ) // Can only peer with the same version of LANdrop.
                 {
                     // Parse in the peer, and add it to the list (or update an existing one).
                     ProcessPeer( new Peer
