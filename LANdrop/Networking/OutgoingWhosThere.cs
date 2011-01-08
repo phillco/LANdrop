@@ -38,10 +38,16 @@ namespace LANdrop.Networking
             using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
             using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
             {
+                // Send protocol information.
                 NetworkOutStream.Write( (Int32) Protocol.Version );
                 NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
                 NetworkOutStream.Flush( );
 
+                // First send our information...
+                NetworkOutStream.Write( Environment.UserName );
+                NetworkOutStream.Write( Dns.GetHostName( ) );
+
+                // ...and then read in theirs.
                 Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString();
                 Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
             }

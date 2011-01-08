@@ -174,7 +174,7 @@ namespace LANdrop.Networking
         /// <summary>
         /// Adds the peer to the list if it is new (or updates the existing one).
         /// </summary>
-        private static void ProcessPeer( Peer newPeer, bool connected )
+        public static void ProcessPeer( Peer newPeer, bool connected )
         {
             // If this peer is saying goodbye, simply remove it.
             if ( !connected )
@@ -188,6 +188,7 @@ namespace LANdrop.Networking
             {
                 if ( p.Equals( newPeer ) )
                 {
+                    p.Name = newPeer.Name;
                     p.LastSeen = DateTime.Now;
                     p.LastLookedUp = DateTime.Now;
                     return;

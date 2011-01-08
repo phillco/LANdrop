@@ -84,6 +84,16 @@ namespace LANdrop.Networking
                         MainForm.ShowFormOnUIThread( form );
                         break; ;
                     case Protocol.IncomingCommunicationTypes.WhosThere:
+
+                        // Add in their information.
+                        Peer peerToAdd = new Peer
+                        {
+                            Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString( ),
+                            Address = (IPEndPoint) client.Client.RemoteEndPoint
+                        };
+                        Console.WriteLine( "Received peer " + peerToAdd + " via Peer Exchange." );
+                        MulticastManager.ProcessPeer( peerToAdd, true );
+
                         NetworkOutStream.Write( Environment.UserName );
                         NetworkOutStream.Write( Dns.GetHostName( ) );
                         break;
