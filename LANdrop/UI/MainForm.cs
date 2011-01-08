@@ -48,7 +48,7 @@ namespace LANdrop.UI
         }
 
         private void UpdateState( )
-        {            
+        {
             UpdatePeerList( );
             sendClipboardToolStripMenuItem.Enabled = ( Clipboard.ContainsText( ) );
         }
@@ -56,7 +56,7 @@ namespace LANdrop.UI
         public void UpdatePeerList( )
         {
             // Only do this once the multicast manager has been set up.
-            if ( MulticastManager.GetAllUsers() == null )
+            if ( MulticastManager.GetAllUsers( ) == null )
                 return;
 
             // If this method was called by a different thread, invoke it to run on the form thread.
@@ -76,7 +76,7 @@ namespace LANdrop.UI
 
             // Recreate the listview from the peer list.
             receipientList.Items.Clear( );
-            foreach ( Peer p in MulticastManager.GetAllUsers() )
+            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
             {
                 receipientList.Items.Add( new ListViewItem
                 {
@@ -187,7 +187,7 @@ namespace LANdrop.UI
 
         private void btnSendFile_Click( object sender, EventArgs e )
         {
-            new AddUserForm( ).ShowDialog();
+            new AddUserForm( ).ShowDialog( );
             UpdateState( );
 
             /*new OutgoingTransfer( new FileInfo( "Seal.mp3" ), new Peer
@@ -207,7 +207,7 @@ namespace LANdrop.UI
         private void sendTextToolStripMenuItem_Click( object sender, EventArgs e )
         {
             if ( receipientList.SelectedItems.Count > 0 )
-                new SendTextSnippetForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog();
+                new SendTextSnippetForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog( );
         }
 
         private void exitToolStripMenuItem_Click( object sender, EventArgs e )
@@ -218,6 +218,23 @@ namespace LANdrop.UI
         private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
         {
             new AboutForm( ).ShowDialog( );
+        }
+
+        private void recipientContextMenu_Opening( object sender, CancelEventArgs e )
+        {
+            // Update the "send clipboard" menu item to include a preview of what's in it.
+            if ( Clipboard.ContainsText( ) )
+            {
+                int previewCharacters = 25;
+                string clipboardText = Clipboard.GetText( ).Trim();
+
+                if ( clipboardText.Length > previewCharacters + 3 )
+                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
+                else
+                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
+            }
+            else
+                sendClipboardToolStripMenuItem.Text = "Send clipboard";
         }
     }
 }
