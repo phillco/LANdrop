@@ -181,6 +181,9 @@ namespace LANdrop.Networking
         /// </summary>
         public static void ProcessPeer( Peer newPeer, bool connected )
         {
+            if ( newPeer.Address.Address.Equals(Util.GetLocalAddress()) )
+                return;
+
             // If this peer is saying goodbye, simply remove it.
             if ( !connected )
             {
