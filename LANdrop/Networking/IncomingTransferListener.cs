@@ -90,7 +90,7 @@ namespace LANdrop.Networking
                         Peer existingPeer = MulticastManager.GetPeerForAddress( address );
 
                         // Send our basic information.
-                        Trace.WriteLine( String.Format( "Replying to a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
+                        Trace.WriteLine( String.Format( "\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
                         NetworkOutStream.Write( Environment.UserName );
                         NetworkOutStream.Write( Dns.GetHostName( ) );
 
@@ -100,13 +100,19 @@ namespace LANdrop.Networking
                             NetworkOutStream.Write( true ); // Yes, we're sending the list (TODO: we might want to prevent flooding)
 
                             // Only send fresh, active peers.
-                            List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
+                            List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.Address.Equals(address)
+                                && !p.Address.Equals( new IPEndPoint( Util.GetLocalAddress( ), Protocol.TransferPortNumber ))
+                                && DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
                             NetworkOutStream.Write( (Int32) peersToSend.Count );
                             foreach ( Peer p in peersToSend )
                                 p.ToStream( NetworkOutStream );
 
                             Trace.WriteLine( "Sent " + peersToSend.Count + " peers as part of the peer exchange." );
                         }
+
+                        Trace.WriteLine( "Peers:" );
+                        foreach ( Peer p in MulticastManager.GetAllUsers( ) )
+                            Trace.WriteLine( "\t" + p );
 
                         // If this is a brand new peer to us, immediately look them up, too.
                         if ( existingPeer == null )
