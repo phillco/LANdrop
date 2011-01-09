@@ -8,11 +8,17 @@ using System.Net.Sockets;
 using System.Net;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace LANdrop
 {
     class Util
     {
+        /// <summary>
+        /// Matches a valid IP address, by smink. (http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address/106223#106223)
+        /// </summary>
+        private static string ValidIpAddressRegex = @"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$";
+
         /// <summary>
         /// Corrects the given control (or form) to use the proper, OS-specific font (Segoe UI on Vista+, Tahoma on XP-).
         /// This relies on the fact that MessageBoxFont is always up-to-date, but DefaultFont isn't. (Microsoft...) 
@@ -193,6 +199,15 @@ namespace LANdrop
                         return false;
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns whether the given text is a valid IPv4 address.
+        /// TODO: hostnames? IPv6?
+        /// </summary>
+        public static bool IsValidAddress( string entry )
+        {
+            return ( new Regex( ValidIpAddressRegex ).IsMatch( entry ) );
         }
     }
 }
