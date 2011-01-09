@@ -147,6 +147,52 @@ namespace LANdrop
                 builder.Append( hash[i].ToString( "X2" ) );
 
             return builder.ToString( );
-        }     
+        }
+
+        /// <summary>
+        /// Safely retrieves the clipboard's contents. Returns null if unsuccessful (or the clipboard doesn't contain text).
+        /// </summary>
+        /// <param name="offerToRetry">If true, the user is prompted to retry if another application is using the clipboard.</param>
+        public static string GetClipboardTextSafely( bool offerToRetry )
+        {
+            while ( true )
+            {
+                try
+                {
+                    if ( !Clipboard.ContainsText( ) )
+                        return null;
+
+                    return Clipboard.GetText( );
+                }
+                catch ( System.Runtime.InteropServices.ExternalException )
+                {
+                    // If we don't want to bother asking the user, or they decline, just return null.
+                    if ( !offerToRetry || MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
+                        return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Safely sets the clipboard's contents. Returns whether successful.
+        /// </summary>
+        /// <param name="offerToRetry">If true, the user is prompted to retry if another application is using the clipboard.</param>
+        public static bool SetClipboardTextSafely( string newText, bool offerToRetry )
+        {
+            while ( true )
+            {
+                try
+                {
+                    Clipboard.SetText( newText );
+                    return true;
+                }
+                catch ( System.Runtime.InteropServices.ExternalException )
+                {
+                    // If we don't want to bother asking the user, or they decline, just return null.
+                    if ( !offerToRetry || MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
+                        return false;
+                }
+            }
+        }
     }
 }

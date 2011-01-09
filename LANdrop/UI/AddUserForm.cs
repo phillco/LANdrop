@@ -26,19 +26,7 @@ namespace LANdrop.UI
 
         private void btnCopy_Click( object sender, EventArgs e )
         {
-            while ( true )
-            {
-                try
-                {
-                    Clipboard.SetText( lblYourIP.Text );
-                    return;
-                }
-                catch ( System.Runtime.InteropServices.ExternalException )
-                {
-                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
-                        return;
-                }
-            }
+            Util.SetClipboardTextSafely( lblYourIP.Text, true );          
         }
 
         private void btnAdd_Click( object sender, EventArgs e )

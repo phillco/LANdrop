@@ -51,11 +51,7 @@ namespace LANdrop.UI
         {
             UpdatePeerList( );
 
-            try
-            {
-                sendClipboardToolStripMenuItem.Enabled = ( Clipboard.ContainsText( ) );
-            }
-            catch ( System.Runtime.InteropServices.ExternalException ) { }
+            sendClipboardToolStripMenuItem.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
         }
 
         public void UpdatePeerList( )
@@ -186,12 +182,8 @@ namespace LANdrop.UI
 
         private void copyIPAddressToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            try
-            {
-                if ( receipientList.SelectedItems.Count > 0 )
-                    Clipboard.SetText( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ) );
-            }
-            catch ( System.Runtime.InteropServices.ExternalException ) { }
+            if ( receipientList.SelectedItems.Count > 0 )
+                Util.SetClipboardTextSafely( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ), true );
         }
 
         private void btnSendFile_Click( object sender, EventArgs e )
@@ -208,20 +200,11 @@ namespace LANdrop.UI
 
         private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            while ( true )
+            if ( receipientList.SelectedItems.Count > 0 )
             {
-                try
-                {
-                    if ( receipientList.SelectedItems.Count > 0 )
-                        new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
-
-                    return;
-                }
-                catch ( System.Runtime.InteropServices.ExternalException )
-                {
-                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
-                        return;
-                }
+                string clipboard = Util.GetClipboardTextSafely( true );
+                if ( clipboard != null )
+                    new OutgoingTextSnippet( clipboard, (Peer) receipientList.SelectedItems[0].Tag );
             }
         }
 
@@ -244,25 +227,20 @@ namespace LANdrop.UI
         private void recipientContextMenu_Opening( object sender, CancelEventArgs e )
         {
             // Update the "send clipboard" menu item to include a preview of what's in it.
-            try
-            {
-                if ( Clipboard.ContainsText( ) )
-                {
-                    int previewCharacters = 25;
-                    string clipboardText = Clipboard.GetText( ).Trim( );
+            string clipboardText = Util.GetClipboardTextSafely( false );
 
-                    if ( clipboardText.Length > previewCharacters + 3 )
-                        sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
-                    else
-                        sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
-                }
-                else
-                    sendClipboardToolStripMenuItem.Text = "Send clipboard";
-            }
-            catch ( System.Runtime.InteropServices.ExternalException )
-            {
+            if ( clipboardText == null )
                 sendClipboardToolStripMenuItem.Text = "Send clipboard";
-            }
+            else
+            {
+                int previewCharacters = 25;
+                clipboardText = clipboardText.Trim( );
+
+                if ( clipboardText.Length > previewCharacters + 3 )
+                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
+                else
+                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
+            } 
         }
     }
 }

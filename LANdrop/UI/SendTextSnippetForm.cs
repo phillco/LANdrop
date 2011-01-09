@@ -14,11 +14,11 @@ namespace LANdrop.UI
     {
         private Peer recipient;
 
-        public SendTextSnippetForm( Peer recipient  )
-        {            
+        public SendTextSnippetForm( Peer recipient )
+        {
             InitializeComponent( );
             Util.UseProperSystemFont( this );
-            
+
             this.recipient = recipient;
             this.Text = "Send text snippet to " + recipient.Name;
             UpdateState( );
@@ -26,34 +26,21 @@ namespace LANdrop.UI
 
         private void UpdateState( )
         {
-            try
-            {
-                btnPaste.Enabled = ( Clipboard.ContainsText( ) );
-            }
-            catch ( System.Runtime.InteropServices.ExternalException ) { }
+            btnPaste.Enabled = ( Util.GetClipboardTextSafely( false ) != null );            
             btnSend.Enabled = ( tbSnippet.Text.Length > 0 );
         }
 
         private void btnPaste_Click( object sender, EventArgs e )
-        {          
-            while ( true )
+        {
+            string clipboard = Util.GetClipboardTextSafely( true );
+
+            if ( clipboard != null )
             {
-                try
-                {
-                    string clipboard = Clipboard.GetText( );
+                // If there's already text, start a new line.
+                if ( tbSnippet.Text.Length > 0 )
+                    tbSnippet.Text += Environment.NewLine;
 
-                    // If there's already text, start a new line.
-                    if ( tbSnippet.Text.Length > 0 )
-                        tbSnippet.Text += Environment.NewLine;
-
-                    tbSnippet.Text += clipboard;
-                    return;
-                }
-                catch ( System.Runtime.InteropServices.ExternalException )
-                {
-                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
-                        return;
-                }
+                tbSnippet.Text += clipboard;
             }
         }
 
