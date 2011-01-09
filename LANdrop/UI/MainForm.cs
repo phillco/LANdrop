@@ -234,13 +234,13 @@ namespace LANdrop.UI
             else
             {
                 int previewCharacters = 25;
-                clipboardText = clipboardText.Trim( );
+                clipboardText = clipboardText.Replace( Environment.NewLine, "" ).Trim( );
 
                 if ( clipboardText.Length > previewCharacters + 3 )
                     sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
                 else
                     sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
-            } 
+            }
         }
     }
 }
