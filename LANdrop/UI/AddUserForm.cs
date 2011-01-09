@@ -14,27 +14,21 @@ namespace LANdrop.UI
         public AddUserForm( )
         {
             InitializeComponent( );
-            lblYourIP.Text = Util.GetLocalAddress( ).ToString( );
-            lblYourIP.Left = btnCopy.Left - lblYourIP.Width - 5;
             UpdateState( );
         }
 
         private void UpdateState( )
         {
             btnAdd.Enabled = ( tbTheirIP.Text.Length > 0 );
+            btnPaste.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
         }
-
-        private void btnCopy_Click( object sender, EventArgs e )
-        {
-            Util.SetClipboardTextSafely( lblYourIP.Text, true );          
-        }
-
+    
         private void btnAdd_Click( object sender, EventArgs e )
         {
             string ip = tbTheirIP.Text.Trim( );
 
             // Don't let the user add themself.
-            if ( ip == lblYourIP.Text || ip == "127.0.0.1" )
+            if ( ip == Util.GetLocalAddress().ToString() || ip == "127.0.0.1" )
             {
                 MessageBox.Show( "You cannot add yourself!", "Add user", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 tbTheirIP.Text = "";
@@ -47,6 +41,27 @@ namespace LANdrop.UI
 
         private void tbTheirIP_TextChanged( object sender, EventArgs e )
         {
+            UpdateState( );
+        }
+
+        private void lblCopyYourIP_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            string ip = Util.GetLocalAddress( ).ToString( );
+            if ( Util.SetClipboardTextSafely( ip, true ) )
+            {
+                string message = String.Format( "Your IP is: {0}\n\nThis has been copied to your clipboard.\nSend it to your friend so that he can add you.", ip );
+                MessageBox.Show( message, "IP Copied", MessageBoxButtons.OK, MessageBoxIcon.Information ); 
+            }
+        }
+
+        private void btnPaste_Click( object sender, EventArgs e )
+        {
+            tbTheirIP.Text = Util.GetClipboardTextSafely( true );
+        }
+
+        private void updateStateTimer_Tick( object sender, EventArgs e )
+        {
+            // Need to refresh every so often to update the state of the "Paste" button.
             UpdateState( );
         }
     }

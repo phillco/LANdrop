@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( AddUserForm ) );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.label1 = new System.Windows.Forms.Label( );
@@ -35,13 +36,12 @@
             this.tbTheirIP = new System.Windows.Forms.TextBox( );
             this.label3 = new System.Windows.Forms.Label( );
             this.btnAdd = new System.Windows.Forms.Button( );
-            this.lblYourIP = new System.Windows.Forms.Label( );
-            this.btnCopy = new System.Windows.Forms.Button( );
-            this.groupBox1 = new System.Windows.Forms.GroupBox( );
             this.panel1 = new System.Windows.Forms.Panel( );
             this.label4 = new System.Windows.Forms.Label( );
+            this.btnPaste = new System.Windows.Forms.Button( );
+            this.lblCopyYourIP = new System.Windows.Forms.LinkLabel( );
+            this.updateStateTimer = new System.Windows.Forms.Timer( this.components );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
-            this.groupBox1.SuspendLayout( );
             this.panel1.SuspendLayout( );
             this.SuspendLayout( );
             // 
@@ -77,7 +77,7 @@
             // 
             // tbTheirIP
             // 
-            this.tbTheirIP.Location = new System.Drawing.Point( 139, 76 );
+            this.tbTheirIP.Location = new System.Drawing.Point( 173, 82 );
             this.tbTheirIP.Name = "tbTheirIP";
             this.tbTheirIP.Size = new System.Drawing.Size( 100, 21 );
             this.tbTheirIP.TabIndex = 3;
@@ -86,7 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point( 42, 79 );
+            this.label3.Location = new System.Drawing.Point( 76, 85 );
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size( 89, 13 );
             this.label3.TabIndex = 4;
@@ -94,47 +94,14 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point( 245, 74 );
+            this.btnAdd.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.btnAdd.Location = new System.Drawing.Point( 279, 135 );
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size( 55, 23 );
+            this.btnAdd.Size = new System.Drawing.Size( 84, 25 );
             this.btnAdd.TabIndex = 5;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "Add user";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler( this.btnAdd_Click );
-            // 
-            // lblYourIP
-            // 
-            this.lblYourIP.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblYourIP.AutoSize = true;
-            this.lblYourIP.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.lblYourIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblYourIP.Font = new System.Drawing.Font( "Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.lblYourIP.Location = new System.Drawing.Point( 27, 32 );
-            this.lblYourIP.Name = "lblYourIP";
-            this.lblYourIP.Size = new System.Drawing.Size( 130, 18 );
-            this.lblYourIP.TabIndex = 7;
-            this.lblYourIP.Text = "127.123.456.789";
-            // 
-            // btnCopy
-            // 
-            this.btnCopy.Location = new System.Drawing.Point( 163, 30 );
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size( 55, 23 );
-            this.btnCopy.TabIndex = 8;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler( this.btnCopy_Click );
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add( this.lblYourIP );
-            this.groupBox1.Controls.Add( this.btnCopy );
-            this.groupBox1.Location = new System.Drawing.Point( 68, 124 );
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size( 240, 76 );
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Your IP address (for reference)";
             // 
             // panel1
             // 
@@ -157,14 +124,43 @@
             this.label4.Size = new System.Drawing.Size( 500, 2 );
             this.label4.TabIndex = 11;
             // 
+            // btnPaste
+            // 
+            this.btnPaste.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.btnPaste.Location = new System.Drawing.Point( 199, 135 );
+            this.btnPaste.Name = "btnPaste";
+            this.btnPaste.Size = new System.Drawing.Size( 74, 25 );
+            this.btnPaste.TabIndex = 11;
+            this.btnPaste.Text = "Paste";
+            this.btnPaste.UseVisualStyleBackColor = true;
+            this.btnPaste.Click += new System.EventHandler( this.btnPaste_Click );
+            // 
+            // lblCopyYourIP
+            // 
+            this.lblCopyYourIP.AutoSize = true;
+            this.lblCopyYourIP.Location = new System.Drawing.Point( 12, 141 );
+            this.lblCopyYourIP.Name = "lblCopyYourIP";
+            this.lblCopyYourIP.Size = new System.Drawing.Size( 82, 13 );
+            this.lblCopyYourIP.TabIndex = 12;
+            this.lblCopyYourIP.TabStop = true;
+            this.lblCopyYourIP.Text = "Copy your IP...";
+            this.lblCopyYourIP.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.lblCopyYourIP_LinkClicked );
+            // 
+            // updateStateTimer
+            // 
+            this.updateStateTimer.Enabled = true;
+            this.updateStateTimer.Interval = 500;
+            this.updateStateTimer.Tick += new System.EventHandler( this.updateStateTimer_Tick );
+            // 
             // AddUserForm
             // 
             this.AcceptButton = this.btnAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 375, 230 );
+            this.ClientSize = new System.Drawing.Size( 375, 173 );
+            this.Controls.Add( this.lblCopyYourIP );
+            this.Controls.Add( this.btnPaste );
             this.Controls.Add( this.panel1 );
-            this.Controls.Add( this.groupBox1 );
             this.Controls.Add( this.btnAdd );
             this.Controls.Add( this.label3 );
             this.Controls.Add( this.tbTheirIP );
@@ -175,8 +171,6 @@
             this.Name = "AddUserForm";
             this.Text = "Add user...";
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
-            this.groupBox1.ResumeLayout( false );
-            this.groupBox1.PerformLayout( );
             this.panel1.ResumeLayout( false );
             this.panel1.PerformLayout( );
             this.ResumeLayout( false );
@@ -192,10 +186,10 @@
         private System.Windows.Forms.TextBox tbTheirIP;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label lblYourIP;
-        private System.Windows.Forms.Button btnCopy;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnPaste;
+        private System.Windows.Forms.LinkLabel lblCopyYourIP;
+        private System.Windows.Forms.Timer updateStateTimer;
     }
 }
