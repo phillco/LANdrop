@@ -173,7 +173,7 @@ namespace LANdrop.Networking
 
         public static Peer GetPeerForAddress( IPEndPoint address )
         {
-            return peers.Find( p => p.Address == address );
+            return peers.Find( p => p.Address.Equals(address ));
         }
 
         /// <summary>
