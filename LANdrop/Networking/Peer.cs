@@ -13,7 +13,7 @@ namespace LANdrop.Networking
     {
         public string Name { get; set; }
 
-        public IPEndPoint Address { get; set; }
+        public IPEndPoint EndPoint { get; set; }
 
         public DateTime LastSeen { get; set; }
 
@@ -30,7 +30,7 @@ namespace LANdrop.Networking
 
         public override String ToString( )
         {
-            return Name + " (" + Address + ")";
+            return Name + " (" + EndPoint + ")";
         }
 
         public override bool Equals( object other )
@@ -38,7 +38,7 @@ namespace LANdrop.Networking
             if ( other.GetType( ) != typeof( Peer ) )
                 return false;
 
-            return Address.Equals( ( (Peer) other ).Address );
+            return EndPoint.Equals( ( (Peer) other ).EndPoint );
         }
 
         public bool ShouldDoPeerExchange( )
@@ -54,14 +54,14 @@ namespace LANdrop.Networking
         public void ToStream( BinaryWriter output )
         {
             output.Write( Name );
-            output.Write( Address.Address.ToString() );
-            output.Write( (Int32) Address.Port );
+            output.Write( EndPoint.Address.ToString() );
+            output.Write( (Int32) EndPoint.Port );
         }
 
         public Peer( BinaryReader input )
         {
             Name = input.ReadString( );
-            Address = new IPEndPoint( IPAddress.Parse( input.ReadString( ) ), input.ReadInt32( ) );
+            EndPoint = new IPEndPoint( IPAddress.Parse( input.ReadString( ) ), input.ReadInt32( ) );
         }
     }
 }

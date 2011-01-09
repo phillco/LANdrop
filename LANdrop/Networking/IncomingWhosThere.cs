@@ -39,8 +39,8 @@ namespace LANdrop.Networking
                 NetworkOutStream.Write(true); // Yes, we're sending the list (TODO: we might want to prevent flooding)
 
                 // Only send fresh, active peers.
-                List<Peer> peersToSend = MulticastManager.GetAllUsers().FindAll(p => !p.Address.Equals(address)
-                    && !p.Address.Equals(new IPEndPoint(Util.GetLocalAddress(), Protocol.TransferPortNumber))
+                List<Peer> peersToSend = MulticastManager.GetAllUsers().FindAll(p => !p.EndPoint.Equals(address)
+                    && !p.EndPoint.Equals(new IPEndPoint(Util.GetLocalAddress(), Protocol.TransferPortNumber))
                     && DateTime.Now.Subtract(p.LastSeen).Seconds < 60);
                 NetworkOutStream.Write((Int32)peersToSend.Count);
                 foreach (Peer p in peersToSend)
@@ -57,7 +57,7 @@ namespace LANdrop.Networking
             if (existingPeer == null)
             {
                 Trace.WriteLine("User is unknown, so we'll look them up too.");
-                new OutgoingWhosThere(new Peer { Address = address });
+                new OutgoingWhosThere(new Peer { EndPoint = address });
             }
         }
     }

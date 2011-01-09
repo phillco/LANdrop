@@ -39,7 +39,7 @@ namespace LANdrop.Networking
 
             try
             {
-                TcpClient.Connect( Recipient.Address );
+                TcpClient.Connect( Recipient.EndPoint );
             }
             catch ( SocketException )
             {
