@@ -99,7 +99,7 @@ namespace LANdrop.Networking
                 RemoveOldPeers( );
 
                 // Look up peers we haven't looked up in a while.
-                List<Peer> peersToLookUp = peers.FindAll( p => DateTime.Now.Subtract( p.LastLookedUp ).Seconds > 30 );
+                List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp() );
                 foreach ( Peer p in peersToLookUp )
                     new OutgoingWhosThere( p );
 
@@ -173,7 +173,7 @@ namespace LANdrop.Networking
 
         public static Peer GetPeerForAddress( IPEndPoint address )
         {
-            return peers.Find( p => p.Address.Equals(address ));
+            return peers.Find( p => p.Address.Equals( address ) );
         }
 
         /// <summary>

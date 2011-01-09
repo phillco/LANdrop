@@ -41,7 +41,7 @@ namespace LANdrop.Networking
                     NetworkOutStream.Flush( );
 
                     // Is it time to do a peer exchange?
-                    bool doPeerExchange = ( DateTime.Now.Subtract( Peer.LastExchangedPeers ).TotalMinutes > 2.0 );
+                    bool doPeerExchange = Peer.ShouldDoPeerExchange();
                     NetworkOutStream.Write( doPeerExchange );
                     Trace.WriteLine( String.Format( "Sending a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
 

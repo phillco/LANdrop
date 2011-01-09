@@ -41,6 +41,16 @@ namespace LANdrop.Networking
             return Address.Equals( ( (Peer) other ).Address );
         }
 
+        public bool ShouldDoPeerExchange( )
+        {
+            return ( DateTime.Now.Subtract( LastExchangedPeers ).TotalMinutes > 2.0 );
+        }
+
+        public bool ShouldLookUp( )
+        {
+            return ( ShouldDoPeerExchange( ) || DateTime.Now.Subtract( LastLookedUp ).Seconds > 30 );
+        }
+
         public void ToStream( BinaryWriter output )
         {
             output.Write( Name );
