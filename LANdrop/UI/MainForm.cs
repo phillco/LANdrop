@@ -50,7 +50,12 @@ namespace LANdrop.UI
         private void UpdateState( )
         {
             UpdatePeerList( );
-            sendClipboardToolStripMenuItem.Enabled = ( Clipboard.ContainsText( ) );
+
+            try
+            {
+                sendClipboardToolStripMenuItem.Enabled = ( Clipboard.ContainsText( ) );
+            }
+            catch ( System.Runtime.InteropServices.ExternalException ) { }
         }
 
         public void UpdatePeerList( )
@@ -181,8 +186,12 @@ namespace LANdrop.UI
 
         private void copyIPAddressToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            if ( receipientList.SelectedItems.Count > 0 )
-                Clipboard.SetText( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ) );
+            try
+            {
+                if ( receipientList.SelectedItems.Count > 0 )
+                    Clipboard.SetText( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ) );
+            }
+            catch ( System.Runtime.InteropServices.ExternalException ) { }
         }
 
         private void btnSendFile_Click( object sender, EventArgs e )
@@ -199,9 +208,21 @@ namespace LANdrop.UI
 
         private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            // TODO: Add error support...
-            if ( receipientList.SelectedItems.Count > 0 )
-                new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
+            while ( true )
+            {
+                try
+                {
+                    if ( receipientList.SelectedItems.Count > 0 )
+                        new OutgoingTextSnippet( Clipboard.GetText( ), (Peer) receipientList.SelectedItems[0].Tag );
+
+                    return;
+                }
+                catch ( System.Runtime.InteropServices.ExternalException )
+                {
+                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
+                        return;
+                }
+            }
         }
 
         private void sendTextToolStripMenuItem_Click( object sender, EventArgs e )
@@ -223,18 +244,25 @@ namespace LANdrop.UI
         private void recipientContextMenu_Opening( object sender, CancelEventArgs e )
         {
             // Update the "send clipboard" menu item to include a preview of what's in it.
-            if ( Clipboard.ContainsText( ) )
+            try
             {
-                int previewCharacters = 25;
-                string clipboardText = Clipboard.GetText( ).Trim();
+                if ( Clipboard.ContainsText( ) )
+                {
+                    int previewCharacters = 25;
+                    string clipboardText = Clipboard.GetText( ).Trim( );
 
-                if ( clipboardText.Length > previewCharacters + 3 )
-                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
+                    if ( clipboardText.Length > previewCharacters + 3 )
+                        sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
+                    else
+                        sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
+                }
                 else
-                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
+                    sendClipboardToolStripMenuItem.Text = "Send clipboard";
             }
-            else
+            catch ( System.Runtime.InteropServices.ExternalException )
+            {
                 sendClipboardToolStripMenuItem.Text = "Send clipboard";
+            }
         }
     }
 }

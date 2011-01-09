@@ -26,17 +26,35 @@ namespace LANdrop.UI
 
         private void UpdateState( )
         {
-            btnPaste.Enabled = ( Clipboard.ContainsText( ) );
+            try
+            {
+                btnPaste.Enabled = ( Clipboard.ContainsText( ) );
+            }
+            catch ( System.Runtime.InteropServices.ExternalException ) { }
             btnSend.Enabled = ( tbSnippet.Text.Length > 0 );
         }
 
         private void btnPaste_Click( object sender, EventArgs e )
-        {
-            if ( tbSnippet.Text.Length > 0 )
-                tbSnippet.Text += Environment.NewLine;
+        {          
+            while ( true )
+            {
+                try
+                {
+                    string clipboard = Clipboard.GetText( );
 
-            // TODO: Add error support...
-            tbSnippet.Text += Clipboard.GetText( );
+                    // If there's already text, start a new line.
+                    if ( tbSnippet.Text.Length > 0 )
+                        tbSnippet.Text += Environment.NewLine;
+
+                    tbSnippet.Text += clipboard;
+                    return;
+                }
+                catch ( System.Runtime.InteropServices.ExternalException )
+                {
+                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
+                        return;
+                }
+            }
         }
 
         private void btnSend_Click( object sender, EventArgs e )

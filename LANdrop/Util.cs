@@ -147,6 +147,6 @@ namespace LANdrop
                 builder.Append( hash[i].ToString( "X2" ) );
 
             return builder.ToString( );
-        }
+        }     
     }
 }

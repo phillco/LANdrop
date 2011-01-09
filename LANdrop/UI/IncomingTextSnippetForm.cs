@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LANdrop.UI
 {
@@ -27,8 +28,20 @@ namespace LANdrop.UI
 
         private void btnCopy_Click( object sender, EventArgs e )
         {
-            Clipboard.SetText( tbSnippet.Text );
-            Close( );
+            while ( true )
+            {
+                try
+                {
+                    Clipboard.SetText( tbSnippet.Text );
+                    Close( );
+                    return;
+                }
+                catch ( System.Runtime.InteropServices.ExternalException )
+                {
+                    if ( MessageBox.Show( "Another program is using the clipboard. Would you like to try again?", "Clipboard Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning ) != DialogResult.Yes )
+                        return;
+                }
+            }
         }
 
         private void btnDiscard_Click( object sender, EventArgs e )
