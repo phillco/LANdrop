@@ -8,56 +8,57 @@ using System.Net;
 
 namespace LANdrop.Networking
 {
-    class IncomingWhosThere {
+    class IncomingWhosThere
+    {
         private TcpClient client;
         private BinaryReader NetworkInStream;
         private BinaryWriter NetworkOutStream;
 
-        public IncomingWhosThere(TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream)
+        public IncomingWhosThere( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
             this.client = client;
             this.NetworkInStream = netInStream;
             this.NetworkOutStream = netOutStream;
 
-            this.Respond();
+            this.Respond( );
         }
 
-        public void Respond()
+        public void Respond( )
         {
-            int port = NetworkInStream.ReadInt32();
-            IPEndPoint address = new IPEndPoint(((IPEndPoint)client.Client.RemoteEndPoint).Address, Protocol.TransferPortNumber);
-            Peer existingPeer = MulticastManager.GetPeerForAddress(address);
+            int port = NetworkInStream.ReadInt32( );
+            IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, Protocol.TransferPortNumber );
+            Peer existingPeer = MulticastManager.GetPeerForAddress( address );
 
             // Send our basic information.
-            Trace.WriteLine(String.Format("\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString()));
-            NetworkOutStream.Write(Environment.UserName);
-            NetworkOutStream.Write(Dns.GetHostName());
+            Trace.WriteLine( String.Format( "\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
+            NetworkOutStream.Write( Environment.UserName );
+            NetworkOutStream.Write( Dns.GetHostName( ) );
 
             // ...and our peer list, if they want it.
-            if (NetworkInStream.ReadBoolean())
+            if ( NetworkInStream.ReadBoolean( ) )
             {
-                NetworkOutStream.Write(true); // Yes, we're sending the list (TODO: we might want to prevent flooding)
+                NetworkOutStream.Write( true ); // Yes, we're sending the list (TODO: we might want to prevent flooding)
 
                 // Only send fresh, active peers.
-                List<Peer> peersToSend = MulticastManager.GetAllUsers().FindAll(p => !p.EndPoint.Equals(address)
-                    && !p.EndPoint.Equals(new IPEndPoint(Util.GetLocalAddress(), Protocol.TransferPortNumber))
-                    && DateTime.Now.Subtract(p.LastSeen).Seconds < 60);
-                NetworkOutStream.Write((Int32)peersToSend.Count);
-                foreach (Peer p in peersToSend)
-                    p.ToStream(NetworkOutStream);
+                List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.EndPoint.Equals( address )
+                    && !p.EndPoint.Equals( new IPEndPoint( Util.GetLocalAddress( ), Protocol.TransferPortNumber ) )
+                    && DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
+                NetworkOutStream.Write( (Int32) peersToSend.Count );
+                foreach ( Peer p in peersToSend )
+                    p.ToStream( NetworkOutStream );
 
-                Trace.WriteLine("Sent " + peersToSend.Count + " peers as part of the peer exchange.");
+                Trace.WriteLine( "Sent " + peersToSend.Count + " peers as part of the peer exchange." );
             }
 
-            Trace.WriteLine("Peers:");
-            foreach (Peer p in MulticastManager.GetAllUsers())
-                Trace.WriteLine("\t" + p);
+            Trace.WriteLine( "Peers:" );
+            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
+                Trace.WriteLine( "\t" + p );
 
             // If this is a brand new peer to us, immediately look them up, too.
-            if (existingPeer == null)
+            if ( existingPeer == null )
             {
-                Trace.WriteLine("User is unknown, so we'll look them up too.");
-                new OutgoingWhosThere(new Peer { EndPoint = address });
+                Trace.WriteLine( "User is unknown, so we'll look them up too." );
+                new OutgoingWhosThere( new Peer { EndPoint = address } );
             }
         }
     }
