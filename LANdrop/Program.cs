@@ -20,6 +20,8 @@ namespace LANdrop
             Application.EnableVisualStyles( );
             Application.SetCompatibleTextRenderingDefault( false );
 
+            Configuration.Initialize( );
+
             // Start the log.                        
             Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
             Trace.AutoFlush = true;

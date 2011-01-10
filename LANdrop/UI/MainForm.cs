@@ -242,5 +242,10 @@ namespace LANdrop.UI
                     sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
             }
         }
+
+        private void optionsToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new SettingsForm( ).ShowDialog( );
+        }
     }
 }
