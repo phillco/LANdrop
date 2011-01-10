@@ -140,7 +140,7 @@ namespace LANdrop
         /// </summary>
         public static IPAddress GetLocalAddress( )
         {
-            return Dns.GetHostByName( Dns.GetHostName( ) ).AddressList[0];
+            return Dns.GetHostEntry( Dns.GetHostName( ) ).AddressList[0];
         }
 
         /// <summary>
