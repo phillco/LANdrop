@@ -55,7 +55,7 @@ namespace LANdrop.Networking
             Peer p = new Peer
             {
                 Name = "User at " + address,
-                EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.ServerPort )
+                EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.DefaultServerPort )
             };
 
             peers.Add( p );
@@ -159,7 +159,7 @@ namespace LANdrop.Networking
                     ProcessPeer( new Peer
                     {
                         Name = message.ReadString( ),
-                        EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.ServerPort ),
+                        EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.DefaultServerPort ),
                         LastSeen = DateTime.Now,
                         LastLookedUp = DateTime.Now
                     }, message.ReadBoolean( ) );
