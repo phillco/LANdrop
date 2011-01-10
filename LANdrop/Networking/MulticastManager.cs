@@ -98,7 +98,7 @@ namespace LANdrop.Networking
                 List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp() );
                 foreach ( Peer p in peersToLookUp )
                 {
-                    Trace.WriteLine( String.Format( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
+                    Trace.WriteLine( String.Format( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
                         p, DateTime.Now.Subtract( p.LastLookedUp ).Seconds, DateTime.Now.Subtract( p.LastExchangedPeers ).Seconds ) );
                     new OutgoingWhosThere( p );
                 }
