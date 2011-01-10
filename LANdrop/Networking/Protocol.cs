@@ -9,8 +9,6 @@ namespace LANdrop.Networking
     /// </summary>
     class Protocol
     {
-        public const int Version = 107;
-
         public enum IncomingCommunicationTypes
         {
             FileTransfer = 0,
@@ -18,9 +16,11 @@ namespace LANdrop.Networking
             WhosThere = 2
         }
 
-        public const int TransferPortNumber = 50900;
+        public const int Version = 107;
 
-        public const int MulticastPortNumber = 60900;
+        public const int ServerPort = 50900;
+
+        public const int MulticastPort = 60900;
 
         public const string MulticastGroupAddress = "239.76.65.78"; // Surprise inside.
       

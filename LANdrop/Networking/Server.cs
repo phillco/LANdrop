@@ -30,7 +30,7 @@ namespace LANdrop.Networking
         /// </summary>
         public static void ListenForClients( )
         {
-            for ( int port = Protocol.TransferPortNumber; port < Protocol.TransferPortNumber + 100; port++ )
+            for ( int port = Protocol.ServerPort; port < Protocol.ServerPort + 100; port++ )
             {
                 try
                 {

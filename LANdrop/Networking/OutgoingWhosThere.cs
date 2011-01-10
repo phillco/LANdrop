@@ -37,7 +37,7 @@ namespace LANdrop.Networking
                     // Send protocol information.
                     NetworkOutStream.Write( (Int32) Protocol.Version );
                     NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
-                    NetworkOutStream.Write( (Int32) Protocol.TransferPortNumber );
+                    NetworkOutStream.Write( (Int32) Protocol.ServerPort );
                     NetworkOutStream.Flush( );
 
                     // Is it time to do a peer exchange?

@@ -55,7 +55,7 @@ namespace LANdrop.Networking
             Peer p = new Peer
             {
                 Name = "User at " + address,
-                EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.TransferPortNumber )
+                EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.ServerPort )
             };
 
             peers.Add( p );
@@ -77,7 +77,7 @@ namespace LANdrop.Networking
         {
             // Connect to the multicast group.
             Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPortNumber + 50 );
+            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPort + 50 );
             if ( sendPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
@@ -88,7 +88,7 @@ namespace LANdrop.Networking
 
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
-            socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPortNumber ) );
+            socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPort ) );
 
             // Perpetually announce every second.
             while ( connected )
@@ -132,14 +132,14 @@ namespace LANdrop.Networking
         {
             // Connect to the multicast group (for listening).
             Socket listenSocket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp );
-            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPortNumber ); // Must get this one to receive the multicast messages.
+            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPort ); // Must get this one to receive the multicast messages.
             if ( listenPort == -1 )
             {
                 MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
-            else if ( listenPort != Protocol.MulticastPortNumber )
-                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPortNumber + " (instead, it got " + listenPort + ")." +
+            else if ( listenPort != Protocol.MulticastPort )
+                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPort + " (instead, it got " + listenPort + ")." +
                     "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
 
             Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
@@ -159,7 +159,7 @@ namespace LANdrop.Networking
                     ProcessPeer( new Peer
                     {
                         Name = message.ReadString( ),
-                        EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
+                        EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.ServerPort ),
                         LastSeen = DateTime.Now,
                         LastLookedUp = DateTime.Now
                     }, message.ReadBoolean( ) );
