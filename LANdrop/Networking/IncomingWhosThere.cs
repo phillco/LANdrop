@@ -42,21 +42,21 @@ namespace LANdrop.Networking
                 List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.EndPoint.Equals( address )
                     && !p.EndPoint.Equals( Server.LocalServerEndpoint )
                     && DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
+
+                Trace.WriteLine( "Sending " + peersToSend.Count + " peers as part of the peer exchange...." );
+
                 NetworkOutStream.Write( (Int32) peersToSend.Count );
                 foreach ( Peer p in peersToSend )
+                {
                     p.ToStream( NetworkOutStream );
-
-                Trace.WriteLine( "Sent " + peersToSend.Count + " peers as part of the peer exchange." );
+                    Trace.WriteLine( "\tSent " + p );
+                }
             }
-
-            Trace.WriteLine( "Peers:" );
-            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
-                Trace.WriteLine( "\t" + p );
 
             // If this is a brand new peer to us, immediately look them up, too.
             if ( existingPeer == null )
             {
-                Trace.WriteLine( "User is unknown, so we'll look them up too." );
+                Trace.WriteLine( "\nUser is unknown, so we'll look them up too." );
                 new OutgoingWhosThere( new Peer { EndPoint = address } );
             }
         }

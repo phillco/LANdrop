@@ -43,7 +43,7 @@ namespace LANdrop.Networking
                     // Is it time to do a peer exchange?
                     bool doPeerExchange = Peer.ShouldDoPeerExchange();
                     NetworkOutStream.Write( doPeerExchange );
-                    Trace.WriteLine( String.Format( "Sending a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
+                    Trace.WriteLine( String.Format( "\nSENDING a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
 
                     // Read in their attributes...
                     Peer.Name = NetworkInStream.ReadString( );

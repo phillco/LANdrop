@@ -56,6 +56,8 @@ namespace LANdrop.Networking
             };
 
             peers.Add( p );
+
+            Trace.WriteLine( "Added " + p + " manually; sending a who's-there to look them up." );
             new OutgoingWhosThere( p );
         }
 
@@ -98,7 +100,11 @@ namespace LANdrop.Networking
                 // Look up peers we haven't looked up in a while.
                 List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp() );
                 foreach ( Peer p in peersToLookUp )
+                {
+                    Trace.WriteLine( String.Format( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
+                        p, DateTime.Now.Subtract( p.LastLookedUp ).Seconds, DateTime.Now.Subtract( p.LastExchangedPeers ).Seconds ) );
                     new OutgoingWhosThere( p );
+                }
 
                 Thread.Sleep( 1000 );
             }
