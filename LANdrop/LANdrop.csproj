@@ -146,8 +146,6 @@
     <Compile Include="UI\TransferForm.Designer.cs">
       <DependentUpon>TransferForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ITransferForm.cs">
-    </Compile>
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>

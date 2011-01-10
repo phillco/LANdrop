@@ -9,7 +9,7 @@ using LANdrop.Networking;
 
 namespace LANdrop.UI
 {
-    public partial class TransferForm : Form, ITransferForm
+    public partial class TransferForm : Form
     {
         private Transfer transfer;
 
