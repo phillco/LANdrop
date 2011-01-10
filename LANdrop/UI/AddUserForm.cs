@@ -30,10 +30,17 @@ namespace LANdrop.UI
             btnAdd.Enabled = ( tbTheirIP.Text.Length > 0 );
             btnPaste.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
         }
-    
-        private void btnAdd_Click( object sender, EventArgs e )
+
+        private void AddUser( )
         {
             string ip = tbTheirIP.Text.Trim( );
+
+            // Make sure the IP is valid.
+            if ( !Util.IsValidAddress( ip ) )
+            {
+                MessageBox.Show( ip + " is not a valid IP address.", "Add user", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return;
+            }
 
             // Don't let the user add themself.
             if ( ip == Util.GetLocalAddress().ToString() || ip == "127.0.0.1" )
@@ -45,6 +52,11 @@ namespace LANdrop.UI
 
             MulticastManager.AddUserManually( tbTheirIP.Text );
             Close( );
+        }
+    
+        private void btnAdd_Click( object sender, EventArgs e )
+        {
+            AddUser( );
         }
 
         private void tbTheirIP_TextChanged( object sender, EventArgs e )
@@ -58,13 +70,16 @@ namespace LANdrop.UI
             if ( Util.SetClipboardTextSafely( ip, true ) )
             {
                 string message = String.Format( "Your IP is: {0}\n\nThis has been copied to your clipboard.\nSend it to your friend so that he can add you.", ip );
-                MessageBox.Show( message, "IP Copied", MessageBoxButtons.OK, MessageBoxIcon.Information ); 
+                MessageBox.Show( message, "IP Copied", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                Close( );
             }
         }
 
         private void btnPaste_Click( object sender, EventArgs e )
         {
             tbTheirIP.Text = Util.GetClipboardTextSafely( true );
+            if ( Util.IsValidAddress( tbTheirIP.Text ) )
+                AddUser( );
         }
 
         private void updateStateTimer_Tick( object sender, EventArgs e )
