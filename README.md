@@ -12,30 +12,36 @@ This version is currently under development and isn't really usable yet.
 Roadmap
 =============
 
-* The transfers themselves.
-    * Checksumming of transferred files.
-* Determine if multicasting works across different subnets.
-    * If not, create a system to enter and store IPs manually.
-        * Consider also creating an system for LANdrop peers to automatically share IP addresses - that way if there's a client "out of the loop" on a faraway subnet, adding him manually on one computer will bring him into the loop - he'll see *all* the other peers on the network, and vice-versa.
+Phillip:
+* Create a SQLite database where Peers and FileCaches may be stored over time.
+* Hammer out the different peer sources (Multicast, PeerExchange, ManuallyAdd, Clipboard), and figure out the process for each's development.
+    * Fix peer activity icons
+    * Automatically analyze IPs that are copied to the clipboard
+
+* Settings...
+    * Let the user set the downloads ditrectory.
+    * Let the user to enable file logs as well as to set the log directory.
+
+William:
+* Implement an "always accept transfers from this user" system using RSA keys to ensure somebody's identity.
+    * Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
+    * For now, save the client's RSA private key in the Configuration file. We can encrypt it using a basic password (eg, "LANdrop") so that at least file sniffers won't see it - but anyone who knows that password (anyone with the source, obviously) can decrypt it - but that should suffice for most users.
+        * Maybe we can add an optionlater  that encrypts the private key with a passphrase, which much be entered at startup.
+    
+Up for grabs:
 * Fancy "incoming transfer" notifications - kind of like Outlook 2003's "new mail" box. Much better than MessageBox()es. 
 * Rewrite protocol to use JSON and/or ProtoBuff for cross-platform compatibility
 * Drop Codes - a simple password that you can set; anyone with the password can send you a file without having to wait for you to accept it (also useful for sending files for yourself).
-* The ability to send snippets of text to people really easily (code, URLs, etc). You'd right click the user in the list and go to "Send Clipboard Contents" - the rest would be done for you. Incoming snippets are **automatically accepted** and put in a queue where you can read them whenever you want.
 * Log off, shut down, or hibernate after transfer is complete. 
-* Command line version!
-* Automatically save all transfers in a certain directory (faster than prompting each time). Let the user change where a transfer is being saved once it's started - doing so will submit a request to move it once it's done downloading.
-* More reliable transfers...
-    * Resume an earlier transfer (receiver reads to end of what it's got, sends byte count and checksum)
-    * Automatically detect broken transfer and resume
+* Automatically resume an earlier transfer that failed (receiver reads to end of what it's got, sends byte count and checksum)
 * Automatic updating, Chrome-style.
 * Automatic exception reporting.
 * Instead of opening a new window for every transfer, create a "transfers" window.
 * Sending multiple files.
 * Sending to multiple recipients.
+* Command line version!
 * Tray icon, run at startup.
-* Ways to block unwanted peers. 
-* Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
-* Identity verification (otherwise anyone can give themselves your name). Maybe something with a public key web-of-trust?
+* Ways to block unwanted peers.
 * Support for transferring files that are *themselves* being transferred. That way you can start a download on one computer and stream it to another.
 * Statistics - number of transfers failed, succeeded, bytes transferred, average speed. Stats on website. For fun, all opt-in.
 
@@ -44,5 +50,5 @@ Roadmap
 Credits
 =========
 
-All development by Phillip Cohen. Icons from the excellent [FatCow Icons Pack](http://www.fatcow.com/free-icons).
+Developed by Phillip Cohen and William Pyburn. Icons from the excellent [FatCow Icons Pack](http://www.fatcow.com/free-icons).
 
