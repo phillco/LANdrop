@@ -55,7 +55,7 @@ namespace LANdrop.Networking
             Peer p = new Peer
             {
                 Name = "User at " + address,
-                Address = new IPEndPoint( IPAddress.Parse( address ), Protocol.TransferPortNumber )
+                EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.TransferPortNumber )
             };
 
             peers.Add( p );
@@ -160,7 +160,7 @@ namespace LANdrop.Networking
                     ProcessPeer( new Peer
                     {
                         Name = message.ReadString( ) + " on " + message.ReadString( ),
-                        Address = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
+                        EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
                         LastSeen = DateTime.Now,
                         LastLookedUp = DateTime.Now
                     }, message.ReadBoolean( ) );
@@ -173,7 +173,7 @@ namespace LANdrop.Networking
 
         public static Peer GetPeerForAddress( IPEndPoint address )
         {
-            return peers.Find( p => p.Address.Equals( address ) );
+            return peers.Find( p => p.EndPoint.Equals( address ) );
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace LANdrop.Networking
         /// </summary>
         public static void ProcessPeer( Peer newPeer, bool connected )
         {
-            if ( newPeer.Address.Address.Equals(Util.GetLocalAddress()) )
+            if ( newPeer.EndPoint.Address.Equals(Util.GetLocalAddress()) )
                 return;
 
             // If this peer is saying goodbye, simply remove it.

@@ -183,7 +183,7 @@ namespace LANdrop.UI
         private void copyIPAddressToolStripMenuItem_Click( object sender, EventArgs e )
         {
             if ( receipientList.SelectedItems.Count > 0 )
-                Util.SetClipboardTextSafely( ( (Peer) receipientList.SelectedItems[0].Tag ).Address.Address.ToString( ), true );
+                Util.SetClipboardTextSafely( ( (Peer) receipientList.SelectedItems[0].Tag ).EndPoint.Address.ToString( ), true );
         }
 
         private void btnSendFile_Click( object sender, EventArgs e )

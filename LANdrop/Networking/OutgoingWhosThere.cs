@@ -29,7 +29,7 @@ namespace LANdrop.Networking
             try
             {
                 client.SendTimeout = 30;
-                client.Connect( Peer.Address );
+                client.Connect( Peer.EndPoint );
 
                 using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
                 using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
