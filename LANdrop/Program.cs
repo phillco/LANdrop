@@ -33,9 +33,7 @@ namespace LANdrop
             Trace.WriteLine( "Protocol Version: " + Protocol.Version );
             Trace.Unindent( );
 
-            MainForm mainForm = new MainForm( );
-
-            MulticastManager.Init( mainForm );
+            MainForm mainForm = new MainForm( );            
             Server.Start( );
 
             Application.Run( mainForm );

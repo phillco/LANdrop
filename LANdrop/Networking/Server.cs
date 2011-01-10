@@ -74,7 +74,10 @@ namespace LANdrop.Networking
             }
 
             if ( Connected )
+            {
+                MulticastManager.Init();
                 ListenForClients( );
+            }
             else
             {
                 MessageBox.Show( "Failed to bind the listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );

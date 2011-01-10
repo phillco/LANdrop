@@ -22,16 +22,13 @@ namespace LANdrop.Networking
 
         private static IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
-        private static MainForm form;
-
         private static bool connected;
 
         /// <summary>
         /// Starts announcing and listening for other clients.
         /// </summary>
-        public static void Init( MainForm mainForm )
-        {
-            form = mainForm;
+        public static void Init( )
+        {           
             connected = true;
             peers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
@@ -166,7 +163,7 @@ namespace LANdrop.Networking
                 }
 
                 // Update the UI.
-                form.UpdatePeerList( );
+                MainForm.Instance.UpdatePeerList( );
             }
         }
 

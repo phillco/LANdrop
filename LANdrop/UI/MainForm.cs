@@ -16,7 +16,7 @@ namespace LANdrop.UI
         // A cache 
         private ListViewItem lastItemHovered;
 
-        private static MainForm instance;
+        public static MainForm Instance { get; private set; }
 
         enum OnlineIconStates
         {
@@ -29,7 +29,7 @@ namespace LANdrop.UI
             InitializeComponent( );
             Util.UseProperSystemFont( this );
 
-            instance = this;
+            Instance = this;
 
             Random r = new Random( );
             foreach ( ListViewItem i in receipientList.Items )
@@ -44,7 +44,7 @@ namespace LANdrop.UI
         /// </summary>
         public static void ShowFormOnUIThread( Form form )
         {
-            instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
+            Instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
         private void UpdateState( )
