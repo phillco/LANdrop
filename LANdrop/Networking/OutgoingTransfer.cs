@@ -87,7 +87,7 @@ namespace LANdrop.Networking
             HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
             hasher.Initialize( );
 
-            using ( FileStream fileInStream = new FileStream( File.FullName, FileMode.Open ) )
+            using ( FileStream fileInStream = new FileStream( File.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) )
             {
                 // Iterate through the file in chunk-sized increments.
                 for ( long i = 0; i < FileSize; i += Protocol.TransferChunkSize )
