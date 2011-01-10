@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
+using System.Threading;
 
 namespace LANdrop
 {
@@ -37,12 +38,13 @@ namespace LANdrop
 
         public static void Save( )
         {
+            ThreadPool.QueueUserWorkItem( delegate { Instance.SaveToFile( ); } );
+        }
+
+        private void SaveToFile( )
+        {
             using ( StreamWriter file = new StreamWriter( "LANdrop.json" ) )
-            {
-                string data = JsonConvert.SerializeObject( Instance, Formatting.Indented );
-                MessageBox.Show( "Save: \n" + data );
-                file.Write( data );
-            }
+                file.Write( JsonConvert.SerializeObject( Instance, Formatting.Indented ) );
         }
     }
 }
