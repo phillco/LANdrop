@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Networking\IncomingWhosThere.cs" />
     <Compile Include="Networking\MulticastManager.cs" />
     <Compile Include="Networking\OutgoingWhosThere.cs" />
     <Compile Include="Networking\Peer.cs" />
