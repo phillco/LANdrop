@@ -31,8 +31,7 @@ namespace LANdrop.Networking
 
             // Send our basic information.
             Trace.WriteLine( String.Format( "\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
-            NetworkOutStream.Write( Environment.UserName );
-            NetworkOutStream.Write( Dns.GetHostName( ) );
+            NetworkOutStream.Write( Configuration.Instance.Username );
 
             // ...and our peer list, if they want it.
             if ( NetworkInStream.ReadBoolean( ) )

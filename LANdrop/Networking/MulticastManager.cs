@@ -118,8 +118,7 @@ namespace LANdrop.Networking
 
             // Send our name, protocol versions and IP.
             message.Write( (Int32) Protocol.Version );
-            message.Write( Environment.UserName );
-            message.Write( Dns.GetHostName( ) );
+            message.Write( Configuration.Instance.Username );
             message.Write( Util.GetLocalAddress( ).ToString( ) );
             message.Write( connected );
 
@@ -159,7 +158,7 @@ namespace LANdrop.Networking
                     // Parse in the peer, and add it to the list (or update an existing one).
                     ProcessPeer( new Peer
                     {
-                        Name = message.ReadString( ) + " on " + message.ReadString( ),
+                        Name = message.ReadString( ),
                         EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.TransferPortNumber ),
                         LastSeen = DateTime.Now,
                         LastLookedUp = DateTime.Now

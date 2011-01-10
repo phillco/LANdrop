@@ -46,7 +46,7 @@ namespace LANdrop.Networking
                     Trace.WriteLine( String.Format( "Sending a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
 
                     // Read in their attributes...
-                    Peer.Name = NetworkInStream.ReadString( ) + " on " + NetworkInStream.ReadString( );
+                    Peer.Name = NetworkInStream.ReadString( );
                     Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
                     MulticastManager.ProcessPeer( Peer, true );
 
