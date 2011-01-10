@@ -25,13 +25,13 @@ Phillip:
 
 William:
 
-* Implement an "always accept transfers from this user" system using RSA keys to ensure somebody's identity.
-    * Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
+* Implement an "always accept transfers from this user" system using RSA keys to ensure somebody's identity.    
     * For now, save the client's RSA private key in the Configuration file. We can encrypt it using a basic password (eg, "LANdrop") so that at least file sniffers won't see it - but anyone who knows that password (anyone with the source, obviously) can decrypt it - but that should suffice for most users.
-        * Maybe we can add an optionlater  that encrypts the private key with a passphrase, which much be entered at startup.
+        * Maybe we can add an option later that encrypts the private key with a passphrase, which much be entered at startup.
     
 Up for grabs:
 
+* Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
 * Fancy "incoming transfer" notifications - kind of like Outlook 2003's "new mail" box. Much better than MessageBox()es. 
 * Rewrite protocol to use JSON and/or ProtoBuff for cross-platform compatibility
 * Drop Codes - a simple password that you can set; anyone with the password can send you a file without having to wait for you to accept it (also useful for sending files for yourself).
