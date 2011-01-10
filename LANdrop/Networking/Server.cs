@@ -67,7 +67,7 @@ namespace LANdrop.Networking
                     listener.Start( );
                     Port = port;
                     Connected = true;
-                    Trace.WriteLine( "Server started on port " + Port + "!" );                    
+                    Trace.WriteLine( "Server started on port " + Port + "!" );
                     break;
                 }
                 catch ( SocketException ) { }
@@ -86,22 +86,25 @@ namespace LANdrop.Networking
         /// Perpetually listens for new connections.
         /// </summary>
         private static void ListenForClients( )
-        {          
+        {
             while ( true )
             {
                 TcpClient client = listener.AcceptTcpClient( ); // Halt until a client connects.
 
                 // Respond to the request in a new thread.
-                ThreadPool.QueueUserWorkItem( delegate( object state ) { RespondToNewConnection( client ); } );
+                Thread newThread = new Thread( new ParameterizedThreadStart( RespondToNewConnection ) );
+                newThread.Start( client );
             }
         }
 
         /// <summary>
         /// Responds to a new connection (typically called in a new thread).
         /// </summary>
-        private static void RespondToNewConnection( TcpClient client )
+        private static void RespondToNewConnection( object parameter )
         {
             // Read in the transfer info.
+            TcpClient client = (TcpClient) parameter;
+
             using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
             using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
             {
