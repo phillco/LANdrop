@@ -12,9 +12,9 @@ using LANdrop.UI;
 namespace LANdrop.Networking
 {
     /// <summary>
-    /// Perpetually listens for new incoming transfers, then defers them to the UI.
+    /// The listening server that every peer runs. All incoming communication is received here, then handed off to the appropiate processor (IncomingTransfer, IncomingWhosThere, etc).
     /// </summary>
-    class IncomingTransferListener
+    class Server
     {
         public static int Port { get; private set; }
 

@@ -36,7 +36,7 @@ namespace LANdrop
             MainForm mainForm = new MainForm( );
 
             MulticastManager.Init( mainForm );
-            IncomingTransferListener.Start( );
+            Server.Start( );
 
             Application.Run( mainForm );
             Trace.Flush( );
