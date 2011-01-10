@@ -26,7 +26,7 @@ namespace LANdrop.Networking
         public void Respond( )
         {
             int port = NetworkInStream.ReadInt32( );
-            IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, Protocol.DefaultServerPort );
+            IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, port );
             Peer existingPeer = MulticastManager.GetPeerForAddress( address );
 
             // Send our basic information.
@@ -40,7 +40,7 @@ namespace LANdrop.Networking
 
                 // Only send fresh, active peers.
                 List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.EndPoint.Equals( address )
-                    && !p.EndPoint.Equals( new IPEndPoint( Util.GetLocalAddress( ), Protocol.DefaultServerPort ) )
+                    && !p.EndPoint.Equals( Server.LocalServerEndpoint )
                     && DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
                 NetworkOutStream.Write( (Int32) peersToSend.Count );
                 foreach ( Peer p in peersToSend )

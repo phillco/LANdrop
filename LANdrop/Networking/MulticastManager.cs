@@ -180,7 +180,8 @@ namespace LANdrop.Networking
         /// </summary>
         public static void ProcessPeer( Peer newPeer, bool connected )
         {
-            if ( newPeer.EndPoint.Address.Equals(Util.GetLocalAddress()) )
+            // Ignore our own announcements.
+            if ( newPeer.EndPoint.Equals( Server.LocalServerEndpoint ) )
                 return;
 
             // If this peer is saying goodbye, simply remove it.

@@ -16,7 +16,23 @@ namespace LANdrop.Networking
     /// </summary>
     class Server
     {
+        public static bool Connected { get; private set; }
+
         public static int Port { get; private set; }
+
+        /// <summary>
+        /// Returns the local IPEndPoint that the server is bound to.
+        /// </summary>
+        public static IPEndPoint LocalServerEndpoint
+        {
+            get
+            {
+                if ( Connected )
+                    return new IPEndPoint( Util.GetLocalAddress( ), Port );
+                else
+                    return null;
+            }
+        }
 
         private static TcpListener listener;
 
@@ -37,6 +53,7 @@ namespace LANdrop.Networking
                     listener = new TcpListener( IPAddress.Any, port );
                     listener.Start( );
                     Port = port;
+                    Connected = true;
                     break;
                 }
                 catch ( SocketException ) { }
@@ -84,7 +101,7 @@ namespace LANdrop.Networking
                         MainForm.ShowFormOnUIThread( form );
                         break;
                     case Protocol.IncomingCommunicationTypes.WhosThere:
-                        new IncomingWhosThere(client, NetworkInStream, NetworkOutStream);
+                        new IncomingWhosThere( client, NetworkInStream, NetworkOutStream );
                         break;
                 }
             }
