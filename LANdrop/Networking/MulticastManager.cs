@@ -56,9 +56,6 @@ namespace LANdrop.Networking
             };
 
             peers.Add( p );
-
-            Trace.WriteLine( "Added " + p + " manually; sending a who's-there to look them up." );
-            new OutgoingWhosThere( p );
         }
 
         /// <summary>
