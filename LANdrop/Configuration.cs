@@ -13,6 +13,17 @@ namespace LANdrop
     {
         public static Configuration Instance { get; private set; }
 
+        public static Configuration DefaultSettings
+        {
+            get
+            {
+                return new Configuration
+                {
+                    Username = Environment.UserName + " on " + Dns.GetHostName( ),
+                };
+            }
+        }
+
         public string Username { get; set; }
 
         public static void Initialize( )
@@ -28,11 +39,7 @@ namespace LANdrop
 
         public static void LoadDefaultSettings( )
         {
-            Instance = new Configuration
-            {
-                Username = Environment.UserName + " on " + Dns.GetHostName( ),
-            };
-
+            Instance = DefaultSettings;
             Save( );
         }
 

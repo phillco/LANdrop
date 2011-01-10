@@ -37,6 +37,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage( );
             this.tbUserName = new System.Windows.Forms.TextBox( );
             this.label1 = new System.Windows.Forms.Label( );
+            this.llblResetToDefaults = new System.Windows.Forms.LinkLabel( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
             this.tabControl1.SuspendLayout( );
@@ -45,6 +46,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add( this.llblResetToDefaults );
             this.panel1.Controls.Add( this.btnCancel );
             this.panel1.Controls.Add( this.btnSave );
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -123,6 +125,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Name:";
             // 
+            // llblResetToDefaults
+            // 
+            this.llblResetToDefaults.AutoSize = true;
+            this.llblResetToDefaults.Location = new System.Drawing.Point( 3, 13 );
+            this.llblResetToDefaults.Name = "llblResetToDefaults";
+            this.llblResetToDefaults.Size = new System.Drawing.Size( 102, 13 );
+            this.llblResetToDefaults.TabIndex = 2;
+            this.llblResetToDefaults.TabStop = true;
+            this.llblResetToDefaults.Text = "Reset to defaults...";
+            this.llblResetToDefaults.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblResetToDefaults_LinkClicked );
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnSave;
@@ -140,6 +153,7 @@
             this.Padding = new System.Windows.Forms.Padding( 8, 16, 8, 0 );
             this.Text = "LANdrop Settings";
             this.panel1.ResumeLayout( false );
+            this.panel1.PerformLayout( );
             this.panel2.ResumeLayout( false );
             this.tabControl1.ResumeLayout( false );
             this.tabPage1.ResumeLayout( false );
@@ -158,5 +172,6 @@
         private System.Windows.Forms.TextBox tbUserName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.LinkLabel llblResetToDefaults;
     }
 }
