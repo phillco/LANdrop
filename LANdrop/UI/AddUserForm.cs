@@ -17,9 +17,10 @@ namespace LANdrop.UI
             UpdateState( );
 
             // If there's a valid IP address in the clipboard, pre-fill it in the IP address box to save the user's very valuable time.
-            string clipboard = Util.GetClipboardTextSafely( false ).Trim();
+            string clipboard = Util.GetClipboardTextSafely( false );
             if ( clipboard != null )
             {
+                clipboard = clipboard.Trim( );
                 if ( Util.IsValidAddress( clipboard ) )
                     tbTheirIP.Text = clipboard;
             }
