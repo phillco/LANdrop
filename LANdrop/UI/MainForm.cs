@@ -52,6 +52,7 @@ namespace LANdrop.UI
             UpdatePeerList( );
             showLANdropToolStripMenuItem.Text = Visible ? "Hide LANdrop" : "Show LANdrop";
             sendClipboardToolStripMenuItem.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
+            btnSend.Enabled = receipientList.SelectedItems.Count > 0;
         }
 
         public void UpdatePeerList( )
@@ -314,10 +315,24 @@ namespace LANdrop.UI
             // Figure out what peer was chosen.
             Peer peer = (Peer) ( (ToolStripMenuItem) sender ).Tag;
 
-            // Show the "select file" dialog and if accepted, start the transfer.
-            selectFileToSendDialog.Title = "Select a file to send to " + peer.Name + "..";            
-            if ( selectFileToSendDialog.ShowDialog() == DialogResult.OK )
+            promptForFileAndSend( peer );
+        }
+
+        /// <summary>
+        /// Show the "select file" dialog and if accepted, start the transfer.
+        /// </summary>
+        /// <param name="p"></param>
+        private void promptForFileAndSend( Peer peer )
+        {
+            selectFileToSendDialog.Title = "Select a file to send to " + peer.Name + "..";
+            if ( selectFileToSendDialog.ShowDialog( ) == DialogResult.OK )
                 new OutgoingTransfer( new FileInfo( selectFileToSendDialog.FileName ), peer );
+        }
+
+        private void btnSend_Click( object sender, EventArgs e )
+        {
+            if ( receipientList.SelectedItems.Count > 0 )
+                promptForFileAndSend( (Peer) receipientList.SelectedItems[0].Tag );
         }
     }
 }
