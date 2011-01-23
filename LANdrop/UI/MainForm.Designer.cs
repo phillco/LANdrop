@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -60,6 +60,9 @@
             this.trayIconMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.showLANdropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.sendToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -148,10 +151,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4} );
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 212, 190 );
@@ -285,9 +288,12 @@
             // 
             this.trayIconMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.showLANdropToolStripMenuItem,
+            this.sendToToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem1} );
             this.trayIconMenu.Name = "trayIconMenu";
-            this.trayIconMenu.Size = new System.Drawing.Size( 158, 70 );
+            this.trayIconMenu.Size = new System.Drawing.Size( 158, 98 );
+            this.trayIconMenu.Opening += new System.ComponentModel.CancelEventHandler( this.trayIconMenu_Opening );
             // 
             // exitToolStripMenuItem1
             // 
@@ -303,6 +309,21 @@
             this.showLANdropToolStripMenuItem.Size = new System.Drawing.Size( 157, 22 );
             this.showLANdropToolStripMenuItem.Text = "Show LANdrop";
             this.showLANdropToolStripMenuItem.Click += new System.EventHandler( this.showLANdropToolStripMenuItem_Click );
+            // 
+            // sendToToolStripMenuItem
+            // 
+            this.sendToToolStripMenuItem.Name = "sendToToolStripMenuItem";
+            this.sendToToolStripMenuItem.Size = new System.Drawing.Size( 157, 22 );
+            this.sendToToolStripMenuItem.Text = "Send to";
+            // 
+            // selectFileToSendDialog
+            // 
+            this.selectFileToSendDialog.Title = "Select a file to send";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size( 154, 6 );
             // 
             // MainForm
             // 
@@ -362,6 +383,9 @@
         private System.Windows.Forms.ContextMenuStrip trayIconMenu;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem showLANdropToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendToToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog selectFileToSendDialog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

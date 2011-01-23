@@ -292,5 +292,32 @@ namespace LANdrop.UI
             Close( );
         }
 
+        private void trayIconMenu_Opening( object sender, CancelEventArgs e )
+        {
+            UpdateState( );
+
+            // Populate the "Send to" menu with a list of the recipients.
+            sendToToolStripMenuItem.DropDownItems.Clear( );
+            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
+            {
+                ToolStripItem item = new ToolStripMenuItem( p.Name, onlineIcons.Images[p.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline], new EventHandler( this.sendToPeerToolStripItem_Click ) );
+                item.Tag = p;
+                sendToToolStripMenuItem.DropDownItems.Add( item );
+            }
+        }
+
+        /// <summary>
+        /// A recipient in the tray icon's dynamic "send to" menu was clicked.
+        /// </summary>
+        private void sendToPeerToolStripItem_Click( object sender, EventArgs e )
+        {
+            // Figure out what peer was chosen.
+            Peer peer = (Peer) ( (ToolStripMenuItem) sender ).Tag;
+
+            // Show the "select file" dialog and if accepted, start the transfer.
+            selectFileToSendDialog.Title = "Select a file to send to " + peer.Name + "..";            
+            if ( selectFileToSendDialog.ShowDialog() == DialogResult.OK )
+                new OutgoingTransfer( new FileInfo( selectFileToSendDialog.FileName ), peer );
+        }
     }
 }
