@@ -52,14 +52,19 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip( );
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.trayIcon = new System.Windows.Forms.NotifyIcon( this.components );
+            this.trayIconMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.showLANdropToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
             this.mainMenu.SuspendLayout( );
+            this.trayIconMenu.SuspendLayout( );
             this.SuspendLayout( );
             // 
             // onlineIcons
@@ -168,39 +173,39 @@
             this.toolStripSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 98 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 154, 98 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
             // 
             this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
             // 
             // sendTextToolStripMenuItem
             // 
             this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
-            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
             this.sendTextToolStripMenuItem.Text = "Send text...";
             this.sendTextToolStripMenuItem.Click += new System.EventHandler( this.sendTextToolStripMenuItem_Click );
             // 
             // sendClipboardToolStripMenuItem
             // 
             this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
-            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
             this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
             this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 152, 6 );
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 150, 6 );
             // 
             // copyIPAddressToolStripMenuItem
             // 
             this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
-            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
             this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
             this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
@@ -227,46 +232,77 @@
             this.fileToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem} );
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size( 35, 20 );
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size( 37, 20 );
             this.fileToolStripMenuItem1.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 103, 22 );
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size( 92, 22 );
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler( this.exitToolStripMenuItem_Click );
-            // 
-            // helpToolStripMenuItem1
-            // 
-            this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem} );
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 40, 20 );
-            this.helpToolStripMenuItem1.Text = "&Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 126, 22 );
-            this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem} );
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size( 44, 20 );
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size( 48, 20 );
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem} );
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 44, 20 );
+            this.helpToolStripMenuItem1.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
+            this.aboutToolStripMenuItem.Text = "&About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.ContextMenuStrip = this.trayIconMenu;
+            this.trayIcon.Icon = ( (System.Drawing.Icon) ( resources.GetObject( "trayIcon.Icon" ) ) );
+            this.trayIcon.Text = "LANdrop";
+            this.trayIcon.Visible = true;
+            this.trayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler( this.trayIcon_MouseClick );
+            // 
+            // trayIconMenu
+            // 
+            this.trayIconMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.showLANdropToolStripMenuItem,
+            this.exitToolStripMenuItem1} );
+            this.trayIconMenu.Name = "trayIconMenu";
+            this.trayIconMenu.Size = new System.Drawing.Size( 158, 70 );
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size( 157, 22 );
+            this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler( this.exitToolStripMenuItem1_Click );
+            // 
+            // showLANdropToolStripMenuItem
+            // 
+            this.showLANdropToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.showLANdropToolStripMenuItem.Name = "showLANdropToolStripMenuItem";
+            this.showLANdropToolStripMenuItem.Size = new System.Drawing.Size( 157, 22 );
+            this.showLANdropToolStripMenuItem.Text = "Show LANdrop";
+            this.showLANdropToolStripMenuItem.Click += new System.EventHandler( this.showLANdropToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -284,6 +320,7 @@
             this.MinimumSize = new System.Drawing.Size( 230, 250 );
             this.Name = "MainForm";
             this.Text = "LANdrop";
+            this.Resize += new System.EventHandler( this.MainForm_Resize );
             this.statusStrip.ResumeLayout( false );
             this.statusStrip.PerformLayout( );
             this.contentPanel.ResumeLayout( false );
@@ -291,6 +328,7 @@
             this.recipientContextMenu.ResumeLayout( false );
             this.mainMenu.ResumeLayout( false );
             this.mainMenu.PerformLayout( );
+            this.trayIconMenu.ResumeLayout( false );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -320,6 +358,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.ContextMenuStrip trayIconMenu;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem showLANdropToolStripMenuItem;
     }
 }
 

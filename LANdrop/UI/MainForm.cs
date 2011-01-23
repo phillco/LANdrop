@@ -50,7 +50,7 @@ namespace LANdrop.UI
         private void UpdateState( )
         {
             UpdatePeerList( );
-
+            showLANdropToolStripMenuItem.Text = Visible ? "Hide LANdrop" : "Show LANdrop";
             sendClipboardToolStripMenuItem.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
         }
 
@@ -247,5 +247,50 @@ namespace LANdrop.UI
         {
             new SettingsForm( ).ShowDialog( );
         }
+
+        private void MainForm_Resize( object sender, EventArgs e )
+        {
+            if ( this.WindowState == FormWindowState.Minimized )
+                HideToTray( );
+        }
+
+        private void HideToTray( )
+        {
+            Hide( );
+            UpdateState( );
+        }
+
+        private void ShowFromTray( )
+        {
+            Show( );
+            WindowState = FormWindowState.Normal;
+            BringToFront( );
+            UpdateState( );
+        }
+
+        private void ToggleVisibility( )
+        {
+            if ( Visible )
+                HideToTray( );
+            else
+                ShowFromTray( );
+        }
+
+        private void showLANdropToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            ToggleVisibility( );
+        }
+
+        private void trayIcon_MouseClick( object sender, MouseEventArgs e )
+        {
+            if ( e.Button == MouseButtons.Left )
+                ToggleVisibility( );
+        }
+
+        private void exitToolStripMenuItem1_Click( object sender, EventArgs e )
+        {
+            Close( );
+        }
+
     }
 }
