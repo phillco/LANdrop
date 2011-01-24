@@ -299,23 +299,14 @@ namespace LANdrop.UI
 
             // Populate the "Send to" menu with a list of the recipients.
             sendToToolStripMenuItem.DropDownItems.Clear( );
-            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
+            foreach ( Peer peer in MulticastManager.GetAllUsers( ) )
             {
-                ToolStripItem item = new ToolStripMenuItem( p.Name, onlineIcons.Images[p.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline], new EventHandler( this.sendToPeerToolStripItem_Click ) );
-                item.Tag = p;
+                // Set up the entry's properties.
+                ToolStripMenuItem item = new ToolStripMenuItem( peer.Name, onlineIcons.Images[peer.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline] );
+                item.Click += ( altSender, altE ) => promptForFileAndSend( peer );
+
                 sendToToolStripMenuItem.DropDownItems.Add( item );
             }
-        }
-
-        /// <summary>
-        /// A recipient in the tray icon's dynamic "send to" menu was clicked.
-        /// </summary>
-        private void sendToPeerToolStripItem_Click( object sender, EventArgs e )
-        {
-            // Figure out what peer was chosen.
-            Peer peer = (Peer) ( (ToolStripMenuItem) sender ).Tag;
-
-            promptForFileAndSend( peer );
         }
 
         /// <summary>
