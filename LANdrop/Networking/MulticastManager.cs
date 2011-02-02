@@ -28,7 +28,7 @@ namespace LANdrop.Networking
         /// Starts announcing and listening for other clients.
         /// </summary>
         public static void Init( )
-        {           
+        {
             connected = true;
             peers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
@@ -95,11 +95,11 @@ namespace LANdrop.Networking
                 RemoveOldPeers( );
 
                 // Look up peers we haven't looked up in a while.
-                List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp() );
+                List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp( ) );
                 foreach ( Peer p in peersToLookUp )
                 {
                     Trace.WriteLine( String.Format( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
-                        p, DateTime.Now.Subtract( p.LastLookedUp ).Seconds, DateTime.Now.Subtract( p.LastExchangedPeers ).Seconds ) );
+                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastExchangedPeers ).TotalSeconds ) );
                     new OutgoingWhosThere( p );
                 }
 
@@ -181,7 +181,7 @@ namespace LANdrop.Networking
         public static void ProcessPeer( Peer newPeer, bool connected )
         {
             // Ignore our own announcements.
-            if ( newPeer.EndPoint.Address.Equals( Util.GetLocalAddress() ) )
+            if ( newPeer.EndPoint.Address.Equals( Util.GetLocalAddress( ) ) )
                 return;
 
             // If this peer is saying goodbye, simply remove it.
@@ -208,7 +208,7 @@ namespace LANdrop.Networking
 
         private static void RemoveOldPeers( )
         {
-            peers.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).Seconds > 120 );
+            peers.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
         }
     }
 }

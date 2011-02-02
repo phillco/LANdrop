@@ -41,7 +41,7 @@ namespace LANdrop.Networking
                 // Only send fresh, active peers.
                 List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.EndPoint.Equals( address )
                     && !p.EndPoint.Equals( Server.LocalServerEndpoint )
-                    && DateTime.Now.Subtract( p.LastSeen ).Seconds < 60 );
+                    && DateTime.Now.Subtract( p.LastSeen ).TotalMinutes < 1.0 );
 
                 Trace.WriteLine( "Sending " + peersToSend.Count + " peers as part of the peer exchange...." );
 

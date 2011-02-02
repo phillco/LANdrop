@@ -25,7 +25,7 @@ namespace LANdrop.Networking
 
         public bool IsOnline( )
         {
-            return ( DateTime.Now.Subtract( LastSeen ).Seconds < 60 );
+            return ( DateTime.Now.Subtract( LastSeen ).TotalSeconds < 60 );
         }
 
         public override String ToString( )
@@ -48,7 +48,7 @@ namespace LANdrop.Networking
 
         public bool ShouldLookUp( )
         {
-            return ( ShouldDoPeerExchange( ) || DateTime.Now.Subtract( LastLookedUp ).Seconds > 30 );
+            return ( ShouldDoPeerExchange( ) || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 );
         }
 
         public void ToStream( BinaryWriter output )
