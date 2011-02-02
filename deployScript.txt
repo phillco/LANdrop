@@ -8,7 +8,7 @@ option confirm off
 open phillco@philltopia.com
 
 # Change remote directory.
-cd /home/phillco/landrop.net
+cd /home/phillco/landrop.net/downloads
 
 # Force binary mode transfer.
 option transfer binary
