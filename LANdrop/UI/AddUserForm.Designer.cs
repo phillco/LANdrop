@@ -77,16 +77,16 @@
             // 
             // tbTheirIP
             // 
-            this.tbTheirIP.Location = new System.Drawing.Point( 173, 82 );
+            this.tbTheirIP.Location = new System.Drawing.Point( 144, 82 );
             this.tbTheirIP.Name = "tbTheirIP";
-            this.tbTheirIP.Size = new System.Drawing.Size( 100, 21 );
+            this.tbTheirIP.Size = new System.Drawing.Size( 158, 21 );
             this.tbTheirIP.TabIndex = 3;
             this.tbTheirIP.TextChanged += new System.EventHandler( this.tbTheirIP_TextChanged );
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point( 76, 85 );
+            this.label3.Location = new System.Drawing.Point( 47, 85 );
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size( 89, 13 );
             this.label3.TabIndex = 4;
