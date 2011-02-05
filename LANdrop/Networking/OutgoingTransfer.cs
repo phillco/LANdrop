@@ -35,7 +35,7 @@ namespace LANdrop.Networking
         protected override void Connect( )
         {
             // Connect to the peer's listening server.
-            TcpClient = new TcpClient( );
+            TcpClient = new TcpClient( Recipient.EndPoint.AddressFamily );
 
             try
             {

@@ -24,7 +24,7 @@ namespace LANdrop.Networking
 
         private void SendAsync( )
         {
-            TcpClient client = new TcpClient( );
+            TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
 
             try
             {
