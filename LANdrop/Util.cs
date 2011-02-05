@@ -135,7 +135,18 @@ namespace LANdrop
         /// </summary>
         public static IPAddress GetLocalAddress( )
         {
-            return Dns.GetHostEntry( Dns.GetHostName( ) ).AddressList[0];
+            IPAddress[] results = Dns.GetHostEntry( Dns.GetHostName( ) ).AddressList;
+
+            if ( results.Length == 0 )
+                return null;
+
+            // First try to get an IPv4 address. These are easier to type and seem to work better on campus.
+            foreach ( IPAddress address in results )
+                if ( address.AddressFamily == AddressFamily.InterNetwork )
+                    return address;
+
+            // No IPv4, so return the IPv6 address instead.
+            return results[0];
         }
 
         /// <summary>
