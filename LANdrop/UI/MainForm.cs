@@ -341,7 +341,10 @@ namespace LANdrop.UI
                 new OutgoingTransfer( new FileInfo( selectFileToSendDialog.FileName ), peer );
         }
 
-        private void btnSend_Click( object sender, EventArgs e )
+        /// <summary>
+        /// Called whenever a "send" button is pushed. 
+        /// </summary>
+        private void sendLogic( )
         {
             if ( receipientList.SelectedItems.Count > 0 )
             {
@@ -354,6 +357,16 @@ namespace LANdrop.UI
                 else
                     promptForFileAndSend( (Peer) receipientList.SelectedItems[0].Tag );
             }
+        }
+
+        private void btnSend_Click( object sender, EventArgs e )
+        {
+            sendLogic( );
+        }
+
+        private void sendFileToToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            sendLogic( );
         }
     }
 }

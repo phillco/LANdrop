@@ -186,6 +186,7 @@
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
             this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 155, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
+            this.sendFileToToolStripMenuItem.Click += new System.EventHandler( this.sendFileToToolStripMenuItem_Click );
             // 
             // sendTextToolStripMenuItem
             // 
