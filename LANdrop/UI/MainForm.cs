@@ -60,7 +60,7 @@ namespace LANdrop.UI
         public void UpdatePeerList( )
         {
             // Only do this once the multicast manager has been set up.
-            if ( MulticastManager.GetAllUsers( ) == null )
+            if ( MulticastManager.PeerList == null )
                 return;
 
             // If this method was called by a different thread, invoke it to run on the form thread.
@@ -80,7 +80,7 @@ namespace LANdrop.UI
 
             // Recreate the listview from the peer list.
             receipientList.Items.Clear( );
-            foreach ( Peer p in MulticastManager.GetAllUsers( ) )
+            foreach ( Peer p in MulticastManager.PeerList )
             {
                 receipientList.Items.Add( new ListViewItem
                 {
@@ -320,7 +320,7 @@ namespace LANdrop.UI
 
             // Populate the "Send to" menu with a list of the recipients.
             sendToToolStripMenuItem.DropDownItems.Clear( );
-            foreach ( Peer peer in MulticastManager.GetAllUsers( ) )
+            foreach ( Peer peer in MulticastManager.PeerList )
             {
                 // Set up the entry's properties.
                 ToolStripMenuItem item = new ToolStripMenuItem( peer.Name, onlineIcons.Images[peer.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline] );

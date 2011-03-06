@@ -18,6 +18,18 @@ namespace LANdrop.Networking
     /// </summary>
     class MulticastManager
     {
+        /// <summary>
+        /// Returns a thread-safe copy of all of the peers we know about.
+        /// </summary>
+        public static List<Peer> PeerList
+        {
+            get
+            {
+                lock ( peers )
+                    return new List<Peer>( peers );
+            }
+        }
+
         private static List<Peer> peers = new List<Peer>( );
 
         private static IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
@@ -33,15 +45,6 @@ namespace LANdrop.Networking
             peers = new List<Peer>( );
             new Thread( new ThreadStart( SendLoop ) ).Start( );
             new Thread( new ThreadStart( ListenLoop ) ).Start( );
-        }
-
-        /// <summary>
-        /// Returns a COPY of the list of all users available to send to (includes discovered and manually added ones).
-        /// </summary>
-        public static List<Peer> GetAllUsers( )
-        {
-            lock ( peers )
-                return new List<Peer>( peers );
         }
 
         /// <summary>

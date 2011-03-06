@@ -39,7 +39,7 @@ namespace LANdrop.Networking
                 NetworkOutStream.Write( true ); // Yes, we're sending the list (TODO: we might want to prevent flooding)
 
                 // Only send fresh, active peers.
-                List<Peer> peersToSend = MulticastManager.GetAllUsers( ).FindAll( p => !p.EndPoint.Equals( address )
+                List<Peer> peersToSend = MulticastManager.PeerList.FindAll( p => !p.EndPoint.Equals( address )
                     && !p.EndPoint.Equals( Server.LocalServerEndpoint )
                     && DateTime.Now.Subtract( p.LastSeen ).TotalMinutes < 1.0 );
 
