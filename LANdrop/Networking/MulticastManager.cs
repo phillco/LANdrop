@@ -36,11 +36,12 @@ namespace LANdrop.Networking
         }
 
         /// <summary>
-        /// Returns a list of all users available to send to (includes discovered and manually added ones).
+        /// Returns a COPY of the list of all users available to send to (includes discovered and manually added ones).
         /// </summary>
         public static List<Peer> GetAllUsers( )
         {
-            return peers;
+            lock ( peers )
+                return new List<Peer>( peers );
         }
 
         /// <summary>
@@ -55,7 +56,8 @@ namespace LANdrop.Networking
                 EndPoint = new IPEndPoint( IPAddress.Parse( address ), Protocol.DefaultServerPort )
             };
 
-            peers.Add( p );
+            lock ( peers )
+                peers.Add( p );
         }
 
         /// <summary>
@@ -94,8 +96,10 @@ namespace LANdrop.Networking
                 // Remove timed-out peers while we're at it.
                 RemoveOldPeers( );
 
-                // Look up peers we haven't looked up in a while.
-                List<Peer> peersToLookUp = peers.FindAll( p => p.ShouldLookUp( ) );
+                // Look up peers we haven't looked up in a while.                
+                List<Peer> peersToLookUp;
+                lock ( peers )
+                    peersToLookUp = peers.FindAll( p => p.ShouldLookUp( ) );
                 foreach ( Peer p in peersToLookUp )
                 {
                     Trace.WriteLine( String.Format( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
@@ -175,7 +179,8 @@ namespace LANdrop.Networking
 
         public static Peer GetPeerForAddress( IPEndPoint address )
         {
-            return peers.Find( p => p.EndPoint.Equals( address ) );
+            lock ( peers )
+                return peers.Find( p => p.EndPoint.Equals( address ) );
         }
 
         /// <summary>
@@ -206,12 +211,14 @@ namespace LANdrop.Networking
                 }
             }
 
-            peers.Add( newPeer );
+            lock ( peers )
+                peers.Add( newPeer );
         }
 
         private static void RemoveOldPeers( )
         {
-            peers.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
+            lock ( peers )
+                peers.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
         }
     }
 }
