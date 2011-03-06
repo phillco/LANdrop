@@ -163,6 +163,7 @@
             this.receipientList.TabIndex = 2;
             this.receipientList.UseCompatibleStateImageBehavior = false;
             this.receipientList.View = System.Windows.Forms.View.List;
+            this.receipientList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler( this.receipientList_MouseDoubleClick );
             this.receipientList.DragDrop += new System.Windows.Forms.DragEventHandler( this.receipientList_DragDrop );
             this.receipientList.DragEnter += new System.Windows.Forms.DragEventHandler( this.receipientList_DragEnter );
             this.receipientList.DragLeave += new System.EventHandler( this.receipientList_DragLeave );
@@ -177,7 +178,7 @@
             this.recipientContextSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 120 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 98 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
@@ -259,7 +260,7 @@
             // 
             this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 122, 22 );
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
             // 

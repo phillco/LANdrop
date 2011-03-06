@@ -368,5 +368,10 @@ namespace LANdrop.UI
         {
             sendLogic( );
         }
+
+        private void receipientList_MouseDoubleClick( object sender, MouseEventArgs e )
+        {
+            sendLogic( );
+        }
     }
 }
