@@ -49,12 +49,17 @@ namespace LANdrop.UI
             Instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
-        private void UpdateState( )
+        private void UpdateButtons( )
         {
-            UpdatePeerList( );
             showLANdropToolStripMenuItem.Text = Visible ? "Hide LANdrop" : "Show LANdrop";
             sendClipboardToolStripMenuItem.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
             btnSend.Enabled = receipientList.SelectedItems.Count > 0;
+        }
+
+        private void UpdateState( )
+        {
+            UpdatePeerList( );
+            UpdateButtons( );
         }
 
         public void UpdatePeerList( )
@@ -372,6 +377,11 @@ namespace LANdrop.UI
         private void receipientList_MouseDoubleClick( object sender, MouseEventArgs e )
         {
             sendLogic( );
+        }
+
+        private void receipientList_ItemSelectionChanged( object sender, ListViewItemSelectionChangedEventArgs e )
+        {
+            UpdateButtons( );
         }
     }
 }
