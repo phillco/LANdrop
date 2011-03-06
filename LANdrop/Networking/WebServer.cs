@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using HybridDSP.Net.HTTP;
 using System.IO;
+using LANdrop.Properties;
 
 namespace LANdrop.Networking
 {
@@ -35,18 +36,10 @@ namespace LANdrop.Networking
             response.ContentType = "text/html";
             using ( Stream ostr = response.Send( ) )
             using ( TextWriter tw = new StreamWriter( ostr ) )
-            {
-                tw.WriteLine( "<html>" );
-                tw.WriteLine( "<head>" );
-                tw.WriteLine( "<title>" + file.File.Name + "</title>" );
-                tw.WriteLine( "<meta http-equiv=\"REFRESH\" content=\"0;url=" + file.GetDownloadPath( ) + "\" />" );
-                tw.WriteLine( "</header>" );
-                tw.WriteLine( "<body>" );
-                tw.WriteLine( "<h1><a href='" + file.GetDownloadPath( ) + "'>" + file.File.Name + "</a></h1>" );
-                tw.WriteLine( "<div>Sent to you from <i>" + Configuration.Instance.Username + "</i> using <a href=\"http://landrop.net\">LANdrop</a>.</div>" );
-                tw.WriteLine( "</body>" );
-                tw.WriteLine( "</html>" );
-            }
+                tw.WriteLine( Resources.sendFilePage.Replace( "${fileUrl}", file.GetDownloadPath( ) )
+                    .Replace( "${fileName}", file.File.Name ) // I should be shot for chaining these together...but with sendFile.html under 500 bytes, 
+                    .Replace( "${sender}", Configuration.Instance.Username ) ); // the performance hit is pretty negligible.
+
         }
 
         /// <summary>

@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
+    <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />
     <None Include="Resources\user_add.png" />

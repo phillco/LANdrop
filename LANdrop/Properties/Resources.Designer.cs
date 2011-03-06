@@ -95,6 +95,26 @@ namespace LANdrop.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+        ///&lt;html&gt;
+        ///	&lt;head&gt;
+        ///		&lt;title&gt;${fileName}&lt;/title&gt;
+        ///		&lt;meta http-equiv=&quot;REFRESH&quot; content=&quot;0;url=${fileUrl}&quot;/&gt;
+        ///	&lt;/head&gt;
+        ///	&lt;body&gt;
+        ///	&lt;h1&gt;&lt;a href=&quot;${fileUrl}&quot;&gt;${fileName}&lt;/a&gt;&lt;/h1&gt;
+        ///	
+        ///	&lt;div&gt;Sent to you from &lt;i&gt; ${sender} &lt;/i&gt; using &lt;a href=&quot;http://landrop.net&quot;&gt;LANdrop&lt;/a&gt;.&lt;/div&gt;
+        ///	&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        internal static string sendFilePage {
+            get {
+                return ResourceManager.GetString("sendFilePage", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap setting_tools {
             get {
                 object obj = ResourceManager.GetObject("setting_tools", resourceCulture);
