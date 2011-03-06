@@ -18,7 +18,7 @@ namespace LANdrop.UI
         {
             this.file = file;
             InitializeComponent( );
-            this.Text = "Hosting " + file.File.Name;            
+            this.Text = file.File.Name;            
             lblAddress.Text = file.GetLink( );
         }
 

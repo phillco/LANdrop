@@ -64,7 +64,7 @@
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
-            this.lblAddress.Location = new System.Drawing.Point( 50, 73 );
+            this.lblAddress.Location = new System.Drawing.Point( 50, 70 );
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size( 148, 13 );
             this.lblAddress.TabIndex = 7;
@@ -86,7 +86,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point( 50, 57 );
+            this.label1.Location = new System.Drawing.Point( 50, 54 );
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size( 258, 13 );
             this.label1.TabIndex = 10;
