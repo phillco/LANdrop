@@ -74,13 +74,39 @@ namespace LANdrop.Networking
     }
 
     /// <summary>
-    /// Justs spits out an instance of our request handler.
+    /// Justs generates an instance of our request handler.
     /// </summary>
     class RequestHandlerFactory : IHTTPRequestHandlerFactory
     {
         public IHTTPRequestHandler CreateRequestHandler( HTTPServerRequest request )
         {
             return new HostedFileHandler( );
+        }
+    }
+
+    /// <summary>
+    /// Controls the web server.
+    /// </summary>
+    public class WebServer
+    {
+        private static HTTPServer server;
+
+        public static void StartIfNotStarted( )
+        {
+            if ( server == null )
+            {
+                server = new HTTPServer( new RequestHandlerFactory( ), 8080 );
+                server.Start( );
+            }
+        }
+
+        public static void Stop( )
+        {
+            if ( server != null )
+            {
+                server.Stop( );
+                server = null;
+            }
         }
     }
 }

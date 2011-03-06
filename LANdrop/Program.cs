@@ -33,17 +33,16 @@ namespace LANdrop
             Trace.WriteLine( "User: " + Environment.UserName );
             Trace.WriteLine( "Protocol Version: " + Protocol.Version );
             Trace.Unindent( );
-
-            // Start the ad-hoc HTTP server.
-            HTTPServer server = new HTTPServer( new RequestHandlerFactory( ), 8080 );
-            server.Start( );
-          
+            
             MainForm mainForm = new MainForm( );            
             Server.Start( );
 
-            Application.Run( mainForm );
-            Trace.Flush( );
+            Application.Run( mainForm );            
+
+            // Shut down...
             MulticastManager.Disconnect( );
+            WebServer.Stop( );
+            Trace.Flush( );
             Environment.Exit( 0 );
         }
     }

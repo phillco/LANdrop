@@ -36,6 +36,7 @@ namespace LANdrop.Networking
             UniqueId = Util.Base36Encode( new Random( ).Next( Int32.MaxValue - 512 ) + 512 ); // Start at 512
             DateExpires = DateTime.Now.AddMinutes( 30 );
             ActiveFiles.Add( this );
+            WebServer.StartIfNotStarted( );
         }
 
         public string GetLink( )
