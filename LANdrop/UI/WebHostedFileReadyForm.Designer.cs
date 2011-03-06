@@ -55,9 +55,9 @@
             this.lblTitle.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblTitle.Location = new System.Drawing.Point( 50, 20 );
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size( 166, 16 );
+            this.lblTitle.Size = new System.Drawing.Size( 131, 16 );
             this.lblTitle.TabIndex = 5;
-            this.lblTitle.Text = "File is ready to transmit!";
+            this.lblTitle.Text = "Ready to transmit!";
             // 
             // lblAddress
             // 
@@ -86,9 +86,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point( 50, 57 );
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size( 249, 13 );
+            this.label1.Size = new System.Drawing.Size( 258, 13 );
             this.label1.TabIndex = 10;
-            this.label1.Text = "Have your friend open this link in his web browser:";
+            this.label1.Text = "Have your friend open this link in their web browser:";
             // 
             // label2
             // 

@@ -17,8 +17,8 @@ namespace LANdrop.UI
         public WebHostedFileReadyForm( WebServedFile file )
         {
             this.file = file;
-            this.Text = "Hosting " + file.File.Name;
             InitializeComponent( );
+            this.Text = "Hosting " + file.File.Name;            
             lblAddress.Text = file.GetLink( );
         }
 
