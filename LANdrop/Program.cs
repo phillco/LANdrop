@@ -6,6 +6,7 @@ using LANdrop.Networking;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using HybridDSP.Net.HTTP;
 
 namespace LANdrop
 {
@@ -33,6 +34,10 @@ namespace LANdrop
             Trace.WriteLine( "Protocol Version: " + Protocol.Version );
             Trace.Unindent( );
 
+            // Start the ad-hoc HTTP server.
+            HTTPServer server = new HTTPServer( new RequestHandlerFactory( ), 8080 );
+            server.Start( );
+          
             MainForm mainForm = new MainForm( );            
             Server.Start( );
 

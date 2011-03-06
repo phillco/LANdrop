@@ -215,5 +215,55 @@ namespace LANdrop
             IPAddress dummy;
             return IPAddress.TryParse( entry, out dummy );
         }
+
+        // For the base36 encode/decode methods.
+        private const string base36Chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+        /// <summary>
+        /// Converts the given base36 string to a number.
+        /// from http://www.stum.de/2008/10/20/base36-encoderdecoder-in-c/
+        /// </summary>
+        public static long Base36Decode( string inputString )
+        {
+            inputString = Reverse( inputString.ToLower( ) );
+            long result = 0;
+            int pos = 0;
+            foreach ( char c in inputString )
+                result += base36Chars.IndexOf( c ) * (long) Math.Pow( 36, pos++ );
+
+            return result;
+        }
+
+        /// <summary>
+        /// Encodes the given int in base36.
+        /// from http://www.stum.de/2008/10/20/base36-encoderdecoder-in-c/
+        /// </summary>
+        public static string Base36Encode( long inputNumber )
+        {
+            StringBuilder sb = new StringBuilder( );
+            while ( inputNumber != 0 )
+            {
+                sb.Append( base36Chars[(int)(inputNumber % 36)] );
+                inputNumber /= 36;
+            }
+            return Reverse( sb.ToString( ) );
+        }
+
+        /// <summary>
+        /// Reverses the given string, intelligently (using StringBuilder).
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private static string Reverse( string input )
+        {
+            Stack<char> resultStack = new Stack<char>( );
+            foreach ( char c in input )
+                resultStack.Push( c );
+
+            StringBuilder sb = new StringBuilder( );
+            while ( resultStack.Count > 0 )
+                sb.Append( resultStack.Pop( ) );
+            return sb.ToString( );
+        }
     }
 }

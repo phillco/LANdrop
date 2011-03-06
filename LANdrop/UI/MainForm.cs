@@ -325,5 +325,13 @@ namespace LANdrop.UI
             if ( receipientList.SelectedItems.Count > 0 )
                 promptForFileAndSend( (Peer) receipientList.SelectedItems[0].Tag );
         }
+
+        private void hostFileToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            selectFileToSendDialog.Title = "Select a file to send...";
+            if ( selectFileToSendDialog.ShowDialog( ) == DialogResult.OK )
+                new WebHostedFileReadyForm( new WebServedFile( selectFileToSendDialog.FileName )).Show();
+            
+        }
     }
 }

@@ -103,6 +103,9 @@ namespace LANdrop.Networking
                     new OutgoingWhosThere( p );
                 }
 
+                // HACK: [PC] Might as well eliminate expired hosted files here, rather than have a new worker thread.
+                WebServedFile.PruneExpiredFiles( );
+
                 Thread.Sleep( 1000 );
             }
 

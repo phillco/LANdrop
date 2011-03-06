@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,26 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="user_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\user_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="draw_calligraphic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\draw_calligraphic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="note_go" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\note_go.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="setting_tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\setting_tools.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="personals" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\personals.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="accept" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\accept.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8BAAAACwAAABkAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGwAAABsAAAAbAAAAGQAA
+        AAv///8B////AQAAABMBAQFnAgICpQICAqUCAgKlAgICpQICAqUCAgKlAgICpQICAqUCAgKlAgICpQEB
+        AWkAAAAV////Af///wH///8BAgICJQQEBI+Ghob/goKC/4KCgv+CgoL/goKC/4KCgv+CgoL/hoaG/wQE
+        BI8CAgIl////Af///wH///8B////Af///wEEBASTbW1t/2lpaf9paWn/aWlp/2lpaf9paWn/M8wz/21t
+        bf8EBAST////Af///wH///8B////Af///wH///8BAgICqVVVVf9VVVX/VVVV/1VVVf9VVVX/VVVV/1VV
+        Vf9VVVX/AgICqf///wH///8B////Af///wH///8B////AR8fH3/Hx8f/vb29/729vf+9vb3/vb29/729
+        vf+9vb3/x8fH/x8fH3////8B////Af///wH///8B////Af///wEvLy95ysrK/8DAwP/AwMD/wMDA/8DA
+        wP/AwMD/0tLS/8rKyv8vLy95////Af///wH///8B////Af///wH///8BNDQ0dc3Nzf/Dw8P/w8PD/8PD
+        w//Dw8P/w8PD/5mZmf/Nzc3/NDQ0df///wH///8B////Af///wH///8B////ATk5OXPW1tb/0dHR/9HR
+        0f/R0dH/0dHR/9HR0f/R0dH/1tbW/zk5OXP///8B////Af///wH///8B////Af///wE+Pj5xt7e3/7u7
+        u/+7u7v/u7u7/7u7u/+7u7v/u7u7/0qHR/8LZAbjBm0Amf///wH///8B////Af///wH///8BQ0NDb9nZ
+        2f/Pz8//z8/P/8/Pz//Pz8//z8/P/8/Pz/81lCz/K98a/wyDAM3///8B////Af///wH///8B////AUdH
+        R23h4eH/3Nzc/9zc3P/c3Nz/3Nzc/16rVv83nCz/OJ0t/z3iLP8OjADNDowAzQ6NAJn///8B////Af//
+        /wFLS0trwcHB/8bGxv/Gxsb/xsbG/8bGxv80nyj/UudB/1LnQf9S50H/UudB/1LnQf8QlQDN////Af//
+        /wH///8BT09PaePj4//a2tr/2tra/9ra2v/a2tr/YrVY/zqpLP88qy7/ZutV/xKdAM0SnQDNEpwAmf//
+        /wH///8B////AVJSUmnq6ur/5eXl/+Xl5f/l5eX/5eXl/+Xl5f/l5eX/P7Iv/3XuZP8UpADN////Af//
+        /wH///8B////Af///wFVVVVNVVVVZ1VVVWdVVVVnVVVVZ1VVVWdVVVVnVVVVZymOHMMZowbdFakAmf//
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
+</value>
   </data>
 </root>
