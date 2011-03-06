@@ -42,7 +42,8 @@ namespace LANdrop.Networking
             using ( TextWriter tw = new StreamWriter( ostr ) )
                 tw.WriteLine( Resources.sendFilePage.Replace( "${fileUrl}", file.GetDownloadPath( ) )
                     .Replace( "${fileName}", file.File.Name ) // I should be shot for chaining these together...but with sendFile.html under 500 bytes, 
-                    .Replace( "${sender}", Configuration.Instance.Username ) ); // the performance hit is pretty negligible.
+                    .Replace( "${sender}", Configuration.Instance.Username ) // the performance hit is pretty negligible.
+                    .Replace( "${fileSize}", Util.FormatFileSize( file.File.Length )));
 
         }
 
