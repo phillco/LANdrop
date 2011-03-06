@@ -22,6 +22,12 @@ namespace LANdrop.UI
             lblAddress.Text = file.GetLink( );
         }
 
+        private void UpdateState()
+        {
+            lblExpiresIn.Text = "Expires in " + (int) Math.Ceiling(file.DateExpires.Subtract(DateTime.Now).TotalMinutes) +" minutes";
+
+        }
+
         private void lblAddress_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
             Process.Start( file.GetLink() );
@@ -31,6 +37,11 @@ namespace LANdrop.UI
         {
             Util.SetClipboardTextSafely( file.GetLink( ), true );
             Close( );
+        }
+
+        private void updateExpirationTimer_Tick( object sender, EventArgs e )
+        {
+            UpdateState();
         }
     }
 }

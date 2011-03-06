@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( WebHostedFileReadyForm ) );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.lblTitle = new System.Windows.Forms.Label( );
             this.lblAddress = new System.Windows.Forms.LinkLabel( );
             this.btnCopy = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
-            this.label2 = new System.Windows.Forms.Label( );
+            this.lblExpiresIn = new System.Windows.Forms.Label( );
+            this.updateExpirationTimer = new System.Windows.Forms.Timer( this.components );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
@@ -90,23 +92,29 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Have your friend open this link in their web browser:";
             // 
-            // label2
+            // lblExpiresIn
             // 
-            this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label2.Location = new System.Drawing.Point( 9, 112 );
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 108, 13 );
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Expires in 30 minutes";
+            this.lblExpiresIn.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.lblExpiresIn.AutoSize = true;
+            this.lblExpiresIn.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lblExpiresIn.Location = new System.Drawing.Point( 9, 112 );
+            this.lblExpiresIn.Name = "lblExpiresIn";
+            this.lblExpiresIn.Size = new System.Drawing.Size( 108, 13 );
+            this.lblExpiresIn.TabIndex = 11;
+            this.lblExpiresIn.Text = "Expires in 30 minutes";
+            // 
+            // updateExpirationTimer
+            // 
+            this.updateExpirationTimer.Enabled = true;
+            this.updateExpirationTimer.Interval = 500;
+            this.updateExpirationTimer.Tick += new System.EventHandler( this.updateExpirationTimer_Tick );
             // 
             // WebHostedFileReadyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size( 353, 143 );
-            this.Controls.Add( this.label2 );
+            this.Controls.Add( this.lblExpiresIn );
             this.Controls.Add( this.label1 );
             this.Controls.Add( this.btnCopy );
             this.Controls.Add( this.lblAddress );
@@ -131,6 +139,7 @@
         private System.Windows.Forms.LinkLabel lblAddress;
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblExpiresIn;
+        private System.Windows.Forms.Timer updateExpirationTimer;
     }
 }
