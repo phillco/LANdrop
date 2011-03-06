@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using HybridDSP.Net.HTTP;
 using System.IO;
 using LANdrop.Properties;
@@ -12,18 +14,20 @@ namespace LANdrop.Networking
     /// </summary>
     class HostedFileHandler : IHTTPRequestHandler
     {
+        private static readonly Regex UrlMatcher = new Regex( "/([^/]*)(/download)?" );
+
         public void HandleRequest( HTTPServerRequest request, HTTPServerResponse response )
         {
-            foreach ( WebServedFile file in WebServedFile.ActiveFiles )
+            var matcher = UrlMatcher.Match(request.URI);
+            
+            if ( matcher.Success )
             {
-                if ( file.Expired )
-                    continue;
+                WebServedFile file = WebServedFile.ActiveFiles.Find(find => find.UniqueId == matcher.Groups[1].Captures[0].Value);
 
-                // Does the user's request match this file's ID?
-                if ( request.URI == "/" + file.GetInfoPagePath( ) ) // User wants the landing page.
-                    sendFileInfoPage( file, response );
-                else if ( request.URI == "/" + file.GetDownloadPath( ) ) // User wants the file!
+                if ( matcher.Groups[2].Captures.Count > 0 && matcher.Groups[2].Captures[0].Value != "" )
                     sendFile( file, response );
+                else
+                    sendFileInfoPage( file, response );
             }
         }
 
