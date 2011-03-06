@@ -46,13 +46,14 @@
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
+            this.recipientContextSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
             this.mainMenu = new System.Windows.Forms.MenuStrip( );
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.trayIcon = new System.Windows.Forms.NotifyIcon( this.components );
@@ -62,8 +63,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
-            this.hostFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -175,10 +174,10 @@
             this.sendFileToToolStripMenuItem,
             this.sendTextToolStripMenuItem,
             this.sendClipboardToolStripMenuItem,
-            this.toolStripSeparator1,
+            this.recipientContextSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 98 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 156, 120 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
@@ -202,10 +201,10 @@
             this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
             this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
             // 
-            // toolStripSeparator1
+            // recipientContextSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 152, 6 );
+            this.recipientContextSeparator1.Name = "recipientContextSeparator1";
+            this.recipientContextSeparator1.Size = new System.Drawing.Size( 152, 6 );
             // 
             // copyIPAddressToolStripMenuItem
             // 
@@ -250,11 +249,18 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.hostFileToolStripMenuItem,
             this.optionsToolStripMenuItem} );
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size( 44, 20 );
             this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.optionsToolStripMenuItem.Text = "&Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
             // 
             // helpToolStripMenuItem1
             // 
@@ -320,21 +326,6 @@
             // 
             this.selectFileToSendDialog.Title = "Select a file to send";
             // 
-            // hostFileToolStripMenuItem
-            // 
-            this.hostFileToolStripMenuItem.Name = "hostFileToolStripMenuItem";
-            this.hostFileToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.hostFileToolStripMenuItem.Text = "Host file...";
-            this.hostFileToolStripMenuItem.Click += new System.EventHandler( this.hostFileToolStripMenuItem_Click );
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.optionsToolStripMenuItem.Text = "&Options";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -381,7 +372,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendTextToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator recipientContextSeparator1;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
@@ -396,7 +387,6 @@
         private System.Windows.Forms.ToolStripMenuItem sendToToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog selectFileToSendDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem hostFileToolStripMenuItem;
     }
 }
 

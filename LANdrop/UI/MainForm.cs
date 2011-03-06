@@ -18,6 +18,8 @@ namespace LANdrop.UI
 
         public static MainForm Instance { get; private set; }
 
+        private ListViewItem notUsingLandrop = new ListViewItem { Text = "(someone not using LANdrop)", ImageIndex = (int) OnlineIconStates.Offline };
+
         enum OnlineIconStates
         {
             Offline = 0,
@@ -87,11 +89,12 @@ namespace LANdrop.UI
                     ImageIndex = p.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline
                 } );
             }
+            receipientList.Items.Add( notUsingLandrop );
 
             // Restore the selected items.
             foreach ( ListViewItem item in receipientList.Items )
             {
-                if ( selectedPeers.Contains( (Peer) item.Tag ) )
+                if ( item.Tag != null && selectedPeers.Contains( (Peer) item.Tag ) )
                     item.Selected = true;
             }
         }
@@ -148,7 +151,13 @@ namespace LANdrop.UI
             List<FileInfo> files = getDraggedFiles( e );
 
             if ( files.Count > 0 && hoverItem != null )
-                new OutgoingTransfer( files[0], (Peer) hoverItem.Tag );
+            {
+                if ( hoverItem == notUsingLandrop )
+                    new WebHostedFileReadyForm( new WebServedFile( files[0].FullName ) ).Show( );
+                else
+                    new OutgoingTransfer( files[0], (Peer) hoverItem.Tag );
+
+            }
         }
 
         /// <summary>
@@ -191,12 +200,6 @@ namespace LANdrop.UI
         {
             new AddUserForm( ).ShowDialog( );
             UpdateState( );
-
-            /*new OutgoingTransfer( new FileInfo( "Seal.mp3" ), new Peer
-            {
-                Name = "Other Client",
-                Address = new IPEndPoint( IPAddress.Parse( "127.0.0.1" ), IncomingTransferListener.Port )
-            } );*/
         }
 
         private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
@@ -227,6 +230,24 @@ namespace LANdrop.UI
 
         private void recipientContextMenu_Opening( object sender, CancelEventArgs e )
         {
+            // Don't show the menu if there's nothing selected.
+            if ( receipientList.SelectedItems.Count == 0 )
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // Hide certain elements when click on the "not using LANdrop" item.
+            if ( receipientList.SelectedItems[0] == notUsingLandrop )
+            {
+                sendClipboardToolStripMenuItem.Visible = sendTextToolStripMenuItem.Visible =
+                    copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = false;
+                return;
+            }
+            else
+                sendClipboardToolStripMenuItem.Visible = sendTextToolStripMenuItem.Visible =
+                    copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;
+
             // Update the "send clipboard" menu item to include a preview of what's in it.
             string clipboardText = Util.GetClipboardTextSafely( false );
 
@@ -323,15 +344,16 @@ namespace LANdrop.UI
         private void btnSend_Click( object sender, EventArgs e )
         {
             if ( receipientList.SelectedItems.Count > 0 )
-                promptForFileAndSend( (Peer) receipientList.SelectedItems[0].Tag );
-        }
-
-        private void hostFileToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            selectFileToSendDialog.Title = "Select a file to send...";
-            if ( selectFileToSendDialog.ShowDialog( ) == DialogResult.OK )
-                new WebHostedFileReadyForm( new WebServedFile( selectFileToSendDialog.FileName )).Show();
-            
+            {
+                if ( receipientList.SelectedItems[0] == notUsingLandrop )
+                {
+                    selectFileToSendDialog.Title = "Select a file to send...";
+                    if ( selectFileToSendDialog.ShowDialog( ) == DialogResult.OK )
+                        new WebHostedFileReadyForm( new WebServedFile( selectFileToSendDialog.FileName ) ).Show( );
+                }
+                else
+                    promptForFileAndSend( (Peer) receipientList.SelectedItems[0].Tag );
+            }
         }
     }
 }
