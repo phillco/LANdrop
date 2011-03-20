@@ -90,17 +90,18 @@ namespace LANdrop.Networking
             using ( FileStream fileInStream = new FileStream( File.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) )
             {
                 // Iterate through the file in chunk-sized increments.
-                for ( long i = 0; i < FileSize; i += Protocol.TransferChunkSize )
+                for ( long i = 0; i < FileSize; )
                 {
                     // Calculate the number of bytes we're about to send.
-                    int numBytes = (int) Math.Min( Protocol.TransferChunkSize, FileSize - i );
+                    int numBytesRead = (int) Math.Min( Protocol.TransferChunkSize, FileSize - i );
 
                     // Read in the chunk from a file, write it to the network.
-                    byte[] chunk = new byte[numBytes];
-                    fileInStream.Read( chunk, 0, numBytes );
+                    byte[] chunk = new byte[numBytesRead];
+                    fileInStream.Read( chunk, 0, numBytesRead );
                     NetworkOutStream.Write( chunk );
-                    hasher.TransformBlock( chunk, 0, numBytes, null, 0 );
-                    UpdateNumBytesTransferred( NumBytesTransferred + numBytes );
+                    hasher.TransformBlock( chunk, 0, numBytesRead, null, 0 );
+                    UpdateNumBytesTransferred( NumBytesTransferred + numBytesRead );
+                    i += numBytesRead;
                 }
             }
 
