@@ -79,6 +79,12 @@
     <Compile Include="UI\IncomingTextSnippetForm.Designer.cs">
       <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\IncomingTransferNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\IncomingTransferNotification.Designer.cs">
+      <DependentUpon>IncomingTransferNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\IncomingTextSnippetForm.resx">
       <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IncomingTransferNotification.resx">
+      <DependentUpon>IncomingTransferNotification.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">

@@ -11,11 +11,15 @@ using System.Security.Cryptography;
 
 namespace LANdrop.Networking
 {
-    class IncomingTransfer : Transfer
+    public class IncomingTransfer : Transfer
     {
         private StreamWriter fileOutputStream;
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
+
+        private static Semaphore userResponseReceived = new Semaphore( 0, 1 );
+
+        private static bool Accepted = false;
 
         public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
@@ -23,25 +27,39 @@ namespace LANdrop.Networking
             this.NetworkInStream = netInStream;
             this.NetworkOutStream = netOutStream;
 
-            DoTransfer( );
+            FileName = NetworkInStream.ReadString( );
+            FileSize = NetworkInStream.ReadInt64( );
+
+            // Ask the user if they want to receive this file.       
+            MainForm.CreateIncomingNotification( this );
+
+            // Wait for the user's response. (otherwise we dispose the streams)
+            userResponseReceived.WaitOne( );
+
+            if ( Accepted )
+            {
+                NetworkOutStream.Write( true );
+                DoTransfer( );
+            }
+            else
+                NetworkOutStream.Write( false );
+
+        }
+
+        public void Accept( )
+        {
+            Accepted = true;
+            userResponseReceived.Release( );
+        }
+
+        public void Reject( )
+        {
+            Accepted = false;
+            userResponseReceived.Release( );
         }
 
         protected override void Connect( )
         {
-        
-            FileName = NetworkInStream.ReadString( );
-            FileSize = NetworkInStream.ReadInt64( );
-
-            // Ask the user if they want to receive the file.
-            if ( MessageBox.Show( String.Format( "Would you like to receive {0} ({1}) from {2}?", FileName, Util.FormatFileSize( FileSize ), TcpClient.Client.RemoteEndPoint ),
-                "Incoming Transfer", MessageBoxButtons.YesNo, MessageBoxIcon.Question ) == DialogResult.Yes )
-                NetworkOutStream.Write( true );
-            else
-            {
-                NetworkOutStream.Write( false );
-                return;
-            }
-
             Debug.WriteLine( "INCOMING FILE TRANSFER!" );
             Debug.Indent( );
             Debug.WriteLine( "Name: " + FileName );
@@ -58,7 +76,7 @@ namespace LANdrop.Networking
             HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
             hasher.Initialize( );
 
-            using ( Stream fileStream = new FileStream( Util.FindFreeFileName( Path.Combine( DefaultSaveFolder, FileName )), FileMode.Create ) )
+            using ( Stream fileStream = new FileStream( Util.FindFreeFileName( Path.Combine( DefaultSaveFolder, FileName ) ), FileMode.Create ) )
             {
                 // Transfer chunks.
                 while ( NumBytesTransferred < FileSize )
@@ -90,10 +108,10 @@ namespace LANdrop.Networking
             }
             else
             {
-                NetworkOutStream.Write( false);
+                NetworkOutStream.Write( false );
                 SetState( State.FAILED );
             }
-            
+
             NetworkOutStream.Flush( );
 
             SetState( State.FINISHED );

@@ -32,7 +32,6 @@ William:
 Up for grabs:
 
 * Encrypted transfers - encrypt all data in transit. Sender creates a shared session key, encrypts with receiver's public key.
-* Fancy "incoming transfer" notifications - kind of like Outlook 2003's "new mail" box. Much better than MessageBox()es. 
 * Rewrite protocol to use JSON and/or ProtoBuff for cross-platform compatibility
 * Drop Codes - a simple password that you can set; anyone with the password can send you a file without having to wait for you to accept it (also useful for sending files for yourself).
 * Log off, shut down, or hibernate after transfer is complete. 

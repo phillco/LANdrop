@@ -49,6 +49,11 @@ namespace LANdrop.UI
             Instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
+        public static void CreateIncomingNotification( IncomingTransfer transfer )
+        {
+            Instance.Invoke( new MethodInvoker( delegate { new IncomingTransferNotification( transfer ); } ) );
+        }
+
         private void UpdateButtons( )
         {
             showLANdropToolStripMenuItem.Text = Visible ? "Hide LANdrop" : "Show LANdrop";
