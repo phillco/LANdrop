@@ -130,8 +130,8 @@
       <DependentUpon>TransferForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\TransferForms\AcceptOrDenyTransfer.resx">
-      <DependentUpon>AcceptOrDenyTransfer.cs</DependentUpon>
+    <EmbeddedResource Include="UI\TransferForms\AcceptOrDenyPane.resx">
+      <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WebHostedFileReadyForm.resx">
@@ -170,11 +170,11 @@
     <Compile Include="UI\TransferForm.Designer.cs">
       <DependentUpon>TransferForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TransferForms\AcceptOrDenyTransfer.cs">
+    <Compile Include="UI\TransferForms\AcceptOrDenyPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\TransferForms\AcceptOrDenyTransfer.Designer.cs">
-      <DependentUpon>AcceptOrDenyTransfer.cs</DependentUpon>
+    <Compile Include="UI\TransferForms\AcceptOrDenyPane.Designer.cs">
+      <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\WebHostedFileReadyForm.cs">
       <SubType>Form</SubType>

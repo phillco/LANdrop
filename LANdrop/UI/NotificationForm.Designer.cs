@@ -38,7 +38,7 @@
             this.opacityTimer.Interval = 15;
             this.opacityTimer.Tick += new System.EventHandler( this.opacityTimer_Tick );
             // 
-            // IncomingTransferNotification
+            // NotificationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -47,12 +47,13 @@
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "IncomingTransferNotification";
+            this.Name = "NotificationForm";
             this.Opacity = 0;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "IncomingTransferNotification";
             this.TopMost = true;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler( this.NotificationForm_FormClosed );
             this.ResumeLayout( false );
 
         }
