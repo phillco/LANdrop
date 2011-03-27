@@ -57,6 +57,13 @@ namespace LANdrop.UI
         {
             isClosing = true;
             opacityTimer.Start( );
+
+            // Slide down as we fade out.
+            if ( !positionTimer.Enabled )
+            {
+                DesiredTop = Top + 15;
+                positionTimer.Start();
+            }
         }
 
         /// <summary>
@@ -73,8 +80,10 @@ namespace LANdrop.UI
                     if ( !notification.Disposing && !notification.IsDisposed )
                         startingPosition -= notification.Height + 10;
 
-            Top = startingPosition;
+            DesiredTop = startingPosition;
+            Top = startingPosition + 30;
             Left = Screen.GetWorkingArea( this ).Width - this.Width - 10;
+            positionTimer.Start();
         }
 
         private void opacityTimer_Tick( object sender, EventArgs e )
@@ -88,10 +97,7 @@ namespace LANdrop.UI
                     Close( );
             }
             else if ( this.Opacity < 0.85 ) // Fading in...
-            {
                 Opacity = Math.Min( 0.85, Opacity + 0.1 );
-                Refresh( );
-            }
             else
                 opacityTimer.Stop( );
         }
