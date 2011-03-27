@@ -187,6 +187,15 @@ namespace LANdrop.Networking
         }
 
         /// <summary>
+        /// This one's port-insensitive.
+        /// </summary>
+        public static Peer GetPeerForAddress( IPAddress address )
+        {
+            lock ( peers )
+                return peers.Find( p => p.EndPoint.Address.Equals( address ) );
+        }
+
+        /// <summary>
         /// Adds the peer to the list if it is new (or updates the existing one).
         /// </summary>
         public static void ProcessPeer( Peer newPeer, bool connected )

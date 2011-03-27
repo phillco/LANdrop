@@ -8,11 +8,14 @@ using System.Windows.Forms;
 using LANdrop.UI;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Net;
 
 namespace LANdrop.Networking
 {
     public class IncomingTransfer : Transfer
     {
+        public Peer Sender { get; private set; }
+
         private StreamWriter fileOutputStream;
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
@@ -29,6 +32,8 @@ namespace LANdrop.Networking
 
             FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
+
+            Sender = MulticastManager.GetPeerForAddress(((IPEndPoint) client.Client.RemoteEndPoint).Address);
 
             // Ask the user if they want to receive this file.       
             MainForm.CreateIncomingNotification( this );

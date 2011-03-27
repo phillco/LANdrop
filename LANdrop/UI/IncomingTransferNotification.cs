@@ -20,7 +20,7 @@ namespace LANdrop.UI
             this.transfer = transfer;
             InitializeComponent( );
 
-            lblTitle.Text = String.Format( "Would you like to receive {0} ({1})?", transfer.FileName, Util.FormatFileSize( transfer.FileSize ) );
+            lblTitle.Text = String.Format( "{0} would like to send us {1} ({2})", transfer.Sender.Name, transfer.FileName, Util.FormatFileSize( transfer.FileSize ) );
             lblReject.Text = "Reject (" + secondsToReject + ")";
 
             // Align to the bottom-right of the screen.
