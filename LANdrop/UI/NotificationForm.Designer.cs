@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container( );
             this.opacityTimer = new System.Windows.Forms.Timer( this.components );
+            this.positionTimer = new System.Windows.Forms.Timer( this.components );
             this.SuspendLayout( );
             // 
             // opacityTimer
@@ -37,6 +38,11 @@
             this.opacityTimer.Enabled = true;
             this.opacityTimer.Interval = 15;
             this.opacityTimer.Tick += new System.EventHandler( this.opacityTimer_Tick );
+            // 
+            // positionTimer
+            // 
+            this.positionTimer.Interval = 15;
+            this.positionTimer.Tick += new System.EventHandler( this.positionTimer_Tick );
             // 
             // NotificationForm
             // 
@@ -61,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Timer opacityTimer;
+        private System.Windows.Forms.Timer positionTimer;
     }
 }

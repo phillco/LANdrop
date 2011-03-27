@@ -16,6 +16,9 @@ namespace LANdrop.UI
     /// </summary>
     public partial class NotificationForm : Form
     {
+        // The y-position we're moving towards.
+        public int DesiredTop { get; private set; }
+
         // Are we fading away?
         private bool isClosing = false;
 
@@ -35,6 +38,16 @@ namespace LANdrop.UI
 
             Align( );
             Show( );
+        }
+
+        /// <summary>
+        /// Starts the form moving towards the given y-position.
+        /// </summary>
+        /// <param name="top"></param>
+        public void SetDesiredTop( int top )
+        {
+            this.DesiredTop = top;
+            positionTimer.Start( );
         }
 
         /// <summary>
@@ -59,7 +72,7 @@ namespace LANdrop.UI
                 foreach ( var notification in allNotifications )
                     if ( !notification.Disposing && !notification.IsDisposed )
                         startingPosition -= notification.Height + 10;
-            
+
             Top = startingPosition;
             Left = Screen.GetWorkingArea( this ).Width - this.Width - 10;
         }
@@ -93,8 +106,21 @@ namespace LANdrop.UI
 
                 // Shift down all the notifications above us.
                 for ( int i = index; i < allNotifications.Count; i++ )
-                    allNotifications[i].Top += this.Height + 10;
+                    allNotifications[i].SetDesiredTop( allNotifications[i].Top + this.Height + 10 );
             }
+        }
+
+        private void positionTimer_Tick( object sender, EventArgs e )
+        {
+            const int movementStep = 10;
+
+            if ( Math.Abs( Top - DesiredTop ) < movementStep )
+            {
+                Top = DesiredTop;
+                positionTimer.Stop( );
+            }
+            else
+                Top += movementStep * ( Top > DesiredTop ? -1 : 1 );
         }
     }
 }
