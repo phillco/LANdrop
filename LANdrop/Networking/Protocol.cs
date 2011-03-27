@@ -22,7 +22,7 @@ namespace LANdrop.Networking
         /// <summary>
         /// The version of the protocol we're using. LANdrop is only compatible with clients running the same version.
         /// </summary>
-        public const int Version = 107;
+        public const int Version = 108;
 
         /// <summary>
         /// The default port LANdrop peers use for their listening servers. To find the current port for this instance, use Server.Port.

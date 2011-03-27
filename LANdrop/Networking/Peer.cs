@@ -21,7 +21,10 @@ namespace LANdrop.Networking
 
         public DateTime LastExchangedPeers { get; set; }
 
-        public Peer( ) { }
+        public Peer( )
+        {
+            LastSeen = DateTime.Now;
+        }
 
         public bool IsOnline( )
         {

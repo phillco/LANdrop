@@ -30,10 +30,20 @@ namespace LANdrop.Networking
             this.NetworkInStream = netInStream;
             this.NetworkOutStream = netOutStream;
 
+            // Read in information about the sender.
+            IPAddress peerAddress = ((IPEndPoint) client.Client.RemoteEndPoint).Address;
+            string peerName= NetworkInStream.ReadString();
+
+            // If we already know this peer, use our stored information. TODO: merge the information like we do elsewhere
+            Sender = MulticastManager.GetPeerForAddress( peerAddress );
+            if ( Sender == null ) // ...otherwise, add it!
+            {
+                Sender = new Peer { Name = peerName, EndPoint = new IPEndPoint( peerAddress, Protocol.DefaultServerPort ) };
+                MulticastManager.ProcessPeer( Sender, true );
+            }
+
             FileName = NetworkInStream.ReadString( );
             FileSize = NetworkInStream.ReadInt64( );
-
-            Sender = MulticastManager.GetPeerForAddress(((IPEndPoint) client.Client.RemoteEndPoint).Address);
 
             // Ask the user if they want to receive this file.       
             MainForm.CreateIncomingNotification( this );
