@@ -20,9 +20,9 @@ namespace LANdrop.Networking
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
-        private static Semaphore userResponseReceived = new Semaphore( 0, 1 );
+        private Semaphore userResponseReceived = new Semaphore( 0, 1 );
 
-        private static bool Accepted = false;
+        private bool Accepted = false;
 
         public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
