@@ -79,11 +79,11 @@
     <Compile Include="UI\IncomingTextSnippetForm.Designer.cs">
       <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\IncomingTransferNotification.cs">
+    <Compile Include="UI\NotificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\IncomingTransferNotification.Designer.cs">
-      <DependentUpon>IncomingTransferNotification.cs</DependentUpon>
+    <Compile Include="UI\NotificationForm.Designer.cs">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
@@ -105,8 +105,8 @@
       <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\IncomingTransferNotification.resx">
-      <DependentUpon>IncomingTransferNotification.cs</DependentUpon>
+    <EmbeddedResource Include="UI\NotificationForm.resx">
+      <DependentUpon>NotificationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
@@ -128,6 +128,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TransferForm.resx">
       <DependentUpon>TransferForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransferForms\AcceptOrDenyTransfer.resx">
+      <DependentUpon>AcceptOrDenyTransfer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WebHostedFileReadyForm.resx">
@@ -165,6 +169,12 @@
     </Compile>
     <Compile Include="UI\TransferForm.Designer.cs">
       <DependentUpon>TransferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TransferForms\AcceptOrDenyTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TransferForms\AcceptOrDenyTransfer.Designer.cs">
+      <DependentUpon>AcceptOrDenyTransfer.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\WebHostedFileReadyForm.cs">
       <SubType>Form</SubType>
