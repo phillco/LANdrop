@@ -17,6 +17,8 @@ namespace LANdrop.Networking
     {
         public Peer Sender { get; private set; }
 
+        public string FileSaveLocation { get; private set; }
+
         private StreamWriter fileOutputStream;
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
@@ -92,7 +94,8 @@ namespace LANdrop.Networking
             HashAlgorithm hasher = MD5CryptoServiceProvider.Create( );
             hasher.Initialize( );
 
-            using ( Stream fileStream = new FileStream( Util.FindFreeFileName( Path.Combine( DefaultSaveFolder, FileName ) ), FileMode.Create ) )
+            FileSaveLocation = Util.FindFreeFileName( Path.Combine( DefaultSaveFolder, FileName ) );
+            using ( Stream fileStream = new FileStream( FileSaveLocation, FileMode.Create ) )
             {
                 // Transfer chunks.
                 while ( NumBytesTransferred < FileSize )

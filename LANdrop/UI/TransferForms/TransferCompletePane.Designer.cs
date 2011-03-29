@@ -59,6 +59,7 @@
             this.lblOpen.TabIndex = 6;
             this.lblOpen.TabStop = true;
             this.lblOpen.Text = "Open";
+            this.lblOpen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.lblOpen_LinkClicked );
             // 
             // lblTitle
             // 

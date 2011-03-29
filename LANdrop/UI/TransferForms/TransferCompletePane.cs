@@ -6,6 +6,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using LANdrop.Networking;
+using System.IO;
+using System.Diagnostics;
 
 namespace LANdrop.UI.TransferForms
 {
@@ -38,7 +40,24 @@ namespace LANdrop.UI.TransferForms
 
         private void lblOpenFolder_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
+            // Open the folder in the default shell folder viewer.
+            using ( Process process = new Process( ) )
+            {
+                process.StartInfo.FileName = new FileInfo( transfer.FileSaveLocation).Directory.ToString(  );
+                process.Start( );
+            }
+            ParentNotification.StartClose(  );
+        }
 
+        private void lblOpen_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            // Open the file using whatever application the user has configured.
+            using ( Process process = new Process( ) )
+            {
+                process.StartInfo.FileName = transfer.FileSaveLocation;
+                process.Start( );
+            }
+            ParentNotification.StartClose( );
         }
     }
 }
