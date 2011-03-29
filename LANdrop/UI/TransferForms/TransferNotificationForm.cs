@@ -52,6 +52,9 @@ namespace LANdrop.UI.TransferForms
                     if ( progressPane != null )
                         progressPane.SetVerifying( );
                     break;
+                case Transfer.State.FAILED:
+                    ChangeContent( new TransferFailedPane( transfer ) );
+                    break;
                 case Transfer.State.FINISHED:
                     ChangeContent( new TransferCompletePane( transfer ) );
                     break;

@@ -144,6 +144,10 @@
       <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransferForms\TransferFailedPane.resx">
+      <DependentUpon>TransferFailedPane.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\TransferForms\TransferCompletePane.resx">
       <DependentUpon>TransferCompletePane.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -193,6 +197,12 @@
     </Compile>
     <Compile Include="UI\TransferForms\AcceptOrDenyPane.Designer.cs">
       <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TransferForms\TransferFailedPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TransferForms\TransferFailedPane.Designer.cs">
+      <DependentUpon>TransferFailedPane.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TransferForms\TransferCompletePane.cs">
       <SubType>UserControl</SubType>

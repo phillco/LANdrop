@@ -52,8 +52,12 @@ namespace LANdrop.UI
                 return;
             }
 
-            Controls.Remove( Content );
-            Content.Dispose();
+            if ( Content != null )
+            {
+                Controls.Remove( Content );
+                Content.Dispose( );
+            }
+
             this.Content = newContent;
             Controls.Add( Content );
             Size = Content.Size;            
