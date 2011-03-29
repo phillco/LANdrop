@@ -34,11 +34,26 @@ namespace LANdrop.UI.TransferForms
 
         public void ChangeToProgress( )
         {
+            // If this method was called by a different thread, invoke it to run on the form thread.
+            if ( InvokeRequired )
+            {
+                BeginInvoke( new MethodInvoker( delegate { ChangeToProgress( ); } ) );
+                return;
+            }
+
             progressPane = new ProgressPane( transfer );
             ChangeContent( progressPane );
         }
+
         public void ChangeToCompleted( )
         {
+            // If this method was called by a different thread, invoke it to run on the form thread.
+            if ( InvokeRequired )
+            {
+                BeginInvoke( new MethodInvoker( delegate { ChangeToCompleted(); } ) );
+                return;
+            }
+
             ChangeContent( new TransferCompletePane( transfer ) );
         }
 
