@@ -28,39 +28,30 @@ namespace LANdrop.UI.TransferForms
         {
             this.transfer = transfer;
             InitializeComponent( );
-            transfer.notification = this;
+
+            transfer.StateChanged += new Transfer.StateChangeHandler( transfer_StateChanged );
             Show( );
-        }
+        }     
 
-        public void ChangeToProgress( )
+        void transfer_StateChanged( Transfer.State oldState, Transfer.State newState )
         {
             // If this method was called by a different thread, invoke it to run on the form thread.
             if ( InvokeRequired )
             {
-                BeginInvoke( new MethodInvoker( delegate { ChangeToProgress( ); } ) );
+                BeginInvoke( new MethodInvoker( delegate { transfer_StateChanged( oldState, newState ); } ) );
                 return;
             }
 
-            progressPane = new ProgressPane( transfer );
-            ChangeContent( progressPane );
-        }
-
-        public void ChangeToCompleted( )
-        {
-            // If this method was called by a different thread, invoke it to run on the form thread.
-            if ( InvokeRequired )
+            switch ( newState )
             {
-                BeginInvoke( new MethodInvoker( delegate { ChangeToCompleted(); } ) );
-                return;
+                case Transfer.State.TRANSFERRING:
+                    progressPane = new ProgressPane( transfer );
+                    ChangeContent( progressPane );
+                    break;
+                case Transfer.State.FINISHED:
+                    ChangeContent( new TransferCompletePane( transfer ) );
+                    break;
             }
-
-            ChangeContent( new TransferCompletePane( transfer ) );
-        }
-
-        public void UpdateProgress( )
-        {
-            if ( progressPane != null )
-                progressPane.UpdateState( );
         }
     }
 }

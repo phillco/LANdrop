@@ -55,7 +55,6 @@ namespace LANdrop.Networking
             if ( Accepted )
             {
                 NetworkOutStream.Write( true );
-                notification.ChangeToProgress( );
                 DoTransfer( );
             }
             else
@@ -132,8 +131,6 @@ namespace LANdrop.Networking
             NetworkOutStream.Flush( );
             SetState( State.FINISHED );
             Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " received in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + ")." );
-
-            notification.ChangeToCompleted();
         }
     }
 }

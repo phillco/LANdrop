@@ -32,11 +32,15 @@ namespace LANdrop.Networking
 
         protected TransferForm Form { get; set; }
 
-        protected int LastRefreshTime = 0;
+        public delegate void BytesChangedHandler( long bytesTransferred );
+
+        public delegate void StateChangeHandler( State oldState, State newState );
+
+        public event BytesChangedHandler NewBytesTransferred;
+
+        public event StateChangeHandler StateChanged;
 
         public enum State { WAITING, FAILED_CONNECTION, REJECTED, TRANSFERRING, VERIFYING, FINISHED, FAILED }
-
-        public TransferNotificationForm notification;
 
         public Transfer( )
         {
@@ -67,17 +71,20 @@ namespace LANdrop.Networking
 
         protected void SetState( State newState )
         {
+            State oldState = CurrentState;
             this.CurrentState = newState;
-            if ( Form != null )
-                Form.UpdateState( );
 
             // Start the clock.
             if ( newState == State.TRANSFERRING )
                 StartTime = Environment.TickCount;
             else if ( newState == State.VERIFYING )
                 StopTime = Environment.TickCount;
+
+            // Fire the event.
+            if ( StateChanged != null )
+                StateChanged( oldState, newState );
         }
-       
+
         /// <summary>
         /// Returns the current speed of the transfer, in bytes/millisecond.
         /// </summary>
@@ -86,20 +93,15 @@ namespace LANdrop.Networking
             int endTime = ( CurrentState == State.TRANSFERRING ? Environment.TickCount : StopTime );
             if ( StartTime == endTime )
                 return 0;
-            return ( NumBytesTransferred / ( endTime - StartTime ));
+            return ( NumBytesTransferred / ( endTime - StartTime ) );
         }
 
         protected void UpdateNumBytesTransferred( long bytesTransferred )
         {
             this.NumBytesTransferred = bytesTransferred;
 
-            if ( Environment.TickCount - LastRefreshTime > 100 )
-            {
-                Form.UpdateState( );
-                if ( notification != null )
-                    notification.UpdateProgress();
-                LastRefreshTime = Environment.TickCount;
-            }
+            if ( NewBytesTransferred != null )
+                NewBytesTransferred( bytesTransferred );
         }
 
         public bool IsComplete( )
