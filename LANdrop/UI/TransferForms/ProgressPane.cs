@@ -30,6 +30,16 @@ namespace LANdrop.UI.TransferForms
             Width = pbFileProgress.Width + pbFileProgress.Left + 16;
         }
 
+        /// <summary>
+        /// Styles the pane for the "verifying" stage. (Which shouldn't last too long)
+        /// </summary>
+        public void SetVerifying()
+        {
+            lblProgress.Text = "Verifying...";
+            lblSpeed.Hide( );
+            pbFileProgress.Style = ProgressBarStyle.Marquee;
+        }
+
         private void TransferPane_Load( object sender, EventArgs e )
         {
             this.ParentNotification = (NotificationForm) Parent;

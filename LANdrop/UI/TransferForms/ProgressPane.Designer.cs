@@ -75,6 +75,7 @@
             // 
             this.pbFileProgress.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.pbFileProgress.Location = new System.Drawing.Point( 52, 60 );
+            this.pbFileProgress.MarqueeAnimationSpeed = 60;
             this.pbFileProgress.Name = "pbFileProgress";
             this.pbFileProgress.Size = new System.Drawing.Size( 257, 13 );
             this.pbFileProgress.TabIndex = 8;

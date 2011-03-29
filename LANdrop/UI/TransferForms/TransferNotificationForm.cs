@@ -31,7 +31,7 @@ namespace LANdrop.UI.TransferForms
 
             transfer.StateChanged += new Transfer.StateChangeHandler( transfer_StateChanged );
             Show( );
-        }     
+        }
 
         void transfer_StateChanged( Transfer.State oldState, Transfer.State newState )
         {
@@ -47,6 +47,10 @@ namespace LANdrop.UI.TransferForms
                 case Transfer.State.TRANSFERRING:
                     progressPane = new ProgressPane( transfer );
                     ChangeContent( progressPane );
+                    break;
+                case Transfer.State.VERIFYING:
+                    if ( progressPane != null )
+                        progressPane.SetVerifying( );
                     break;
                 case Transfer.State.FINISHED:
                     ChangeContent( new TransferCompletePane( transfer ) );
