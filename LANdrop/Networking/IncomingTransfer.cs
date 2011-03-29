@@ -23,9 +23,7 @@ namespace LANdrop.Networking
 
         private Semaphore userResponseReceived = new Semaphore( 0, 1 );
 
-        private bool Accepted = false;
-
-        public NotificationForm Notification;        
+        private bool Accepted = false;     
 
         public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
@@ -34,8 +32,8 @@ namespace LANdrop.Networking
             this.NetworkOutStream = netOutStream;
 
             // Read in information about the sender.
-            IPAddress peerAddress = ((IPEndPoint) client.Client.RemoteEndPoint).Address;
-            string peerName= NetworkInStream.ReadString();
+            IPAddress peerAddress = ( (IPEndPoint) client.Client.RemoteEndPoint ).Address;
+            string peerName = NetworkInStream.ReadString( );
 
             // If we already know this peer, use our stored information. TODO: merge the information like we do elsewhere
             Sender = MulticastManager.GetPeerForAddress( peerAddress );
@@ -49,7 +47,7 @@ namespace LANdrop.Networking
             FileSize = NetworkInStream.ReadInt64( );
 
             // Ask the user if they want to receive this file.       
-            MainForm.CreateIncomingNotification( this );
+            TransferNotificationForm.CreateForTransfer( this );
 
             // Wait for the user's response. (otherwise we dispose the streams)
             userResponseReceived.WaitOne( );
@@ -57,6 +55,7 @@ namespace LANdrop.Networking
             if ( Accepted )
             {
                 NetworkOutStream.Write( true );
+                notification.ChangeToProgress( );
                 DoTransfer( );
             }
             else
@@ -67,9 +66,7 @@ namespace LANdrop.Networking
         public void Accept( )
         {
             Accepted = true;
-            userResponseReceived.Release( );
-            progressPane = new ProgressPane( this );
-            Notification.ChangeContent( progressPane );
+            userResponseReceived.Release( );             
         }
 
         public void Reject( )
@@ -133,9 +130,10 @@ namespace LANdrop.Networking
             }
 
             NetworkOutStream.Flush( );
-
             SetState( State.FINISHED );
             Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " received in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + ")." );
+
+            notification.ChangeToCompleted();
         }
     }
 }

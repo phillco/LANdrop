@@ -34,9 +34,9 @@ namespace LANdrop.Networking
 
         protected int LastRefreshTime = 0;
 
-        protected ProgressPane progressPane;
-
         public enum State { WAITING, FAILED_CONNECTION, REJECTED, TRANSFERRING, VERIFYING, FINISHED, FAILED }
+
+        public TransferNotificationForm notification;
 
         public Transfer( )
         {
@@ -96,8 +96,8 @@ namespace LANdrop.Networking
             if ( Environment.TickCount - LastRefreshTime > 100 )
             {
                 Form.UpdateState( );
-                if ( progressPane != null )
-                    progressPane.UpdateState();
+                if ( notification != null )
+                    notification.UpdateProgress();
                 LastRefreshTime = Environment.TickCount;
             }
         }

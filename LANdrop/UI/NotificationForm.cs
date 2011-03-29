@@ -41,11 +41,17 @@ namespace LANdrop.UI
                 allNotifications.Add( this );
 
             Align( );
-            Show( );
         }
 
         public void ChangeContent( Control newContent )
         {
+            // If this method was called by a different thread, invoke it to run on the form thread.
+            if ( InvokeRequired )
+            {
+                BeginInvoke( new MethodInvoker( delegate { ChangeContent( newContent ); } ) );
+                return;
+            }
+
             Controls.Remove( Content );
             Content.Dispose();
             this.Content = newContent;

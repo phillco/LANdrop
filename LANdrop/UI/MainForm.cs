@@ -47,12 +47,7 @@ namespace LANdrop.UI
         /// </summary>
         public static void ShowFormOnUIThread( Form form )
         {
-            Instance.Invoke( new MethodInvoker( delegate { form.Show( ); } ) );
-        }
-
-        public static void CreateIncomingNotification( IncomingTransfer transfer )
-        {
-            Instance.Invoke( new MethodInvoker( delegate { transfer.Notification = new NotificationForm( new AcceptOrDenyPane( transfer ) ); } ) );
+            Instance.BeginInvoke( new MethodInvoker( delegate { form.Show( ); } ) );
         }
 
         private void UpdateButtons( )
