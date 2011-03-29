@@ -15,37 +15,38 @@ namespace LANdrop.UI
     public partial class AutoHidePane : UserControl
     {
         // The notification form that this lives in.
-        public NotificationForm ParentNotification { get { return (NotificationForm) Parent;} }
+        public NotificationForm ParentNotification { get { return Parent as NotificationForm; } }
 
         protected int secondsToHide = 15;
 
         public AutoHidePane( )
         {
-            InitializeComponent( );                
-        }   
+            InitializeComponent( );
+        }
 
         /// <summary>
         /// Called right when the timer runs out and the form is to be hidden. 
         /// </summary>
         protected virtual void OnAutoHide( )
         {
-            ParentNotification.StartClose();
+		if ( ParentNotification != null )
+            ParentNotification.StartClose( );
         }
 
         /// <summary>
         /// Called whenever the number of seconds until the form is hidden changes. Useful for setting labels, etc.
         /// </summary>
-        protected virtual void OnHideTimeChanged()
+        protected virtual void OnHideTimeChanged( )
         {
-            
+
         }
 
         private void rejectCountdownTimer_Tick( object sender, EventArgs e )
         {
-            secondsToHide--;            
+            secondsToHide--;
             if ( secondsToHide == 0 )
-                OnAutoHide(  );
-            OnHideTimeChanged(  );
+                OnAutoHide( );
+            OnHideTimeChanged( );
         }
     }
 }
