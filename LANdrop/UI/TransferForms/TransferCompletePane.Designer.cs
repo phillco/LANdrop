@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent( )
         {
-            this.components = new System.ComponentModel.Container( );
             this.lblHide = new System.Windows.Forms.LinkLabel( );
             this.lblOpen = new System.Windows.Forms.LinkLabel( );
             this.lblTitle = new System.Windows.Forms.Label( );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
-            this.rejectCountdownTimer = new System.Windows.Forms.Timer( this.components );
             this.lblOpenFolder = new System.Windows.Forms.LinkLabel( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -83,12 +81,6 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // rejectCountdownTimer
-            // 
-            this.rejectCountdownTimer.Enabled = true;
-            this.rejectCountdownTimer.Interval = 1000;
-            this.rejectCountdownTimer.Tick += new System.EventHandler( this.rejectCountdownTimer_Tick );
-            // 
             // lblOpenFolder
             // 
             this.lblOpenFolder.AutoSize = true;
@@ -112,10 +104,7 @@
             this.Controls.Add( this.lblOpen );
             this.Controls.Add( this.lblTitle );
             this.Controls.Add( this.pictureBox1 );
-            this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.Name = "TransferCompletePane";
-            this.Size = new System.Drawing.Size( 449, 68 );
-            this.Load += new System.EventHandler( this.TransferCompletePane_Load );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
@@ -128,7 +117,6 @@
         private System.Windows.Forms.LinkLabel lblOpen;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Timer rejectCountdownTimer;
         private System.Windows.Forms.LinkLabel lblOpenFolder;
     }
 }

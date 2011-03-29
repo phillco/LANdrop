@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent( )
         {
-            this.components = new System.ComponentModel.Container( );
             this.lblReject = new System.Windows.Forms.LinkLabel( );
             this.lblAccept = new System.Windows.Forms.LinkLabel( );
             this.lblTitle = new System.Windows.Forms.Label( );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
-            this.rejectCountdownTimer = new System.Windows.Forms.Timer( this.components );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
@@ -83,13 +81,7 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // rejectCountdownTimer
-            // 
-            this.rejectCountdownTimer.Enabled = true;
-            this.rejectCountdownTimer.Interval = 1000;
-            this.rejectCountdownTimer.Tick += new System.EventHandler( this.rejectCountdownTimer_Tick );
-            // 
-            // AcceptOrDenyTransfer
+            // AcceptOrDenyPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,10 +90,7 @@
             this.Controls.Add( this.lblAccept );
             this.Controls.Add( this.lblTitle );
             this.Controls.Add( this.pictureBox1 );
-            this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.Name = "AcceptOrDenyTransfer";
-            this.Size = new System.Drawing.Size( 449, 68 );
-            this.Load += new System.EventHandler( this.AcceptOrDenyTransfer_Load );
+            this.Name = "AcceptOrDenyPane";
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
@@ -114,6 +103,5 @@
         private System.Windows.Forms.LinkLabel lblAccept;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Timer rejectCountdownTimer;
     }
 }

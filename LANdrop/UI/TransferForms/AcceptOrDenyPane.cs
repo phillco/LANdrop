@@ -12,43 +12,36 @@ namespace LANdrop.UI.TransferForms
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class AcceptOrDenyPane : UserControl
-    {
-        // The notification form that this lives in.
-        public NotificationForm ParentNotification { get; private set; }
-
+    public partial class AcceptOrDenyPane : AutoHidePane
+    {     
         private IncomingTransfer transfer;
-
-        private int secondsToReject = 15;
 
         public AcceptOrDenyPane( IncomingTransfer transfer )
         {
             InitializeComponent( );
             this.transfer = transfer;
 
-            lblTitle.Text = String.Format( "{0} would like to send us {1} ({2})", transfer.Sender.Name, transfer.FileName, Util.FormatFileSize( transfer.FileSize ) );
-            lblReject.Text = "Reject (" + secondsToReject + ")";
+            lblTitle.Text = String.Format( "{0} would like to send us {1} ({2})", transfer.Sender.Name, transfer.FileName, Util.FormatFileSize( transfer.FileSize ) );            
             Width = lblTitle.Width + lblTitle.Left + 16;        
+            OnHideTimeChanged(  );
         }
 
-        private void AcceptOrDenyTransfer_Load( object sender, EventArgs e )
+        /// <summary>
+        /// Called right when the timer runs out and the form is to be hidden. 
+        /// </summary>
+        protected override void OnAutoHide( )
         {
-            this.ParentNotification = (NotificationForm) Parent;
+            base.OnAutoHide(  );
+            transfer.Reject(  );
         }
 
-        private void Reject( )
+        /// <summary>
+        /// Called whenever the number of seconds until the form is hidden changes. Useful for setting labels, etc.
+        /// </summary>
+        protected override void OnHideTimeChanged( )
         {
-            transfer.Reject( );
-            ParentNotification.StartClose();
-        }
-
-        private void rejectCountdownTimer_Tick( object sender, EventArgs e )
-        {
-            secondsToReject--;
-            lblReject.Text = "Reject (" + secondsToReject + ")";
-            if ( secondsToReject == 0 )
-                Reject( );
-        }
+            lblReject.Text = String.Format( "Reject ({0})", secondsToHide );
+        }         
 
         private void lblAccept_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
@@ -57,7 +50,8 @@ namespace LANdrop.UI.TransferForms
 
         private void lblReject_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
-            Reject();
+            transfer.Reject(  );
+            ParentNotification.StartClose(  );
         }
 
     }
