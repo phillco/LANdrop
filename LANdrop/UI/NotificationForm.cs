@@ -16,6 +16,9 @@ namespace LANdrop.UI
     /// </summary>
     public partial class NotificationForm : Form
     {
+        // The message we're carrying.
+        public Control Content { get; private set; }
+
         // The y-position we're moving towards.
         public int DesiredTop { get; private set; }
 
@@ -25,19 +28,48 @@ namespace LANdrop.UI
         // All the notifications that we're showing (used for positioning).
         private static List<NotificationForm> allNotifications = new List<NotificationForm>( );
 
-        public NotificationForm( Control message )
+        public NotificationForm( Control content )
         {
             InitializeComponent( );
 
             // Add in the wrapped message and show it.
-            Controls.Add( message );
-            Size = message.Size;
+            this.Content = content;
+            Controls.Add( Content );
+            Size = Content.Size;
 
             lock ( allNotifications )
                 allNotifications.Add( this );
 
             Align( );
             Show( );
+        }
+
+        public void ChangeContent( Control newContent )
+        {
+            Controls.Remove( Content );
+            Content.Dispose();
+            this.Content = newContent;
+            Controls.Add( Content );
+            Size = Content.Size;            
+            ReflowNotifications();
+            Left = Screen.GetWorkingArea( this ).Width - this.Width - 10;
+        }
+
+        private void ReflowNotifications( )
+        {
+            int y = Screen.GetWorkingArea( this ).Height - 15;
+
+            lock ( allNotifications )
+            {
+                foreach ( var notification in allNotifications )
+                {
+                    if ( notification.Disposing || notification.IsDisposed )
+                        continue;
+
+                    notification.SetDesiredTop( y - notification.Height );
+                    y-= notification.Height + 10;
+                }
+            }
         }
 
         /// <summary>
@@ -62,7 +94,7 @@ namespace LANdrop.UI
             if ( !positionTimer.Enabled )
             {
                 DesiredTop = Top + 15;
-                positionTimer.Start();
+                positionTimer.Start( );
             }
         }
 
@@ -83,7 +115,7 @@ namespace LANdrop.UI
             DesiredTop = startingPosition;
             Top = startingPosition + 30;
             Left = Screen.GetWorkingArea( this ).Width - this.Width - 10;
-            positionTimer.Start();
+            positionTimer.Start( );
         }
 
         private void opacityTimer_Tick( object sender, EventArgs e )
@@ -111,8 +143,7 @@ namespace LANdrop.UI
                 allNotifications.RemoveAt( index );
 
                 // Shift down all the notifications above us.
-                for ( int i = index; i < allNotifications.Count; i++ )
-                    allNotifications[i].SetDesiredTop( allNotifications[i].Top + this.Height + 10 );
+                ReflowNotifications();
             }
         }
 
