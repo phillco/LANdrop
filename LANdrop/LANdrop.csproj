@@ -134,6 +134,10 @@
       <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransferForms\ProgressPane.resx">
+      <DependentUpon>ProgressPane.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\WebHostedFileReadyForm.resx">
       <DependentUpon>WebHostedFileReadyForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -176,6 +180,12 @@
     <Compile Include="UI\TransferForms\AcceptOrDenyPane.Designer.cs">
       <DependentUpon>AcceptOrDenyPane.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TransferForms\ProgressPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\TransferForms\ProgressPane.Designer.cs">
+      <DependentUpon>ProgressPane.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WebHostedFileReadyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
+    <None Include="Resources\document_page_next.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

@@ -52,7 +52,7 @@ namespace LANdrop.UI
 
         public static void CreateIncomingNotification( IncomingTransfer transfer )
         {
-            Instance.Invoke( new MethodInvoker( delegate { new NotificationForm( new AcceptOrDenyPane( transfer ) ); } ) );
+            Instance.Invoke( new MethodInvoker( delegate { transfer.Notification = new NotificationForm( new AcceptOrDenyPane( transfer ) ); } ) );
         }
 
         private void UpdateButtons( )

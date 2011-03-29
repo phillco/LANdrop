@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using LANdrop.UI;
 using System.Net.Sockets;
+using LANdrop.UI.TransferForms;
 
 namespace LANdrop.Networking
 {
@@ -32,6 +33,8 @@ namespace LANdrop.Networking
         protected TransferForm Form { get; set; }
 
         protected int LastRefreshTime = 0;
+
+        protected ProgressPane progressPane;
 
         public enum State { WAITING, FAILED_CONNECTION, REJECTED, TRANSFERRING, VERIFYING, FINISHED, FAILED }
 
@@ -93,6 +96,8 @@ namespace LANdrop.Networking
             if ( Environment.TickCount - LastRefreshTime > 100 )
             {
                 Form.UpdateState( );
+                if ( progressPane != null )
+                    progressPane.UpdateState();
                 LastRefreshTime = Environment.TickCount;
             }
         }

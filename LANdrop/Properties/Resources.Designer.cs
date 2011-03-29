@@ -74,6 +74,13 @@ namespace LANdrop.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap document_page_next {
+            get {
+                object obj = ResourceManager.GetObject("document_page_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap draw_calligraphic {
             get {
                 object obj = ResourceManager.GetObject("draw_calligraphic", resourceCulture);
@@ -101,13 +108,20 @@ namespace LANdrop.Properties {
         ///	&lt;head&gt;
         ///		&lt;title&gt;${fileName}&lt;/title&gt;
         ///		&lt;meta http-equiv=&quot;REFRESH&quot; content=&quot;0;url=${fileUrl}&quot;/&gt;
-        ///	&lt;/head&gt;
-        ///	&lt;body&gt;
-        ///	&lt;h1&gt;&lt;a href=&quot;${fileUrl}&quot;&gt;${fileName}&lt;/a&gt;&lt;/h1&gt;
-        ///	
-        ///	&lt;div&gt;Sent to you from &lt;i&gt; ${sender} &lt;/i&gt; using &lt;a href=&quot;http://landrop.net&quot;&gt;LANdrop&lt;/a&gt;.&lt;/div&gt;
-        ///	&lt;/body&gt;
-        ///&lt;/html&gt;.
+        ///		&lt;style type=&quot;text/css&quot;&gt;
+        ///		    body 
+        ///		    {
+        ///		    	font-family: Segoe UI, &quot;Helvetica Neue&quot;, Helvetica, Segoe, Arial, sans-serif;
+        ///		    	font-size: 1.4em;
+        ///		    	line-height: 150%;
+        ///		    	background-color:#f0f0f0;
+        ///		    }
+        ///		    
+        ///		    a { color: #36a; text-decoration: none; }
+        ///		    
+        ///		    a:hover { color: #bbb; }
+        ///		    
+        ///		     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string sendFilePage {
             get {

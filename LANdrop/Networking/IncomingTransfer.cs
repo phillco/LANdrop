@@ -9,6 +9,7 @@ using LANdrop.UI;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Net;
+using LANdrop.UI.TransferForms;
 
 namespace LANdrop.Networking
 {
@@ -23,6 +24,8 @@ namespace LANdrop.Networking
         private Semaphore userResponseReceived = new Semaphore( 0, 1 );
 
         private bool Accepted = false;
+
+        public NotificationForm Notification;        
 
         public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
@@ -65,6 +68,8 @@ namespace LANdrop.Networking
         {
             Accepted = true;
             userResponseReceived.Release( );
+            progressPane = new ProgressPane( this );
+            Notification.ChangeContent( progressPane );
         }
 
         public void Reject( )

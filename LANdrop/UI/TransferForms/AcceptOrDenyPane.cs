@@ -53,7 +53,6 @@ namespace LANdrop.UI.TransferForms
         private void lblAccept_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
             transfer.Accept( );
-            ParentNotification.StartClose();
         }
 
         private void lblReject_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
