@@ -22,7 +22,7 @@ namespace LANdrop.UI.TransferForms
             this.transfer = transfer;
             this.AutoHide = true;
             secondsToHide = 8;
-            lblTitle.Text = String.Format( "Failed to {0} {1}", Util.IsIncoming( transfer ) ? "receive" : "sending", transfer.FileName );
+            lblTitle.Text = String.Format( "Failed to {0} {1}", Util.IsTransferIncoming( transfer ) ? "receive" : "sending", transfer.FileName );
             Width = lblTitle.Width + lblTitle.Left + 16;
             OnHideTimeChanged( );
         }

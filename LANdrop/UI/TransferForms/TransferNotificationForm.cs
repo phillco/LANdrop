@@ -28,7 +28,7 @@ namespace LANdrop.UI.TransferForms
             InitializeComponent( );
             this.transfer = transfer;
 
-            if ( Util.IsIncoming( transfer ))
+            if ( Util.IsTransferIncoming( transfer ))
                 ChangeContent( new AcceptOrDenyPane( (IncomingTransfer) transfer ) );
             else
                 ChangeContent( new WaitingForAcceptPane( (OutgoingTransfer) transfer ) );

@@ -24,10 +24,10 @@ namespace LANdrop.UI.TransferForms
             this.transfer = transfer;
             this.AutoHide = true;
 
-            lblTitle.Text = String.Format( "{0} {1} successfully!", transfer.FileName, Util.IsIncoming( transfer ) ? "received" : "sent" );
+            lblTitle.Text = String.Format( "{0} {1} successfully!", transfer.FileName, Util.IsTransferIncoming( transfer ) ? "received" : "sent" );
             
             // Hide the "open" links for outgoing transfers.
-            if ( !Util.IsIncoming( transfer ))
+            if ( !Util.IsTransferIncoming( transfer ))
             {
                 lblOpen.Visible = lblOpenFolder.Visible = false;
                 lblHide.Left = lblOpen.Left;

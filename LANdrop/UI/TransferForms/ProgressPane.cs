@@ -23,7 +23,7 @@ namespace LANdrop.UI.TransferForms
             InitializeComponent( );
             this.transfer = transfer;
             transfer.NewBytesTransferred += new Transfer.BytesChangedHandler( transfer_NewBytesTransferred );
-            lblTitle.Text = String.Format( "{0} {1}...", Util.IsIncoming( transfer ) ? "Receiving" : "Sending", transfer.FileName );
+            lblTitle.Text = String.Format( "{0} {1}...", Util.IsTransferIncoming( transfer ) ? "Receiving" : "Sending", transfer.FileName );
             Width = pbFileProgress.Width + pbFileProgress.Left + 16;
         }
 
