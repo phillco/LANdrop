@@ -28,6 +28,13 @@ namespace LANdrop.UI
         // All the notifications that we're showing (used for positioning).
         private static List<NotificationForm> allNotifications = new List<NotificationForm>( );
 
+        public NotificationForm( )
+        {
+            InitializeComponent( );
+
+            lock ( allNotifications )
+                allNotifications.Add( this );
+        }
         public NotificationForm( Control content )
         {
             InitializeComponent( );
@@ -36,10 +43,6 @@ namespace LANdrop.UI
             this.Content = content;
             Controls.Add( Content );
             Size = Content.Size;
-
-            lock ( allNotifications )
-                allNotifications.Add( this );
-
             Align( );
         }
 
@@ -52,7 +55,8 @@ namespace LANdrop.UI
                 return;
             }
 
-            if ( Content != null )
+            bool firstItem = ( Content == null );
+            if ( !firstItem )
             {
                 Controls.Remove( Content );
                 Content.Dispose( );
@@ -60,8 +64,12 @@ namespace LANdrop.UI
 
             this.Content = newContent;
             Controls.Add( Content );
-            Size = Content.Size;            
-            ReflowNotifications();
+            Size = Content.Size;
+
+            if ( firstItem )
+                Align( );
+
+            ReflowNotifications( );
             Left = Screen.GetWorkingArea( this ).Width - this.Width - 10;
         }
 
@@ -77,7 +85,7 @@ namespace LANdrop.UI
                         continue;
 
                     notification.SetDesiredTop( y - notification.Height );
-                    y-= notification.Height + 10;
+                    y -= notification.Height + 10;
                 }
             }
         }
@@ -153,7 +161,7 @@ namespace LANdrop.UI
                 allNotifications.RemoveAt( index );
 
                 // Shift down all the notifications above us.
-                ReflowNotifications();
+                ReflowNotifications( );
             }
         }
 
