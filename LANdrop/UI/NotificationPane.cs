@@ -12,14 +12,16 @@ namespace LANdrop.UI
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class AutoHidePane : UserControl
+    public partial class NotificationPane : UserControl
     {
         // The notification form that this lives in.
         public NotificationForm ParentNotification { get { return Parent as NotificationForm; } }
 
+        public bool AutoHide { get; protected set; }
+
         protected int secondsToHide = 15;
 
-        public AutoHidePane( )
+        public NotificationPane( )
         {
             InitializeComponent( );
         }
@@ -29,8 +31,8 @@ namespace LANdrop.UI
         /// </summary>
         protected virtual void OnAutoHide( )
         {
-		if ( ParentNotification != null )
-            ParentNotification.StartClose( );
+            if ( ParentNotification != null )
+                ParentNotification.StartClose( );
         }
 
         /// <summary>
@@ -43,6 +45,12 @@ namespace LANdrop.UI
 
         private void rejectCountdownTimer_Tick( object sender, EventArgs e )
         {
+            if ( !AutoHide )
+            {
+                rejectCountdownTimer.Stop( );
+                return;
+            }
+
             secondsToHide--;
             if ( secondsToHide == 0 )
                 OnAutoHide( );

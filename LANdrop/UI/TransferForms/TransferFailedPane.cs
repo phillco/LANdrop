@@ -12,7 +12,7 @@ namespace LANdrop.UI.TransferForms
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class TransferFailedPane : AutoHidePane
+    public partial class TransferFailedPane : NotificationPane
     {
         private IncomingTransfer transfer;
 
@@ -20,6 +20,7 @@ namespace LANdrop.UI.TransferForms
         {
             InitializeComponent( );
             this.transfer = transfer;
+            this.AutoHide = true;
             secondsToHide = 8;
             lblTitle.Text = String.Format( "Failed to receive {0}", transfer.FileName );
             Width = lblTitle.Width + lblTitle.Left + 16;

@@ -12,7 +12,7 @@ namespace LANdrop.UI.TransferForms
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class AcceptOrDenyPane : AutoHidePane
+    public partial class AcceptOrDenyPane : NotificationPane
     {     
         private IncomingTransfer transfer;
 
@@ -20,6 +20,7 @@ namespace LANdrop.UI.TransferForms
         {
             InitializeComponent( );
             this.transfer = transfer;
+            this.AutoHide = true;
 
             lblTitle.Text = String.Format( "{0} would like to send us {1} ({2})", transfer.Sender.Name, transfer.FileName, Util.FormatFileSize( transfer.FileSize ) );            
             Width = lblTitle.Width + lblTitle.Left + 16;        

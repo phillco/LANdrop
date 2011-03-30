@@ -1,6 +1,6 @@
 ﻿namespace LANdrop.UI
 {
-    partial class AutoHidePane
+    partial class NotificationPane
     {
         /// <summary> 
         /// Required designer variable.

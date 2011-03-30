@@ -14,7 +14,7 @@ namespace LANdrop.UI.TransferForms
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class TransferCompletePane : AutoHidePane
+    public partial class TransferCompletePane : NotificationPane
     {
         private IncomingTransfer transfer;
 
@@ -22,6 +22,7 @@ namespace LANdrop.UI.TransferForms
         {
             InitializeComponent( );
             this.transfer = transfer;
+            this.AutoHide = true;
 
             lblTitle.Text = String.Format( "{0} received successfully!", transfer.FileName );
             Width = lblTitle.Width + lblTitle.Left + 16;

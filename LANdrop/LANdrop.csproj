@@ -67,11 +67,11 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AutoHidePane.cs">
+    <Compile Include="UI\NotificationPane.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\AutoHidePane.Designer.cs">
-      <DependentUpon>AutoHidePane.cs</DependentUpon>
+    <Compile Include="UI\NotificationPane.Designer.cs">
+      <DependentUpon>NotificationPane.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\AddUserForm.cs">
       <SubType>Form</SubType>
@@ -103,8 +103,8 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AutoHidePane.resx">
-      <DependentUpon>AutoHidePane.cs</DependentUpon>
+    <EmbeddedResource Include="UI\NotificationPane.resx">
+      <DependentUpon>NotificationPane.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AddUserForm.resx">

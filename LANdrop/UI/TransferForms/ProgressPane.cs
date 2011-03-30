@@ -12,11 +12,8 @@ namespace LANdrop.UI.TransferForms
     /// <summary>
     /// Shown when somebody wants to send us a file; shows links to accept or reject it.
     /// </summary>
-    public partial class ProgressPane : UserControl
+    public partial class ProgressPane : NotificationPane
     {
-        // The notification form that this lives in.
-        public NotificationForm ParentNotification { get; private set; }
-
         private IncomingTransfer transfer;
 
         private int lastRefreshTime = 0;
@@ -38,11 +35,6 @@ namespace LANdrop.UI.TransferForms
             lblProgress.Text = "Verifying...";
             lblSpeed.Hide( );
             pbFileProgress.Style = ProgressBarStyle.Marquee;
-        }
-
-        private void TransferPane_Load( object sender, EventArgs e )
-        {
-            this.ParentNotification = (NotificationForm) Parent;
         }
 
         void transfer_NewBytesTransferred( long bytesTransferred )
