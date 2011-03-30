@@ -112,10 +112,10 @@
             this.Controls.Add( this.lblCancel );
             this.Controls.Add( this.lblTitle );
             this.Controls.Add( this.pictureBox1 );
-            this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.MinimumSize = new System.Drawing.Size( 390, 82 );
             this.Name = "ProgressPane";
             this.Size = new System.Drawing.Size( 390, 85 );
+            this.Load += new System.EventHandler( this.ProgressPane_Load );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );

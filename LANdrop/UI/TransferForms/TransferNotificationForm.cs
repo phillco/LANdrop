@@ -32,9 +32,13 @@ namespace LANdrop.UI.TransferForms
                 ChangeContent( new AcceptOrDenyPane( (IncomingTransfer) transfer ) );
             else
                 ChangeContent( new WaitingForAcceptPane( (OutgoingTransfer) transfer ) );
+            
+            Show( );      
+        }
 
+        private void TransferNotificationForm_Load( object sender, EventArgs e )
+        {
             transfer.StateChanged += new Transfer.StateChangeHandler( transfer_StateChanged );
-            Show( );
         }
 
         void transfer_StateChanged( Transfer.State oldState, Transfer.State newState )
@@ -63,6 +67,6 @@ namespace LANdrop.UI.TransferForms
                     ChangeContent( new TransferCompletePane( transfer ) );
                     break;
             }
-        }
+        }       
     }
 }

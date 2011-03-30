@@ -21,16 +21,20 @@ namespace LANdrop.UI.TransferForms
         public ProgressPane( Transfer transfer )
         {
             InitializeComponent( );
-            this.transfer = transfer;
-            transfer.NewBytesTransferred += new Transfer.BytesChangedHandler( transfer_NewBytesTransferred );
+            this.transfer = transfer;            
             lblTitle.Text = String.Format( "{0} {1}...", Util.IsTransferIncoming( transfer ) ? "Receiving" : "Sending", transfer.FileName );
             Width = pbFileProgress.Width + pbFileProgress.Left + 16;
+        }
+
+        private void ProgressPane_Load( object sender, EventArgs e )
+        {
+            transfer.NewBytesTransferred += new Transfer.BytesChangedHandler( transfer_NewBytesTransferred );
         }
 
         /// <summary>
         /// Styles the pane for the "verifying" stage. (Which shouldn't last too long)
         /// </summary>
-        public void SetVerifying()
+        public void SetVerifying( )
         {
             lblProgress.Text = "Verifying...";
             lblSpeed.Hide( );
