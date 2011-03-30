@@ -25,7 +25,7 @@ namespace LANdrop.Networking
 
         private Semaphore userResponseReceived = new Semaphore( 0, 1 );
 
-        private bool Accepted = false;     
+        private bool Accepted = false;
 
         public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
@@ -54,20 +54,27 @@ namespace LANdrop.Networking
             // Wait for the user's response. (otherwise we dispose the streams)
             userResponseReceived.WaitOne( );
 
-            if ( Accepted )
+            try
             {
-                NetworkOutStream.Write( true );
-                DoTransfer( );
+                if ( Accepted )
+                {
+                    NetworkOutStream.Write( true );
+                    DoTransfer( );
+                }
+                else
+                    NetworkOutStream.Write( false );
             }
-            else
-                NetworkOutStream.Write( false );
-
+            catch ( IOException )
+            {
+                SetState( State.FAILED );
+                return;
+            }
         }
 
         public void Accept( )
         {
             Accepted = true;
-            userResponseReceived.Release( );             
+            userResponseReceived.Release( );
         }
 
         public void Reject( )
