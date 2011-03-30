@@ -26,9 +26,6 @@ namespace LANdrop.Networking
             this.FileName = file.Name;
             this.Partner = recipient.Name;
 
-            // Create and show the form.
-            Form = new TransferForm( this );
-
             new Thread( new ThreadStart( DoTransfer ) ).Start( );
         }
 

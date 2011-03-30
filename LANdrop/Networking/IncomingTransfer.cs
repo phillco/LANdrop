@@ -84,9 +84,6 @@ namespace LANdrop.Networking
             Debug.WriteLine( "Size: " + Util.FormatFileSize( FileSize ) );
             Debug.Unindent( );
 
-            // Create and show the form.                
-            Form = new TransferForm( this );
-
             // Open handle to the file.
             SetState( State.TRANSFERRING );
 

@@ -30,8 +30,6 @@ namespace LANdrop.Networking
 
         protected BinaryWriter NetworkOutStream { get; set; }
 
-        protected TransferForm Form { get; set; }
-
         public delegate void BytesChangedHandler( long bytesTransferred );
 
         public delegate void StateChangeHandler( State oldState, State newState );
