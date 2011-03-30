@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BugzScout, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\BugzScout.dll</HintPath>
+    </Reference>
     <Reference Include="HybridDSP.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\HybridDSP.Net.dll</HintPath>
@@ -49,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Networking\IncomingWhosThere.cs" />
     <Compile Include="Networking\MulticastManager.cs" />
     <Compile Include="Networking\OutgoingWhosThere.cs" />
@@ -66,6 +71,12 @@
     </Compile>
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ErrorForm.Designer.cs">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\NotificationPane.cs">
       <SubType>UserControl</SubType>
@@ -101,6 +112,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ErrorForm.resx">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\NotificationPane.resx">
@@ -238,6 +253,8 @@
     <Content Include="program_icon.ico" />
     <None Include="Resources\document_page_next.png" />
     <None Include="Resources\question.png" />
+    <None Include="Resources\accept16.png" />
+    <None Include="Resources\landropError.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

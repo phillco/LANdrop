@@ -67,6 +67,13 @@ namespace LANdrop.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap accept16 {
+            get {
+                object obj = ResourceManager.GetObject("accept16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -91,6 +98,13 @@ namespace LANdrop.Properties {
         internal static System.Drawing.Bitmap exclamation {
             get {
                 object obj = ResourceManager.GetObject("exclamation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap landropError {
+            get {
+                object obj = ResourceManager.GetObject("landropError", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

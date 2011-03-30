@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using HybridDSP.Net.HTTP;
+using System.Threading;
 
 namespace LANdrop
 {
@@ -21,6 +22,11 @@ namespace LANdrop
             Application.EnableVisualStyles( );
             Application.SetCompatibleTextRenderingDefault( false );
 
+            // Set up error reporting.
+            Application.SetUnhandledExceptionMode( UnhandledExceptionMode.CatchException );
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler( CurrentDomain_UnhandledException );
+            Application.ThreadException += new ThreadExceptionEventHandler( Application_ThreadException );
+            
             Configuration.Initialize( );
 
             // Start the log.                        
@@ -44,6 +50,16 @@ namespace LANdrop
             WebServer.Stop( );
             Trace.Flush( );
             Environment.Exit( 0 );
+        }
+       
+        static void Application_ThreadException( object sender, ThreadExceptionEventArgs e )
+        {
+            ErrorHandler.HandleUncaughtException( e.Exception, false );
+        }
+
+        static void CurrentDomain_UnhandledException( object sender, UnhandledExceptionEventArgs e )
+        {
+            ErrorHandler.HandleUncaughtException( (Exception) e.ExceptionObject, true );
         }
     }
 }
