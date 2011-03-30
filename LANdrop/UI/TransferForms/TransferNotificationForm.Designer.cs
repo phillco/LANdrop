@@ -28,9 +28,19 @@
         /// </summary>
         private void InitializeComponent( )
         {
-            this.components = new System.ComponentModel.Container( );
+            this.SuspendLayout( );
+            // 
+            // TransferNotificationForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size( 494, 70 );
+            this.Name = "TransferNotificationForm";
+            this.Opacity = 0.85;
             this.Text = "TransferNotificationForm";
+            this.Load += new System.EventHandler( this.TransferNotificationForm_Load );
+            this.ResumeLayout( false );
+
         }
 
         #endregion
