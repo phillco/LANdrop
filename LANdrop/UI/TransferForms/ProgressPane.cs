@@ -14,16 +14,16 @@ namespace LANdrop.UI.TransferForms
     /// </summary>
     public partial class ProgressPane : NotificationPane
     {
-        private IncomingTransfer transfer;
+        private Transfer transfer;
 
         private int lastRefreshTime = 0;
 
-        public ProgressPane( IncomingTransfer transfer )
+        public ProgressPane( Transfer transfer )
         {
             InitializeComponent( );
             this.transfer = transfer;
             transfer.NewBytesTransferred += new Transfer.BytesChangedHandler( transfer_NewBytesTransferred );
-            lblTitle.Text = String.Format( "Receiving {0}...", transfer.FileName );
+            lblTitle.Text = String.Format( "{0} {1}...", Util.IsIncoming( transfer ) ? "Receiving" : "Sending", transfer.FileName );
             Width = pbFileProgress.Width + pbFileProgress.Left + 16;
         }
 

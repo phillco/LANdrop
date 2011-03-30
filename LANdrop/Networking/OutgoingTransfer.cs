@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Security.Cryptography;
+using LANdrop.UI.TransferForms;
 
 namespace LANdrop.Networking
 {
@@ -25,6 +26,9 @@ namespace LANdrop.Networking
             this.FileSize = file.Length;
             this.FileName = file.Name;
             this.Partner = recipient.Name;
+
+            // Create a progress notification for this form.
+            TransferNotificationForm.CreateForTransfer( this );
 
             new Thread( new ThreadStart( DoTransfer ) ).Start( );
         }

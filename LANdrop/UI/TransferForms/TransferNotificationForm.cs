@@ -11,23 +11,27 @@ namespace LANdrop.UI.TransferForms
 {
     public partial class TransferNotificationForm : NotificationForm
     {
-        private IncomingTransfer transfer;
+        private Transfer transfer;
 
         private ProgressPane progressPane;
 
         /// <summary>
         /// Creates the notification form for the given transfer on the UI thread.
         /// </summary>
-        public static void CreateForTransfer( IncomingTransfer transfer )
+        public static void CreateForTransfer( Transfer transfer )
         {
-            MainForm.Instance.BeginInvoke( (MethodInvoker) delegate { new TransferNotificationForm( transfer ); } );
+            MainForm.Instance.BeginInvoke( (MethodInvoker) delegate { new TransferNotificationForm( transfer ); } );            
         }
 
-        public TransferNotificationForm( IncomingTransfer transfer )
-            : base( new AcceptOrDenyPane( transfer ) )
-        {
-            this.transfer = transfer;
+        public TransferNotificationForm( Transfer transfer )
+        {            
             InitializeComponent( );
+            this.transfer = transfer;
+
+            if ( Util.IsIncoming( transfer ))
+                ChangeContent( new AcceptOrDenyPane( (IncomingTransfer) transfer ) );
+            else
+                ChangeContent( new WaitingForAcceptPane( (OutgoingTransfer) transfer ) );
 
             transfer.StateChanged += new Transfer.StateChangeHandler( transfer_StateChanged );
             Show( );

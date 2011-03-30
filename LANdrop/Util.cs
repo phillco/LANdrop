@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using LANdrop.Networking;
 
 namespace LANdrop
 {
@@ -243,7 +244,7 @@ namespace LANdrop
             StringBuilder sb = new StringBuilder( );
             while ( inputNumber != 0 )
             {
-                sb.Append( base36Chars[(int)(inputNumber % 36)] );
+                sb.Append( base36Chars[(int) ( inputNumber % 36 )] );
                 inputNumber /= 36;
             }
             return Reverse( sb.ToString( ) );
@@ -264,6 +265,14 @@ namespace LANdrop
             while ( resultStack.Count > 0 )
                 sb.Append( resultStack.Pop( ) );
             return sb.ToString( );
+        }
+
+        /// <summary>
+        /// Returns true if the given transfer is incoming; false if outgoing.
+        /// </summary>
+        public static bool IsTransferIncoming( Transfer t )
+        {
+            return ( typeof( IncomingTransfer ) == t.GetType( ) );
         }
     }
 }

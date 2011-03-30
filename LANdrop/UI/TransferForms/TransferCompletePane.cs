@@ -16,15 +16,23 @@ namespace LANdrop.UI.TransferForms
     /// </summary>
     public partial class TransferCompletePane : NotificationPane
     {
-        private IncomingTransfer transfer;
+        private Transfer transfer;
 
-        public TransferCompletePane( IncomingTransfer transfer )
+        public TransferCompletePane( Transfer transfer )
         {
             InitializeComponent( );
             this.transfer = transfer;
             this.AutoHide = true;
 
-            lblTitle.Text = String.Format( "{0} received successfully!", transfer.FileName );
+            lblTitle.Text = String.Format( "{0} {1} successfully!", transfer.FileName, Util.IsIncoming( transfer ) ? "received" : "sent" );
+            
+            // Hide the "open" links for outgoing transfers.
+            if ( !Util.IsIncoming( transfer ))
+            {
+                lblOpen.Visible = lblOpenFolder.Visible = false;
+                lblHide.Left = lblOpen.Left;
+            }
+
             Width = lblTitle.Width + lblTitle.Left + 16;
             OnHideTimeChanged( );
         }
@@ -44,7 +52,7 @@ namespace LANdrop.UI.TransferForms
             // Open the folder in the default shell folder viewer.
             using ( Process process = new Process( ) )
             {
-                process.StartInfo.FileName = new FileInfo( transfer.FileSaveLocation).Directory.ToString(  );
+                process.StartInfo.FileName = new FileInfo( ((IncomingTransfer) transfer).FileSaveLocation).Directory.ToString(  );
                 process.Start( );
             }
             ParentNotification.StartClose(  );
@@ -55,7 +63,7 @@ namespace LANdrop.UI.TransferForms
             // Open the file using whatever application the user has configured.
             using ( Process process = new Process( ) )
             {
-                process.StartInfo.FileName = transfer.FileSaveLocation;
+                process.StartInfo.FileName = ( (IncomingTransfer) transfer ).FileSaveLocation;
                 process.Start( );
             }
             ParentNotification.StartClose( );

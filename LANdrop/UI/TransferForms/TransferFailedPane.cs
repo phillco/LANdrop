@@ -14,15 +14,15 @@ namespace LANdrop.UI.TransferForms
     /// </summary>
     public partial class TransferFailedPane : NotificationPane
     {
-        private IncomingTransfer transfer;
+        private Transfer transfer;
 
-        public TransferFailedPane( IncomingTransfer transfer )
+        public TransferFailedPane( Transfer transfer )
         {
             InitializeComponent( );
             this.transfer = transfer;
             this.AutoHide = true;
             secondsToHide = 8;
-            lblTitle.Text = String.Format( "Failed to receive {0}", transfer.FileName );
+            lblTitle.Text = String.Format( "Failed to {0} {1}", Util.IsIncoming( transfer ) ? "receive" : "sending", transfer.FileName );
             Width = lblTitle.Width + lblTitle.Left + 16;
             OnHideTimeChanged( );
         }
