@@ -40,15 +40,21 @@
             this.lblSubmitting = new System.Windows.Forms.Label( );
             this.bugReporter = new System.ComponentModel.BackgroundWorker( );
             this.lblDeveloperResponse = new System.Windows.Forms.Label( );
-            this.pictureBox1 = new System.Windows.Forms.PictureBox( );
+            this.pbReportSentStatus = new System.Windows.Forms.PictureBox( );
             this.pbIcon = new System.Windows.Forms.PictureBox( );
-            this.label2 = new System.Windows.Forms.Label( );
+            this.lblReportSent = new System.Windows.Forms.Label( );
             this.panelReportSent = new System.Windows.Forms.Panel( );
             this.hideMainFormTimer = new System.Windows.Forms.Timer( this.components );
+            this.panelReportFailed = new System.Windows.Forms.Panel( );
+            this.label1 = new System.Windows.Forms.Label( );
+            this.pbReportSentErrorIcon = new System.Windows.Forms.PictureBox( );
+            this.llblRetrySend = new System.Windows.Forms.LinkLabel( );
             this.panel2.SuspendLayout( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).BeginInit( );
             this.panelReportSent.SuspendLayout( );
+            this.panelReportFailed.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentErrorIcon ) ).BeginInit( );
             this.SuspendLayout( );
             // 
             // panel2
@@ -118,6 +124,7 @@
             // 
             // pbSubmitProgress
             // 
+            this.pbSubmitProgress.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.pbSubmitProgress.Location = new System.Drawing.Point( 179, 81 );
             this.pbSubmitProgress.MarqueeAnimationSpeed = 20;
             this.pbSubmitProgress.Name = "pbSubmitProgress";
@@ -128,6 +135,7 @@
             // 
             // lblSubmitting
             // 
+            this.lblSubmitting.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblSubmitting.AutoSize = true;
             this.lblSubmitting.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.lblSubmitting.ForeColor = System.Drawing.SystemColors.ControlDark;
@@ -144,6 +152,7 @@
             // 
             // lblDeveloperResponse
             // 
+            this.lblDeveloperResponse.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblDeveloperResponse.Location = new System.Drawing.Point( 14, 103 );
             this.lblDeveloperResponse.Name = "lblDeveloperResponse";
             this.lblDeveloperResponse.Size = new System.Drawing.Size( 411, 36 );
@@ -151,15 +160,15 @@
             this.lblDeveloperResponse.Text = "Developer Response: oops";
             this.lblDeveloperResponse.Visible = false;
             // 
-            // pictureBox1
+            // pbReportSentStatus
             // 
-            this.pictureBox1.Image = global::LANdrop.Properties.Resources.accept16;
-            this.pictureBox1.Location = new System.Drawing.Point( 3, 2 );
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size( 16, 16 );
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
+            this.pbReportSentStatus.Image = global::LANdrop.Properties.Resources.accept16;
+            this.pbReportSentStatus.Location = new System.Drawing.Point( 3, 2 );
+            this.pbReportSentStatus.Name = "pbReportSentStatus";
+            this.pbReportSentStatus.Size = new System.Drawing.Size( 16, 16 );
+            this.pbReportSentStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbReportSentStatus.TabIndex = 17;
+            this.pbReportSentStatus.TabStop = false;
             // 
             // pbIcon
             // 
@@ -171,20 +180,21 @@
             this.pbIcon.TabIndex = 13;
             this.pbIcon.TabStop = false;
             // 
-            // label2
+            // lblReportSent
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label2.Location = new System.Drawing.Point( 20, 4 );
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 77, 13 );
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Report sent!";
+            this.lblReportSent.AutoSize = true;
+            this.lblReportSent.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblReportSent.Location = new System.Drawing.Point( 20, 4 );
+            this.lblReportSent.Name = "lblReportSent";
+            this.lblReportSent.Size = new System.Drawing.Size( 77, 13 );
+            this.lblReportSent.TabIndex = 18;
+            this.lblReportSent.Text = "Report sent!";
             // 
             // panelReportSent
             // 
-            this.panelReportSent.Controls.Add( this.label2 );
-            this.panelReportSent.Controls.Add( this.pictureBox1 );
+            this.panelReportSent.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.panelReportSent.Controls.Add( this.lblReportSent );
+            this.panelReportSent.Controls.Add( this.pbReportSentStatus );
             this.panelReportSent.Location = new System.Drawing.Point( 13, 76 );
             this.panelReportSent.Name = "panelReportSent";
             this.panelReportSent.Size = new System.Drawing.Size( 102, 22 );
@@ -196,12 +206,58 @@
             this.hideMainFormTimer.Enabled = true;
             this.hideMainFormTimer.Tick += new System.EventHandler( this.hideMainFormTimer_Tick );
             // 
+            // panelReportFailed
+            // 
+            this.panelReportFailed.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
+            this.panelReportFailed.Controls.Add( this.llblRetrySend );
+            this.panelReportFailed.Controls.Add( this.label1 );
+            this.panelReportFailed.Controls.Add( this.pbReportSentErrorIcon );
+            this.panelReportFailed.Location = new System.Drawing.Point( 12, 76 );
+            this.panelReportFailed.Name = "panelReportFailed";
+            this.panelReportFailed.Size = new System.Drawing.Size( 371, 22 );
+            this.panelReportFailed.TabIndex = 20;
+            this.panelReportFailed.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label1.Location = new System.Drawing.Point( 20, 4 );
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size( 225, 13 );
+            this.label1.TabIndex = 18;
+            this.label1.Text = "There was an error sending the report.";
+            // 
+            // pbReportSentErrorIcon
+            // 
+            this.pbReportSentErrorIcon.Image = global::LANdrop.Properties.Resources.error16;
+            this.pbReportSentErrorIcon.Location = new System.Drawing.Point( 3, 2 );
+            this.pbReportSentErrorIcon.Name = "pbReportSentErrorIcon";
+            this.pbReportSentErrorIcon.Size = new System.Drawing.Size( 16, 16 );
+            this.pbReportSentErrorIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbReportSentErrorIcon.TabIndex = 17;
+            this.pbReportSentErrorIcon.TabStop = false;
+            // 
+            // llblRetrySend
+            // 
+            this.llblRetrySend.AutoSize = true;
+            this.llblRetrySend.Location = new System.Drawing.Point( 246, 4 );
+            this.llblRetrySend.Name = "llblRetrySend";
+            this.llblRetrySend.Size = new System.Drawing.Size( 34, 13 );
+            this.llblRetrySend.TabIndex = 19;
+            this.llblRetrySend.TabStop = true;
+            this.llblRetrySend.Text = "Retry";
+            this.llblRetrySend.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblRetrySend_LinkClicked );
+            // 
             // ErrorForm
             // 
+            this.AcceptButton = this.btnRestart;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size( 437, 200 );
+            this.Controls.Add( this.panelReportFailed );
             this.Controls.Add( this.panelReportSent );
             this.Controls.Add( this.lblDeveloperResponse );
             this.Controls.Add( this.lblSubmitting );
@@ -220,10 +276,13 @@
             this.Text = "LANdrop Error";
             this.Resize += new System.EventHandler( this.ErrorForm_Resize );
             this.panel2.ResumeLayout( false );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).EndInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).EndInit( );
             this.panelReportSent.ResumeLayout( false );
             this.panelReportSent.PerformLayout( );
+            this.panelReportFailed.ResumeLayout( false );
+            this.panelReportFailed.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentErrorIcon ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -242,9 +301,13 @@
         private System.Windows.Forms.ProgressBar pbSubmitProgress;
         private System.ComponentModel.BackgroundWorker bugReporter;
         private System.Windows.Forms.Label lblDeveloperResponse;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pbReportSentStatus;
+        private System.Windows.Forms.Label lblReportSent;
         private System.Windows.Forms.Panel panelReportSent;
         private System.Windows.Forms.Timer hideMainFormTimer;
+        private System.Windows.Forms.Panel panelReportFailed;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pbReportSentErrorIcon;
+        private System.Windows.Forms.LinkLabel llblRetrySend;
     }
 }

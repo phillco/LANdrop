@@ -78,6 +78,7 @@ namespace LANdrop.UI
             pbSubmitProgress.Hide( );
             lblSubmitting.Hide( );
 
+
             if ( response.Succeeded )
             {
                 panelReportSent.Show( );
@@ -89,7 +90,15 @@ namespace LANdrop.UI
                 }
             }
             else
-                MessageBox.Show( "Sorry - we were unable to send the bug report.", "Send report", MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                panelReportFailed.Show( );
+        }
+
+        private void llblRetrySend_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            pbSubmitProgress.Show( );
+            lblSubmitting.Show( );
+            panelReportFailed.Hide( );
+            bugReporter.RunWorkerAsync( );
         }
 
         private void hideMainFormTimer_Tick( object sender, EventArgs e )

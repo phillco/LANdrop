@@ -72,6 +72,12 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AddErrorDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddErrorDetails.Designer.cs">
+      <DependentUpon>AddErrorDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddErrorDetails.resx">
+      <DependentUpon>AddErrorDetails.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ErrorForm.resx">
@@ -255,6 +265,8 @@
     <None Include="Resources\question.png" />
     <None Include="Resources\accept16.png" />
     <None Include="Resources\landropError.png" />
+    <None Include="Resources\page_add.png" />
+    <None Include="Resources\error16.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />
