@@ -123,13 +123,6 @@ namespace LANdrop.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap page_add {
-            get {
-                object obj = ResourceManager.GetObject("page_add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap personals {
             get {
                 object obj = ResourceManager.GetObject("personals", resourceCulture);
