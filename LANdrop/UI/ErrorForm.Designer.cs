@@ -46,9 +46,9 @@
             this.panelReportSent = new System.Windows.Forms.Panel( );
             this.hideMainFormTimer = new System.Windows.Forms.Timer( this.components );
             this.panelReportFailed = new System.Windows.Forms.Panel( );
+            this.llblRetrySend = new System.Windows.Forms.LinkLabel( );
             this.label1 = new System.Windows.Forms.Label( );
             this.pbReportSentErrorIcon = new System.Windows.Forms.PictureBox( );
-            this.llblRetrySend = new System.Windows.Forms.LinkLabel( );
             this.panel2.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).BeginInit( );
@@ -124,7 +124,6 @@
             // 
             // pbSubmitProgress
             // 
-            this.pbSubmitProgress.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.pbSubmitProgress.Location = new System.Drawing.Point( 179, 81 );
             this.pbSubmitProgress.MarqueeAnimationSpeed = 20;
             this.pbSubmitProgress.Name = "pbSubmitProgress";
@@ -135,7 +134,6 @@
             // 
             // lblSubmitting
             // 
-            this.lblSubmitting.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblSubmitting.AutoSize = true;
             this.lblSubmitting.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.lblSubmitting.ForeColor = System.Drawing.SystemColors.ControlDark;
@@ -152,7 +150,6 @@
             // 
             // lblDeveloperResponse
             // 
-            this.lblDeveloperResponse.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblDeveloperResponse.Location = new System.Drawing.Point( 14, 103 );
             this.lblDeveloperResponse.Name = "lblDeveloperResponse";
             this.lblDeveloperResponse.Size = new System.Drawing.Size( 411, 36 );
@@ -192,7 +189,6 @@
             // 
             // panelReportSent
             // 
-            this.panelReportSent.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.panelReportSent.Controls.Add( this.lblReportSent );
             this.panelReportSent.Controls.Add( this.pbReportSentStatus );
             this.panelReportSent.Location = new System.Drawing.Point( 13, 76 );
@@ -208,7 +204,6 @@
             // 
             // panelReportFailed
             // 
-            this.panelReportFailed.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.panelReportFailed.Controls.Add( this.llblRetrySend );
             this.panelReportFailed.Controls.Add( this.label1 );
             this.panelReportFailed.Controls.Add( this.pbReportSentErrorIcon );
@@ -217,6 +212,17 @@
             this.panelReportFailed.Size = new System.Drawing.Size( 371, 22 );
             this.panelReportFailed.TabIndex = 20;
             this.panelReportFailed.Visible = false;
+            // 
+            // llblRetrySend
+            // 
+            this.llblRetrySend.AutoSize = true;
+            this.llblRetrySend.Location = new System.Drawing.Point( 246, 4 );
+            this.llblRetrySend.Name = "llblRetrySend";
+            this.llblRetrySend.Size = new System.Drawing.Size( 34, 13 );
+            this.llblRetrySend.TabIndex = 19;
+            this.llblRetrySend.TabStop = true;
+            this.llblRetrySend.Text = "Retry";
+            this.llblRetrySend.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblRetrySend_LinkClicked );
             // 
             // label1
             // 
@@ -237,17 +243,6 @@
             this.pbReportSentErrorIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbReportSentErrorIcon.TabIndex = 17;
             this.pbReportSentErrorIcon.TabStop = false;
-            // 
-            // llblRetrySend
-            // 
-            this.llblRetrySend.AutoSize = true;
-            this.llblRetrySend.Location = new System.Drawing.Point( 246, 4 );
-            this.llblRetrySend.Name = "llblRetrySend";
-            this.llblRetrySend.Size = new System.Drawing.Size( 34, 13 );
-            this.llblRetrySend.TabIndex = 19;
-            this.llblRetrySend.TabStop = true;
-            this.llblRetrySend.Text = "Retry";
-            this.llblRetrySend.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblRetrySend_LinkClicked );
             // 
             // ErrorForm
             // 
