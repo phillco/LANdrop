@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( ErrorForm ) );
             this.panel2 = new System.Windows.Forms.Panel( );
+            this.llblDetails = new System.Windows.Forms.LinkLabel( );
             this.lblBottomDivide = new System.Windows.Forms.Label( );
             this.btnExit = new System.Windows.Forms.Button( );
             this.btnRestart = new System.Windows.Forms.Button( );
@@ -46,10 +47,11 @@
             this.panelReportSent = new System.Windows.Forms.Panel( );
             this.hideMainFormTimer = new System.Windows.Forms.Timer( this.components );
             this.panelReportFailed = new System.Windows.Forms.Panel( );
+            this.llblReportSubmitDetails = new System.Windows.Forms.LinkLabel( );
             this.llblRetrySend = new System.Windows.Forms.LinkLabel( );
             this.label1 = new System.Windows.Forms.Label( );
             this.pbReportSentErrorIcon = new System.Windows.Forms.PictureBox( );
-            this.llblDetails = new System.Windows.Forms.LinkLabel( );
+            this.resubmitReportTimer = new System.Windows.Forms.Timer( this.components );
             this.panel2.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).BeginInit( );
@@ -70,6 +72,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size( 437, 47 );
             this.panel2.TabIndex = 10;
+            // 
+            // llblDetails
+            // 
+            this.llblDetails.AutoSize = true;
+            this.llblDetails.Location = new System.Drawing.Point( 14, 16 );
+            this.llblDetails.Name = "llblDetails";
+            this.llblDetails.Size = new System.Drawing.Size( 51, 13 );
+            this.llblDetails.TabIndex = 15;
+            this.llblDetails.TabStop = true;
+            this.llblDetails.Text = "Details...";
+            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblDetails_LinkClicked );
             // 
             // lblBottomDivide
             // 
@@ -206,6 +219,7 @@
             // 
             // panelReportFailed
             // 
+            this.panelReportFailed.Controls.Add( this.llblReportSubmitDetails );
             this.panelReportFailed.Controls.Add( this.llblRetrySend );
             this.panelReportFailed.Controls.Add( this.label1 );
             this.panelReportFailed.Controls.Add( this.pbReportSentErrorIcon );
@@ -214,6 +228,17 @@
             this.panelReportFailed.Size = new System.Drawing.Size( 371, 22 );
             this.panelReportFailed.TabIndex = 20;
             this.panelReportFailed.Visible = false;
+            // 
+            // llblReportSubmitDetails
+            // 
+            this.llblReportSubmitDetails.AutoSize = true;
+            this.llblReportSubmitDetails.Location = new System.Drawing.Point( 284, 4 );
+            this.llblReportSubmitDetails.Name = "llblReportSubmitDetails";
+            this.llblReportSubmitDetails.Size = new System.Drawing.Size( 51, 13 );
+            this.llblReportSubmitDetails.TabIndex = 20;
+            this.llblReportSubmitDetails.TabStop = true;
+            this.llblReportSubmitDetails.Text = "Details...";
+            this.llblReportSubmitDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblReportSubmitDetails_LinkClicked );
             // 
             // llblRetrySend
             // 
@@ -246,16 +271,10 @@
             this.pbReportSentErrorIcon.TabIndex = 17;
             this.pbReportSentErrorIcon.TabStop = false;
             // 
-            // llblDetails
+            // resubmitReportTimer
             // 
-            this.llblDetails.AutoSize = true;
-            this.llblDetails.Location = new System.Drawing.Point( 14, 16 );
-            this.llblDetails.Name = "llblDetails";
-            this.llblDetails.Size = new System.Drawing.Size( 51, 13 );
-            this.llblDetails.TabIndex = 15;
-            this.llblDetails.TabStop = true;
-            this.llblDetails.Text = "Details...";
-            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblDetails_LinkClicked );
+            this.resubmitReportTimer.Interval = 3000;
+            this.resubmitReportTimer.Tick += new System.EventHandler( this.resubmitReportTimer_Tick );
             // 
             // ErrorForm
             // 
@@ -319,5 +338,7 @@
         private System.Windows.Forms.PictureBox pbReportSentErrorIcon;
         private System.Windows.Forms.LinkLabel llblRetrySend;
         private System.Windows.Forms.LinkLabel llblDetails;
+        private System.Windows.Forms.Timer resubmitReportTimer;
+        private System.Windows.Forms.LinkLabel llblReportSubmitDetails;
     }
 }

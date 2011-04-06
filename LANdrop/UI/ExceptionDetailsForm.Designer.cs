@@ -94,7 +94,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.btnClose.Location = new System.Drawing.Point( 400, 7 );
+            this.btnClose.Location = new System.Drawing.Point( 400, 6 );
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size( 72, 25 );
             this.btnClose.TabIndex = 3;
@@ -105,7 +105,7 @@
             // btnCopy
             // 
             this.btnCopy.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.btnCopy.Location = new System.Drawing.Point( 12, 7 );
+            this.btnCopy.Location = new System.Drawing.Point( 12, 6 );
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size( 96, 25 );
             this.btnCopy.TabIndex = 4;

@@ -19,6 +19,10 @@ namespace LANdrop.UI
 
         private bool ErrorIsFatal;
 
+        private int submissionAttempts = 0;
+
+        private BugReport.Result submissionResults;
+
         public ErrorForm( Exception e, BugReport report, bool fatal )
         {
             InitializeComponent( );
@@ -39,7 +43,7 @@ namespace LANdrop.UI
             Size = MinimumSize;
             UpdateState( );
             BringToFront( );
-            bugReporter.RunWorkerAsync( );
+            runReporter( );
         }
 
         private void UpdateState( )
@@ -72,12 +76,23 @@ namespace LANdrop.UI
             e.Result = Report.Submit( );
         }
 
+        private void runReporter( )
+        {
+            pbSubmitProgress.Show( );
+            lblSubmitting.Show( );
+            panelReportFailed.Hide( );
+            bugReporter.RunWorkerAsync( );
+        }
+
         private void bugReporter_RunWorkerCompleted( object sender, RunWorkerCompletedEventArgs e )
         {
             BugReport.Result response = (BugReport.Result) e.Result;
+            submissionResults = response;
+            this.submissionAttempts++;
+
+            // Hide the progress bar.
             pbSubmitProgress.Hide( );
             lblSubmitting.Hide( );
-
 
             if ( response.Succeeded )
             {
@@ -90,15 +105,15 @@ namespace LANdrop.UI
                 }
             }
             else
+            {
+                resubmitReportTimer.Start( );
                 panelReportFailed.Show( );
+            }
         }
 
         private void llblRetrySend_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
-            pbSubmitProgress.Show( );
-            lblSubmitting.Show( );
-            panelReportFailed.Hide( );
-            bugReporter.RunWorkerAsync( );
+            runReporter( );
         }
 
         private void hideMainFormTimer_Tick( object sender, EventArgs e )
@@ -112,6 +127,27 @@ namespace LANdrop.UI
         private void llblDetails_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
             new ExceptionDetailsForm( Exception ).ShowDialog( this );
+        }
+
+        private void resubmitReportTimer_Tick( object sender, EventArgs e )
+        {
+            if ( submissionResults.Succeeded || submissionAttempts > 5 )
+            {
+                resubmitReportTimer.Stop( );
+                return;
+            }
+
+            // Resubmit the report if we're not trying to.
+            if ( !bugReporter.IsBusy )
+                runReporter( );
+        }
+
+        private void llblReportSubmitDetails_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            if ( submissionResults != null )
+                new ExceptionDetailsForm( submissionResults.Message ).ShowDialog( this );
+            else
+                MessageBox.Show( "There were no results.", "Bug report results", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
         }
     }
 }
