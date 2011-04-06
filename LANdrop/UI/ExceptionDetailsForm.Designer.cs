@@ -37,8 +37,8 @@
             this.btnCopy = new System.Windows.Forms.Button( );
             this.centerPanel = new System.Windows.Forms.Panel( );
             this.panel2 = new System.Windows.Forms.Panel( );
-            this.panel3 = new System.Windows.Forms.Panel( );
             this.label1 = new System.Windows.Forms.Label( );
+            this.panel3 = new System.Windows.Forms.Panel( );
             this.gbStackTrace.SuspendLayout( );
             this.centerPanel.SuspendLayout( );
             this.panel2.SuspendLayout( );
@@ -52,9 +52,9 @@
             this.lblExceptionName.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.lblExceptionName.Location = new System.Drawing.Point( 12, 12 );
             this.lblExceptionName.Name = "lblExceptionName";
-            this.lblExceptionName.Size = new System.Drawing.Size( 226, 16 );
+            this.lblExceptionName.Size = new System.Drawing.Size( 126, 16 );
             this.lblExceptionName.TabIndex = 0;
-            this.lblExceptionName.Text = "OhNoException in ImportantFile.cs";
+            this.lblExceptionName.Text = "An error occurred";
             // 
             // lblExceptionMessage
             // 
@@ -62,9 +62,8 @@
             this.lblExceptionMessage.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblExceptionMessage.Location = new System.Drawing.Point( 28, 29 );
             this.lblExceptionMessage.Name = "lblExceptionMessage";
-            this.lblExceptionMessage.Size = new System.Drawing.Size( 124, 13 );
+            this.lblExceptionMessage.Size = new System.Drawing.Size( 0, 13 );
             this.lblExceptionMessage.TabIndex = 1;
-            this.lblExceptionMessage.Text = "Exception message here";
             // 
             // gbStackTrace
             // 
@@ -136,6 +135,14 @@
             this.panel2.Size = new System.Drawing.Size( 484, 55 );
             this.panel2.TabIndex = 5;
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point( -79, 53 );
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size( 900, 2 );
+            this.label1.TabIndex = 4;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add( this.btnCopy );
@@ -145,14 +152,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size( 484, 42 );
             this.panel3.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point( -79, 53 );
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size( 900, 2 );
-            this.label1.TabIndex = 4;
             // 
             // ExceptionDetailsForm
             // 
