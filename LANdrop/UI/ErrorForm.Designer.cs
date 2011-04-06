@@ -49,6 +49,7 @@
             this.llblRetrySend = new System.Windows.Forms.LinkLabel( );
             this.label1 = new System.Windows.Forms.Label( );
             this.pbReportSentErrorIcon = new System.Windows.Forms.PictureBox( );
+            this.llblDetails = new System.Windows.Forms.LinkLabel( );
             this.panel2.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).BeginInit( );
@@ -60,6 +61,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add( this.llblDetails );
             this.panel2.Controls.Add( this.lblBottomDivide );
             this.panel2.Controls.Add( this.btnExit );
             this.panel2.Controls.Add( this.btnRestart );
@@ -244,6 +246,17 @@
             this.pbReportSentErrorIcon.TabIndex = 17;
             this.pbReportSentErrorIcon.TabStop = false;
             // 
+            // llblDetails
+            // 
+            this.llblDetails.AutoSize = true;
+            this.llblDetails.Location = new System.Drawing.Point( 14, 16 );
+            this.llblDetails.Name = "llblDetails";
+            this.llblDetails.Size = new System.Drawing.Size( 51, 13 );
+            this.llblDetails.TabIndex = 15;
+            this.llblDetails.TabStop = true;
+            this.llblDetails.Text = "Details...";
+            this.llblDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblDetails_LinkClicked );
+            // 
             // ErrorForm
             // 
             this.AcceptButton = this.btnRestart;
@@ -271,6 +284,7 @@
             this.Text = "LANdrop Error";
             this.Resize += new System.EventHandler( this.ErrorForm_Resize );
             this.panel2.ResumeLayout( false );
+            this.panel2.PerformLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).EndInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbIcon ) ).EndInit( );
             this.panelReportSent.ResumeLayout( false );
@@ -304,5 +318,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbReportSentErrorIcon;
         private System.Windows.Forms.LinkLabel llblRetrySend;
+        private System.Windows.Forms.LinkLabel llblDetails;
     }
 }

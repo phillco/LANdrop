@@ -38,6 +38,7 @@ namespace LANdrop.UI
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
 
+            throw new InvalidConstraintException( "Na na na na na" );
             UpdateState( );
         }
 
@@ -74,7 +75,7 @@ namespace LANdrop.UI
             {
                 BeginInvoke( new MethodInvoker( delegate { UpdatePeerList( ); } ) );
                 return;
-            }
+            }         
 
             // Back up which peers are selected.
             List<Peer> selectedPeers = new List<Peer>( );

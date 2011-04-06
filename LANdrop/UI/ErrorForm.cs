@@ -108,5 +108,10 @@ namespace LANdrop.UI
             else
                 hideMainFormTimer.Stop( );
         }
+
+        private void llblDetails_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            new ExceptionDetailsForm( Exception ).ShowDialog( this );
+        }
     }
 }
