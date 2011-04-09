@@ -19,39 +19,46 @@ namespace LANdrop
         [STAThread]
         static void Main( )
         {
-            Application.EnableVisualStyles( );
-            Application.SetCompatibleTextRenderingDefault( false );
+            try
+            {
+                Application.EnableVisualStyles( );
+                Application.SetCompatibleTextRenderingDefault( false );
 
-            // Set up error reporting.
-            Application.SetUnhandledExceptionMode( UnhandledExceptionMode.CatchException );
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler( CurrentDomain_UnhandledException );
-            Application.ThreadException += new ThreadExceptionEventHandler( Application_ThreadException );
-            
-            Configuration.Initialize( );
+                // Set up error reporting.
+                Application.SetUnhandledExceptionMode( UnhandledExceptionMode.CatchException );
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler( CurrentDomain_UnhandledException );
+                Application.ThreadException += new ThreadExceptionEventHandler( Application_ThreadException );
 
-            // Start the log.                        
-            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
-            Trace.AutoFlush = true;
-            Trace.WriteLine( "LANdrop started!" );
-            Trace.Indent( );
-            Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
-            Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
-            Trace.WriteLine( "User: " + Environment.UserName );
-            Trace.WriteLine( "Protocol Version: " + Protocol.Version );
-            Trace.Unindent( );
-            
-            MainForm mainForm = new MainForm( );            
-            Server.Start( );
+                Configuration.Initialize( );
 
-            Application.Run( mainForm );            
+                // Start the log.                        
+                Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
+                Trace.AutoFlush = true;
+                Trace.WriteLine( "LANdrop started!" );
+                Trace.Indent( );
+                Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
+                Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
+                Trace.WriteLine( "User: " + Environment.UserName );
+                Trace.WriteLine( "Protocol Version: " + Protocol.Version );
+                Trace.Unindent( );
 
-            // Shut down...
-            MulticastManager.Disconnect( );
-            WebServer.Stop( );
-            Trace.Flush( );
-            Environment.Exit( 0 );
+                MainForm mainForm = new MainForm( );
+                Server.Start( );
+
+                Application.Run( mainForm );
+
+                // Shut down...
+                MulticastManager.Disconnect( );
+                WebServer.Stop( );
+                Trace.Flush( );
+                Environment.Exit( 0 );
+            }
+            catch ( Exception ex ) // Just in case.
+            {
+                ErrorHandler.HandleUncaughtException( ex, true );
+            }
         }
-       
+
         static void Application_ThreadException( object sender, ThreadExceptionEventArgs e )
         {
             ErrorHandler.HandleUncaughtException( e.Exception, false );
