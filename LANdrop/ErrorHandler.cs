@@ -32,7 +32,7 @@ namespace LANdrop
 
             report.AddMachineDetails( "\nDiscovered by" );
             report.AddExceptionDetails( e );
-            report.Description += "Application version: " + Util.GetProgramVersion( ) + " (built on " + Util.GetProgramBuildDate( ).ToShortDateString( ) + ")" + Environment.NewLine;
+            report.Description += "Application version: " + Util.GetProgramVersion( ) + Environment.NewLine;
             report.Description += "OS: " + Util.GetWindowsVersion( ) + Environment.NewLine;
 
             // Show the error form with the report.

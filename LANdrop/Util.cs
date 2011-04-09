@@ -294,14 +294,6 @@ namespace LANdrop
         }
 
         /// <summary>
-        /// Returns the date the version of the calling assembly was built.
-        /// </summary>
-        public static DateTime GetProgramBuildDate( )
-        {
-            return new FileInfo( Assembly.GetExecutingAssembly( ).Location ).LastWriteTime;
-        }
-
-        /// <summary>
         /// Returns the version of Windows the local computer is running (ex: "Windows XP SP3 32-bit").
         /// Adapted from http://andrewensley.com/2009/06/c-detect-windows-os-part-1/
         /// </summary>
