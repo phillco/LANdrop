@@ -38,7 +38,6 @@ namespace LANdrop.UI
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
 
-            throw new InvalidConstraintException( "Na na na na na" );
             UpdateState( );
         }
 
