@@ -5,17 +5,45 @@ using FogCreek;
 using LANdrop.UI;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LANdrop
 {
     /// <summary>
-    /// Handles any uncaught exceptions the program generates.
+    /// Catches the program's uncaught exceptions, shows a nice dialog, and reports them.
     /// </summary>
     class ErrorHandler
     {
         public const string DEFAULT_BUGZSCOUT_MESSAGE = "Thanks - the report was sent successfully.";
 
+        /// <summary>
+        /// Reroutes all application exceptions to this error handler. Be sure Main() is wrapped in a try/catch block too.
+        /// </summary>
+        public static void Initialize( )
+        {
+            Application.SetUnhandledExceptionMode( UnhandledExceptionMode.CatchException );
+
+            // UI thread exceptions (non fatal).
+            Application.ThreadException += ( sender, e ) => HandleUncaughtException( e.Exception, false );
+
+            // Other thread exceptions (fatal).
+            AppDomain.CurrentDomain.UnhandledException += ( sender, e ) => HandleUncaughtException( (Exception) e.ExceptionObject, true );            
+        }      
+        
+        /// <summary>
+        /// Creates an error report and shows the error dialog for the given exception.
+        /// </summary>
+        /// <param name="fatal">Can the program execution continue after this exception?</param>
         public static void HandleUncaughtException( Exception e, bool fatal )
+        {            
+            new ErrorForm( e, CreateReportForException(e, fatal), fatal ).ShowDialog( );
+        }
+
+        /// <summary>
+        /// Creates an error report for the given exception, suitable for sending to FogBugz.
+        /// </summary>
+        /// <param name="fatal">Can the program execution continue after this exception?</param>
+        public static BugReport CreateReportForException( Exception e, bool fatal )
         {
             // Create an error report.            
             BugReport report = new BugReport
@@ -34,10 +62,7 @@ namespace LANdrop
             report.AddExceptionDetails( e );
             report.Description += "Application version: " + Util.GetProgramVersion( ) + Environment.NewLine;
             report.Description += "OS: " + Util.GetWindowsVersion( ) + Environment.NewLine;
-
-            // Show the error form with the report.
-            ErrorForm form = new ErrorForm( e, report, fatal );
-            form.ShowDialog( );
+            return report;
         }
 
         public static void RestartApplication( )

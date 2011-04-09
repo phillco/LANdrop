@@ -21,33 +21,20 @@ namespace LANdrop
         {
             try
             {
+                // Initialization.
                 Application.EnableVisualStyles( );
                 Application.SetCompatibleTextRenderingDefault( false );
-
-                // Set up error reporting.
-                Application.SetUnhandledExceptionMode( UnhandledExceptionMode.CatchException );
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler( CurrentDomain_UnhandledException );
-                Application.ThreadException += new ThreadExceptionEventHandler( Application_ThreadException );
-
+                ErrorHandler.Initialize( );
                 Configuration.Initialize( );
-
-                // Start the log.                        
-                Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
-                Trace.AutoFlush = true;
-                Trace.WriteLine( "LANdrop started!" );
-                Trace.Indent( );
-                Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
-                Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
-                Trace.WriteLine( "User: " + Environment.UserName );
-                Trace.WriteLine( "Protocol Version: " + Protocol.Version );
-                Trace.Unindent( );
+                SetupLog( );        
 
                 MainForm mainForm = new MainForm( );
                 Server.Start( );
 
+                // Run the application, starting on the main form.                
                 Application.Run( mainForm );
 
-                // Shut down...
+                // The user closed the main form; shut it all down.
                 MulticastManager.Disconnect( );
                 WebServer.Stop( );
                 Trace.Flush( );
@@ -59,14 +46,20 @@ namespace LANdrop
             }
         }
 
-        static void Application_ThreadException( object sender, ThreadExceptionEventArgs e )
+        /// <summary>
+        /// Creates a logfile in the user's AppData folder.
+        /// </summary>
+        private static void SetupLog( )
         {
-            ErrorHandler.HandleUncaughtException( e.Exception, false );
-        }
-
-        static void CurrentDomain_UnhandledException( object sender, UnhandledExceptionEventArgs e )
-        {
-            ErrorHandler.HandleUncaughtException( (Exception) e.ExceptionObject, true );
+            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
+            Trace.AutoFlush = true;
+            Trace.WriteLine( "LANdrop started!" );
+            Trace.Indent( );
+            Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
+            Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
+            Trace.WriteLine( "User: " + Environment.UserName );
+            Trace.WriteLine( "Protocol Version: " + Protocol.Version );
+            Trace.Unindent( );
         }
     }
 }
