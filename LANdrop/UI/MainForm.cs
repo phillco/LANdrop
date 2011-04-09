@@ -384,5 +384,10 @@ namespace LANdrop.UI
         {
             UpdateButtons( );
         }
+
+        private void testErrorToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            throw new Exception( "Test message here" );
+        }
     }
 }
