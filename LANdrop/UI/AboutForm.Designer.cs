@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( AboutForm ) );
             this.panel1 = new System.Windows.Forms.Panel( );
+            this.panelUpdateError = new System.Windows.Forms.Panel( );
+            this.label5 = new System.Windows.Forms.Label( );
+            this.pictureBox3 = new System.Windows.Forms.PictureBox( );
             this.panelReadyToApply = new System.Windows.Forms.Panel( );
             this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
             this.label4 = new System.Windows.Forms.Label( );
@@ -52,18 +55,15 @@
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
             this.updateRefreshLinkTimer = new System.Windows.Forms.Timer( this.components );
-            this.panelUpdateError = new System.Windows.Forms.Panel( );
-            this.label5 = new System.Windows.Forms.Label( );
-            this.pictureBox3 = new System.Windows.Forms.PictureBox( );
             this.panel1.SuspendLayout( );
+            this.panelUpdateError.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox3 ) ).BeginInit( );
             this.panelReadyToApply.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
             this.panelUpdateProgress.SuspendLayout( );
             this.panelUpToDate.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
-            this.panelUpdateError.SuspendLayout( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox3 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
             // panel1
@@ -86,6 +86,38 @@
             this.panel1.Size = new System.Drawing.Size( 408, 143 );
             this.panel1.TabIndex = 1;
             // 
+            // panelUpdateError
+            // 
+            this.panelUpdateError.Controls.Add( this.label5 );
+            this.panelUpdateError.Controls.Add( this.pictureBox3 );
+            this.panelUpdateError.Location = new System.Drawing.Point( 255, 36 );
+            this.panelUpdateError.Name = "panelUpdateError";
+            this.panelUpdateError.Size = new System.Drawing.Size( 141, 22 );
+            this.panelUpdateError.TabIndex = 21;
+            this.panelUpdateError.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label5.Location = new System.Drawing.Point( 21, 4 );
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size( 117, 13 );
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Error during update";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pictureBox3.Image = global::LANdrop.Properties.Resources.error16;
+            this.pictureBox3.Location = new System.Drawing.Point( 4, 2 );
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size( 16, 16 );
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 17;
+            this.pictureBox3.TabStop = false;
+            // 
             // panelReadyToApply
             // 
             this.panelReadyToApply.Controls.Add( this.llblApplyUpdate );
@@ -107,6 +139,7 @@
             this.llblApplyUpdate.TabIndex = 19;
             this.llblApplyUpdate.TabStop = true;
             this.llblApplyUpdate.Text = "Apply now";
+            this.llblApplyUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblApplyUpdate_LinkClicked );
             // 
             // label4
             // 
@@ -307,38 +340,6 @@
             // 
             this.updateRefreshLinkTimer.Tick += new System.EventHandler( this.updateTimer_Tick );
             // 
-            // panelUpdateError
-            // 
-            this.panelUpdateError.Controls.Add( this.label5 );
-            this.panelUpdateError.Controls.Add( this.pictureBox3 );
-            this.panelUpdateError.Location = new System.Drawing.Point( 255, 36 );
-            this.panelUpdateError.Name = "panelUpdateError";
-            this.panelUpdateError.Size = new System.Drawing.Size( 141, 22 );
-            this.panelUpdateError.TabIndex = 21;
-            this.panelUpdateError.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label5.Location = new System.Drawing.Point( 21, 4 );
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size( 117, 13 );
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Error during update";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.pictureBox3.Image = global::LANdrop.Properties.Resources.error16;
-            this.pictureBox3.Location = new System.Drawing.Point( 4, 2 );
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size( 16, 16 );
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox3.TabIndex = 17;
-            this.pictureBox3.TabStop = false;
-            // 
             // AboutForm
             // 
             this.AcceptButton = this.btnClose;
@@ -358,6 +359,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler( this.AboutForm_FormClosing );
             this.panel1.ResumeLayout( false );
             this.panel1.PerformLayout( );
+            this.panelUpdateError.ResumeLayout( false );
+            this.panelUpdateError.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox3 ) ).EndInit( );
             this.panelReadyToApply.ResumeLayout( false );
             this.panelReadyToApply.PerformLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).EndInit( );
@@ -367,9 +371,6 @@
             this.panelUpToDate.PerformLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).EndInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
-            this.panelUpdateError.ResumeLayout( false );
-            this.panelUpdateError.PerformLayout( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox3 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 

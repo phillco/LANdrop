@@ -367,6 +367,15 @@ namespace LANdrop
                 }
             }
             return "Unknown";
-        }       
+        }
+
+        public static void RestartApplication( )
+        {
+            using ( Process proc = new Process( ) )
+            {
+                proc.StartInfo.FileName = Application.ExecutablePath;
+                proc.Start( );
+            }
+        }
     }
 }

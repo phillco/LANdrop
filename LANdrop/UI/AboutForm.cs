@@ -76,5 +76,11 @@ namespace LANdrop.UI
         {
             UpdateChecker.StateChanged -= UpdateChecker_StateChanged;
         }
+
+        private void llblApplyUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            Util.RestartApplication( );
+            Application.Exit( );
+        }
     }
 }

@@ -26,25 +26,32 @@ namespace LANdrop
                 Application.SetCompatibleTextRenderingDefault( false );
                 ErrorHandler.Initialize( );
                 Configuration.Initialize( );
-                SetupLog( );        
-                UpdateChecker.Initialize();
+                SetupLog( );
+                UpdateChecker.Initialize( );
 
                 MainForm mainForm = new MainForm( );
                 Server.Start( );
 
                 // Run the application, starting on the main form.                
                 Application.Run( mainForm );
+                Shutdown( );
 
-                // The user closed the main form; shut it all down.
-                MulticastManager.Disconnect( );
-                WebServer.Stop( );
-                Trace.Flush( );
-                Environment.Exit( 0 );
             }
             catch ( Exception ex ) // Just in case.
             {
                 ErrorHandler.HandleUncaughtException( ex, true );
             }
+        }
+
+        /// <summary>
+        /// Nicely terminates the application.
+        /// </summary>
+        public static void Shutdown( )
+        {
+            MulticastManager.Disconnect( );
+            WebServer.Stop( );
+            Trace.Flush( );
+            Environment.Exit( 0 );
         }
 
         /// <summary>

@@ -64,14 +64,5 @@ namespace LANdrop
             report.Description += "OS: " + Util.GetWindowsVersion( ) + Environment.NewLine;
             return report;
         }
-
-        public static void RestartApplication( )
-        {
-            using ( Process proc = new Process( ) )
-            {
-                proc.StartInfo.FileName = Application.ExecutablePath;
-                proc.Start( );
-            }
-        }
     }
 }

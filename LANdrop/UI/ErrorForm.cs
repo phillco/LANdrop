@@ -55,8 +55,8 @@ namespace LANdrop.UI
         {
             if ( ErrorIsFatal )
             {
-                ErrorHandler.RestartApplication( );
-                Environment.Exit( 0 );
+                Util.RestartApplication( );
+                Environment.Exit( -1 );
             }
             Close( );
         }
