@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildInfo.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Networking\IncomingWhosThere.cs" />

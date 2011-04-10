@@ -14,8 +14,10 @@ namespace LANdrop.UI
         public AboutForm( )
         {
             InitializeComponent( );
-            Util.UseProperSystemFont( this );
 
+            Util.UseProperSystemFont( this );
+            lblProgramVersion.Text = Util.GetProgramVersion( );
+            lblBuildInfo.Text = BuildInfo.ToString();
             lblProtocolVersion.Text = "Protocol version: " + Protocol.Version;
         }
     }

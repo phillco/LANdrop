@@ -37,6 +37,8 @@
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
             this.lblProtocolVersion = new System.Windows.Forms.Label( );
+            this.lblProgramVersion = new System.Windows.Forms.Label( );
+            this.lblBuildInfo = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -51,7 +53,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point( 0, 0 );
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size( 316, 69 );
+            this.panel1.Size = new System.Drawing.Size( 344, 69 );
             this.panel1.TabIndex = 1;
             // 
             // label3
@@ -96,9 +98,9 @@
             // 
             this.btnClose.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point( 229, 116 );
+            this.btnClose.Location = new System.Drawing.Point( 257, 140 );
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size( 75, 24 );
+            this.btnClose.Size = new System.Drawing.Size( 75, 25 );
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -110,7 +112,7 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point( 12, 120 );
+            this.checkBox1.Location = new System.Drawing.Point( 12, 145 );
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size( 97, 17 );
             this.checkBox1.TabIndex = 3;
@@ -120,11 +122,33 @@
             // lblProtocolVersion
             // 
             this.lblProtocolVersion.AutoSize = true;
-            this.lblProtocolVersion.Location = new System.Drawing.Point( 12, 83 );
+            this.lblProtocolVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lblProtocolVersion.Location = new System.Drawing.Point( 223, 106 );
             this.lblProtocolVersion.Name = "lblProtocolVersion";
             this.lblProtocolVersion.Size = new System.Drawing.Size( 109, 13 );
             this.lblProtocolVersion.TabIndex = 4;
             this.lblProtocolVersion.Text = "Protocol version: 666";
+            this.lblProtocolVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblProgramVersion
+            // 
+            this.lblProgramVersion.AutoSize = true;
+            this.lblProgramVersion.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblProgramVersion.Location = new System.Drawing.Point( 284, 74 );
+            this.lblProgramVersion.Name = "lblProgramVersion";
+            this.lblProgramVersion.Size = new System.Drawing.Size( 48, 16 );
+            this.lblProgramVersion.TabIndex = 5;
+            this.lblProgramVersion.Text = "v1.1.1";
+            this.lblProgramVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblBuildInfo
+            // 
+            this.lblBuildInfo.Location = new System.Drawing.Point( 120, 91 );
+            this.lblBuildInfo.Name = "lblBuildInfo";
+            this.lblBuildInfo.Size = new System.Drawing.Size( 212, 16 );
+            this.lblBuildInfo.TabIndex = 6;
+            this.lblBuildInfo.Text = "Development build #5";
+            this.lblBuildInfo.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AboutForm
             // 
@@ -132,7 +156,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size( 316, 149 );
+            this.ClientSize = new System.Drawing.Size( 344, 174 );
+            this.Controls.Add( this.lblBuildInfo );
+            this.Controls.Add( this.lblProgramVersion );
             this.Controls.Add( this.lblProtocolVersion );
             this.Controls.Add( this.checkBox1 );
             this.Controls.Add( this.btnClose );
@@ -161,5 +187,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label lblProtocolVersion;
+        private System.Windows.Forms.Label lblProgramVersion;
+        private System.Windows.Forms.Label lblBuildInfo;
     }
 }
