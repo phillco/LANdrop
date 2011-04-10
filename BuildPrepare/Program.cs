@@ -8,8 +8,8 @@ namespace BuildPrepare
 {
     class Program
     {
-        const string fileName = "LANdrop/BuildInfo.cs";
-        const string tempFileName = "LANdrop/BuildInfo.old.cs";
+        const string fileName = @"LANdrop\BuildInfo.cs";
+        const string tempFileName = @"LANdrop\BuildInfo.old.cs";
 
         const string versionDef = @"public const int BUILD_NUMBER = ";
         const string channelDef = @"public const UpdateChannels BUILD_TYPE = UpdateChannels.";
