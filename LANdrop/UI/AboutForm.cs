@@ -24,6 +24,8 @@ namespace LANdrop.UI
         private void updateRefreshTimer_Tick( object sender, EventArgs e )
         {
             panelUpToDate.Visible = panelUpdateProgress.Visible = panelReadyToApply.Visible = false;
+            llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
+
             switch ( UpdateChecker.CurrentState )
             {
                 case UpdateChecker.State.WAITING:
@@ -41,6 +43,11 @@ namespace LANdrop.UI
                     panelReadyToApply.Show( );
                     break;
             }
+        }
+
+        private void llblCheckUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        {
+            UpdateChecker.CheckNowAsync( );
         }
     }
 }

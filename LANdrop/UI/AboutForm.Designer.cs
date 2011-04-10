@@ -177,6 +177,7 @@
             this.llblCheckUpdate.TabIndex = 19;
             this.llblCheckUpdate.TabStop = true;
             this.llblCheckUpdate.Text = "Check now";
+            this.llblCheckUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblCheckUpdate_LinkClicked );
             // 
             // lblUpdateStatus
             // 
@@ -299,6 +300,7 @@
             // updateRefreshTimer
             // 
             this.updateRefreshTimer.Enabled = true;
+            this.updateRefreshTimer.Interval = 25;
             this.updateRefreshTimer.Tick += new System.EventHandler( this.updateRefreshTimer_Tick );
             // 
             // AboutForm
