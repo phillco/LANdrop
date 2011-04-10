@@ -53,8 +53,8 @@ namespace BuildPrepare
             // Update buildDeploy.bat
             File.Delete( tempFileName );
             File.Move( fileName, tempFileName );
-            using ( StreamReader reader = new StreamReader( "buildDeploy.bat" ) )
-            using ( StreamWriter writer = new StreamWriter( "buildDeploy.new.bat" ) )
+            using ( StreamReader reader = new StreamReader( "Scripts\\buildDeploy.bat" ) )
+            using ( StreamWriter writer = new StreamWriter( "Scripts\\buildDeploy.new.bat" ) )
             {
                 while ( !reader.EndOfStream )
                 {
