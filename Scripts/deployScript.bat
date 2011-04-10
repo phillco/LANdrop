@@ -16,7 +16,7 @@ put LANdrop\bin\Release\LANdrop.exe.netz\LANdrop.exe
 
 # Upload the version info.
 cd /home/phillco/landrop.net/version
-put version.js
+put version.json
 
 # Disconnect and quit.
 close
