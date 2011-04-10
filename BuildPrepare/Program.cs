@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace BuildPrepare
 {
@@ -29,9 +30,9 @@ namespace BuildPrepare
                 return;
             }
 
+            // Update the build info file
             File.Delete( tempFileName );
             File.Move( fileName, tempFileName );
-
             using ( StreamReader reader = new StreamReader( tempFileName ) )
             using ( StreamWriter writer = new StreamWriter( fileName ) )
             {
@@ -48,6 +49,27 @@ namespace BuildPrepare
                     writer.WriteLine( line );
                 }
             }
+
+            // Create a json file for the web server.
+            using ( StreamWriter writer = new StreamWriter( "version.json" ) )
+            {
+                var info = new VersionInfo
+                {
+                    buildNumber = int.Parse( args[0] ),
+                    channel = args[1].ToLower( ),
+                    buildDate = DateTime.Now.ToUniversalTime( ).ToString( )
+                };
+                writer.Write( JsonConvert.SerializeObject( info, Formatting.Indented ) );
+            }
+        }
+
+        class VersionInfo
+        {
+            public int buildNumber;
+
+            public string channel;
+
+            public string buildDate;
         }
     }
 }
