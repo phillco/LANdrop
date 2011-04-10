@@ -258,6 +258,7 @@
     <Compile Include="UI\WebHostedFileReadyForm.Designer.cs">
       <DependentUpon>WebHostedFileReadyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateChecker.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +268,7 @@
     <None Include="Resources\accept16.png" />
     <None Include="Resources\landropError.png" />
     <None Include="Resources\error16.png" />
+    <None Include="Resources\information16.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

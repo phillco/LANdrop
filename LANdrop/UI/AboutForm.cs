@@ -18,6 +18,29 @@ namespace LANdrop.UI
             Util.UseProperSystemFont( this );
             lblProgramVersion.Text = Util.GetProgramVersion( );
             lblBuildInfo.Text = BuildInfo.ToString();
+            panelReadyToApply.Top = panelUpToDate.Top = panelUpdateProgress.Top;
+        }
+
+        private void updateRefreshTimer_Tick( object sender, EventArgs e )
+        {
+            panelUpToDate.Visible = panelUpdateProgress.Visible = panelReadyToApply.Visible = false;
+            switch ( UpdateChecker.CurrentState )
+            {
+                case UpdateChecker.State.WAITING:
+                    panelUpToDate.Show( );
+                    break;
+                case UpdateChecker.State.CHECKING:
+                    lblCheckingForUpdates.Text = "Checking for updates...";
+                    panelUpdateProgress.Show( );
+                    break;
+                case UpdateChecker.State.DOWNLOADING:
+                    lblCheckingForUpdates.Text = "Downloading update...";
+                    panelUpdateProgress.Show( );
+                    break;
+                case UpdateChecker.State.READY_TO_APPLY:
+                    panelReadyToApply.Show( );
+                    break;
+            }
         }
     }
 }

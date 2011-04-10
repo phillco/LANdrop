@@ -27,6 +27,7 @@ namespace LANdrop
                 ErrorHandler.Initialize( );
                 Configuration.Initialize( );
                 SetupLog( );        
+                UpdateChecker.Initialize();
 
                 MainForm mainForm = new MainForm( );
                 Server.Start( );

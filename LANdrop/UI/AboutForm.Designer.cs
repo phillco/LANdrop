@@ -28,8 +28,20 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( AboutForm ) );
             this.panel1 = new System.Windows.Forms.Panel( );
+            this.panelReadyToApply = new System.Windows.Forms.Panel( );
+            this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
+            this.label4 = new System.Windows.Forms.Label( );
+            this.pictureBox2 = new System.Windows.Forms.PictureBox( );
+            this.panelUpdateProgress = new System.Windows.Forms.Panel( );
+            this.lblCheckingForUpdates = new System.Windows.Forms.Label( );
+            this.pbUpdateProgress = new System.Windows.Forms.ProgressBar( );
+            this.panelUpToDate = new System.Windows.Forms.Panel( );
+            this.llblCheckUpdate = new System.Windows.Forms.LinkLabel( );
+            this.lblUpdateStatus = new System.Windows.Forms.Label( );
+            this.pbReportSentStatus = new System.Windows.Forms.PictureBox( );
             this.label3 = new System.Windows.Forms.Label( );
             this.lblTrademark = new System.Windows.Forms.Label( );
             this.label2 = new System.Windows.Forms.Label( );
@@ -39,13 +51,22 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
+            this.updateRefreshTimer = new System.Windows.Forms.Timer( this.components );
             this.panel1.SuspendLayout( );
+            this.panelReadyToApply.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
+            this.panelUpdateProgress.SuspendLayout( );
+            this.panelUpToDate.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).BeginInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add( this.panelReadyToApply );
+            this.panel1.Controls.Add( this.panelUpdateProgress );
+            this.panel1.Controls.Add( this.panelUpToDate );
             this.panel1.Controls.Add( this.label3 );
             this.panel1.Controls.Add( this.lblTrademark );
             this.panel1.Controls.Add( this.label2 );
@@ -56,8 +77,129 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point( 0, 0 );
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size( 408, 125 );
+            this.panel1.Size = new System.Drawing.Size( 408, 143 );
             this.panel1.TabIndex = 1;
+            // 
+            // panelReadyToApply
+            // 
+            this.panelReadyToApply.Controls.Add( this.llblApplyUpdate );
+            this.panelReadyToApply.Controls.Add( this.label4 );
+            this.panelReadyToApply.Controls.Add( this.pictureBox2 );
+            this.panelReadyToApply.Location = new System.Drawing.Point( 209, 85 );
+            this.panelReadyToApply.Name = "panelReadyToApply";
+            this.panelReadyToApply.Size = new System.Drawing.Size( 187, 22 );
+            this.panelReadyToApply.TabIndex = 21;
+            this.panelReadyToApply.Visible = false;
+            // 
+            // llblApplyUpdate
+            // 
+            this.llblApplyUpdate.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.llblApplyUpdate.AutoSize = true;
+            this.llblApplyUpdate.Location = new System.Drawing.Point( 127, 4 );
+            this.llblApplyUpdate.Name = "llblApplyUpdate";
+            this.llblApplyUpdate.Size = new System.Drawing.Size( 57, 13 );
+            this.llblApplyUpdate.TabIndex = 19;
+            this.llblApplyUpdate.TabStop = true;
+            this.llblApplyUpdate.Text = "Apply now";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label4.Location = new System.Drawing.Point( 22, 4 );
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size( 105, 13 );
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Update available!";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
+            this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
+            // 
+            // panelUpdateProgress
+            // 
+            this.panelUpdateProgress.Controls.Add( this.lblCheckingForUpdates );
+            this.panelUpdateProgress.Controls.Add( this.pbUpdateProgress );
+            this.panelUpdateProgress.Location = new System.Drawing.Point( 214, 109 );
+            this.panelUpdateProgress.Name = "panelUpdateProgress";
+            this.panelUpdateProgress.Size = new System.Drawing.Size( 182, 22 );
+            this.panelUpdateProgress.TabIndex = 21;
+            // 
+            // lblCheckingForUpdates
+            // 
+            this.lblCheckingForUpdates.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.lblCheckingForUpdates.AutoSize = true;
+            this.lblCheckingForUpdates.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblCheckingForUpdates.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.lblCheckingForUpdates.Location = new System.Drawing.Point( 1, 4 );
+            this.lblCheckingForUpdates.Name = "lblCheckingForUpdates";
+            this.lblCheckingForUpdates.Size = new System.Drawing.Size( 121, 13 );
+            this.lblCheckingForUpdates.TabIndex = 20;
+            this.lblCheckingForUpdates.Text = "Checking for updates...";
+            // 
+            // pbUpdateProgress
+            // 
+            this.pbUpdateProgress.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pbUpdateProgress.Location = new System.Drawing.Point( 124, 4 );
+            this.pbUpdateProgress.MarqueeAnimationSpeed = 600;
+            this.pbUpdateProgress.Name = "pbUpdateProgress";
+            this.pbUpdateProgress.Size = new System.Drawing.Size( 52, 13 );
+            this.pbUpdateProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.pbUpdateProgress.TabIndex = 19;
+            this.pbUpdateProgress.Value = 30;
+            // 
+            // panelUpToDate
+            // 
+            this.panelUpToDate.Controls.Add( this.llblCheckUpdate );
+            this.panelUpToDate.Controls.Add( this.lblUpdateStatus );
+            this.panelUpToDate.Controls.Add( this.pbReportSentStatus );
+            this.panelUpToDate.Location = new System.Drawing.Point( 247, 62 );
+            this.panelUpToDate.Name = "panelUpToDate";
+            this.panelUpToDate.Size = new System.Drawing.Size( 149, 22 );
+            this.panelUpToDate.TabIndex = 20;
+            this.panelUpToDate.Visible = false;
+            // 
+            // llblCheckUpdate
+            // 
+            this.llblCheckUpdate.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.llblCheckUpdate.AutoSize = true;
+            this.llblCheckUpdate.Location = new System.Drawing.Point( 87, 4 );
+            this.llblCheckUpdate.Name = "llblCheckUpdate";
+            this.llblCheckUpdate.Size = new System.Drawing.Size( 59, 13 );
+            this.llblCheckUpdate.TabIndex = 19;
+            this.llblCheckUpdate.TabStop = true;
+            this.llblCheckUpdate.Text = "Check now";
+            // 
+            // lblUpdateStatus
+            // 
+            this.lblUpdateStatus.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.lblUpdateStatus.AutoSize = true;
+            this.lblUpdateStatus.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblUpdateStatus.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblUpdateStatus.Location = new System.Drawing.Point( 19, 4 );
+            this.lblUpdateStatus.Name = "lblUpdateStatus";
+            this.lblUpdateStatus.Size = new System.Drawing.Size( 66, 13 );
+            this.lblUpdateStatus.TabIndex = 18;
+            this.lblUpdateStatus.Text = "Up to date";
+            // 
+            // pbReportSentStatus
+            // 
+            this.pbReportSentStatus.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pbReportSentStatus.Image = global::LANdrop.Properties.Resources.accept16;
+            this.pbReportSentStatus.Location = new System.Drawing.Point( 2, 2 );
+            this.pbReportSentStatus.Name = "pbReportSentStatus";
+            this.pbReportSentStatus.Size = new System.Drawing.Size( 16, 16 );
+            this.pbReportSentStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbReportSentStatus.TabIndex = 17;
+            this.pbReportSentStatus.TabStop = false;
             // 
             // label3
             // 
@@ -93,7 +235,7 @@
             this.lblBuildInfo.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblBuildInfo.AutoSize = true;
             this.lblBuildInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblBuildInfo.Location = new System.Drawing.Point( 12, 100 );
+            this.lblBuildInfo.Location = new System.Drawing.Point( 12, 118 );
             this.lblBuildInfo.Name = "lblBuildInfo";
             this.lblBuildInfo.Size = new System.Drawing.Size( 112, 13 );
             this.lblBuildInfo.TabIndex = 6;
@@ -103,7 +245,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point( 0, 123 );
+            this.label1.Location = new System.Drawing.Point( 0, 141 );
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size( 500, 2 );
             this.label1.TabIndex = 2;
@@ -113,7 +255,7 @@
             this.lblProgramVersion.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
             this.lblProgramVersion.AutoSize = true;
             this.lblProgramVersion.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.lblProgramVersion.Location = new System.Drawing.Point( 12, 84 );
+            this.lblProgramVersion.Location = new System.Drawing.Point( 12, 102 );
             this.lblProgramVersion.Name = "lblProgramVersion";
             this.lblProgramVersion.Size = new System.Drawing.Size( 48, 16 );
             this.lblProgramVersion.TabIndex = 5;
@@ -133,7 +275,7 @@
             // 
             this.btnClose.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point( 321, 133 );
+            this.btnClose.Location = new System.Drawing.Point( 321, 151 );
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size( 75, 25 );
             this.btnClose.TabIndex = 2;
@@ -147,12 +289,17 @@
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point( 12, 138 );
+            this.checkBox1.Location = new System.Drawing.Point( 12, 156 );
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size( 97, 17 );
             this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "I love LANdrop";
             this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // updateRefreshTimer
+            // 
+            this.updateRefreshTimer.Enabled = true;
+            this.updateRefreshTimer.Tick += new System.EventHandler( this.updateRefreshTimer_Tick );
             // 
             // AboutForm
             // 
@@ -160,7 +307,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size( 408, 167 );
+            this.ClientSize = new System.Drawing.Size( 408, 185 );
             this.Controls.Add( this.checkBox1 );
             this.Controls.Add( this.btnClose );
             this.Controls.Add( this.panel1 );
@@ -172,6 +319,14 @@
             this.Text = "About LANdrop";
             this.panel1.ResumeLayout( false );
             this.panel1.PerformLayout( );
+            this.panelReadyToApply.ResumeLayout( false );
+            this.panelReadyToApply.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).EndInit( );
+            this.panelUpdateProgress.ResumeLayout( false );
+            this.panelUpdateProgress.PerformLayout( );
+            this.panelUpToDate.ResumeLayout( false );
+            this.panelUpToDate.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pbReportSentStatus ) ).EndInit( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
@@ -190,5 +345,17 @@
         private System.Windows.Forms.Label lblProgramVersion;
         private System.Windows.Forms.Label lblBuildInfo;
         private System.Windows.Forms.Label lblTrademark;
+        private System.Windows.Forms.Panel panelUpToDate;
+        private System.Windows.Forms.Label lblUpdateStatus;
+        private System.Windows.Forms.PictureBox pbReportSentStatus;
+        private System.Windows.Forms.Panel panelUpdateProgress;
+        private System.Windows.Forms.Label lblCheckingForUpdates;
+        private System.Windows.Forms.ProgressBar pbUpdateProgress;
+        private System.Windows.Forms.Panel panelReadyToApply;
+        private System.Windows.Forms.LinkLabel llblApplyUpdate;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.LinkLabel llblCheckUpdate;
+        private System.Windows.Forms.Timer updateRefreshTimer;
     }
 }
