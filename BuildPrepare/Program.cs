@@ -31,10 +31,9 @@ namespace BuildPrepare
             }
 
             // Update LANdrop's BuildInfo.cs before building it.
-            Console.WriteLine( "Deleting " + tempFileName + "...");
             File.Delete( tempFileName );
             File.Move( fileName, tempFileName );
-            Console.WriteLine( "Moving " + fileName + " to " + tempFileName + "..." );
+            Console.WriteLine( "Processing " + fileName + "..." );
             using ( StreamReader reader = new StreamReader( tempFileName ) )
             using ( StreamWriter writer = new StreamWriter( fileName ) )
             {
@@ -44,7 +43,7 @@ namespace BuildPrepare
 
                     if ( line.Trim( ).StartsWith( versionDef ) )
                         line = versionDef + args[0] + ";";
-                    if ( line.Trim( ).StartsWith( channelDef ) )
+                    else if ( line.Trim( ).StartsWith( channelDef ) )
                         line = channelDef + args[1] + ";";
 
                     writer.WriteLine( line );
@@ -54,6 +53,7 @@ namespace BuildPrepare
 
             // Update buildDeploy.bat
             File.Delete( tempFileName );
+            Console.WriteLine( "Processing deployScript.bat..." );
             using ( StreamReader reader = new StreamReader( "Scripts\\deployScript.bat" ) )
             using ( StreamWriter writer = new StreamWriter( "Scripts\\deployScript.new.bat" ) )
             {
@@ -61,10 +61,16 @@ namespace BuildPrepare
                 {
                     string line = reader.ReadLine( );
 
-                    if ( line.Trim( ).StartsWith( "put version.json" ) )
+                    // Add the build number to the path.
+                    if ( line.Trim( ).StartsWith( "cd /home/phillco/landrop.net/downloads" ) )
+                    {
+                        writer.WriteLine( line );
+                        writer.WriteLine( String.Format( "mkdir {0}\ncd {0}\nmkdir {1}\ncd {1}", args[1].ToLower( ), args[0] ) );
+                        continue;
+                    }
+                    else if ( line.Trim( ).StartsWith( "put version.json" ) )
                         line = "put " + args[1].ToLower( ) + ".json";
 
-                    Console.WriteLine( line );
                     writer.WriteLine( line );
                 }
             }
