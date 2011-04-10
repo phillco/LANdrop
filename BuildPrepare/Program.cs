@@ -30,7 +30,7 @@ namespace BuildPrepare
                 return;
             }
 
-            // Update the build info file
+            // Update LANdrop's BuildInfo.cs before building it.
             File.Delete( tempFileName );
             File.Move( fileName, tempFileName );
             using ( StreamReader reader = new StreamReader( tempFileName ) )
@@ -50,8 +50,26 @@ namespace BuildPrepare
                 }
             }
 
+            // Update buildDeploy.bat
+            File.Delete( tempFileName );
+            File.Move( fileName, tempFileName );
+            using ( StreamReader reader = new StreamReader( "buildDeploy.bat" ) )
+            using ( StreamWriter writer = new StreamWriter( "buildDeploy.new.bat" ) )
+            {
+                while ( !reader.EndOfStream )
+                {
+                    string line = reader.ReadLine( );
+
+                    if ( line.Trim( ).StartsWith( "put version.json" ) )
+                        line = "put " + args[1].ToLower( ) + ".json";
+
+                    Console.WriteLine( line );
+                    writer.WriteLine( line );
+                }
+            }
+
             // Create a json file for the web server.
-            using ( StreamWriter writer = new StreamWriter( "version.json" ) )
+            using ( StreamWriter writer = new StreamWriter( args[1].ToLower( ) + ".json" ) )
             {
                 var info = new VersionInfo
                 {
