@@ -51,7 +51,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
             this.btnClose = new System.Windows.Forms.Button( );
             this.checkBox1 = new System.Windows.Forms.CheckBox( );
-            this.updateRefreshTimer = new System.Windows.Forms.Timer( this.components );
+            this.updateRefreshLinkTimer = new System.Windows.Forms.Timer( this.components );
             this.panel1.SuspendLayout( );
             this.panelReadyToApply.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
@@ -297,11 +297,9 @@
             this.checkBox1.Text = "I love LANdrop";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // updateRefreshTimer
+            // updateRefreshLinkTimer
             // 
-            this.updateRefreshTimer.Enabled = true;
-            this.updateRefreshTimer.Interval = 25;
-            this.updateRefreshTimer.Tick += new System.EventHandler( this.updateRefreshTimer_Tick );
+            this.updateRefreshLinkTimer.Tick += new System.EventHandler( this.updateTimer_Tick );
             // 
             // AboutForm
             // 
@@ -319,6 +317,7 @@
             this.MaximizeBox = false;
             this.Name = "AboutForm";
             this.Text = "About LANdrop";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler( this.AboutForm_FormClosing );
             this.panel1.ResumeLayout( false );
             this.panel1.PerformLayout( );
             this.panelReadyToApply.ResumeLayout( false );
@@ -358,6 +357,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.LinkLabel llblCheckUpdate;
-        private System.Windows.Forms.Timer updateRefreshTimer;
+        private System.Windows.Forms.Timer updateRefreshLinkTimer;
     }
 }

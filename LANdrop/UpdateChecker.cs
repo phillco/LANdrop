@@ -12,18 +12,18 @@ namespace LANdrop
     class UpdateChecker
     {
         /// <summary>
-        /// The different states of the local update checker.
+        /// The different states of the update checker.
         /// </summary>
         public enum State
         {
-            WAITING,
-            CHECKING,
+            SLEEPING, // Just waiting to refresh
+            CHECKING, // Querying landrop.net
             DOWNLOADING,
             READY_TO_APPLY
         }
 
         /// <summary>
-        /// The server's build info for our channel.
+        /// The format of version.json, which we get from landrop.net.
         /// </summary>
         public class VersionInfo
         {
@@ -31,11 +31,45 @@ namespace LANdrop
             public DateTime BuildDate;
         }
 
-        public static State CurrentState { get; private set; }
+        /// <summary>
+        /// Which state the update checker is in.
+        /// </summary>
+        public static State CurrentState
+        {
+            get
+            {
+                return _state;
+            }
 
+            private set
+            {
+                State oldState = CurrentState;
+                _state = value;
+
+                // Notify any registered UIs about the change.
+                if ( StateChanged != null )
+                    StateChanged( oldState, _state );
+            }
+        }
+
+        /// <summary>
+        /// The last time we queried the server for updates.
+        /// </summary>
         public static DateTime LastCheckTime { get; private set; }
 
+        /// <summary>
+        /// The last 
+        /// </summary>
+        public static VersionInfo ServerVersionInfo { get; private set; }
+
+        public delegate void StateChangeHandler( State oldState, State newState );
+
+        public static event StateChangeHandler StateChanged;
+
+        // Thread which runs the update logic.
         private static Thread updateThread = new Thread( UpdateLogic );
+
+        private static State _state = State.CHECKING;
 
         public static void Initialize( )
         {
@@ -45,20 +79,20 @@ namespace LANdrop
 
         public static void CheckNowAsync( )
         {
-            if ( CanRefreshServer( ) && CurrentState == State.WAITING )
+            if ( CanRefreshServer( ) && CurrentState == State.SLEEPING )
                 updateThread.Interrupt( );
         }
 
         public static bool CanRefreshServer( )
         {
-            return ( DateTime.Now.Subtract( LastCheckTime ).TotalSeconds > 5.0 );
+            return ( DateTime.Now.Subtract( LastCheckTime ).TotalSeconds > 3.0 );
         }
 
         private static void UpdateLogic( )
         {
             while ( true )
             {
-                CurrentState = State.WAITING;
+                CurrentState = State.SLEEPING;
 
                 // Is it time to check for updates again?
                 if ( CanRefreshServer( ) )
@@ -71,7 +105,7 @@ namespace LANdrop
                         return;
                     }
                     else
-                        CurrentState = State.WAITING;
+                        CurrentState = State.SLEEPING;
                 }
 
                 try
@@ -103,7 +137,8 @@ namespace LANdrop
                     return null;
 
                 VersionInfo result = JsonConvert.DeserializeObject<VersionInfo>( ( new StreamReader( response.GetResponseStream( ) ).ReadToEnd( ).Trim( ) ) );
-                result.BuildDate = DateTime.SpecifyKind( result.BuildDate, DateTimeKind.Utc ).ToLocalTime( ); // Convert server-side UTC times
+                result.BuildDate = DateTime.SpecifyKind( result.BuildDate, DateTimeKind.Utc ).ToLocalTime( ); // Convert the server-side UTC time to local time.
+                ServerVersionInfo = result;
                 return result;
             }
             catch ( WebException ) { return null; }
@@ -123,6 +158,5 @@ namespace LANdrop
                     return false;
             }
         }
-
     }
 }
