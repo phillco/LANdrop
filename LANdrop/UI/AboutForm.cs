@@ -18,14 +18,14 @@ namespace LANdrop.UI
             Util.UseProperSystemFont( this );
             lblProgramVersion.Text = Util.GetProgramVersion( );
             lblBuildInfo.Text = BuildInfo.ToString( );
-            panelReadyToApply.Top = panelUpToDate.Top = panelUpdateProgress.Top;
+            panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
             UpdateChecker.StateChanged += UpdateChecker_StateChanged;
             UpdateState( );
         }
 
         private void UpdateState( )
         {
-            panelUpToDate.Visible = panelUpdateProgress.Visible = panelReadyToApply.Visible = false;
+            panelUpToDate.Visible = panelUpdateProgress.Visible = panelUpdateError.Visible = panelReadyToApply.Visible = false;
             llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
             if ( !UpdateChecker.CanRefreshServer( ) )
                 updateRefreshLinkTimer.Start( );
@@ -45,6 +45,9 @@ namespace LANdrop.UI
                     break;
                 case UpdateChecker.State.READY_TO_APPLY:
                     panelReadyToApply.Show( );
+                    break;
+                case UpdateChecker.State.ERROR:
+                    panelUpdateError.Show( );
                     break;
             }
         }

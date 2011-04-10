@@ -19,7 +19,8 @@ namespace LANdrop
             SLEEPING, // Just waiting to refresh
             CHECKING, // Querying landrop.net
             DOWNLOADING,
-            READY_TO_APPLY
+            READY_TO_APPLY,
+            ERROR
         }
 
         /// <summary>
@@ -29,6 +30,7 @@ namespace LANdrop
         {
             public int BuildNumber;
             public DateTime BuildDate;
+            public string Channel;
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace LANdrop
         {
             while ( true )
             {
-                CurrentState = State.SLEEPING;
+                int secondsToSleep = 15;
 
                 // Is it time to check for updates again?
                 if ( CanRefreshServer( ) )
@@ -100,17 +102,21 @@ namespace LANdrop
                     if ( IsNewerBuildAvailable( ) )
                     {
                         CurrentState = State.DOWNLOADING;
-                        Thread.Sleep( 5000 ); // Simulate download
-                        CurrentState = State.READY_TO_APPLY;
-                        return;
+                        if ( DownloadLatestVersion( ) )
+                            return;
+                        else
+                        {
+                            CurrentState = State.ERROR;
+                            secondsToSleep = 3;
+                        }
                     }
                     else
                         CurrentState = State.SLEEPING;
                 }
 
                 try
-                {
-                    Thread.Sleep( 15 * 1000 );
+                {                    
+                    Thread.Sleep( secondsToSleep * 1000 );
                 }
                 catch ( ThreadInterruptedException ) { }
             }
@@ -144,6 +150,28 @@ namespace LANdrop
             catch ( WebException ) { return null; }
         }
 
+        public static bool DownloadLatestVersion( )
+        {
+            CurrentState = State.DOWNLOADING;
+
+            try
+            {
+                Directory.CreateDirectory( @"LANdrop\Update" );
+                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", ServerVersionInfo.Channel, ServerVersionInfo.BuildNumber ) );
+                string tempFileName = fileName + ".part";
+
+                // Download the file to the "Update" folder.
+                new WebClient( ).DownloadFile( "http://landrop.net/downloads/dev/" + ServerVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+
+                // Rename it once complete.
+                File.Delete( fileName );
+                File.Move( tempFileName, fileName );
+                CurrentState = State.READY_TO_APPLY; // We're done here.
+                return true;
+            }
+            catch ( WebException ) { return false; }
+        }
+
         public static bool IsNewerBuildAvailable( )
         {
             // Local developer builds never have updates.
@@ -153,7 +181,7 @@ namespace LANdrop
             {
                 VersionInfo info = GetServerVersionInfo( );
                 if ( info != null )
-                    return false;//( info.BuildNumber > BuildInfo.BUILD_NUMBER );
+                    return ( info.BuildNumber > BuildInfo.BUILD_NUMBER );
                 else
                     return false;
             }
