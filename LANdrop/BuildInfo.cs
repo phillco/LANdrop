@@ -19,6 +19,8 @@ namespace LANdrop
         {
             if ( BUILD_TYPE == UpdateChannels.NONE )
                 return "Custom build";
+            else if ( BUILD_TYPE == UpdateChannels.RELEASE )
+                return "Release build";
             else
                 return UpdateChannelToString( ) + " build #" + BUILD_NUMBER;
         }
