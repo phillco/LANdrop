@@ -9,7 +9,7 @@ namespace BuildPrepare
     class Program
     {
         const string fileName = @"LANdrop\BuildInfo.cs";
-        const string tempFileName = @"LANdrop\BuildInfo.old.cs";
+        const string tempFileName = @"LANdrop\BuildInfo.cs.old";
 
         const string versionDef = @"public const int BUILD_NUMBER = ";
         const string channelDef = @"public const UpdateChannels BUILD_TYPE = UpdateChannels.";
@@ -31,8 +31,10 @@ namespace BuildPrepare
             }
 
             // Update LANdrop's BuildInfo.cs before building it.
+            Console.WriteLine( "Deleting " + tempFileName + "...");
             File.Delete( tempFileName );
             File.Move( fileName, tempFileName );
+            Console.WriteLine( "Moving " + fileName + " to " + tempFileName + "..." );
             using ( StreamReader reader = new StreamReader( tempFileName ) )
             using ( StreamWriter writer = new StreamWriter( fileName ) )
             {
@@ -45,10 +47,10 @@ namespace BuildPrepare
                     if ( line.Trim( ).StartsWith( channelDef ) )
                         line = channelDef + args[1] + ";";
 
-                    Console.WriteLine( line );
                     writer.WriteLine( line );
                 }
             }
+            Console.WriteLine( "Recreated " + fileName + "..." );
 
             // Update buildDeploy.bat
             File.Delete( tempFileName );
