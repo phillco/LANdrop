@@ -65,7 +65,7 @@ namespace BuildPrepare
                     if ( line.Trim( ).StartsWith( "cd /home/phillco/landrop.net/downloads" ) )
                     {
                         writer.WriteLine( line );
-                        writer.WriteLine( String.Format( "mkdir {0}\ncd {0}\nmkdir {1}\ncd {1}", args[1].ToLower( ), args[0] ) );
+                        writer.WriteLine( String.Format( "cd {0}\nmkdir {1}\ncd {1}", args[1].ToLower( ), args[0] ) );
                         continue;
                     }
                     else if ( line.Trim( ).StartsWith( "put version.json" ) )
