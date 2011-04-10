@@ -18,12 +18,14 @@ namespace BuildPrepare
             if ( args.Length < 2 )
             {
                 Console.WriteLine( "Usage: LDprepare buildNumber channel" );
+                Environment.Exit( -1 );
                 return;
             }
 
             if ( !File.Exists( fileName ) )
             {
                 Console.WriteLine( fileName + " does not exist" );
+                Environment.Exit( -2 );
                 return;
             }
 
