@@ -14,7 +14,7 @@ cd /home/phillco/landrop.net/downloads
 option transfer binary
 
 # Upload the file to current remote working directory.
-put LANdrop\bin\Release\LANdrop.exe
+put LANdrop\bin\Release\LANdrop.exe.netz\LANdrop.exe
 
 # Disconnect and quit.
 close
