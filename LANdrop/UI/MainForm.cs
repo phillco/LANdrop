@@ -39,7 +39,20 @@ namespace LANdrop.UI
                 i.ImageIndex = r.Next( 2 );
 
             UpdateState( );
-            UpdateChecker.StateChanged += ( oldState, newState ) => { if ( newState == UpdateChecker.State.READY_TO_APPLY ) applyUpdateToolStripMenuItem.Visible = true; };
+
+            // When an update is ready to be applied, show some UI cues...
+            UpdateChecker.StateChanged += ( oldState, newState ) =>
+            {
+                if ( newState == UpdateChecker.State.READY_TO_APPLY )
+                {
+                    BeginInvoke( (MethodInvoker) delegate
+                    {
+                        applyUpdateToolStripMenuItem.Visible = true;
+                        panelApplyUpdate.Show( );
+                        contentPanel.Padding = new Padding( contentPanel.Padding.Left, contentPanel.Padding.Top + panelApplyUpdate.Height + 8, contentPanel.Padding.Right, contentPanel.Padding.Bottom );
+                    } );
+                }
+            };
         }
 
         /// <summary>
@@ -392,6 +405,12 @@ namespace LANdrop.UI
         }
 
         private void applyUpdateToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Util.RestartApplication( );
+            Application.Exit( );
+        }
+
+        private void llblApplyUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
             Util.RestartApplication( );
             Application.Exit( );

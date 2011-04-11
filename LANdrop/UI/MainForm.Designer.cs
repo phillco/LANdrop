@@ -66,11 +66,17 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
+            this.panelApplyUpdate = new System.Windows.Forms.Panel( );
+            this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
+            this.label4 = new System.Windows.Forms.Label( );
+            this.pictureBox2 = new System.Windows.Forms.PictureBox( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
             this.mainMenu.SuspendLayout( );
             this.trayIconMenu.SuspendLayout( );
+            this.panelApplyUpdate.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
             // onlineIcons
@@ -84,7 +90,7 @@
             // 
             this.statusStrip.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus} );
-            this.statusStrip.Location = new System.Drawing.Point( 0, 329 );
+            this.statusStrip.Location = new System.Drawing.Point( 0, 371 );
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size( 255, 22 );
             this.statusStrip.TabIndex = 5;
@@ -100,6 +106,7 @@
             // 
             // contentPanel
             // 
+            this.contentPanel.Controls.Add( this.panelApplyUpdate );
             this.contentPanel.Controls.Add( this.btnSend );
             this.contentPanel.Controls.Add( this.btnAddPerson );
             this.contentPanel.Controls.Add( this.label1 );
@@ -108,14 +115,14 @@
             this.contentPanel.Location = new System.Drawing.Point( 0, 24 );
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Padding = new System.Windows.Forms.Padding( 16, 42, 16, 48 );
-            this.contentPanel.Size = new System.Drawing.Size( 255, 305 );
+            this.contentPanel.Size = new System.Drawing.Size( 255, 347 );
             this.contentPanel.TabIndex = 6;
             // 
             // btnSend
             // 
             this.btnSend.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnSend.Enabled = false;
-            this.btnSend.Location = new System.Drawing.Point( 155, 268 );
+            this.btnSend.Location = new System.Drawing.Point( 155, 310 );
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size( 84, 25 );
             this.btnSend.TabIndex = 4;
@@ -126,7 +133,7 @@
             // btnAddPerson
             // 
             this.btnAddPerson.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
-            this.btnAddPerson.Location = new System.Drawing.Point( 14, 268 );
+            this.btnAddPerson.Location = new System.Drawing.Point( 14, 310 );
             this.btnAddPerson.Name = "btnAddPerson";
             this.btnAddPerson.Size = new System.Drawing.Size( 98, 25 );
             this.btnAddPerson.TabIndex = 3;
@@ -161,7 +168,7 @@
             listViewItem4} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
-            this.receipientList.Size = new System.Drawing.Size( 223, 215 );
+            this.receipientList.Size = new System.Drawing.Size( 223, 257 );
             this.receipientList.SmallImageList = this.onlineIcons;
             this.receipientList.TabIndex = 2;
             this.receipientList.UseCompatibleStateImageBehavior = false;
@@ -358,11 +365,56 @@
             // 
             this.selectFileToSendDialog.Title = "Select a file to send";
             // 
+            // panelApplyUpdate
+            // 
+            this.panelApplyUpdate.Controls.Add( this.llblApplyUpdate );
+            this.panelApplyUpdate.Controls.Add( this.label4 );
+            this.panelApplyUpdate.Controls.Add( this.pictureBox2 );
+            this.panelApplyUpdate.Location = new System.Drawing.Point( 31, 9 );
+            this.panelApplyUpdate.Name = "panelApplyUpdate";
+            this.panelApplyUpdate.Size = new System.Drawing.Size( 187, 22 );
+            this.panelApplyUpdate.TabIndex = 22;
+            this.panelApplyUpdate.Visible = false;
+            // 
+            // llblApplyUpdate
+            // 
+            this.llblApplyUpdate.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.llblApplyUpdate.AutoSize = true;
+            this.llblApplyUpdate.Location = new System.Drawing.Point( 127, 4 );
+            this.llblApplyUpdate.Name = "llblApplyUpdate";
+            this.llblApplyUpdate.Size = new System.Drawing.Size( 57, 13 );
+            this.llblApplyUpdate.TabIndex = 19;
+            this.llblApplyUpdate.TabStop = true;
+            this.llblApplyUpdate.Text = "Apply now";
+            this.llblApplyUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblApplyUpdate_LinkClicked );
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label4.Location = new System.Drawing.Point( 22, 4 );
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size( 105, 13 );
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Update available!";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
+            this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size( 255, 351 );
+            this.ClientSize = new System.Drawing.Size( 255, 393 );
             this.Controls.Add( this.contentPanel );
             this.Controls.Add( this.statusStrip );
             this.Controls.Add( this.mainMenu );
@@ -383,6 +435,9 @@
             this.mainMenu.ResumeLayout( false );
             this.mainMenu.PerformLayout( );
             this.trayIconMenu.ResumeLayout( false );
+            this.panelApplyUpdate.ResumeLayout( false );
+            this.panelApplyUpdate.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 
@@ -422,6 +477,10 @@
         private System.Windows.Forms.ToolStripMenuItem testErrorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyUpdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Panel panelApplyUpdate;
+        private System.Windows.Forms.LinkLabel llblApplyUpdate;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
