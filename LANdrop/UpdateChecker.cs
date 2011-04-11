@@ -85,7 +85,7 @@ namespace LANdrop
             if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
             {
                 Directory.Delete( @"LANdrop\Update", true );
-                MessageBox.Show( "Update applied!" );
+                MessageBox.Show( "Update applied! Welcome to " + BuildInfo.ToString() +".", "LANdrop update", MessageBoxButtons.OK, MessageBoxIcon.Information );
             }
 
             if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
@@ -94,7 +94,7 @@ namespace LANdrop
                 File.Copy( Application.ExecutablePath, parent, true );
                 using ( Process proc = new Process( ) )
                 {
-                    MessageBox.Show( "Copied myself over " + parent + "; launching parent", Application.ExecutablePath );
+                    MessageBox.Show( BuildInfo.ToString() + " at " + Application.ExecutablePath + ":\n\nCopied myself over " + parent + "; launching parent", "LANdrop update" );
                     proc.StartInfo.FileName = parent;
                     proc.StartInfo.Arguments = "/completeUpdate";
                     proc.Start( );
@@ -114,7 +114,7 @@ namespace LANdrop
                 {
                     using ( Process proc = new Process( ) )
                     {
-                        MessageBox.Show( "Applying " + file.Name, Application.ExecutablePath );
+                        MessageBox.Show( BuildInfo.ToString() + " at " + Application.ExecutablePath + ":\n\nDiscovered an available update at " + file.Name + "; applying it.", Application.ExecutablePath );
                         proc.StartInfo.FileName = file.FullName;
                         proc.StartInfo.Arguments = "/applyUpdate";
                         proc.Start( );
