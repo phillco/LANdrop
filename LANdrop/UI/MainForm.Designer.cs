@@ -55,6 +55,9 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.testErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.applyUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.trayIcon = new System.Windows.Forms.NotifyIcon( this.components );
             this.trayIconMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
@@ -63,7 +66,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
-            this.testErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.recipientContextMenu.SuspendLayout( );
@@ -262,7 +264,7 @@
             // 
             this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
             // 
@@ -270,13 +272,38 @@
             // 
             this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.testErrorToolStripMenuItem,
+            this.applyUpdateToolStripMenuItem,
+            this.toolStripSeparator1,
             this.aboutToolStripMenuItem} );
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 44, 20 );
             this.helpToolStripMenuItem1.Text = "&Help";
             // 
+            // testErrorToolStripMenuItem
+            // 
+            this.testErrorToolStripMenuItem.Name = "testErrorToolStripMenuItem";
+            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.testErrorToolStripMenuItem.Text = "Test error...";
+            this.testErrorToolStripMenuItem.Click += new System.EventHandler( this.testErrorToolStripMenuItem_Click );
+            // 
+            // applyUpdateToolStripMenuItem
+            // 
+            this.applyUpdateToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.applyUpdateToolStripMenuItem.Image = global::LANdrop.Properties.Resources.arrow_refresh;
+            this.applyUpdateToolStripMenuItem.Name = "applyUpdateToolStripMenuItem";
+            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.applyUpdateToolStripMenuItem.Text = "Apply update";
+            this.applyUpdateToolStripMenuItem.Visible = false;
+            this.applyUpdateToolStripMenuItem.Click += new System.EventHandler( this.applyUpdateToolStripMenuItem_Click );
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 149, 6 );
+            // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.information16;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
@@ -330,13 +357,6 @@
             // selectFileToSendDialog
             // 
             this.selectFileToSendDialog.Title = "Select a file to send";
-            // 
-            // testErrorToolStripMenuItem
-            // 
-            this.testErrorToolStripMenuItem.Name = "testErrorToolStripMenuItem";
-            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
-            this.testErrorToolStripMenuItem.Text = "Test error...";
-            this.testErrorToolStripMenuItem.Click += new System.EventHandler( this.testErrorToolStripMenuItem_Click );
             // 
             // MainForm
             // 
@@ -400,6 +420,8 @@
         private System.Windows.Forms.OpenFileDialog selectFileToSendDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem testErrorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applyUpdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

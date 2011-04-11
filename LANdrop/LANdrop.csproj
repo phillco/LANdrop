@@ -269,6 +269,7 @@
     <None Include="Resources\landropError.png" />
     <None Include="Resources\error16.png" />
     <None Include="Resources\information16.png" />
+    <None Include="Resources\arrow_refresh.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

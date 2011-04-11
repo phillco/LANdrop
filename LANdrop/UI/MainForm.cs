@@ -39,6 +39,7 @@ namespace LANdrop.UI
                 i.ImageIndex = r.Next( 2 );
 
             UpdateState( );
+            UpdateChecker.StateChanged += ( oldState, newState ) => { if ( newState == UpdateChecker.State.READY_TO_APPLY ) applyUpdateToolStripMenuItem.Visible = true; };
         }
 
         /// <summary>
@@ -388,6 +389,12 @@ namespace LANdrop.UI
         private void testErrorToolStripMenuItem_Click( object sender, EventArgs e )
         {
             throw new Exception( "Test message here" );
+        }
+
+        private void applyUpdateToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Util.RestartApplication( );
+            Application.Exit( );
         }
     }
 }
