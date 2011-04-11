@@ -14,6 +14,9 @@ namespace LANdrop
 {
     static class Program
     {
+        // Convert command line arguments to a list.
+        public static readonly List<String> CommandLineArgs = new List<string>( Environment.GetCommandLineArgs( ) );
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

@@ -82,14 +82,13 @@ namespace LANdrop
 
         public static bool CheckForUpdateCompletion( )
         {
-
-            if ( new List<String>( Environment.GetCommandLineArgs( ) ).Contains( "/completeUpdate" ) )
+            if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
             {
                 Directory.Delete( @"LANdrop\Update", true );
                 MessageBox.Show( "Update applied!" );
             }
 
-            if ( new List<String>( Environment.GetCommandLineArgs( ) ).Contains( "/applyUpdate" ) )
+            if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
             {
                 string parent = Path.Combine( new FileInfo( Application.ExecutablePath ).Directory.Parent.Parent.FullName, "LANdrop.exe" );
                 File.Copy( Application.ExecutablePath, parent, true );
