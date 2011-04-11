@@ -130,6 +130,13 @@ namespace LANdrop.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap landropUpdated {
+            get {
+                object obj = ResourceManager.GetObject("landropUpdated", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap note_go {
             get {
                 object obj = ResourceManager.GetObject("note_go", resourceCulture);

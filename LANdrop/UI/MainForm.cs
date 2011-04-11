@@ -30,10 +30,12 @@ namespace LANdrop.UI
         public MainForm( )
         {
             InitializeComponent( );
-            Util.UseProperSystemFont( this );
-
             Instance = this;
+        }
 
+        private void MainForm_Load( object sender, EventArgs e )
+        {
+            Util.UseProperSystemFont( this );
             Random r = new Random( );
             foreach ( ListViewItem i in receipientList.Items )
                 i.ImageIndex = r.Next( 2 );
@@ -53,6 +55,9 @@ namespace LANdrop.UI
                     } );
                 }
             };
+
+            if ( UpdateChecker.UpdateApplied )
+                new NotificationForm( new UpdateAppliedNotification( ) ).Show( );
         }
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace LANdrop.UI
             {
                 BeginInvoke( new MethodInvoker( delegate { UpdatePeerList( ); } ) );
                 return;
-            }         
+            }
 
             // Back up which peers are selected.
             List<Peer> selectedPeers = new List<Peer>( );

@@ -50,7 +50,7 @@ namespace LANdrop
                 _state = value;
 
                 // Notify any registered UIs about the change.
-                if ( StateChanged != null )
+                if ( oldState != value && StateChanged != null )
                     StateChanged( oldState, _state );
             }
         }
@@ -69,6 +69,8 @@ namespace LANdrop
 
         public static event StateChangeHandler StateChanged;
 
+        public static bool UpdateApplied = false;
+
         // Thread which runs the update logic.
         private static Thread updateThread = new Thread( UpdateLogic );
 
@@ -86,7 +88,8 @@ namespace LANdrop
             {
                 Directory.Delete( @"LANdrop\Update", true );
                 Directory.CreateDirectory( @"LANdrop\Update" );
-                MessageBox.Show( "Update applied! Welcome to " + BuildInfo.ToString( ) + ".", "LANdrop update", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                UpdateApplied = true;
+                // MessageBox.Show( "Update applied! Welcome to " + BuildInfo.ToString( ) + ".", "LANdrop update", MessageBoxButtons.OK, MessageBoxIcon.Information );
             }
 
             if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )

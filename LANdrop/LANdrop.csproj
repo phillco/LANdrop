@@ -186,6 +186,10 @@
       <DependentUpon>ProgressPane.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\UpdateAppliedNotification.resx">
+      <DependentUpon>UpdateAppliedNotification.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\WebHostedFileReadyForm.resx">
       <DependentUpon>WebHostedFileReadyForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -252,6 +256,12 @@
     <Compile Include="UI\TransferForms\TransferNotificationForm.Designer.cs">
       <DependentUpon>TransferNotificationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UpdateAppliedNotification.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateAppliedNotification.Designer.cs">
+      <DependentUpon>UpdateAppliedNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WebHostedFileReadyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,6 +280,7 @@
     <None Include="Resources\error16.png" />
     <None Include="Resources\information16.png" />
     <None Include="Resources\arrow_refresh.png" />
+    <None Include="Resources\landropUpdated.png" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

@@ -10,7 +10,7 @@ using LANdrop.Networking;
 namespace LANdrop.UI
 {
     /// <summary>
-    /// Shown when somebody wants to send us a file; shows links to accept or reject it.
+    /// 
     /// </summary>
     public partial class NotificationPane : UserControl
     {

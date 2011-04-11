@@ -35,15 +35,10 @@ namespace LANdrop.UI
             lock ( allNotifications )
                 allNotifications.Add( this );
         }
-        public NotificationForm( Control content )
-        {
-            InitializeComponent( );
 
-            // Add in the wrapped message and show it.
-            this.Content = content;
-            Controls.Add( Content );
-            Size = Content.Size;
-            Align( );
+        public NotificationForm( Control content ) : this()
+        {
+            ChangeContent( content );
         }
 
         public void ChangeContent( Control newContent )

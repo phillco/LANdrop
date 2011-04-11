@@ -38,6 +38,10 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
             this.contentPanel = new System.Windows.Forms.Panel( );
+            this.panelApplyUpdate = new System.Windows.Forms.Panel( );
+            this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
+            this.label4 = new System.Windows.Forms.Label( );
+            this.pictureBox2 = new System.Windows.Forms.PictureBox( );
             this.btnSend = new System.Windows.Forms.Button( );
             this.btnAddPerson = new System.Windows.Forms.Button( );
             this.label1 = new System.Windows.Forms.Label( );
@@ -66,17 +70,13 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
-            this.panelApplyUpdate = new System.Windows.Forms.Panel( );
-            this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
-            this.label4 = new System.Windows.Forms.Label( );
-            this.pictureBox2 = new System.Windows.Forms.PictureBox( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
+            this.panelApplyUpdate.SuspendLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
             this.recipientContextMenu.SuspendLayout( );
             this.mainMenu.SuspendLayout( );
             this.trayIconMenu.SuspendLayout( );
-            this.panelApplyUpdate.SuspendLayout( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).BeginInit( );
             this.SuspendLayout( );
             // 
             // onlineIcons
@@ -117,6 +117,51 @@
             this.contentPanel.Padding = new System.Windows.Forms.Padding( 16, 42, 16, 48 );
             this.contentPanel.Size = new System.Drawing.Size( 255, 347 );
             this.contentPanel.TabIndex = 6;
+            // 
+            // panelApplyUpdate
+            // 
+            this.panelApplyUpdate.Controls.Add( this.llblApplyUpdate );
+            this.panelApplyUpdate.Controls.Add( this.label4 );
+            this.panelApplyUpdate.Controls.Add( this.pictureBox2 );
+            this.panelApplyUpdate.Location = new System.Drawing.Point( 31, 9 );
+            this.panelApplyUpdate.Name = "panelApplyUpdate";
+            this.panelApplyUpdate.Size = new System.Drawing.Size( 187, 22 );
+            this.panelApplyUpdate.TabIndex = 22;
+            this.panelApplyUpdate.Visible = false;
+            // 
+            // llblApplyUpdate
+            // 
+            this.llblApplyUpdate.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.llblApplyUpdate.AutoSize = true;
+            this.llblApplyUpdate.Location = new System.Drawing.Point( 127, 4 );
+            this.llblApplyUpdate.Name = "llblApplyUpdate";
+            this.llblApplyUpdate.Size = new System.Drawing.Size( 57, 13 );
+            this.llblApplyUpdate.TabIndex = 19;
+            this.llblApplyUpdate.TabStop = true;
+            this.llblApplyUpdate.Text = "Apply now";
+            this.llblApplyUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblApplyUpdate_LinkClicked );
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label4.Location = new System.Drawing.Point( 22, 4 );
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size( 105, 13 );
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Update available!";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
+            this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
             // 
             // btnSend
             // 
@@ -289,7 +334,7 @@
             // testErrorToolStripMenuItem
             // 
             this.testErrorToolStripMenuItem.Name = "testErrorToolStripMenuItem";
-            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.testErrorToolStripMenuItem.Text = "Test error...";
             this.testErrorToolStripMenuItem.Click += new System.EventHandler( this.testErrorToolStripMenuItem_Click );
             // 
@@ -298,7 +343,7 @@
             this.applyUpdateToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.applyUpdateToolStripMenuItem.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.applyUpdateToolStripMenuItem.Name = "applyUpdateToolStripMenuItem";
-            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.applyUpdateToolStripMenuItem.Text = "Apply update";
             this.applyUpdateToolStripMenuItem.Visible = false;
             this.applyUpdateToolStripMenuItem.Click += new System.EventHandler( this.applyUpdateToolStripMenuItem_Click );
@@ -306,13 +351,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 149, 6 );
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 144, 6 );
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.information16;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
@@ -365,51 +410,6 @@
             // 
             this.selectFileToSendDialog.Title = "Select a file to send";
             // 
-            // panelApplyUpdate
-            // 
-            this.panelApplyUpdate.Controls.Add( this.llblApplyUpdate );
-            this.panelApplyUpdate.Controls.Add( this.label4 );
-            this.panelApplyUpdate.Controls.Add( this.pictureBox2 );
-            this.panelApplyUpdate.Location = new System.Drawing.Point( 31, 9 );
-            this.panelApplyUpdate.Name = "panelApplyUpdate";
-            this.panelApplyUpdate.Size = new System.Drawing.Size( 187, 22 );
-            this.panelApplyUpdate.TabIndex = 22;
-            this.panelApplyUpdate.Visible = false;
-            // 
-            // llblApplyUpdate
-            // 
-            this.llblApplyUpdate.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.llblApplyUpdate.AutoSize = true;
-            this.llblApplyUpdate.Location = new System.Drawing.Point( 127, 4 );
-            this.llblApplyUpdate.Name = "llblApplyUpdate";
-            this.llblApplyUpdate.Size = new System.Drawing.Size( 57, 13 );
-            this.llblApplyUpdate.TabIndex = 19;
-            this.llblApplyUpdate.TabStop = true;
-            this.llblApplyUpdate.Text = "Apply now";
-            this.llblApplyUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblApplyUpdate_LinkClicked );
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label4.Location = new System.Drawing.Point( 22, 4 );
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size( 105, 13 );
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Update available!";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
-            this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 17;
-            this.pictureBox2.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -426,18 +426,19 @@
             this.MinimumSize = new System.Drawing.Size( 230, 250 );
             this.Name = "MainForm";
             this.Text = "LANdrop";
+            this.Load += new System.EventHandler( this.MainForm_Load );
             this.Resize += new System.EventHandler( this.MainForm_Resize );
             this.statusStrip.ResumeLayout( false );
             this.statusStrip.PerformLayout( );
             this.contentPanel.ResumeLayout( false );
             this.contentPanel.PerformLayout( );
+            this.panelApplyUpdate.ResumeLayout( false );
+            this.panelApplyUpdate.PerformLayout( );
+            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).EndInit( );
             this.recipientContextMenu.ResumeLayout( false );
             this.mainMenu.ResumeLayout( false );
             this.mainMenu.PerformLayout( );
             this.trayIconMenu.ResumeLayout( false );
-            this.panelApplyUpdate.ResumeLayout( false );
-            this.panelApplyUpdate.PerformLayout( );
-            ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox2 ) ).EndInit( );
             this.ResumeLayout( false );
             this.PerformLayout( );
 

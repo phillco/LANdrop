@@ -38,13 +38,13 @@
             this.rejectCountdownTimer.Interval = 1000;
             this.rejectCountdownTimer.Tick += new System.EventHandler( this.rejectCountdownTimer_Tick );
             // 
-            // AutoHidePane
+            // NotificationPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb( ( (int) ( ( (byte) ( 64 ) ) ) ), ( (int) ( ( (byte) ( 64 ) ) ) ), ( (int) ( ( (byte) ( 64 ) ) ) ) );
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.Name = "AutoHidePane";
+            this.Name = "NotificationPane";
             this.Size = new System.Drawing.Size( 449, 68 );
             this.ResumeLayout( false );
 
@@ -52,7 +52,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer rejectCountdownTimer;
+        public System.Windows.Forms.Timer rejectCountdownTimer;
+
 
     }
 }
