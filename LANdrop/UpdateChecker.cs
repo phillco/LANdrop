@@ -6,6 +6,7 @@ using System.Net;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace LANdrop
 {
@@ -77,6 +78,53 @@ namespace LANdrop
         {
             updateThread.Priority = ThreadPriority.BelowNormal;
             updateThread.Start( );
+        }
+
+        public static bool CheckForUpdateCompletion( )
+        {
+
+            if ( new List<String>( Environment.GetCommandLineArgs( ) ).Contains( "/completeUpdate" ) )
+            {
+                Directory.Delete( @"LANdrop\Update", true );
+                MessageBox.Show( "Update applied!" );
+            }
+
+            if ( new List<String>( Environment.GetCommandLineArgs( ) ).Contains( "/applyUpdate" ) )
+            {
+                string parent = Path.Combine( new FileInfo( Application.ExecutablePath ).Directory.Parent.Parent.FullName, "LANdrop.exe" );
+                File.Copy( Application.ExecutablePath, parent, true );
+                using ( Process proc = new Process( ) )
+                {
+                    MessageBox.Show( "Copied myself over " + parent + "; launching parent", Application.ExecutablePath );
+                    proc.StartInfo.FileName = parent;
+                    proc.StartInfo.Arguments = "/completeUpdate";
+                    proc.Start( );
+                    return true;
+                }
+            }
+
+            // First see if there's a new version of LANdrop ready to be applied.
+            if ( !Directory.Exists(@"LANdrop\Update"))
+                return false;
+
+            foreach ( string path in Directory.GetFiles( @"LANdrop\Update" ) )
+            {
+                FileInfo file = new FileInfo( path );
+
+                if ( file.Name.StartsWith( "LANdrop_" ) && file.Name.EndsWith( ".exe" ) )
+                {
+                    using ( Process proc = new Process( ) )
+                    {
+                        MessageBox.Show( "Applying " + file.Name, Application.ExecutablePath );
+                        proc.StartInfo.FileName = file.FullName;
+                        proc.StartInfo.Arguments = "/applyUpdate";
+                        proc.Start( );
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public static void CheckNowAsync( )

@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using HybridDSP.Net.HTTP;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace LANdrop
 {
@@ -21,14 +22,19 @@ namespace LANdrop
         {
             try
             {
-                // Initialization.
+                // Set up crucial modules.
                 Application.EnableVisualStyles( );
                 Application.SetCompatibleTextRenderingDefault( false );
-                ErrorHandler.Initialize( );
-                Configuration.Initialize( );
                 SetupLog( );
-                UpdateChecker.Initialize( );
+                ErrorHandler.Initialize( );
 
+                // See if we're applying an update. (and if so, do it and quit).
+                if ( UpdateChecker.CheckForUpdateCompletion( ) )
+                    return;
+
+                // Finish initialization.
+                Configuration.Initialize( );
+                UpdateChecker.Initialize( );
                 MainForm mainForm = new MainForm( );
                 Server.Start( );
 
@@ -51,7 +57,7 @@ namespace LANdrop
             MulticastManager.Disconnect( );
             WebServer.Stop( );
             Trace.Flush( );
-            Environment.Exit( 0 );
+            Environment.Exit( 0 ); // Kill all remaining threads.
         }
 
         /// <summary>
