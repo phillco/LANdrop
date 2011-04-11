@@ -85,16 +85,32 @@ namespace LANdrop
             if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
             {
                 Directory.Delete( @"LANdrop\Update", true );
-                MessageBox.Show( "Update applied! Welcome to " + BuildInfo.ToString() +".", "LANdrop update", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                Directory.CreateDirectory( @"LANdrop\Update" );
+                MessageBox.Show( "Update applied! Welcome to " + BuildInfo.ToString( ) + ".", "LANdrop update", MessageBoxButtons.OK, MessageBoxIcon.Information );
             }
 
             if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
             {
                 string parent = Path.Combine( new FileInfo( Application.ExecutablePath ).Directory.Parent.Parent.FullName, "LANdrop.exe" );
-                File.Copy( Application.ExecutablePath, parent, true );
+                int startTime = Environment.TickCount;
+
+                // Copy this file over the old version; wait as necessary for the parent to exit.
+                int i = 0;
+                for ( i = 0; i < 500; i++ )
+                {
+                    try
+                    {
+                        File.Copy( Application.ExecutablePath, parent, true );
+                        break;
+                    }
+                    catch ( IOException ) { Thread.Sleep( 5 * i / 10 ); } // Only thrown when the file is in use.
+                }
+
+                if ( i > 0 )
+                    MessageBox.Show( "Update applied in " + ( Environment.TickCount - startTime ) / 1000.0 + " seconds (" + i + " iterations)." );
+
                 using ( Process proc = new Process( ) )
                 {
-                    MessageBox.Show( BuildInfo.ToString() + " at " + Application.ExecutablePath + ":\n\nCopied myself over " + parent + "; launching parent", "LANdrop update" );
                     proc.StartInfo.FileName = parent;
                     proc.StartInfo.Arguments = "/completeUpdate";
                     proc.Start( );
@@ -103,21 +119,21 @@ namespace LANdrop
             }
 
             // First see if there's a new version of LANdrop ready to be applied.
-            if ( !Directory.Exists(@"LANdrop\Update"))
+            if ( !Directory.Exists( @"LANdrop\Update" ) )
                 return false;
 
             foreach ( string path in Directory.GetFiles( @"LANdrop\Update" ) )
             {
                 FileInfo file = new FileInfo( path );
 
-                if ( file.Name.StartsWith( "LANdrop_" ) && file.Name.EndsWith( ".exe" ) )
+                if ( file.Name.StartsWith( "LANdrop" ) && file.Name.EndsWith( ".exe" ) )
                 {
                     using ( Process proc = new Process( ) )
                     {
-                        MessageBox.Show( BuildInfo.ToString() + " at " + Application.ExecutablePath + ":\n\nDiscovered an available update at " + file.Name + "; applying it.", Application.ExecutablePath );
                         proc.StartInfo.FileName = file.FullName;
                         proc.StartInfo.Arguments = "/applyUpdate";
                         proc.Start( );
+                        // Thread.Sleep( 5000 );
                         return true;
                     }
                 }
@@ -162,7 +178,7 @@ namespace LANdrop
                 }
 
                 try
-                {                    
+                {
                     Thread.Sleep( secondsToSleep * 1000 );
                 }
                 catch ( ThreadInterruptedException ) { }
@@ -222,9 +238,9 @@ namespace LANdrop
         public static bool IsNewerBuildAvailable( )
         {
             // Local developer builds never have updates.
-            /* if ( BuildInfo.BUILD_TYPE == BuildInfo.UpdateChannels.NONE )
-                 return false;
-             else*/
+            if ( BuildInfo.BUILD_TYPE == BuildInfo.UpdateChannels.NONE )
+                return false;
+            else
             {
                 VersionInfo info = GetServerVersionInfo( );
                 if ( info != null )
