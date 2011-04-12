@@ -21,7 +21,6 @@ namespace LANdrop.UI
         {
             InitializeComponent( );
             this.errorText = errorText;
-            gbStackTrace.Text = "Error details";
             tbStackTrace.Text = errorText;
             btnClose.Select( );
         }
@@ -30,8 +29,6 @@ namespace LANdrop.UI
         {
             InitializeComponent( );
             this.exception = exception;
-            lblExceptionName.Text = exception.GetType( ) + " in " + FogCreek.Util.GetExceptionSignature( exception, false );
-            lblExceptionMessage.Text = exception.Message;
             tbStackTrace.Text = exception.ToString( );
             btnClose.Select( );
         }
