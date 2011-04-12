@@ -9,6 +9,7 @@ namespace LANdrop.Updates
 {
     /// <summary>
     /// Downloads builds and version info from LANdrop.net.
+    /// Note: all methods are synchronous and will block until the download is complete.
     /// </summary>
     public class BuildDownloader
     {
@@ -18,7 +19,7 @@ namespace LANdrop.Updates
         public static DateTime LastCheckTime { get; private set; }
 
         /// <summary>
-        /// The last state of our update channel that was received from the server.
+        /// The last version information we received from the server.
         /// </summary>
         public static ServerVersionInfo LastVersionInfo { get; private set; }
 
@@ -62,6 +63,9 @@ namespace LANdrop.Updates
             catch ( WebException ) { return null; }
         }
 
+        /// <summary>
+        /// Downloads the latest build for the given channel into the "/Update" folder.
+        /// </summary>
         public static bool DownloadLatestVersion( Channel channel )
         {
             try
@@ -70,10 +74,10 @@ namespace LANdrop.Updates
                 string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", LastVersionInfo.Channel, LastVersionInfo.BuildNumber ) );
                 string tempFileName = fileName + ".part";
 
-                // Download the file to the "Update" folder.
+                // Download the file.
                 new WebClient( ).DownloadFile( "http://landrop.net/downloads/" + channel.ToString().ToLower() + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
 
-                // Rename it once complete.
+                // Rename it (to remove the .part suffix) once complete.
                 File.Delete( fileName );
                 File.Move( tempFileName, fileName );
                 return true;
@@ -81,9 +85,12 @@ namespace LANdrop.Updates
             catch ( WebException ) { return false; }
         }
 
+        /// <summary>
+        /// Checks if there's a newer version on the server in the given channel.
+        /// </summary>
         public static bool IsNewerBuildAvailable( Channel channel )
         {
-            if ( !BuildInfo.DoesUpdate ) // Some builds (IE, local developer builds) never update.
+            if ( !BuildInfo.DoesUpdate ) // Some builds (in-development builds) never update.
                 return false;
             else if ( channel != BuildInfo.BUILD_TYPE ) // If we're switching channels, the new version is always an "update".
                 return true;

@@ -11,7 +11,8 @@ using System.Diagnostics;
 namespace LANdrop.Updates
 {
     /// <summary>
-    /// Polls landrop.net every so often to check for updates.
+    /// The main updater thread; periodically checks landrop.net for updates, downloads them, and signals the rest of the application that they're ready.
+    /// Use UpdateChecker.CurrentState and StateChanged to get the current status, and CheckNowAsync to force a refresh.
     /// </summary>
     class UpdateChecker
     {
@@ -22,9 +23,9 @@ namespace LANdrop.Updates
         {
             SLEEPING, // Just waiting to refresh
             CHECKING, // Querying landrop.net
-            DOWNLOADING,
-            READY_TO_APPLY,
-            ERROR
+            DOWNLOADING, // Downloading latest builds
+            READY_TO_APPLY, // Updates will be applied when we restart
+            ERROR // Error during download
         }
 
         /// <summary>
@@ -56,18 +57,22 @@ namespace LANdrop.Updates
             }
         }
 
+        private static State _state = State.CHECKING;
+
+        /// <summary>
+        /// Called whenever we change state. (see State)
+        /// </summary>
         public static event StateChangeHandler StateChanged;
 
         public delegate void StateChangeHandler( State oldState, State newState );
 
-        // Thread which runs the update logic.
-        private static Thread updateThread = new Thread( UpdateLogic );
-
-        private static State _state = State.CHECKING;
+        /// <summary>
+        /// Thread which runs the update logic.
+        /// </summary>
+        private static Thread updateThread = new Thread( UpdateLogic );        
 
         /// <summary>
-        /// Starts up the update engine, which checks for updates and downloads them in the background.
-        /// Use UpdateChecker.CurrentState and StateChanged to get the current status.
+        /// Starts up the update thread in the background.
         /// </summary>
         public static void Initialize( )
         {
@@ -88,7 +93,7 @@ namespace LANdrop.Updates
         }
 
         /// <summary>
-        /// The engine's loop.
+        /// The update engine's main loop.
         /// </summary>
         private static void UpdateLogic( )
         {
