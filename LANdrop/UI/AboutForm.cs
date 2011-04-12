@@ -36,9 +36,10 @@ namespace LANdrop.UI
         {
             panelUpToDate.Visible = panelUpdateProgress.Visible = panelUpdateError.Visible = panelReadyToApply.Visible = false;
 
-            llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
-            if ( !UpdateChecker.CanRefreshServer( ) )
-                updateRefreshLinkTimer.Start( );
+            // Disable the "refresh" link if we've refreshed the server recently.
+            llblCheckUpdate.Enabled = BuildDownloader.CanRefreshServer;
+            if ( !BuildDownloader.CanRefreshServer )
+                updateRefreshLinkTimer.Start( ); // Re-enable the link once the timeout passes.
 
             switch ( UpdateChecker.CurrentState )
             {
@@ -75,7 +76,7 @@ namespace LANdrop.UI
 
         private void updateTimer_Tick( object sender, EventArgs e )
         {
-            if ( UpdateChecker.CanRefreshServer( ) )
+            if ( BuildDownloader.CanRefreshServer )
             {
                 UpdateUpdateState( );
                 updateRefreshLinkTimer.Stop( );

@@ -7,7 +7,7 @@ namespace LANdrop.Updates
     /// <summary>
     /// The format of version.json, which we get from landrop.net.
     /// </summary>
-    class ServerVersionInfo
+    public class ServerVersionInfo
     {
         public int BuildNumber;
         public DateTime BuildDate;
