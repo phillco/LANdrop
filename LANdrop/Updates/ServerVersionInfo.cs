@@ -11,6 +11,6 @@ namespace LANdrop.Updates
     {
         public int BuildNumber;
         public DateTime BuildDate;
-        public string Channel;
+        public Channel Channel;
     }
 }
