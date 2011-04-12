@@ -268,7 +268,9 @@
     <Compile Include="UI\WebHostedFileReadyForm.Designer.cs">
       <DependentUpon>WebHostedFileReadyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UpdateChecker.cs" />
+    <Compile Include="Updates\ServerVersionInfo.cs" />
+    <Compile Include="Updates\UpdateApplier.cs" />
+    <Compile Include="Updates\UpdateChecker.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>

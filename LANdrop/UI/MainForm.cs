@@ -9,6 +9,7 @@ using System.IO;
 using LANdrop.Networking;
 using System.Net;
 using LANdrop.UI.TransferForms;
+using LANdrop.Updates;
 
 namespace LANdrop.UI
 {
@@ -56,7 +57,8 @@ namespace LANdrop.UI
                 }
             };
 
-            if ( UpdateChecker.UpdateApplied )
+            // Show a little notification when builds get updated.
+            if ( UpdateApplier.RunningNewVersion )
                 new NotificationForm( new UpdateAppliedNotification( ) ).Show( );
         }
 

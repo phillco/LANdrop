@@ -9,6 +9,7 @@ using System.Net;
 using HybridDSP.Net.HTTP;
 using System.Threading;
 using System.Text.RegularExpressions;
+using LANdrop.Updates;
 
 namespace LANdrop
 {
@@ -31,8 +32,8 @@ namespace LANdrop
                 SetupLog( );
                 ErrorHandler.Initialize( );
 
-                // See if we're applying an update. (and if so, do it and quit).
-                if ( UpdateChecker.CheckForUpdateCompletion( ) )
+                // See if we're applying an update. (and if so, quit if needed).
+                if ( UpdateApplier.Run() )
                     return;
 
                 // Finish initialization.
