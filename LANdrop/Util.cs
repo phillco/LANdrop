@@ -84,7 +84,7 @@ namespace LANdrop
 
             FileInfo fileInfo = new FileInfo( fileName );
 
-            // Otherwise, keep trying files with new
+            // Otherwise, keep trying sequential filenames.
             for ( int i = 1; i < 1000; i++ )
             {
                 string newFilename = String.Format( "{0} ({1}){2}", fileInfo.FullName.Substring( 0, fileInfo.FullName.Length - fileInfo.Extension.Length ), i, fileInfo.Extension );
@@ -369,6 +369,9 @@ namespace LANdrop
             return "Unknown";
         }
 
+        /// <summary>
+        /// Restarts the local executable without any command-line arguments.
+        /// </summary>
         public static void RestartApplication( )
         {
             using ( Process proc = new Process( ) )

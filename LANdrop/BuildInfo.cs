@@ -24,7 +24,7 @@ namespace LANdrop
         public const int BuildNumber = 0;
 
         /// <summary>
-        /// Does this LANdrop build update? (Not true if it was hand-compiled)
+        /// Does this LANdrop build receive automatic updates? (Not true if it was hand-compiled)
         /// </summary>
         public static bool DoesUpdate
         {
