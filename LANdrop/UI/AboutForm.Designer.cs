@@ -246,7 +246,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point( 144, 24 );
+            this.label3.Location = new System.Drawing.Point( 211, 24 );
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size( 82, 13 );
             this.label3.TabIndex = 4;
@@ -255,7 +255,7 @@
             // lblTrademark
             // 
             this.lblTrademark.AutoSize = true;
-            this.lblTrademark.Location = new System.Drawing.Point( 65, 41 );
+            this.lblTrademark.Location = new System.Drawing.Point( 132, 41 );
             this.lblTrademark.Name = "lblTrademark";
             this.lblTrademark.Size = new System.Drawing.Size( 184, 13 );
             this.lblTrademark.TabIndex = 4;
@@ -265,7 +265,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font( "Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label2.Location = new System.Drawing.Point( 64, 19 );
+            this.label2.Location = new System.Drawing.Point( 131, 19 );
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size( 79, 19 );
             this.label2.TabIndex = 3;
@@ -305,7 +305,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::LANdrop.Properties.Resources.draw_calligraphic;
-            this.pictureBox1.Location = new System.Drawing.Point( 26, 22 );
+            this.pictureBox1.Location = new System.Drawing.Point( 93, 22 );
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size( 32, 32 );
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
