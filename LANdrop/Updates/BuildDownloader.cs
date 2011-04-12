@@ -83,7 +83,7 @@ namespace LANdrop.Updates
 
         public static bool IsNewerBuildAvailable( Channel channel )
         {
-            if ( BuildInfo.DoesUpdate ) // Some builds (IE, local developer builds) never update.
+            if ( !BuildInfo.DoesUpdate ) // Some builds (IE, local developer builds) never update.
                 return false;
             else if ( channel != BuildInfo.BUILD_TYPE ) // If we're switching channels, the new version is always an "update".
                 return true;
