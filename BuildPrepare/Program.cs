@@ -11,8 +11,8 @@ namespace BuildPrepare
         const string fileName = @"LANdrop\BuildInfo.cs";
         const string tempFileName = @"LANdrop\BuildInfo.cs.old";
 
-        const string versionDef = @"public const int BUILD_NUMBER = ";
-        const string channelDef = @"public const Channel BUILD_TYPE = Channel.";
+        const string channelDef = @"public const Channel BuildChannel = Channel.";
+        const string versionDef = @"public const int BuildNumber = ";
 
         static void Main( string[] args )
         {

@@ -33,7 +33,7 @@ namespace LANdrop.Updates
         /// </summary>
         public static Channel CurrentChannel
         {
-            get { return BuildInfo.DoesUpdate ? Channel.DEV : Channel.NONE; }
+            get { return BuildInfo.DoesUpdate ? Channel.Dev : Channel.None; }
         }
 
         /// <summary>

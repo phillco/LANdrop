@@ -92,13 +92,13 @@ namespace LANdrop.Updates
         {
             if ( !BuildInfo.DoesUpdate ) // Some builds (in-development builds) never update.
                 return false;
-            else if ( channel != BuildInfo.BUILD_TYPE ) // If we're switching channels, the new version is always an "update".
+            else if ( channel != BuildInfo.BuildChannel ) // If we're switching channels, the new version is always an "update".
                 return true;
             else
             {
                 ServerVersionInfo latest = GetServerVersionInfo( channel );
                 if ( latest != null )
-                    return ( latest.BuildNumber > BuildInfo.BUILD_NUMBER );
+                    return ( latest.BuildNumber > BuildInfo.BuildNumber );
                 else
                     return false;
             }

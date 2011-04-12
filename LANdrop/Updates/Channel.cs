@@ -6,6 +6,6 @@ namespace LANdrop.Updates
 {
     public enum Channel
     {
-        NONE, DEV, BETA, RELEASE
+        None, Dev, Beta, Release
     }
 }
