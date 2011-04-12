@@ -28,7 +28,7 @@ namespace LANdrop.Updates
         }
 
         /// <summary>
-        /// Returns the current channel we update to.
+        /// The current update channel we're using.
         /// </summary>
         public static Channel CurrentChannel
         {
@@ -58,7 +58,7 @@ namespace LANdrop.Updates
 
         public static event StateChangeHandler StateChanged;
 
-        public delegate void StateChangeHandler( State oldState, State newState );        
+        public delegate void StateChangeHandler( State oldState, State newState );
 
         // Thread which runs the update logic.
         private static Thread updateThread = new Thread( UpdateLogic );
@@ -70,9 +70,12 @@ namespace LANdrop.Updates
         /// </summary>
         public static void Initialize( )
         {
-            updateThread.Priority = ThreadPriority.BelowNormal;
-            updateThread.Start( );
-        }       
+            if ( BuildInfo.DoesUpdate )
+            {
+                updateThread.Priority = ThreadPriority.BelowNormal;
+                updateThread.Start( );
+            }
+        }
 
         public static void CheckNowAsync( )
         {
@@ -86,27 +89,23 @@ namespace LANdrop.Updates
             {
                 int secondsToSleep = 15;
 
-                // Is it time to check for updates again?
-                if ( BuildDownloader.CanRefreshServer )
+                CurrentState = State.CHECKING;
+                if ( BuildDownloader.IsNewerBuildAvailable( CurrentChannel ) )
                 {
-                    CurrentState = State.CHECKING;
-                    if ( BuildDownloader.IsNewerBuildAvailable() )
+                    CurrentState = State.DOWNLOADING;
+                    if ( BuildDownloader.DownloadLatestVersion( CurrentChannel ) )
                     {
-                        CurrentState = State.DOWNLOADING;
-                        if ( BuildDownloader.DownloadLatestVersion( ) )
-                        {
-                            CurrentState = State.READY_TO_APPLY;
-                            return;
-                        }
-                        else
-                        {
-                            CurrentState = State.ERROR;
-                            secondsToSleep = 3;
-                        }
+                        CurrentState = State.READY_TO_APPLY;
+                        return;
                     }
                     else
-                        CurrentState = State.SLEEPING;
+                    {
+                        CurrentState = State.ERROR;
+                        secondsToSleep = 3;
+                    }
                 }
+                else
+                    CurrentState = State.SLEEPING;
 
                 try
                 {
@@ -114,6 +113,6 @@ namespace LANdrop.Updates
                 }
                 catch ( ThreadInterruptedException ) { }
             }
-        }       
+        }
     }
 }

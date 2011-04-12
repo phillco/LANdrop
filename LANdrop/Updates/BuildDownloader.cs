@@ -32,19 +32,20 @@ namespace LANdrop.Updates
         }
 
         /// <summary>
-        /// Queries the server for the latest build information.
+        /// Queries the server for the latest build information for the given channel.
         /// </summary>
-        public static ServerVersionInfo GetServerVersionInfo( )
+        public static ServerVersionInfo GetServerVersionInfo( Channel channel )
         {
+            // Return the cached copy of 
             if ( !CanRefreshServer )
-                return null;
+                return LastVersionInfo;
 
             LastCheckTime = DateTime.Now;
 
             try
             {
                 // Create the request.
-                WebRequest request = WebRequest.Create( "http://landrop.net/version/dev.json" );
+                WebRequest request = WebRequest.Create( "http://landrop.net/version/" + channel.ToString().ToLower() + ".json" );
                 request.Timeout = 10000;
                 request.Proxy = null;
 
@@ -61,7 +62,7 @@ namespace LANdrop.Updates
             catch ( WebException ) { return null; }
         }
 
-        public static bool DownloadLatestVersion( )
+        public static bool DownloadLatestVersion( Channel channel )
         {
             try
             {
@@ -70,7 +71,7 @@ namespace LANdrop.Updates
                 string tempFileName = fileName + ".part";
 
                 // Download the file to the "Update" folder.
-                new WebClient( ).DownloadFile( "http://landrop.net/downloads/dev/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( "http://landrop.net/downloads/" + channel.ToString().ToLower() + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Rename it once complete.
                 File.Delete( fileName );
@@ -80,16 +81,17 @@ namespace LANdrop.Updates
             catch ( WebException ) { return false; }
         }
 
-        public static bool IsNewerBuildAvailable( )
+        public static bool IsNewerBuildAvailable( Channel channel )
         {
-            // Local developer builds never have updates.
-            if ( BuildInfo.BUILD_TYPE == Channel.NONE )
+            if ( BuildInfo.DoesUpdate ) // Some builds (IE, local developer builds) never update.
                 return false;
+            else if ( channel != BuildInfo.BUILD_TYPE ) // If we're switching channels, the new version is always an "update".
+                return true;
             else
             {
-                ServerVersionInfo info = GetServerVersionInfo( );
-                if ( info != null )
-                    return ( info.BuildNumber > BuildInfo.BUILD_NUMBER );
+                ServerVersionInfo latest = GetServerVersionInfo( channel );
+                if ( latest != null )
+                    return ( latest.BuildNumber > BuildInfo.BUILD_NUMBER );
                 else
                     return false;
             }
