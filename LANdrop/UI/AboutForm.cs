@@ -19,13 +19,22 @@ namespace LANdrop.UI
             lblProgramVersion.Text = Util.GetProgramVersion( );
             lblBuildInfo.Text = BuildInfo.ToString( );
             panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
-            UpdateChecker.StateChanged += UpdateChecker_StateChanged;
+
+            // Update the state of the "update" panel.
+            if ( BuildInfo.BUILD_TYPE != BuildInfo.UpdateChannels.NONE )
+                UpdateChecker.StateChanged += UpdateChecker_StateChanged;
+
             UpdateState( );
         }
 
         private void UpdateState( )
         {
             panelUpToDate.Visible = panelUpdateProgress.Visible = panelUpdateError.Visible = panelReadyToApply.Visible = false;
+
+            // Don't show any of the panels in local-dev mode.
+            if ( BuildInfo.BUILD_TYPE == BuildInfo.UpdateChannels.NONE )
+                return;
+
             llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
             if ( !UpdateChecker.CanRefreshServer( ) )
                 updateRefreshLinkTimer.Start( );
