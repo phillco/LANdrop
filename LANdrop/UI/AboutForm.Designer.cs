@@ -171,6 +171,7 @@
             this.panelUpdateProgress.Name = "panelUpdateProgress";
             this.panelUpdateProgress.Size = new System.Drawing.Size( 182, 22 );
             this.panelUpdateProgress.TabIndex = 21;
+            this.panelUpdateProgress.Visible = false;
             // 
             // lblCheckingForUpdates
             // 

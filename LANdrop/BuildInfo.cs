@@ -11,6 +11,11 @@ namespace LANdrop
 
         public const int BUILD_NUMBER = 0;
 
+        public static bool DoesUpdate
+        {
+            get { return BuildInfo.BUILD_TYPE != Channel.NONE; }
+        }
+
         public static String ToString( )
         {
             if ( BUILD_TYPE == Channel.NONE )

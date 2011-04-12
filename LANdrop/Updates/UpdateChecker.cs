@@ -10,6 +10,9 @@ using System.Diagnostics;
 
 namespace LANdrop.Updates
 {
+    /// <summary>
+    /// Polls landrop.net every so often to check for updates.
+    /// </summary>
     class UpdateChecker
     {
         /// <summary>
@@ -22,6 +25,14 @@ namespace LANdrop.Updates
             DOWNLOADING,
             READY_TO_APPLY,
             ERROR
+        }
+
+        /// <summary>
+        /// Returns the current channel we update to.
+        /// </summary>
+        public static Channel CurrentChannel
+        {
+            get { return BuildInfo.DoesUpdate ? Channel.DEV : Channel.NONE; }
         }
 
         /// <summary>
@@ -51,19 +62,22 @@ namespace LANdrop.Updates
         public static DateTime LastCheckTime { get; private set; }
 
         /// <summary>
-        /// The last 
+        /// The last state of our current channel.
         /// </summary>
-        public static ServerVersionInfo ServerVersionInfo { get; private set; }
-
-        public delegate void StateChangeHandler( State oldState, State newState );
+        public static ServerVersionInfo LastServerInfo { get; private set; }
 
         public static event StateChangeHandler StateChanged;
+
+        public delegate void StateChangeHandler( State oldState, State newState );        
 
         // Thread which runs the update logic.
         private static Thread updateThread = new Thread( UpdateLogic );
 
         private static State _state = State.CHECKING;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Initialize( )
         {
             updateThread.Priority = ThreadPriority.BelowNormal;
@@ -135,7 +149,7 @@ namespace LANdrop.Updates
 
                 ServerVersionInfo result = JsonConvert.DeserializeObject<ServerVersionInfo>( ( new StreamReader( response.GetResponseStream( ) ).ReadToEnd( ).Trim( ) ) );
                 result.BuildDate = DateTime.SpecifyKind( result.BuildDate, DateTimeKind.Utc ).ToLocalTime( ); // Convert the server-side UTC time to local time.
-                ServerVersionInfo = result;
+                LastServerInfo = result;
                 return result;
             }
             catch ( WebException ) { return null; }
@@ -148,11 +162,11 @@ namespace LANdrop.Updates
             try
             {
                 Directory.CreateDirectory( @"LANdrop\Update" );
-                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", ServerVersionInfo.Channel, ServerVersionInfo.BuildNumber ) );
+                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", LastServerInfo.Channel, LastServerInfo.BuildNumber ) );
                 string tempFileName = fileName + ".part";
 
                 // Download the file to the "Update" folder.
-                new WebClient( ).DownloadFile( "http://landrop.net/downloads/dev/" + ServerVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( "http://landrop.net/downloads/dev/" + LastServerInfo.BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Rename it once complete.
                 File.Delete( fileName );

@@ -21,20 +21,20 @@ namespace LANdrop.UI
             lblBuildInfo.Text = BuildInfo.ToString( );
             panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
 
-            // Update the state of the "update" panel.
-            if ( BuildInfo.BUILD_TYPE != Channel.NONE )
+            // Update the state of the "update" panel in builds that update.
+            if ( BuildInfo.DoesUpdate )
+            {
                 UpdateChecker.StateChanged += UpdateChecker_StateChanged;
-
-            UpdateState( );
+                UpdateUpdateState( );
+            }
         }
 
-        private void UpdateState( )
+        /// <summary>
+        /// Shows a small update panel in the corner depending on the current status (up to date, downloading, ready to apply).
+        /// </summary>
+        private void UpdateUpdateState( )
         {
             panelUpToDate.Visible = panelUpdateProgress.Visible = panelUpdateError.Visible = panelReadyToApply.Visible = false;
-
-            // Don't show any of the panels in local-dev mode.
-            if ( BuildInfo.BUILD_TYPE == Channel.NONE )
-                return;
 
             llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
             if ( !UpdateChecker.CanRefreshServer( ) )
@@ -65,7 +65,7 @@ namespace LANdrop.UI
         private void UpdateChecker_StateChanged( UpdateChecker.State oldState, UpdateChecker.State newState )
         {
             // This event is sent from the updater thread, so switch to the UI thread.
-            BeginInvoke( (MethodInvoker) delegate { UpdateState( ); } );
+            BeginInvoke( (MethodInvoker) delegate { UpdateUpdateState( ); } );
         }
 
         private void llblCheckUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
@@ -77,7 +77,7 @@ namespace LANdrop.UI
         {
             if ( UpdateChecker.CanRefreshServer( ) )
             {
-                UpdateState( );
+                UpdateUpdateState( );
                 updateRefreshLinkTimer.Stop( );
             }
         }
