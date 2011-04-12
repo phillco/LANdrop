@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using LANdrop.Updates;
 
 namespace LANdrop
 {
     class BuildInfo
     {
-        public enum UpdateChannels
-        {
-            NONE, DEV, BETA, RELEASE
-        }
-
-        public const UpdateChannels BUILD_TYPE = UpdateChannels.NONE;
+        public const Channel BUILD_TYPE = Channel.NONE;
 
         public const int BUILD_NUMBER = 0;
 
         public static String ToString( )
         {
-            if ( BUILD_TYPE == UpdateChannels.NONE )
+            if ( BUILD_TYPE == Channel.NONE )
                 return "Custom build";
-            else if ( BUILD_TYPE == UpdateChannels.RELEASE )
+            else if ( BUILD_TYPE == Channel.RELEASE )
                 return "Release build";
             else
                 return UpdateChannelToString( ) + " build #" + BUILD_NUMBER;
@@ -29,11 +25,11 @@ namespace LANdrop
         {
             switch ( BUILD_TYPE )
             {
-                case UpdateChannels.DEV:
+                case Channel.DEV:
                     return "Dev";
-                case UpdateChannels.BETA:
+                case Channel.BETA:
                     return "Beta";
-                case UpdateChannels.RELEASE:
+                case Channel.RELEASE:
                     return "Release";
                 default:
                     return "Custom";

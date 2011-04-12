@@ -166,7 +166,7 @@ namespace LANdrop.Updates
         public static bool IsNewerBuildAvailable( )
         {
             // Local developer builds never have updates.
-            if ( BuildInfo.BUILD_TYPE == BuildInfo.UpdateChannels.NONE )
+            if ( BuildInfo.BUILD_TYPE == Channel.NONE )
                 return false;
             else
             {

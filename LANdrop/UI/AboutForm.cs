@@ -22,7 +22,7 @@ namespace LANdrop.UI
             panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
 
             // Update the state of the "update" panel.
-            if ( BuildInfo.BUILD_TYPE != BuildInfo.UpdateChannels.NONE )
+            if ( BuildInfo.BUILD_TYPE != Channel.NONE )
                 UpdateChecker.StateChanged += UpdateChecker_StateChanged;
 
             UpdateState( );
@@ -33,7 +33,7 @@ namespace LANdrop.UI
             panelUpToDate.Visible = panelUpdateProgress.Visible = panelUpdateError.Visible = panelReadyToApply.Visible = false;
 
             // Don't show any of the panels in local-dev mode.
-            if ( BuildInfo.BUILD_TYPE == BuildInfo.UpdateChannels.NONE )
+            if ( BuildInfo.BUILD_TYPE == Channel.NONE )
                 return;
 
             llblCheckUpdate.Enabled = UpdateChecker.CanRefreshServer( );
