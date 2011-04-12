@@ -83,14 +83,14 @@ namespace LANdrop.Updates
             string parent = Path.Combine( new FileInfo( Application.ExecutablePath ).Directory.Parent.Parent.FullName, "LANdrop.exe" );
 
             // Copy this file over the old version (wait as necessary for it to exit).
-            for ( int i = 0; i < 500; i++ )
+            for ( int i = 0; i < 1500; i++ )
             {
                 try
                 {
                     File.Copy( Application.ExecutablePath, parent, true );
                     break;
                 }
-                catch ( IOException ) { Thread.Sleep( 5 * i ); } // Thrown when the file is in use.
+                catch ( IOException ) { Thread.Sleep( 10 ); } // Thrown when the file is in use.
             }
 
             // Launch it with instructions to clean up.
