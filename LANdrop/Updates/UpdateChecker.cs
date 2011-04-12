@@ -66,7 +66,8 @@ namespace LANdrop.Updates
         private static State _state = State.CHECKING;
 
         /// <summary>
-        /// 
+        /// Starts up the update engine, which checks for updates and downloads them in the background.
+        /// Use UpdateChecker.CurrentState and StateChanged to get the current status.
         /// </summary>
         public static void Initialize( )
         {
@@ -77,21 +78,30 @@ namespace LANdrop.Updates
             }
         }
 
+        /// <summary>
+        /// Tells the update checker to immediately check for updates.
+        /// </summary>
         public static void CheckNowAsync( )
         {
             if ( CurrentState == State.SLEEPING && BuildDownloader.CanRefreshServer )
                 updateThread.Interrupt( );
         }
 
+        /// <summary>
+        /// The engine's loop.
+        /// </summary>
         private static void UpdateLogic( )
         {
             while ( true )
             {
-                int secondsToSleep = 15;
+                // By default, we check for updates every 15 minutes.
+                int secondsToSleep = 15 * 60;                
 
+                // Check landrop.net to see if an update is available.
                 CurrentState = State.CHECKING;
                 if ( BuildDownloader.IsNewerBuildAvailable( CurrentChannel ) )
                 {
+                    // Download the update to /Update.
                     CurrentState = State.DOWNLOADING;
                     if ( BuildDownloader.DownloadLatestVersion( CurrentChannel ) )
                     {
@@ -100,18 +110,20 @@ namespace LANdrop.Updates
                     }
                     else
                     {
+                        // Failed to download the latest; retry in 30 seconds.
                         CurrentState = State.ERROR;
-                        secondsToSleep = 3;
+                        secondsToSleep = 30;
                     }
                 }
                 else
                     CurrentState = State.SLEEPING;
 
+                // Wait to refresh again.
                 try
                 {
                     Thread.Sleep( secondsToSleep * 1000 );
                 }
-                catch ( ThreadInterruptedException ) { }
+                catch ( ThreadInterruptedException ) { } // Called whenever we refresh manually, so just continue.
             }
         }
     }
