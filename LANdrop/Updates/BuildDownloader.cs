@@ -26,7 +26,7 @@ namespace LANdrop.Updates
         /// <summary>
         /// The last version information we received from the server.
         /// </summary>
-        public static ServerVersionInfo LastVersionInfo { get; private set; }
+        public static VersionInfo LastVersionInfo { get; private set; }
 
         /// <summary>
         /// Returns whether it's safe to re-check the server for updates.
@@ -40,7 +40,7 @@ namespace LANdrop.Updates
         /// <summary>
         /// Queries the server for the latest build information for the given channel.
         /// </summary>
-        public static ServerVersionInfo GetServerVersionInfo( Channel channel )
+        public static VersionInfo GetServerVersionInfo( Channel channel )
         {
             // Return the cached copy of 
             if ( !CanRefreshServer )
@@ -60,7 +60,7 @@ namespace LANdrop.Updates
                 if ( response == null )
                     return null;
 
-                ServerVersionInfo result = JsonConvert.DeserializeObject<ServerVersionInfo>( ( new StreamReader( response.GetResponseStream( ) ).ReadToEnd( ).Trim( ) ) );
+                VersionInfo result = JsonConvert.DeserializeObject<VersionInfo>( ( new StreamReader( response.GetResponseStream( ) ).ReadToEnd( ).Trim( ) ) );
                 result.BuildDate = DateTime.SpecifyKind( result.BuildDate, DateTimeKind.Utc ).ToLocalTime( ); // Convert the server-side UTC time to local time.
                 LastVersionInfo = result;
                 return result;
@@ -101,7 +101,7 @@ namespace LANdrop.Updates
                 return ( GetServerVersionInfo( channel ) != null );
             else
             {
-                ServerVersionInfo latest = GetServerVersionInfo( channel );
+                VersionInfo latest = GetServerVersionInfo( channel );
                 if ( latest != null )
                     return ( latest.BuildNumber > BuildInfo.BuildNumber );
                 else
