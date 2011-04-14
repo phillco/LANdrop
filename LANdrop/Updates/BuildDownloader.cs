@@ -14,6 +14,11 @@ namespace LANdrop.Updates
     public class BuildDownloader
     {
         /// <summary>
+        /// The web server that we download update information from.
+        /// </summary>
+        public const string ServerAddress = "http://landrop.net";
+
+        /// <summary>
         /// The last time we queried the server for updates.
         /// </summary>
         public static DateTime LastCheckTime { get; private set; }
@@ -46,7 +51,7 @@ namespace LANdrop.Updates
             try
             {
                 // Create the request.
-                WebRequest request = WebRequest.Create( "http://landrop.net/version/" + channel.ToString().ToLower() + ".json" );
+                WebRequest request = WebRequest.Create( ServerAddress + "/version/" + channel.ToString().ToLower() + ".json" );
                 request.Timeout = 10000;
                 request.Proxy = null;
 
@@ -75,7 +80,7 @@ namespace LANdrop.Updates
                 string tempFileName = fileName + ".part";
 
                 // Download the file.
-                new WebClient( ).DownloadFile( "http://landrop.net/downloads/" + channel.ToString().ToLower() + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString().ToLower() + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Rename it (to remove the .part suffix) once complete.
                 File.Delete( fileName );
