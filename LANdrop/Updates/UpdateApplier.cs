@@ -28,12 +28,9 @@ namespace LANdrop.Updates
         /// <returns>Whether the program should exit after calling this.</returns>
         public static bool Run( )
         {
-            // See if we've been updated already, and just need to clean up.
+            // See if we've been updated (show a message).
             if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
-            {
-                CompleteUpdate( );
-                return false;
-            }
+                RunningNewVersion = true;
 
             // See if we're the new build in /Update and need to update the old version.
             if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
@@ -43,7 +40,16 @@ namespace LANdrop.Updates
             }
 
             // Otherwise, just see if there's a new build to update to.
-            return CheckForNewVersion( );
+            if ( CheckForNewVersion( ) )
+                return true;
+            
+            // Clean up old update files.
+            try
+            {
+                Directory.Delete( @"LANdrop\Update", true );
+            }
+            catch ( DirectoryNotFoundException ) { }
+            return false;
         }
 
         /// <summary>
@@ -52,34 +58,34 @@ namespace LANdrop.Updates
         /// <returns>Whether one was found (and launched)</returns>
         private static bool CheckForNewVersion( )
         {
-            if ( !Directory.Exists( @"LANdrop\Update" ) )
-                return false;
-
-            foreach ( string path in Directory.GetFiles( @"LANdrop\Update" ) )
+            try
             {
-                FileInfo file = new FileInfo( path );
-
-                // Extract the build info from the update's filename.
-                Match match = new Regex( "LANdrop_([a-z]+)([0-9]+).exe" ).Match( file.Name );
-                if ( match.Success )
+                foreach ( string path in Directory.GetFiles( @"LANdrop\Update" ) )
                 {
-                    Channel buildChannel = ChannelFunctions.Parse( match.Groups[1].Value );
-                    int buildNumber = int.Parse( match.Groups[2].Value );
+                    FileInfo file = new FileInfo( path );
 
-                    // Skip builds that aren't newer than us. (If it's a different channel, we assume we're switching)
-                    if ( (buildChannel == Channel.None ) || (( buildChannel == BuildInfo.BuildChannel ) && buildNumber <= BuildInfo.BuildNumber ))
-                        continue;
-
-                    using ( Process proc = new Process( ) )
+                    // Extract the build info from the update's filename.
+                    Match match = new Regex( "LANdrop_([a-z]+)([0-9]+).exe" ).Match( file.Name );
+                    if ( match.Success )
                     {
-                        proc.StartInfo.FileName = file.FullName;
-                        proc.StartInfo.Arguments = "/applyUpdate";
-                        proc.Start( );
-                        return true;
+                        Channel buildChannel = ChannelFunctions.Parse( match.Groups[1].Value );
+                        int buildNumber = int.Parse( match.Groups[2].Value );
+
+                        // Skip builds that aren't newer than us. (If it's a different channel, we assume we're switching)
+                        if ( ( buildChannel == Channel.None ) || ( ( buildChannel == BuildInfo.BuildChannel ) && buildNumber <= BuildInfo.BuildNumber ) )
+                            continue;
+
+                        using ( Process proc = new Process( ) )
+                        {
+                            proc.StartInfo.FileName = file.FullName;
+                            proc.StartInfo.Arguments = "/applyUpdate";
+                            proc.Start( );
+                            return true;
+                        }
                     }
                 }
             }
-
+            catch ( DirectoryNotFoundException ) { }
             return false;
         }
 
@@ -109,15 +115,6 @@ namespace LANdrop.Updates
                 proc.StartInfo.Arguments = "/completeUpdate";
                 proc.Start( );
             }
-        }
-
-        /// <summary>
-        /// Completes the update (running as the updated build).
-        /// </summary>
-        private static void CompleteUpdate( )
-        {
-            Directory.Delete( @"LANdrop\Update", true );
-            RunningNewVersion = true;
         }
     }
 }
