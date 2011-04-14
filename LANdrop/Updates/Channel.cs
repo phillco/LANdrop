@@ -23,5 +23,10 @@ namespace LANdrop.Updates
                 return Channel.None;
             }
         }
+
+        public static string ToUrlPart( Channel channel )
+        {
+            return channel.ToString( ).ToLower( );
+        }
     }
 }

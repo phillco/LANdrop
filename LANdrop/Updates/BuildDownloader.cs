@@ -51,7 +51,7 @@ namespace LANdrop.Updates
             try
             {
                 // Create the request.
-                WebRequest request = WebRequest.Create( ServerAddress + "/version/" + channel.ToString().ToLower() + ".json" );
+                WebRequest request = WebRequest.Create( ServerAddress + "/version/" + ChannelFunctions.ToUrlPart( channel ) + ".json" );
                 request.Timeout = 10000;
                 request.Proxy = null;
 
@@ -76,11 +76,11 @@ namespace LANdrop.Updates
             try
             {
                 Directory.CreateDirectory( @"LANdrop\Update" );
-                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", LastVersionInfo.Channel, LastVersionInfo.BuildNumber ) );
+                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", ChannelFunctions.ToUrlPart( LastVersionInfo.Channel ), LastVersionInfo.BuildNumber ) );
                 string tempFileName = fileName + ".part";
 
                 // Download the file.
-                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString().ToLower() + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Rename it (to remove the .part suffix) once complete.
                 File.Delete( fileName );
@@ -98,7 +98,7 @@ namespace LANdrop.Updates
             if ( !BuildInfo.DoesUpdate ) // Some builds (in-development builds) never update.
                 return false;
             else if ( channel != BuildInfo.BuildChannel ) // If we're switching channels, the new version is always an "update".
-                return true;
+                return ( GetServerVersionInfo( channel ) != null );
             else
             {
                 ServerVersionInfo latest = GetServerVersionInfo( channel );
