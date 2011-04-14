@@ -22,7 +22,6 @@ namespace LANdrop.UI
             InitializeComponent( );
             this.errorText = errorText;
             tbStackTrace.Text = errorText;
-            btnClose.Select( );
         }
 
         public ExceptionDetailsForm( Exception exception )
@@ -48,7 +47,17 @@ namespace LANdrop.UI
 
         private void btnCopy_Click( object sender, EventArgs e )
         {
+            tbStackTrace.SelectionFont = new Font( "Verdana", 10, FontStyle.Regular );
             Util.SetClipboardTextSafely( getErrorText( ), true );
+        }
+
+        private void ExceptionDetailsForm_Load( object sender, EventArgs e )
+        {
+            // Bold the first line of the error.
+            tbStackTrace.SelectionStart = 0;
+            tbStackTrace.SelectionLength = tbStackTrace.Text.IndexOf( "\n" );
+            tbStackTrace.SelectionColor = SystemColors.WindowText;
+            tbStackTrace.SelectionFont = new Font( tbStackTrace.Font, FontStyle.Bold );
         }
     }
 }
