@@ -31,7 +31,7 @@ namespace LANdrop.UI
         private void SaveToConfiguration( Configuration config )
         {
             if ( cbAutomaticUpdates.Checked )
-                config.UpdateChannel = (Channel) Enum.Parse( typeof( Channel ), cbReleaseChannel.Text );
+                config.UpdateChannel = ChannelFunctions.Parse( cbReleaseChannel.Text );
             else
                 config.UpdateChannel = Channel.None;
 
