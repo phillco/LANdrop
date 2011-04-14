@@ -5,6 +5,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace LANdrop.Updates
 {
@@ -58,9 +59,17 @@ namespace LANdrop.Updates
             {
                 FileInfo file = new FileInfo( path );
 
-                // TODO: Check to see if this actually a newer build than the one we're running.
-                if ( file.Name.StartsWith( "LANdrop" ) && file.Name.EndsWith( ".exe" ) )
+                // Extract the build info from the update's filename.
+                Match match = new Regex( "LANdrop_([a-z]+)([0-9]+).exe" ).Match( file.Name );
+                if ( match.Success )
                 {
+                    Channel buildChannel = ChannelFunctions.Parse( match.Groups[1].Value );
+                    int buildNumber = int.Parse( match.Groups[2].Value );
+
+                    // Skip builds that aren't newer than us. (If it's a different channel, we assume we're switching)
+                    if ( (buildChannel == Channel.None ) || (( buildChannel == BuildInfo.BuildChannel ) && buildNumber <= BuildInfo.BuildNumber ))
+                        continue;
+
                     using ( Process proc = new Process( ) )
                     {
                         proc.StartInfo.FileName = file.FullName;
