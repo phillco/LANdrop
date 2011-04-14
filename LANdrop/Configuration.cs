@@ -6,6 +6,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Net;
 using System.Threading;
+using LANdrop.Updates;
+using System.ComponentModel;
 
 namespace LANdrop
 {
@@ -20,11 +22,14 @@ namespace LANdrop
                 return new Configuration
                 {
                     Username = Environment.UserName + " on " + Dns.GetHostName( ),
+                    UpdateChannel = Channel.Dev
                 };
             }
         }
 
         public string Username { get; set; }
+
+        public Channel UpdateChannel { get; set; }
 
         public static void Initialize( )
         {
