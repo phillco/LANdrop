@@ -65,7 +65,7 @@ namespace LANdrop.Updates
                     FileInfo file = new FileInfo( path );
 
                     // Extract the build info from the update's filename.
-                    Match match = new Regex( "LANdrop_([a-zA-z]+)([0-9]+).exe" ).Match( file.Name );
+                    Match match = new Regex( "LANdrop_([a-zA-z]+)([0-9]+).exe$" ).Match( file.Name );
                     if ( match.Success )
                     {
                         Channel buildChannel = ChannelFunctions.Parse( match.Groups[1].Value );
