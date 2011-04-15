@@ -16,52 +16,18 @@ namespace LANdrop
         /// <summary>
         /// Which channel this was created on. (None = hand-compiled, not made by the build server)
         /// </summary>
-        public const Channel BuildChannel = Channel.None;
-
-        /// <summary>
-        /// Which build number this EXE was made for.
-        /// </summary>
-        public const int BuildNumber = 0;
+        public readonly static VersionInfo Version = new VersionInfo
+        {
+            Channel = Channel.None,
+            BuildNumber = 0
+        };
 
         /// <summary>
         /// Does this LANdrop build receive automatic updates? (Not true if it was hand-compiled)
         /// </summary>
         public static bool DoesUpdate
         {
-            get { return BuildInfo.BuildChannel != Channel.None; }
-        }
-
-        /// <summary>
-        /// Returns a short summary about this build ("Beta build #50").
-        /// </summary>
-        /// <returns></returns>
-        public static String ToString( )
-        {
-            if ( BuildChannel == Channel.None )
-                return "Custom build";
-            else if ( BuildChannel == Channel.Release )
-                return "Release build";
-            else
-                return UpdateChannelToString( ) + " build #" + BuildNumber;
-        }
-
-        /// <summary>
-        /// Returns a string version of this build's channel.
-        /// </summary>
-        /// <returns></returns>
-        public static String UpdateChannelToString( )
-        {
-            switch ( BuildChannel )
-            {
-                case Channel.Dev:
-                    return "Dev";
-                case Channel.Beta:
-                    return "Beta";
-                case Channel.Release:
-                    return "Release";
-                default:
-                    return "Custom";
-            }
+            get { return Version.Channel != Channel.None; }
         }
     }
 }

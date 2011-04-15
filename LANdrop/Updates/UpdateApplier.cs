@@ -72,7 +72,7 @@ namespace LANdrop.Updates
                         int buildNumber = int.Parse( match.Groups[2].Value );
 
                         // Skip builds that aren't newer than us. (If it's a different channel, we assume we're switching)
-                        if ( ( buildChannel == Channel.None ) || ( ( buildChannel == BuildInfo.BuildChannel ) && buildNumber <= BuildInfo.BuildNumber ) )
+                        if ( ( buildChannel == Channel.None ) || ( ( buildChannel == BuildInfo.Version.Channel ) && buildNumber <= BuildInfo.Version.BuildNumber ) )
                             continue;
 
                         using ( Process proc = new Process( ) )

@@ -46,7 +46,7 @@ namespace LANdrop.UI
             // When an update is ready to be applied, show some UI cues...
             UpdateChecker.StateChanged += ( oldState, newState ) =>
             {
-                if ( newState == UpdateChecker.State.READY_TO_APPLY )
+                if ( newState == UpdateChecker.State.READY_TO_APPLY && !panelApplyUpdate.Visible )
                 {
                     BeginInvoke( (MethodInvoker) delegate
                     {

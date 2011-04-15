@@ -18,7 +18,7 @@ namespace LANdrop.UI
 
             Util.UseProperSystemFont( this );
             lblProgramVersion.Text = Util.GetProgramVersion( );
-            lblBuildInfo.Text = BuildInfo.ToString( );
+            lblBuildInfo.Text = BuildInfo.Version.ToString( );
             panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
 
             // Update the state of the "update" panel in builds that update.
@@ -41,26 +41,26 @@ namespace LANdrop.UI
             if ( !BuildDownloader.CanRefreshServer )
                 updateRefreshLinkTimer.Start( ); // Re-enable the link once the timeout passes.
 
-            switch ( UpdateChecker.CurrentState )
-            {
-                case UpdateChecker.State.SLEEPING:
-                    panelUpToDate.Show( );
-                    break;
-                case UpdateChecker.State.CHECKING:
-                    lblCheckingForUpdates.Text = "Checking for updates...";
-                    panelUpdateProgress.Show( );
-                    break;
-                case UpdateChecker.State.DOWNLOADING:
-                    lblCheckingForUpdates.Text = "Downloading update...";
-                    panelUpdateProgress.Show( );
-                    break;
-                case UpdateChecker.State.READY_TO_APPLY:
-                    panelReadyToApply.Show( );
-                    break;
-                case UpdateChecker.State.ERROR:
-                    panelUpdateError.Show( );
-                    break;
-            }
+            if ( BuildDownloader.IsUpdateDownloaded( ) )
+                panelReadyToApply.Show( );
+            else
+                switch ( UpdateChecker.CurrentState )
+                {
+                    case UpdateChecker.State.SLEEPING:
+                        panelUpToDate.Show( );
+                        break;
+                    case UpdateChecker.State.CHECKING:
+                        lblCheckingForUpdates.Text = "Checking for updates...";
+                        panelUpdateProgress.Show( );
+                        break;
+                    case UpdateChecker.State.DOWNLOADING:
+                        lblCheckingForUpdates.Text = "Downloading update...";
+                        panelUpdateProgress.Show( );
+                        break;
+                    case UpdateChecker.State.ERROR:
+                        panelUpdateError.Show( );
+                        break;
+                }
         }
 
         private void UpdateChecker_StateChanged( UpdateChecker.State oldState, UpdateChecker.State newState )

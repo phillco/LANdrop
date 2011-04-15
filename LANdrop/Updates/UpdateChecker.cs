@@ -109,17 +109,14 @@ namespace LANdrop.Updates
                     // Download the update to /Update.
                     CurrentState = State.DOWNLOADING;
                     if ( BuildDownloader.DownloadLatestVersion( CurrentChannel ) )
-                    {
                         CurrentState = State.READY_TO_APPLY;
-                        return;
-                    }
                     else
                     {
                         // Failed to download the latest; retry in 30 seconds.
                         CurrentState = State.ERROR;
                         secondsToSleep = 30;
                     }
-                }
+                }                
                 else
                     CurrentState = State.SLEEPING;
 

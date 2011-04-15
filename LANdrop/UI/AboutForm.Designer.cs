@@ -36,7 +36,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox( );
             this.panelReadyToApply = new System.Windows.Forms.Panel( );
             this.llblApplyUpdate = new System.Windows.Forms.LinkLabel( );
-            this.label4 = new System.Windows.Forms.Label( );
+            this.lblUpdateAvailable = new System.Windows.Forms.Label( );
             this.pictureBox2 = new System.Windows.Forms.PictureBox( );
             this.panelUpdateProgress = new System.Windows.Forms.Panel( );
             this.lblCheckingForUpdates = new System.Windows.Forms.Label( );
@@ -121,7 +121,7 @@
             // panelReadyToApply
             // 
             this.panelReadyToApply.Controls.Add( this.llblApplyUpdate );
-            this.panelReadyToApply.Controls.Add( this.label4 );
+            this.panelReadyToApply.Controls.Add( this.lblUpdateAvailable );
             this.panelReadyToApply.Controls.Add( this.pictureBox2 );
             this.panelReadyToApply.Location = new System.Drawing.Point( 209, 85 );
             this.panelReadyToApply.Name = "panelReadyToApply";
@@ -141,16 +141,16 @@
             this.llblApplyUpdate.Text = "Apply now";
             this.llblApplyUpdate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler( this.llblApplyUpdate_LinkClicked );
             // 
-            // label4
+            // lblUpdateAvailable
             // 
-            this.label4.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label4.Location = new System.Drawing.Point( 22, 4 );
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size( 105, 13 );
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Update available!";
+            this.lblUpdateAvailable.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.lblUpdateAvailable.AutoSize = true;
+            this.lblUpdateAvailable.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.lblUpdateAvailable.Location = new System.Drawing.Point( 22, 4 );
+            this.lblUpdateAvailable.Name = "lblUpdateAvailable";
+            this.lblUpdateAvailable.Size = new System.Drawing.Size( 105, 13 );
+            this.lblUpdateAvailable.TabIndex = 18;
+            this.lblUpdateAvailable.Text = "Update available!";
             // 
             // pictureBox2
             // 
@@ -397,7 +397,7 @@
         private System.Windows.Forms.ProgressBar pbUpdateProgress;
         private System.Windows.Forms.Panel panelReadyToApply;
         private System.Windows.Forms.LinkLabel llblApplyUpdate;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblUpdateAvailable;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.LinkLabel llblCheckUpdate;
         private System.Windows.Forms.Timer updateRefreshLinkTimer;

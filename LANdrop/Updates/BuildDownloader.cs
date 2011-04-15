@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace LANdrop.Updates
 {
@@ -26,7 +27,15 @@ namespace LANdrop.Updates
         /// <summary>
         /// The last version information we received from the server.
         /// </summary>
-        public static VersionInfo LastVersionInfo { get; private set; }
+        public static Dictionary<Channel, VersionInfo> LastVersionInfo { get; private set; }
+
+        public static Dictionary<Channel, VersionInfo> LastDownloadedBuild { get; private set; }
+
+        static BuildDownloader( )
+        {
+            LastVersionInfo = new Dictionary<Channel, VersionInfo>( );
+            LastDownloadedBuild = new Dictionary<Channel, VersionInfo>( );
+        }
 
         /// <summary>
         /// Returns whether it's safe to re-check the server for updates.
@@ -44,7 +53,7 @@ namespace LANdrop.Updates
         {
             // Return the cached copy of 
             if ( !CanRefreshServer )
-                return LastVersionInfo;
+                return LastVersionInfo[channel];
 
             LastCheckTime = DateTime.Now;
 
@@ -62,7 +71,7 @@ namespace LANdrop.Updates
 
                 VersionInfo result = JsonConvert.DeserializeObject<VersionInfo>( ( new StreamReader( response.GetResponseStream( ) ).ReadToEnd( ).Trim( ) ) );
                 result.BuildDate = DateTime.SpecifyKind( result.BuildDate, DateTimeKind.Utc ).ToLocalTime( ); // Convert the server-side UTC time to local time.
-                LastVersionInfo = result;
+                LastVersionInfo[channel] = result;
                 return result;
             }
             catch ( WebException ) { return null; }
@@ -76,15 +85,16 @@ namespace LANdrop.Updates
             try
             {
                 Directory.CreateDirectory( @"LANdrop\Update" );
-                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", ChannelFunctions.ToUrlPart( LastVersionInfo.Channel ), LastVersionInfo.BuildNumber ) );
+                string fileName = Path.Combine( @"LANdrop\Update", String.Format( "LANdrop_{0}{1}.exe", ChannelFunctions.ToUrlPart( LastVersionInfo[channel].Channel ), LastVersionInfo[channel].BuildNumber ) );
                 string tempFileName = fileName + ".part";
 
                 // Download the file.
-                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo.BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo[channel].BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Rename it (to remove the .part suffix) once complete.
                 File.Delete( fileName );
                 File.Move( tempFileName, fileName );
+                LastDownloadedBuild[channel] = LastVersionInfo[channel];
                 return true;
             }
             catch ( WebException ) { return false; }
@@ -95,18 +105,28 @@ namespace LANdrop.Updates
         /// </summary>
         public static bool IsNewerBuildAvailable( Channel channel )
         {
-            if ( !BuildInfo.DoesUpdate ) // Some builds (in-development builds) never update.
+            // Download the latest channel information from the server.
+            VersionInfo latest = GetServerVersionInfo( channel );
+
+            if ( latest == null )
                 return false;
-            else if ( channel != BuildInfo.BuildChannel ) // If we're switching channels, the new version is always an "update".
-                return ( GetServerVersionInfo( channel ) != null );
-            else
-            {
-                VersionInfo latest = GetServerVersionInfo( channel );
-                if ( latest != null )
-                    return ( latest.BuildNumber > BuildInfo.BuildNumber );
-                else
-                    return false;
-            }
+
+            // Check if this build has already been downloaded...
+            else if ( LastDownloadedBuild.ContainsKey( channel ) && LastDownloadedBuild[channel].BuildNumber >= latest.BuildNumber )
+                return false;
+
+            // Or isn't newer than the current build... 
+            else if ( channel == BuildInfo.Version.Channel && BuildInfo.Version.BuildNumber >= latest.BuildNumber )
+                return false;
+
+            // Otherwise, it's an update!
+            return true;
+        }
+
+        public static bool IsUpdateDownloaded( )
+        {
+            return ( LastDownloadedBuild.ContainsKey( Configuration.Instance.UpdateChannel ) && ( Configuration.Instance.UpdateChannel != BuildInfo.Version.Channel
+                || LastDownloadedBuild[Configuration.Instance.UpdateChannel].BuildNumber > BuildInfo.Version.BuildNumber ) );
         }
     }
 }

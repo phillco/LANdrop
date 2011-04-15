@@ -14,7 +14,7 @@ namespace LANdrop.UI
         {
             InitializeComponent( );
             secondsToHide = 2;            
-            lblUpdateDetails.Text = "Welcome to " + BuildInfo.ToString( ) + ".";
+            lblUpdateDetails.Text = "Welcome to " + BuildInfo.Version + ".";
             Width = lblTitle.Left + Math.Max( lblTitle.Width, lblUpdateDetails.Width ) + 16;
         }
 
