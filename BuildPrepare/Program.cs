@@ -41,10 +41,10 @@ namespace BuildPrepare
                 {
                     string line = reader.ReadLine( );
 
-                    if ( line.Trim( ).StartsWith( versionDef ) )
-                        line = versionDef + args[0] + ";";
-                    else if ( line.Trim( ).StartsWith( channelDef ) )
-                        line = channelDef + args[1] + ";";
+                    if ( line.Trim( ).StartsWith( channelDef ) )
+                        line = channelDef + args[1] + ",";
+                    else if ( line.Trim( ).StartsWith( versionDef ) )
+                        line = versionDef + args[0];
 
                     writer.WriteLine( line );
                 }
