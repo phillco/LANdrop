@@ -91,8 +91,10 @@ namespace LANdrop.Updates
                 // Download the file.
                 new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo[channel].BuildNumber + "/LANdrop.exe", tempFileName );
 
-                // Rename it (to remove the .part suffix) once complete.
-                File.Delete( fileName );
+                // Success! Remove other updates and the .part suffix.
+                foreach ( var file in new DirectoryInfo( @"LANdrop\Update" ).GetFiles( "LANdrop_" + ChannelFunctions.ToUrlPart( channel ) + "*.exe" ) )
+                    File.Delete( file.FullName );
+
                 File.Move( tempFileName, fileName );
                 LastDownloadedBuild[channel] = LastVersionInfo[channel];
                 return true;
