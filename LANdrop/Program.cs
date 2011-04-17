@@ -31,13 +31,13 @@ namespace LANdrop
                 Application.SetCompatibleTextRenderingDefault( false );
                 SetupLog( );
                 ErrorHandler.Initialize( );
+                Configuration.Initialize( );
 
                 // See if we're applying an update. (and if so, quit if needed).
                 if ( UpdateApplier.Run() )
                     return;
 
-                // Finish initialization.
-                Configuration.Initialize( );
+                // Finish initialization.                
                 UpdateChecker.Initialize( );
                 MainForm mainForm = new MainForm( );
                 Server.Start( );

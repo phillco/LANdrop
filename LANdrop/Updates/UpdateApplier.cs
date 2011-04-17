@@ -46,9 +46,11 @@ namespace LANdrop.Updates
             // Clean up old update files.
             try
             {
+                foreach ( var file in new DirectoryInfo( @"LANdrop\Update" ).GetFiles( "LANdrop*.exe" ) )
+                    File.Delete( file.FullName );
                 Directory.Delete( @"LANdrop\Update", true );
             }
-            catch ( DirectoryNotFoundException ) { }
+            catch ( IOException ) { }
             return false;
         }
 
@@ -71,8 +73,12 @@ namespace LANdrop.Updates
                         Channel buildChannel = ChannelFunctions.Parse( match.Groups[1].Value );
                         int buildNumber = int.Parse( match.Groups[2].Value );
 
-                        // Skip builds that aren't newer than us. (If it's a different channel, we assume we're switching)
-                        if ( ( buildChannel == Channel.None ) || ( ( buildChannel == BuildInfo.Version.Channel ) && buildNumber <= BuildInfo.Version.BuildNumber ) )
+                        // Skip builds that aren't on the chanel we want to upgrade to.
+                        if ( buildChannel != Configuration.Instance.UpdateChannel )
+                            continue;
+
+                        // Skip builds that aren't newer than the current build. (Unless they're on a different channel).
+                        if ( Configuration.Instance.UpdateChannel == BuildInfo.Version.Channel && buildNumber <= BuildInfo.Version.BuildNumber )
                             continue;
 
                         using ( Process proc = new Process( ) )
