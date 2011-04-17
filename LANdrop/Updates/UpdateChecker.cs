@@ -100,7 +100,7 @@ namespace LANdrop.Updates
             while ( true )
             {
                 // By default, we check for updates every 15 minutes.
-                int secondsToSleep = 15 * 60;                
+                int secondsToSleep = 15;                
 
                 // Check landrop.net to see if an update is available.
                 CurrentState = State.CHECKING;
