@@ -75,7 +75,7 @@ namespace LANdrop.Networking
 
             if ( Connected )
             {
-                MulticastManager.Init();
+                MulticastManager.Init( );
                 ListenForClients( );
             }
             else
@@ -106,31 +106,35 @@ namespace LANdrop.Networking
         private static void RespondToNewConnection( object parameter )
         {
             // Read in the transfer info.
-            TcpClient client = (TcpClient) parameter;
-
-            using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
-            using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
+            try
             {
-                // First check the protocol version. Don't accept requests from different protocol versions.
-                int protocolVersion = NetworkInStream.ReadInt32( );
-                if ( protocolVersion != Protocol.Version )
-                    return;
+                TcpClient client = (TcpClient) parameter;
 
-                // Determine what kind of transfer this is.
-                switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
+                using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
+                using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
                 {
-                    case Protocol.IncomingCommunicationTypes.FileTransfer:
-                        new IncomingTransfer( client, NetworkInStream, NetworkOutStream );
-                        break;
-                    case Protocol.IncomingCommunicationTypes.TextSnippet:
-                        Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ) );
-                        MainForm.ShowFormOnUIThread( form );
-                        break;
-                    case Protocol.IncomingCommunicationTypes.WhosThere:
-                        new IncomingWhosThere( client, NetworkInStream, NetworkOutStream );
-                        break;
+                    // First check the protocol version. Don't accept requests from different protocol versions.
+                    int protocolVersion = NetworkInStream.ReadInt32( );
+                    if ( protocolVersion != Protocol.Version )
+                        return;
+
+                    // Determine what kind of transfer this is.
+                    switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
+                    {
+                        case Protocol.IncomingCommunicationTypes.FileTransfer:
+                            new IncomingTransfer( client, NetworkInStream, NetworkOutStream );
+                            break;
+                        case Protocol.IncomingCommunicationTypes.TextSnippet:
+                            Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ) );
+                            MainForm.ShowFormOnUIThread( form );
+                            break;
+                        case Protocol.IncomingCommunicationTypes.WhosThere:
+                            new IncomingWhosThere( client, NetworkInStream, NetworkOutStream );
+                            break;
+                    }
                 }
             }
+            catch ( SocketException ) { }
         }
     }
 }
