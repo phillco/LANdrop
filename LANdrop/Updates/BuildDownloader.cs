@@ -146,6 +146,7 @@ namespace LANdrop.Updates
                 Directory.Delete( @"LANdrop\Update", true );
             }
             catch ( IOException ) { }
+            catch ( UnauthorizedAccessException ) { }
         }
     }
 }
