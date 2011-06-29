@@ -90,8 +90,8 @@ namespace LANdrop.UI
 
         private void llblApplyUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
-            Util.RestartApplication( );
-            Application.Exit( );
+            if ( UpdateApplier.Run( ) )
+                Application.Exit( );
         }
     }
 }
