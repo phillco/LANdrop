@@ -75,7 +75,6 @@ namespace LANdrop.UI
         private void UpdateButtons( )
         {
             showLANdropToolStripMenuItem.Text = Visible ? "Hide LANdrop" : "Show LANdrop";
-            sendClipboardToolStripMenuItem.Enabled = ( Util.GetClipboardTextSafely( false ) != null );
             btnSend.Enabled = receipientList.SelectedItems.Count > 0;
         }
 
@@ -236,21 +235,6 @@ namespace LANdrop.UI
             UpdateState( );
         }
 
-        private void sendClipboardContentsToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            if ( receipientList.SelectedItems.Count > 0 )
-            {
-                string clipboard = Util.GetClipboardTextSafely( true );
-                if ( clipboard != null )
-                    new OutgoingTextSnippet( clipboard, (Peer) receipientList.SelectedItems[0].Tag );
-            }
-        }
-
-        private void sendTextToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            if ( receipientList.SelectedItems.Count > 0 )
-                new SendTextSnippetForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog( );
-        }
 
         private void exitToolStripMenuItem_Click( object sender, EventArgs e )
         {
@@ -274,29 +258,11 @@ namespace LANdrop.UI
             // Hide certain elements when click on the "not using LANdrop" item.
             if ( receipientList.SelectedItems[0] == notUsingLandrop )
             {
-                sendClipboardToolStripMenuItem.Visible = sendTextToolStripMenuItem.Visible =
-                    copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = false;
+                sendTextToolStripMenuItem.Visible = copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = false;
                 return;
             }
             else
-                sendClipboardToolStripMenuItem.Visible = sendTextToolStripMenuItem.Visible =
-                    copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;
-
-            // Update the "send clipboard" menu item to include a preview of what's in it.
-            string clipboardText = Util.GetClipboardTextSafely( false );
-
-            if ( clipboardText == null )
-                sendClipboardToolStripMenuItem.Text = "Send clipboard";
-            else
-            {
-                int previewCharacters = 25;
-                clipboardText = clipboardText.Replace( Environment.NewLine, "" ).Trim( );
-
-                if ( clipboardText.Length > previewCharacters + 3 )
-                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText.Substring( 0, previewCharacters ) + "...\")";
-                else
-                    sendClipboardToolStripMenuItem.Text = "Send clipboard (\"" + clipboardText + "\")";
-            }
+                sendTextToolStripMenuItem.Visible = copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;            
         }
 
         private void optionsToolStripMenuItem_Click( object sender, EventArgs e )

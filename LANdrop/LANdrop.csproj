@@ -65,7 +65,6 @@
     <Compile Include="Networking\Peer.cs" />
     <Compile Include="Networking\IncomingTransfer.cs" />
     <Compile Include="Networking\Server.cs" />
-    <Compile Include="Networking\OutgoingTextSnippet.cs" />
     <Compile Include="Networking\OutgoingTransfer.cs" />
     <Compile Include="Networking\Protocol.cs" />
     <Compile Include="Networking\Transfer.cs" />
@@ -101,12 +100,6 @@
     <Compile Include="UI\AddUserForm.Designer.cs">
       <DependentUpon>AddUserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\IncomingTextSnippetForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\IncomingTextSnippetForm.Designer.cs">
-      <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\NotificationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,10 +134,6 @@
       <DependentUpon>AddUserForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\IncomingTextSnippetForm.resx">
-      <DependentUpon>IncomingTextSnippetForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\NotificationForm.resx">
       <DependentUpon>NotificationForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -156,10 +145,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SendTextSnippetForm.resx">
-      <DependentUpon>SendTextSnippetForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsForm.resx">
@@ -211,12 +196,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="UI\SendTextSnippetForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\SendTextSnippetForm.Designer.cs">
-      <DependentUpon>SendTextSnippetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingsForm.cs">
       <SubType>Form</SubType>

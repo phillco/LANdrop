@@ -123,11 +123,7 @@ namespace LANdrop.Networking
                     {
                         case Protocol.IncomingCommunicationTypes.FileTransfer:
                             new IncomingTransfer( client, NetworkInStream, NetworkOutStream );
-                            break;
-                        case Protocol.IncomingCommunicationTypes.TextSnippet:
-                            Form form = new IncomingTextSnippetForm( NetworkInStream.ReadString( ) );
-                            MainForm.ShowFormOnUIThread( form );
-                            break;
+                            break;                        
                         case Protocol.IncomingCommunicationTypes.WhosThere:
                             new IncomingWhosThere( client, NetworkInStream, NetworkOutStream );
                             break;

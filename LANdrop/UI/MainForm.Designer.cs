@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -49,7 +49,6 @@
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.sendClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.recipientContextSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
@@ -99,7 +98,7 @@
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size( 240, 17 );
+            this.lblStatus.Size = new System.Drawing.Size( 209, 17 );
             this.lblStatus.Spring = true;
             this.lblStatus.Text = "Ready";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -207,10 +206,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8} );
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 223, 257 );
@@ -230,44 +229,35 @@
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFileToToolStripMenuItem,
             this.sendTextToolStripMenuItem,
-            this.sendClipboardToolStripMenuItem,
             this.recipientContextSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 154, 98 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 132, 76 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
             // 
             this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
             this.sendFileToToolStripMenuItem.Click += new System.EventHandler( this.sendFileToToolStripMenuItem_Click );
             // 
             // sendTextToolStripMenuItem
             // 
             this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
-            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
+            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
             this.sendTextToolStripMenuItem.Text = "Send text...";
-            this.sendTextToolStripMenuItem.Click += new System.EventHandler( this.sendTextToolStripMenuItem_Click );
-            // 
-            // sendClipboardToolStripMenuItem
-            // 
-            this.sendClipboardToolStripMenuItem.Name = "sendClipboardToolStripMenuItem";
-            this.sendClipboardToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
-            this.sendClipboardToolStripMenuItem.Text = "Send clipboard";
-            this.sendClipboardToolStripMenuItem.Click += new System.EventHandler( this.sendClipboardContentsToolStripMenuItem_Click );
             // 
             // recipientContextSeparator1
             // 
             this.recipientContextSeparator1.Name = "recipientContextSeparator1";
-            this.recipientContextSeparator1.Size = new System.Drawing.Size( 150, 6 );
+            this.recipientContextSeparator1.Size = new System.Drawing.Size( 128, 6 );
             // 
             // copyIPAddressToolStripMenuItem
             // 
             this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
-            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 153, 22 );
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
             this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
             this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
@@ -334,7 +324,7 @@
             // testErrorToolStripMenuItem
             // 
             this.testErrorToolStripMenuItem.Name = "testErrorToolStripMenuItem";
-            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.testErrorToolStripMenuItem.Text = "Test error...";
             this.testErrorToolStripMenuItem.Click += new System.EventHandler( this.testErrorToolStripMenuItem_Click );
             // 
@@ -343,7 +333,7 @@
             this.applyUpdateToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.applyUpdateToolStripMenuItem.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.applyUpdateToolStripMenuItem.Name = "applyUpdateToolStripMenuItem";
-            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.applyUpdateToolStripMenuItem.Text = "Apply update";
             this.applyUpdateToolStripMenuItem.Visible = false;
             this.applyUpdateToolStripMenuItem.Click += new System.EventHandler( this.applyUpdateToolStripMenuItem_Click );
@@ -351,13 +341,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 149, 6 );
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 144, 6 );
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.information16;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
@@ -377,32 +367,32 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem1} );
             this.trayIconMenu.Name = "trayIconMenu";
-            this.trayIconMenu.Size = new System.Drawing.Size( 169, 76 );
+            this.trayIconMenu.Size = new System.Drawing.Size( 158, 76 );
             this.trayIconMenu.Opening += new System.ComponentModel.CancelEventHandler( this.trayIconMenu_Opening );
             // 
             // showLANdropToolStripMenuItem
             // 
-            this.showLANdropToolStripMenuItem.Font = new System.Drawing.Font( "Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.showLANdropToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.showLANdropToolStripMenuItem.Name = "showLANdropToolStripMenuItem";
-            this.showLANdropToolStripMenuItem.Size = new System.Drawing.Size( 168, 22 );
+            this.showLANdropToolStripMenuItem.Size = new System.Drawing.Size( 157, 22 );
             this.showLANdropToolStripMenuItem.Text = "Show LANdrop";
             this.showLANdropToolStripMenuItem.Click += new System.EventHandler( this.showLANdropToolStripMenuItem_Click );
             // 
             // sendToToolStripMenuItem
             // 
             this.sendToToolStripMenuItem.Name = "sendToToolStripMenuItem";
-            this.sendToToolStripMenuItem.Size = new System.Drawing.Size( 168, 22 );
+            this.sendToToolStripMenuItem.Size = new System.Drawing.Size( 157, 22 );
             this.sendToToolStripMenuItem.Text = "Send to";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size( 165, 6 );
+            this.toolStripSeparator2.Size = new System.Drawing.Size( 154, 6 );
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size( 168, 22 );
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size( 157, 22 );
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler( this.exitToolStripMenuItem1_Click );
             // 
@@ -458,7 +448,6 @@
         private System.Windows.Forms.ToolStripMenuItem sendFileToToolStripMenuItem;
         private System.Windows.Forms.Timer refreshPeerListTimer;
         private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sendClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator recipientContextSeparator1;
         private System.Windows.Forms.MenuStrip mainMenu;
