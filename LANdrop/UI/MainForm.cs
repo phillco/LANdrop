@@ -46,15 +46,22 @@ namespace LANdrop.UI
             // When an update is ready to be applied, show some UI cues...
             UpdateChecker.StateChanged += ( oldState, newState ) =>
             {
-                if ( newState == UpdateChecker.State.READY_TO_APPLY && !panelApplyUpdate.Visible )
+                if ( newState == UpdateChecker.State.READY_TO_APPLY && !panelApplyUpdate.Visible && Configuration.Instance.UpdateAutomatically )
                 {
                     BeginInvoke( (MethodInvoker) delegate
                     {
-                        applyUpdateToolStripMenuItem.Visible = true;
-                        panelApplyUpdate.Show( );
-                        contentPanel.Padding = new Padding( contentPanel.Padding.Left, contentPanel.Padding.Top + panelApplyUpdate.Height + 8, contentPanel.Padding.Right, contentPanel.Padding.Bottom );
+                        ShowUpdateCues( );
                     } );
                 }
+            };
+
+            // Update the UI when the configuration changes...
+            Configuration.Changed += ( oldVersion, newVersion ) =>
+            {
+                if ( !newVersion.UpdateAutomatically && panelApplyUpdate.Visible )
+                    HideUpdateCues( );
+                else if ( newVersion.UpdateAutomatically && !panelApplyUpdate.Visible && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
+                    ShowUpdateCues( );
             };
 
             // Show a little notification when builds get updated.
@@ -323,6 +330,18 @@ namespace LANdrop.UI
                 HideToTray( );
             else
                 ShowFromTray( );
+        }
+
+        private void ShowUpdateCues( )
+        {
+            applyUpdateToolStripMenuItem.Visible = panelApplyUpdate.Visible = true;
+            contentPanel.Padding = new Padding( contentPanel.Padding.Left, contentPanel.Padding.Top + panelApplyUpdate.Height + 8, contentPanel.Padding.Right, contentPanel.Padding.Bottom );
+        }
+
+        private void HideUpdateCues( )
+        {
+            applyUpdateToolStripMenuItem.Visible = panelApplyUpdate.Visible = false;
+            contentPanel.Padding = new Padding( contentPanel.Padding.Left, contentPanel.Padding.Top - panelApplyUpdate.Height - 8, contentPanel.Padding.Right, contentPanel.Padding.Bottom );
         }
 
         private void showLANdropToolStripMenuItem_Click( object sender, EventArgs e )

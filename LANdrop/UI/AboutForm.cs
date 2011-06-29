@@ -22,7 +22,7 @@ namespace LANdrop.UI
             panelReadyToApply.Top = panelUpToDate.Top = panelUpdateError.Top = panelUpdateProgress.Top;
 
             // Update the state of the "update" panel in builds that update.
-            if ( BuildInfo.DoesUpdate )
+            if ( BuildInfo.DoesUpdate && Configuration.Instance.UpdateAutomatically )
             {
                 UpdateChecker.StateChanged += UpdateChecker_StateChanged;
                 UpdateUpdateState( );
