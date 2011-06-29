@@ -413,14 +413,14 @@ namespace LANdrop.UI
 
         private void applyUpdateToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            Util.RestartApplication( );
-            Application.Exit( );
+            if ( UpdateApplier.Run( ) )
+                Application.Exit( );
         }
 
         private void llblApplyUpdate_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
         {
-            Util.RestartApplication( );
-            Application.Exit( );
+            if ( UpdateApplier.Run( ) )
+                Application.Exit( );
         }
     }
 }
