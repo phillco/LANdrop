@@ -132,7 +132,11 @@ namespace LANdrop.Networking
             message.Write( Util.GetLocalAddress( ).ToString( ) );
             message.Write( connected );
 
-            socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
+            try
+            {
+                socket.Send( ( (MemoryStream) message.BaseStream ).ToArray( ) );
+            }
+            catch ( SocketException ) { }
         }
 
         /// <summary>
