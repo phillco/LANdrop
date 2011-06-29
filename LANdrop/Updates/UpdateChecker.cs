@@ -57,7 +57,7 @@ namespace LANdrop.Updates
             }
         }
 
-        private static State _state = State.CHECKING;
+        private static State _state = State.SLEEPING;
 
         /// <summary>
         /// Called whenever we change state. (see State)
@@ -97,28 +97,42 @@ namespace LANdrop.Updates
         /// </summary>
         private static void UpdateLogic( )
         {
+            Configuration.Changed += ( oldVersion, newVersion ) =>
+            {
+                if ( !newVersion.UpdateAutomatically )
+                {
+                    BuildDownloader.RemoveDownloadedBuilds( );
+                    CurrentState = State.SLEEPING;
+                }
+                else
+                    CheckNowAsync( );
+            };
+
             while ( true )
             {
                 // By default, we check for updates every 15 minutes.
                 int secondsToSleep = 15;                
-
-                // Check landrop.net to see if an update is available.
-                CurrentState = State.CHECKING;
-                if ( BuildDownloader.IsNewerBuildAvailable( CurrentChannel ) )
+                
+                if ( Configuration.Instance.UpdateAutomatically )
                 {
-                    // Download the update to /Update.
-                    CurrentState = State.DOWNLOADING;
-                    if ( BuildDownloader.DownloadLatestVersion( CurrentChannel ) )
-                        CurrentState = State.READY_TO_APPLY;
-                    else
+                    // Check landrop.net to see if an update is available.
+                    CurrentState = State.CHECKING;
+                    if ( BuildDownloader.IsNewerBuildAvailable( CurrentChannel ) )
                     {
-                        // Failed to download the latest; retry in 30 seconds.
-                        CurrentState = State.ERROR;
-                        secondsToSleep = 30;
+                        // Download the update to /Update.
+                        CurrentState = State.DOWNLOADING;
+                        if ( BuildDownloader.DownloadLatestVersion( CurrentChannel ) )
+                            CurrentState = State.READY_TO_APPLY;
+                        else
+                        {
+                            // Failed to download the latest; retry in 30 seconds.
+                            CurrentState = State.ERROR;
+                            secondsToSleep = 30;
+                        }
                     }
-                }                
-                else
-                    CurrentState = State.SLEEPING;
+                    else
+                        CurrentState = State.SLEEPING;
+                }
 
                 // Wait to refresh again.
                 try

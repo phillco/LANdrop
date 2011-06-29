@@ -130,5 +130,22 @@ namespace LANdrop.Updates
             return ( LastDownloadedBuild.ContainsKey( Configuration.Instance.UpdateChannel ) && ( Configuration.Instance.UpdateChannel != BuildInfo.Version.Channel
                 || LastDownloadedBuild[Configuration.Instance.UpdateChannel].BuildNumber > BuildInfo.Version.BuildNumber ) );
         }
+
+
+        /// <summary>
+        /// Deletes all downloaded updates.
+        /// </summary>
+        public static void RemoveDownloadedBuilds( )
+        {
+            LastDownloadedBuild.Clear( );
+
+            try
+            {
+                foreach ( var file in new DirectoryInfo( @"LANdrop\Update" ).GetFiles( "LANdrop*.exe" ) )
+                    File.Delete( file.FullName );
+                Directory.Delete( @"LANdrop\Update", true );
+            }
+            catch ( IOException ) { }
+        }
     }
 }

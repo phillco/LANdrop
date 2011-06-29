@@ -28,32 +28,26 @@ namespace LANdrop.Updates
         /// <returns>Whether the program should exit after calling this.</returns>
         public static bool Run( )
         {
-            if ( !Configuration.Instance.UpdateAutomatically )
-                return false;
-
-            // See if we've been updated (show a message).
-            if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
-                RunningNewVersion = true;
-
-            // See if we're the new build in /Update and need to update the old version.
-            if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
+            if ( Configuration.Instance.UpdateAutomatically )
             {
-                OverwriteOldVersion( );
-                return true;
-            }
+                // See if we've been updated (show a message).
+                if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
+                    RunningNewVersion = true;
 
-            // Otherwise, just see if there's a new build to update to.
-            if ( CheckForNewVersion( ) )
-                return true;
+                // See if we're the new build in /Update and need to update the old version.
+                if ( Program.CommandLineArgs.Contains( "/applyUpdate" ) )
+                {
+                    OverwriteOldVersion( );
+                    return true;
+                }
+
+                // Otherwise, just see if there's a new build to update to.
+                if ( CheckForNewVersion( ) )
+                    return true;
+            }
 
             // Clean up old update files.
-            try
-            {
-                foreach ( var file in new DirectoryInfo( @"LANdrop\Update" ).GetFiles( "LANdrop*.exe" ) )
-                    File.Delete( file.FullName );
-                Directory.Delete( @"LANdrop\Update", true );
-            }
-            catch ( IOException ) { }
+            BuildDownloader.RemoveDownloadedBuilds( );
             return false;
         }
 
