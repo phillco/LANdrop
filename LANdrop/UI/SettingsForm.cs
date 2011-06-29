@@ -38,7 +38,7 @@ namespace LANdrop.UI
         private void btnSave_Click( object sender, EventArgs e )
         {
             SaveToConfiguration( Configuration.Instance );
-            Configuration.Save( );
+            Configuration.Instance.Save( );
         }
 
         private void llblResetToDefaults_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )

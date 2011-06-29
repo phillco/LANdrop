@@ -19,12 +19,15 @@ namespace LANdrop
         {
             get
             {
-                return new Configuration
+                var config = new Configuration
                 {
                     Username = Environment.UserName + " on " + Dns.GetHostName( ),
                     UpdateChannel = Channel.Dev,
                     UpdateAutomatically = true
                 };
+
+                LastSavedVersion = config.Clone( );
+                return config;
             }
         }
 
@@ -34,32 +37,63 @@ namespace LANdrop
 
         public Channel UpdateChannel { get; set; }
 
+        // The last version of the configuration that we saved; used for diffing.
+        private static Configuration LastSavedVersion;
+
+        /// <summary>
+        /// Called when the configuration is modified (and saved to disk).
+        /// </summary>
+        public static event ChangeHandler Changed;
+
+        public delegate void ChangeHandler( Configuration oldVersion, Configuration newVersion );
+
+
         public static void Initialize( )
         {
             if ( File.Exists( "LANdrop.json" ) )
             {
                 using ( StreamReader file = new StreamReader( "LANdrop.json" ) )
+                {
                     Instance = JsonConvert.DeserializeObject<Configuration>( file.ReadToEnd( ) );
+                    LastSavedVersion = Instance.Clone( );
+                }
             }
             else
                 LoadDefaultSettings( );
         }
 
+        public Configuration Clone( )
+        {
+            return JsonConvert.DeserializeObject<Configuration>( ToJsonString() );
+        }
+
+        public string ToJsonString( )
+        {
+            return JsonConvert.SerializeObject( this, Formatting.Indented );
+        }
+
         public static void LoadDefaultSettings( )
         {
             Instance = DefaultSettings;
-            Save( );
+            Instance.Save( );
         }
 
-        public static void Save( )
+        public void Save( )
         {
-            ThreadPool.QueueUserWorkItem( delegate { Instance.SaveToFile( ); } );
+            if ( Instance.ToJsonString( ) != LastSavedVersion.ToJsonString() )
+            {
+                if ( Changed != null )
+                    Changed( LastSavedVersion, this );
+
+                LastSavedVersion = Clone( );
+                ThreadPool.QueueUserWorkItem( delegate { Instance.SaveToFile( ); } );
+            }
         }
 
         private void SaveToFile( )
-        {
+        {            
             using ( StreamWriter file = new StreamWriter( "LANdrop.json" ) )
-                file.Write( JsonConvert.SerializeObject( Instance, Formatting.Indented ) );
+                file.Write( ToJsonString() );
         }
     }
 }
