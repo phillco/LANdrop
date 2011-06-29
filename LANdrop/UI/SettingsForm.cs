@@ -20,27 +20,19 @@ namespace LANdrop.UI
         private void LoadFromConfiguration( Configuration config )
         {
             tbUserName.Text = config.Username;
-            cbAutomaticUpdates.Checked = ( config.UpdateChannel != Channel.None );
-            cbReleaseChannel.Text = config.UpdateChannel.ToString();
-            if ( string.IsNullOrEmpty( cbReleaseChannel.Text ) )
-                cbReleaseChannel.Text = "Release";
+            cbUpdateAutomatically.Checked = config.UpdateAutomatically;
             UpdateState( );
             Refresh( );
         }
 
         private void SaveToConfiguration( Configuration config )
         {
-            if ( cbAutomaticUpdates.Checked )
-                config.UpdateChannel = ChannelFunctions.Parse( cbReleaseChannel.Text );
-            else
-                config.UpdateChannel = Channel.None;
-
+            config.UpdateAutomatically = cbUpdateAutomatically.Checked;
             config.Username = tbUserName.Text;
         }
 
         private void UpdateState( )
         {
-            cbReleaseChannel.Enabled = cbAutomaticUpdates.Checked;
         }
 
         private void btnSave_Click( object sender, EventArgs e )

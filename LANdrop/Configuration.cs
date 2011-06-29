@@ -22,12 +22,15 @@ namespace LANdrop
                 return new Configuration
                 {
                     Username = Environment.UserName + " on " + Dns.GetHostName( ),
-                    UpdateChannel = Channel.Dev
+                    UpdateChannel = Channel.Dev,
+                    UpdateAutomatically = true
                 };
             }
         }
 
         public string Username { get; set; }
+
+        public bool UpdateAutomatically { get; set; }
 
         public Channel UpdateChannel { get; set; }
 

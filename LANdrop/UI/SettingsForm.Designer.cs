@@ -36,17 +36,13 @@
             this.panel2 = new System.Windows.Forms.Panel( );
             this.tabControl1 = new System.Windows.Forms.TabControl( );
             this.tabPage1 = new System.Windows.Forms.TabPage( );
+            this.cbUpdateAutomatically = new System.Windows.Forms.CheckBox( );
             this.tbUserName = new System.Windows.Forms.TextBox( );
             this.label1 = new System.Windows.Forms.Label( );
-            this.tabPage2 = new System.Windows.Forms.TabPage( );
-            this.cbReleaseChannel = new System.Windows.Forms.ComboBox( );
-            this.cbAutomaticUpdates = new System.Windows.Forms.CheckBox( );
-            this.label2 = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
             this.tabControl1.SuspendLayout( );
             this.tabPage1.SuspendLayout( );
-            this.tabPage2.SuspendLayout( );
             this.SuspendLayout( );
             // 
             // panel1
@@ -55,7 +51,7 @@
             this.panel1.Controls.Add( this.btnCancel );
             this.panel1.Controls.Add( this.btnSave );
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point( 8, 214 );
+            this.panel1.Location = new System.Drawing.Point( 8, 146 );
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size( 362, 43 );
             this.panel1.TabIndex = 1;
@@ -100,31 +96,41 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point( 8, 16 );
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size( 362, 198 );
+            this.panel2.Size = new System.Drawing.Size( 362, 130 );
             this.panel2.TabIndex = 2;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add( this.tabPage1 );
-            this.tabControl1.Controls.Add( this.tabPage2 );
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point( 0, 0 );
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size( 362, 198 );
+            this.tabControl1.Size = new System.Drawing.Size( 362, 130 );
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add( this.cbUpdateAutomatically );
             this.tabPage1.Controls.Add( this.tbUserName );
             this.tabPage1.Controls.Add( this.label1 );
             this.tabPage1.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage1.Size = new System.Drawing.Size( 443, 136 );
+            this.tabPage1.Size = new System.Drawing.Size( 354, 104 );
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cbUpdateAutomatically
+            // 
+            this.cbUpdateAutomatically.AutoSize = true;
+            this.cbUpdateAutomatically.Location = new System.Drawing.Point( 35, 62 );
+            this.cbUpdateAutomatically.Name = "cbUpdateAutomatically";
+            this.cbUpdateAutomatically.Size = new System.Drawing.Size( 147, 17 );
+            this.cbUpdateAutomatically.TabIndex = 5;
+            this.cbUpdateAutomatically.Text = "Keep LANdrop up to date";
+            this.cbUpdateAutomatically.UseVisualStyleBackColor = true;
             // 
             // tbUserName
             // 
@@ -142,59 +148,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Name:";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add( this.label2 );
-            this.tabPage2.Controls.Add( this.cbReleaseChannel );
-            this.tabPage2.Controls.Add( this.cbAutomaticUpdates );
-            this.tabPage2.Location = new System.Drawing.Point( 4, 22 );
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage2.Size = new System.Drawing.Size( 354, 172 );
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // cbReleaseChannel
-            // 
-            this.cbReleaseChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbReleaseChannel.FormattingEnabled = true;
-            this.cbReleaseChannel.Items.AddRange( new object[] {
-            "Release",
-            "Beta",
-            "Dev"} );
-            this.cbReleaseChannel.Location = new System.Drawing.Point( 103, 40 );
-            this.cbReleaseChannel.Name = "cbReleaseChannel";
-            this.cbReleaseChannel.Size = new System.Drawing.Size( 65, 21 );
-            this.cbReleaseChannel.TabIndex = 5;
-            // 
-            // cbAutomaticUpdates
-            // 
-            this.cbAutomaticUpdates.AutoSize = true;
-            this.cbAutomaticUpdates.Location = new System.Drawing.Point( 21, 17 );
-            this.cbAutomaticUpdates.Name = "cbAutomaticUpdates";
-            this.cbAutomaticUpdates.Size = new System.Drawing.Size( 147, 17 );
-            this.cbAutomaticUpdates.TabIndex = 4;
-            this.cbAutomaticUpdates.Text = "Keep LANdrop up to date";
-            this.cbAutomaticUpdates.UseVisualStyleBackColor = true;
-            this.cbAutomaticUpdates.CheckedChanged += new System.EventHandler( this.cbAutomaticUpdates_CheckedChanged );
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point( 47, 43 );
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 50, 13 );
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Channel:";
-            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size( 378, 257 );
+            this.ClientSize = new System.Drawing.Size( 378, 189 );
             this.Controls.Add( this.panel2 );
             this.Controls.Add( this.panel1 );
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
@@ -210,8 +170,6 @@
             this.tabControl1.ResumeLayout( false );
             this.tabPage1.ResumeLayout( false );
             this.tabPage1.PerformLayout( );
-            this.tabPage2.ResumeLayout( false );
-            this.tabPage2.PerformLayout( );
             this.ResumeLayout( false );
 
         }
@@ -227,9 +185,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.LinkLabel llblResetToDefaults;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbReleaseChannel;
-        private System.Windows.Forms.CheckBox cbAutomaticUpdates;
+        private System.Windows.Forms.CheckBox cbUpdateAutomatically;
     }
 }

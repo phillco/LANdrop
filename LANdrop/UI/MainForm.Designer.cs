@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container( );
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem( "Will", 0 );
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem( "Phillip", 0 );
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem( "Jim", 1 );
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem( "Simon", 1 );
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem( "Will", 0 );
             this.onlineIcons = new System.Windows.Forms.ImageList( this.components );
             this.statusStrip = new System.Windows.Forms.StatusStrip( );
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel( );
@@ -207,10 +207,10 @@
             this.receipientList.GridLines = true;
             this.receipientList.HideSelection = false;
             this.receipientList.Items.AddRange( new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4} );
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8} );
             this.receipientList.Location = new System.Drawing.Point( 16, 42 );
             this.receipientList.Name = "receipientList";
             this.receipientList.Size = new System.Drawing.Size( 223, 257 );
@@ -218,12 +218,12 @@
             this.receipientList.TabIndex = 2;
             this.receipientList.UseCompatibleStateImageBehavior = false;
             this.receipientList.View = System.Windows.Forms.View.List;
-            this.receipientList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler( this.receipientList_MouseDoubleClick );
-            this.receipientList.DragDrop += new System.Windows.Forms.DragEventHandler( this.receipientList_DragDrop );
             this.receipientList.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler( this.receipientList_ItemSelectionChanged );
+            this.receipientList.DragDrop += new System.Windows.Forms.DragEventHandler( this.receipientList_DragDrop );
             this.receipientList.DragEnter += new System.Windows.Forms.DragEventHandler( this.receipientList_DragEnter );
-            this.receipientList.DragLeave += new System.EventHandler( this.receipientList_DragLeave );
             this.receipientList.DragOver += new System.Windows.Forms.DragEventHandler( this.receipientList_DragOver );
+            this.receipientList.DragLeave += new System.EventHandler( this.receipientList_DragLeave );
+            this.receipientList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler( this.receipientList_MouseDoubleClick );
             // 
             // recipientContextMenu
             // 
@@ -334,7 +334,7 @@
             // testErrorToolStripMenuItem
             // 
             this.testErrorToolStripMenuItem.Name = "testErrorToolStripMenuItem";
-            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
+            this.testErrorToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.testErrorToolStripMenuItem.Text = "Test error...";
             this.testErrorToolStripMenuItem.Click += new System.EventHandler( this.testErrorToolStripMenuItem_Click );
             // 
@@ -343,7 +343,7 @@
             this.applyUpdateToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.applyUpdateToolStripMenuItem.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.applyUpdateToolStripMenuItem.Name = "applyUpdateToolStripMenuItem";
-            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
+            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.applyUpdateToolStripMenuItem.Text = "Apply update";
             this.applyUpdateToolStripMenuItem.Visible = false;
             this.applyUpdateToolStripMenuItem.Click += new System.EventHandler( this.applyUpdateToolStripMenuItem_Click );
@@ -351,13 +351,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 144, 6 );
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 149, 6 );
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.information16;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 147, 22 );
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 

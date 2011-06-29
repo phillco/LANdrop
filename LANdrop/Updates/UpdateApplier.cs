@@ -28,6 +28,9 @@ namespace LANdrop.Updates
         /// <returns>Whether the program should exit after calling this.</returns>
         public static bool Run( )
         {
+            if ( !Configuration.Instance.UpdateAutomatically )
+                return false;
+
             // See if we've been updated (show a message).
             if ( Program.CommandLineArgs.Contains( "/completeUpdate" ) )
                 RunningNewVersion = true;
@@ -42,7 +45,7 @@ namespace LANdrop.Updates
             // Otherwise, just see if there's a new build to update to.
             if ( CheckForNewVersion( ) )
                 return true;
-            
+
             // Clean up old update files.
             try
             {
