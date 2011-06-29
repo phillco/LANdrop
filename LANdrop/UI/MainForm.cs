@@ -50,19 +50,13 @@ namespace LANdrop.UI
                 {
                     BeginInvoke( (MethodInvoker) delegate
                     {
-                        ShowUpdateCues( );
+                        UpdateState( );
                     } );
                 }
             };
 
             // Update the UI when the configuration changes...
-            Configuration.Changed += ( oldVersion, newVersion ) =>
-            {
-                if ( !newVersion.UpdateAutomatically && panelApplyUpdate.Visible )
-                    HideUpdateCues( );
-                else if ( newVersion.UpdateAutomatically && !panelApplyUpdate.Visible && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
-                    ShowUpdateCues( );
-            };
+            Configuration.Changed += ( oldVersion, newVersion ) => UpdateState( );
 
             // Show a little notification when builds get updated.
             if ( UpdateApplier.RunningNewVersion )
@@ -89,6 +83,12 @@ namespace LANdrop.UI
         {
             UpdatePeerList( );
             UpdateButtons( );
+
+            // Hide or show the little "update ready!" banner as needed.
+            if ( !panelApplyUpdate.Visible && Configuration.Instance.UpdateAutomatically && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
+                ShowUpdateCues( );
+            else if ( panelApplyUpdate.Visible && ( !Configuration.Instance.UpdateAutomatically || UpdateChecker.CurrentState != UpdateChecker.State.READY_TO_APPLY ) )
+                HideUpdateCues( );
         }
 
         public void UpdatePeerList( )
