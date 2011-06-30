@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!----------------------------------------------------------------------------------------
+
+	LANdrop Deployment Script
+	=========================
+	
+	Call with /p:Channel=<channel> /p:BuildNumber=<build #>
+				
+	External Dependencies (must be in your PATH):
+		- .NETZ (assembly packer): http://madebits.com/netz/
+		- WinSCP (sftp client): http://winscp.net/
+		
+	You must have a saved profile called "LANdrop" in your WinSCP configuration,
+	with stored authentication (private key or password).
+	
+----------------------------------------------------------------------------------------->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Run">
+
+  <Target Name="Run">
+    <CallTarget Targets="Clean" />
+    <CallTarget Targets="Compile" />
+    <CallTarget Targets="Publish" />   
+  </Target>
+
+  <Target Name="Clean">
+    <RemoveDir Directories="LANdrop/bin" ContinueOnError="true" />
+    <RemoveDir Directories="BuildPrepare/bin" ContinueOnError="true" />
+  </Target>
+
+  <Target Name="MakeBuildPrepare">
+    <MSBuild Projects="BuildPrepare/BuildPrepare.csproj" Properties="Configuration=Release" />
+  </Target>
+
+  <!-- Sets version info in BuildInfo.cs, and creates <channel>.json -->
+  <Target Name="Prepare" DependsOnTargets="Clean;MakeBuildPrepare">
+    <Exec Command="BuildPrepare\bin\Release\BuildPrepare $(BuildNumber) $(Channel)"/>
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="Clean;Prepare">
+    <MSBuild Projects="LANdrop/LANdrop.csproj" Properties="Configuration=Release" />    
+  </Target>
+
+  <!-- Compacts all the assemblies down to one EXE. -->
+  <Target Name="MergeAssemblies" DependsOnTargets="Compile">
+    <MakeDir Directories="LANdrop/bin/Publish"/>
+    <Exec Command="netz -w -z -s -o ../Publish LANdrop.exe BugzScout.dll HybridDSP.Net.dll Newtonsoft.Json.Net20.dll" WorkingDirectory="LANdrop/bin/Release"/>
+  </Target>
+  
+  <!-- Uplods the build and <channel>json to LANdrop.net. -->
+  <Target Name="Publish" DependsOnTargets="Prepare; MergeAssemblies">    
+    <Exec Command="winscp.com /script=Scripts\deployScript.bat" WorkingDirectory="$(MSBuildProjectDirectory)"/>
+  </Target> 
+
+</Project>

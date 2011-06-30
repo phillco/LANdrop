@@ -18,10 +18,12 @@ namespace BuildPrepare
         {
             if ( args.Length < 2 )
             {
-                Console.WriteLine( "Usage: LDprepare buildNumber channel" );
+                Console.WriteLine( "Usage: BuildPrepare buildNumber channel" );
                 Environment.Exit( -1 );
                 return;
             }
+
+            Console.WriteLine( "BuildPrepare running with " + args[1] + " build # " + args[0] );
 
             if ( !File.Exists( fileName ) )
             {
@@ -74,6 +76,8 @@ namespace BuildPrepare
                     writer.WriteLine( line );
                 }
             }
+            File.Delete( "Scripts\\deployScript.bat" );
+            File.Move( "Scripts\\deployScript.new.bat", "Scripts\\deployScript.bat" );
 
             // Create a json file for the web server.
             using ( StreamWriter writer = new StreamWriter( args[1].ToLower( ) + ".json" ) )

@@ -1,3 +1,6 @@
+lpwd
+lls
+
 # Automatically answer all prompts with "no" so as not to stall the script.
 option batch on
 
@@ -8,11 +11,11 @@ option confirm off
 option transfer binary
 
 # Connect to the web server using the saved WinSCP session.
-open phillco@philltopia.com
+open LANdrop
 
 # Upload the build.
 cd /home/phillco/landrop.net/downloads
-put LANdrop\bin\Release\LANdrop.exe.netz\LANdrop.exe
+put LANdrop\bin\Publish\LANdrop.exe
 
 # Upload the version info.
 cd /home/phillco/landrop.net/version
