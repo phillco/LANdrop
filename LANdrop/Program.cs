@@ -34,7 +34,7 @@ namespace LANdrop
                 Configuration.Initialize( );
 
                 // See if we're applying an update. (and if so, quit if needed).
-                if ( UpdateApplier.Run() )
+                if ( UpdateApplier.Run( ) )
                     return;
 
                 // Finish initialization.                
@@ -49,7 +49,15 @@ namespace LANdrop
             }
             catch ( Exception ex ) // Just in case.
             {
-                ErrorHandler.HandleUncaughtException( ex, true );
+                try
+                {
+                    ErrorHandler.HandleUncaughtException( ex, true );
+                }
+                catch ( FileNotFoundException e )
+                {
+                    if ( e.Message.Contains( "BugzScout" ) ) // Occurs when the BugzScout assembly could not be loaded (the outer exception was probably that the JSON library couldn't be loaded, too).
+                        MessageBox.Show( "There was an error loading some of LANdrop's components.\nPlease download a fresh version from www.landrop.net.", "LANdrop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                }
             }
         }
 
