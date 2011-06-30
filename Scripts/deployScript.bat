@@ -11,15 +11,11 @@ option transfer binary
 open LANdrop
 
 # Upload the build.
-pwd
 cd landrop.net/downloads
-
 put LANdrop\bin\Publish\LANdrop.exe
 
 # Upload the version info.
 cd /home/phillco/landrop.net/version
-lpwd
-lls
 put version.json
 
 # Disconnect and quit.
