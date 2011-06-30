@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<!----------------------------------------------------------------------------------------
+<!--________________________________________________________________________________________
 
 	LANdrop Deployment Script
 	=========================
@@ -14,7 +14,7 @@
 	You must have a saved profile called "LANdrop" in your WinSCP configuration,
 	with stored authentication (private key or password).
 	
------------------------------------------------------------------------------------------>
+ ________________________________________________________________________________________-->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Run">
 
