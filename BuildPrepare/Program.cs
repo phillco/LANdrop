@@ -64,7 +64,7 @@ namespace BuildPrepare
                     string line = reader.ReadLine( );
 
                     // Add the build number to the path.
-                    if ( line.Trim( ).StartsWith( "cd /home/phillco/landrop.net/downloads" ) )
+                    if ( line.Trim( ).StartsWith( "cd landrop.net/downloads" ) )
                     {
                         writer.WriteLine( line );
                         writer.WriteLine( String.Format( "cd {0}\nmkdir {1}\ncd {1}", args[1].ToLower( ), args[0] ) );
