@@ -22,7 +22,7 @@ namespace LANdrop
                 var config = new Configuration
                 {
                     Username = Environment.UserName + " on " + Dns.GetHostName( ),
-                    UpdateChannel = Channel.Dev,
+                    UpdateChannel = BuildInfo.Version.Channel,
                     UpdateAutomatically = true
                 };
 
