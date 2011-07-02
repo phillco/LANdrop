@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace LANdrop.Updates
 {
     /// <summary>
-    /// The main updater thread; periodically checks landrop.net for updates, downloads them, and signals the rest of the application that they're ready.
+    /// The brains of the operation. Periodically checks landrop.net for updates, downloads them, and signals the rest of the application that they're ready.
     /// Use UpdateChecker.CurrentState and StateChanged to get the current status, and CheckNowAsync to force a refresh.
     /// </summary>
     class UpdateChecker
@@ -78,6 +78,7 @@ namespace LANdrop.Updates
         {
             if ( BuildInfo.DoesUpdate )
             {
+                updateThread.IsBackground = true;
                 updateThread.Priority = ThreadPriority.BelowNormal;
                 updateThread.Start( );
             }
