@@ -39,7 +39,7 @@
             this.cbUpdateAutomatically = new System.Windows.Forms.CheckBox( );
             this.tbUserName = new System.Windows.Forms.TextBox( );
             this.label1 = new System.Windows.Forms.Label( );
-            this.label2 = new System.Windows.Forms.Label( );
+            this.lblChannel = new System.Windows.Forms.Label( );
             this.cbUpdateChannel = new System.Windows.Forms.ComboBox( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
@@ -114,7 +114,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add( this.cbUpdateChannel );
-            this.tabPage1.Controls.Add( this.label2 );
+            this.tabPage1.Controls.Add( this.lblChannel );
             this.tabPage1.Controls.Add( this.cbUpdateAutomatically );
             this.tabPage1.Controls.Add( this.tbUserName );
             this.tabPage1.Controls.Add( this.label1 );
@@ -153,14 +153,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Name:";
             // 
-            // label2
+            // lblChannel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point( 74, 84 );
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 50, 13 );
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Channel:";
+            this.lblChannel.AutoSize = true;
+            this.lblChannel.Location = new System.Drawing.Point( 74, 84 );
+            this.lblChannel.Name = "lblChannel";
+            this.lblChannel.Size = new System.Drawing.Size( 50, 13 );
+            this.lblChannel.TabIndex = 6;
+            this.lblChannel.Text = "Channel:";
             // 
             // cbUpdateChannel
             // 
@@ -214,6 +214,6 @@
         private System.Windows.Forms.LinkLabel llblResetToDefaults;
         private System.Windows.Forms.CheckBox cbUpdateAutomatically;
         private System.Windows.Forms.ComboBox cbUpdateChannel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblChannel;
     }
 }
