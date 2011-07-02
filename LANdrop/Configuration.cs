@@ -81,6 +81,7 @@ namespace LANdrop
             CurrentSettings = DefaultSettings;
             if ( File.Exists( ConfigFileName ) )
                 Load( ConfigFileName );
+            CurrentSettings.Save( );
         }
 
         /// <summary>
@@ -97,6 +98,7 @@ namespace LANdrop
                 CurrentSettings.Username = source.Configs["General"].Get( "Username", DefaultSettings.Username );
                 CurrentSettings.UpdateAutomatically = source.Configs["Updates"].GetBoolean( "Enabled", DefaultSettings.UpdateAutomatically );
                 CurrentSettings.UpdateChannel = ChannelFunctions.Parse( source.Configs["Updates"].Get( "Channel", DefaultSettings.UpdateChannel.ToString( ) ) );
+                CurrentSettings.Repair( );
             }
             catch ( ArgumentException )
             {
@@ -106,10 +108,25 @@ namespace LANdrop
         }
 
         /// <summary>
+        /// Corrects any inconsistencies in the configuration.
+        /// </summary>
+        public void Repair( )
+        {
+            // The channel really shouldn't be set to "none"; doing so really means UpdateAutomatically is false. 
+            if ( UpdateChannel == Channel.None )
+            {
+                UpdateChannel = BuildInfo.Version.Channel;
+                UpdateAutomatically = false;
+            }
+        }
+
+        /// <summary>
         /// Saves the current configuration to disk.
         /// </summary>
         public void Save( )
         {
+            Repair( );
+
             IniConfigSource source = new IniConfigSource( );
 
             IConfig config = source.AddConfig( "General" );
@@ -125,7 +142,7 @@ namespace LANdrop
             if ( Changed != null )
                 Changed( );
         }
-        
+
         /// <summary>
         /// Loads the factory-default settings and saves them.
         /// </summary>
