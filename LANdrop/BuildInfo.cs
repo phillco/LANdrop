@@ -6,15 +6,16 @@ using LANdrop.Updates;
 namespace LANdrop
 {
     /// <summary>
-    /// Information about the current LANdrop build.
-    /// The landrop.net build server will update this files to tag deployed EXEs ("dev build #76", etc)
+    /// Contains constants about the current LANdrop build (i.e., "dev build #76").
+    /// Builds are tagged here by the build server during deployment.
     /// 
-    /// If you update this file, be sure to update BuildPrepare/Program.cs, too!
+    /// If you rearrange things in this file, be sure to update BuildPrepare/Program.cs, too!
     /// </summary>
     class BuildInfo
     {
         /// <summary>
-        /// Which channel this was created on. (None = hand-compiled, not made by the build server)
+        /// This build's number and the channel it was made on.
+        /// "Channel.None" are development builds that aren't released publicly. (They don't update).
         /// </summary>
         public readonly static VersionInfo Version = new VersionInfo
         {
@@ -23,7 +24,7 @@ namespace LANdrop
         };
 
         /// <summary>
-        /// Does this LANdrop build receive automatic updates? (Not true if it was hand-compiled)
+        /// Does this LANdrop build receive automatic updates?
         /// </summary>
         public static bool DoesUpdate
         {
