@@ -147,6 +147,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SendFeedbackForm.resx">
+      <DependentUpon>SendFeedbackForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -196,6 +199,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="UI\SendFeedbackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SendFeedbackForm.Designer.cs">
+      <DependentUpon>SendFeedbackForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -260,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="program_icon.ico" />
+    <None Include="Resources\thumb_up_right.png" />
     <None Include="Resources\document_page_next.png" />
     <None Include="Resources\question.png" />
     <None Include="Resources\accept16.png" />
@@ -268,6 +278,8 @@
     <None Include="Resources\information16.png" />
     <None Include="Resources\arrow_refresh.png" />
     <None Include="Resources\landropUpdated.png" />
+    <None Include="Resources\RCTAngryGuest.jpg" />
+    <None Include="Resources\RCTHappyGuest.jpg" />
     <Content Include="Resources\sendFilePage.html" />
     <None Include="Resources\accept.png" />
     <None Include="Resources\setting_tools.png" />

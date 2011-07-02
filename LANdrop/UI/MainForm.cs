@@ -407,5 +407,10 @@ namespace LANdrop.UI
             if ( UpdateApplier.Run( ) )
                 Application.Exit( );
         }
+
+        private void sendFeedbackToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new SendFeedbackForm( ).ShowDialog( this );
+        }
     }
 }
