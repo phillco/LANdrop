@@ -65,7 +65,7 @@ namespace LANdrop.Networking
             // Send the file information.
             NetworkOutStream.Write( (Int32) Protocol.Version );
             NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.FileTransfer );
-            NetworkOutStream.Write( Configuration.Instance.Username );
+            NetworkOutStream.Write( Configuration.CurrentSettings.Username );
             NetworkOutStream.Write( File.Name );
             NetworkOutStream.Write( File.Length );
             NetworkOutStream.Flush( );

@@ -128,7 +128,7 @@ namespace LANdrop.Networking
 
             // Send our name, protocol versions and IP.
             message.Write( (Int32) Protocol.Version );
-            message.Write( Configuration.Instance.Username );
+            message.Write( Configuration.CurrentSettings.Username );
             message.Write( Util.GetLocalAddress( ).ToString( ) );
             message.Write( connected );
 

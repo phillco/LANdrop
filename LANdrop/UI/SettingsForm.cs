@@ -14,7 +14,7 @@ namespace LANdrop.UI
         public SettingsForm( )
         {
             InitializeComponent( );
-            LoadFromConfiguration( Configuration.Instance );            
+            LoadFromConfiguration( Configuration.CurrentSettings );            
         }
 
         private void LoadFromConfiguration( Configuration config )
@@ -37,8 +37,8 @@ namespace LANdrop.UI
 
         private void btnSave_Click( object sender, EventArgs e )
         {
-            SaveToConfiguration( Configuration.Instance );
-            Configuration.Instance.Save( );
+            SaveToConfiguration( Configuration.CurrentSettings );
+            Configuration.CurrentSettings.Save( );
         }
 
         private void llblResetToDefaults_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )

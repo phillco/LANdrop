@@ -40,7 +40,7 @@ namespace LANdrop.Updates
             }
 
             // Otherwise, just see if there's a new build to update to.
-            if ( Configuration.Instance.UpdateAutomatically && CheckForNewVersion( ) )
+            if ( Configuration.CurrentSettings.UpdateAutomatically && CheckForNewVersion( ) )
                 return true;
 
             // Clean up old update files.
@@ -68,11 +68,11 @@ namespace LANdrop.Updates
                         int buildNumber = int.Parse( match.Groups[2].Value );
 
                         // Skip builds that aren't on the chanel we want to upgrade to.
-                        if ( buildChannel != Configuration.Instance.UpdateChannel )
+                        if ( buildChannel != Configuration.CurrentSettings.UpdateChannel )
                             continue;
 
                         // Skip builds that aren't newer than the current build. (Unless they're on a different channel).
-                        if ( Configuration.Instance.UpdateChannel == BuildInfo.Version.Channel && buildNumber <= BuildInfo.Version.BuildNumber )
+                        if ( Configuration.CurrentSettings.UpdateChannel == BuildInfo.Version.Channel && buildNumber <= BuildInfo.Version.BuildNumber )
                             continue;
 
                         using ( Process proc = new Process( ) )

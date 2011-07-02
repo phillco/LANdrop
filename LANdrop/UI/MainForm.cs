@@ -46,7 +46,7 @@ namespace LANdrop.UI
             // When an update is ready to be applied, show some UI cues...
             UpdateChecker.StateChanged += ( oldState, newState ) =>
             {
-                if ( newState == UpdateChecker.State.READY_TO_APPLY && !panelApplyUpdate.Visible && Configuration.Instance.UpdateAutomatically )
+                if ( newState == UpdateChecker.State.READY_TO_APPLY && !panelApplyUpdate.Visible && Configuration.CurrentSettings.UpdateAutomatically )
                 {
                     BeginInvoke( (MethodInvoker) delegate
                     {
@@ -84,9 +84,9 @@ namespace LANdrop.UI
             UpdateButtons( );
 
             // Hide or show the little "update ready!" banner as needed.
-            if ( !panelApplyUpdate.Visible && Configuration.Instance.UpdateAutomatically && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
+            if ( !panelApplyUpdate.Visible && Configuration.CurrentSettings.UpdateAutomatically && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
                 ShowUpdateCues( );
-            else if ( panelApplyUpdate.Visible && ( !Configuration.Instance.UpdateAutomatically || UpdateChecker.CurrentState != UpdateChecker.State.READY_TO_APPLY ) )
+            else if ( panelApplyUpdate.Visible && ( !Configuration.CurrentSettings.UpdateAutomatically || UpdateChecker.CurrentState != UpdateChecker.State.READY_TO_APPLY ) )
                 HideUpdateCues( );
         }
 

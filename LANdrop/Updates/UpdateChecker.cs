@@ -33,7 +33,7 @@ namespace LANdrop.Updates
         /// </summary>
         public static Channel CurrentChannel
         {
-            get { return BuildInfo.DoesUpdate ? Configuration.Instance.UpdateChannel : Channel.None; }
+            get { return BuildInfo.DoesUpdate ? Configuration.CurrentSettings.UpdateChannel : Channel.None; }
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace LANdrop.Updates
         {
             Configuration.Changed += ( ) =>
             {
-                if ( !Configuration.Instance.UpdateAutomatically )
+                if ( !Configuration.CurrentSettings.UpdateAutomatically )
                 {
                     BuildDownloader.RemoveDownloadedBuilds( );
                     CurrentState = State.SLEEPING;
@@ -113,7 +113,7 @@ namespace LANdrop.Updates
                 // By default, we check for updates every 15 minutes.
                 int secondsToSleep = 15;                
                 
-                if ( Configuration.Instance.UpdateAutomatically )
+                if ( Configuration.CurrentSettings.UpdateAutomatically )
                 {
                     // Check landrop.net to see if an update is available.
                     CurrentState = State.CHECKING;

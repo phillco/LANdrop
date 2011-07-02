@@ -14,7 +14,7 @@ namespace LANdrop
 {
     class Configuration
     {
-        public static Configuration Instance { get; private set; }
+        public static Configuration CurrentSettings { get; private set; }
 
         public static Configuration DefaultSettings
         {
@@ -46,16 +46,11 @@ namespace LANdrop
 
         public static void Initialize( )
         {
-            Instance = DefaultSettings;
+            CurrentSettings = DefaultSettings;
             if ( File.Exists( "LANdrop.ini" ) )
                 Load( "LANdrop.ini" );
         }
 
-        public static void LoadDefaultSettings( )
-        {
-            Instance = DefaultSettings;
-            Instance.Save( );
-        }
 
         public static void Load( string filename )
         {
@@ -63,13 +58,13 @@ namespace LANdrop
 
             try
             {
-                Instance.Username = source.Configs["General"].Get( "Username", DefaultSettings.Username );
-                Instance.UpdateAutomatically = source.Configs["Updates"].GetBoolean( "Enabled", DefaultSettings.UpdateAutomatically );
-                Instance.UpdateChannel = ChannelFunctions.Parse( source.Configs["Updates"].Get( "Channel", DefaultSettings.UpdateChannel.ToString( ) ) );
+                CurrentSettings.Username = source.Configs["General"].Get( "Username", DefaultSettings.Username );
+                CurrentSettings.UpdateAutomatically = source.Configs["Updates"].GetBoolean( "Enabled", DefaultSettings.UpdateAutomatically );
+                CurrentSettings.UpdateChannel = ChannelFunctions.Parse( source.Configs["Updates"].Get( "Channel", DefaultSettings.UpdateChannel.ToString( ) ) );
             }
             catch ( ArgumentException )
             {
-                Instance = DefaultSettings;
+                CurrentSettings = DefaultSettings;
                 MessageBox.Show( "There was an error reading the configuration file. The default settings have been loaded.", "LANdrop", MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
@@ -89,6 +84,12 @@ namespace LANdrop
 
             if ( Changed != null )
                 Changed( );
+        }
+
+        public static void ResetToDefaultSettings( )
+        {
+            CurrentSettings = DefaultSettings;
+            CurrentSettings.Save( );
         }
     }
 }

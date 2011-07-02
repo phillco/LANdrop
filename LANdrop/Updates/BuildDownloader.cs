@@ -127,8 +127,8 @@ namespace LANdrop.Updates
 
         public static bool IsUpdateDownloaded( )
         {
-            return ( LastDownloadedBuild.ContainsKey( Configuration.Instance.UpdateChannel ) && ( Configuration.Instance.UpdateChannel != BuildInfo.Version.Channel
-                || LastDownloadedBuild[Configuration.Instance.UpdateChannel].BuildNumber > BuildInfo.Version.BuildNumber ) );
+            return ( LastDownloadedBuild.ContainsKey( Configuration.CurrentSettings.UpdateChannel ) && ( Configuration.CurrentSettings.UpdateChannel != BuildInfo.Version.Channel
+                || LastDownloadedBuild[Configuration.CurrentSettings.UpdateChannel].BuildNumber > BuildInfo.Version.BuildNumber ) );
         }
 
 
