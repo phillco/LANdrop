@@ -36,17 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BugzScout, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\BugzScout.dll</HintPath>
+    <Reference Include="BugzScout">
+      <HintPath>..\Assemblies\BugzScout.dll</HintPath>
     </Reference>
-    <Reference Include="HybridDSP.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\HybridDSP.Net.dll</HintPath>
+    <Reference Include="HybridDSP.Net">
+      <HintPath>..\Assemblies\HybridDSP.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json.Net20, Version=4.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Newtonsoft.Json.Net20.dll</HintPath>
+    <Reference Include="Newtonsoft.Json.Net20">
+      <HintPath>..\Assemblies\Newtonsoft.Json.Net20.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
