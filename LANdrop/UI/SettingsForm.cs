@@ -9,6 +9,9 @@ using LANdrop.Updates;
 
 namespace LANdrop.UI
 {
+    /// <summary>
+    /// A simple form where the user can configure LANdrop's settings.
+    /// </summary>
     public partial class SettingsForm : Form
     {
         public SettingsForm( )
@@ -17,22 +20,32 @@ namespace LANdrop.UI
             LoadFromConfiguration( Configuration.CurrentSettings );            
         }
 
+        /// <summary>
+        /// Updates the form to match the given configuration.
+        /// </summary>
         private void LoadFromConfiguration( Configuration config )
         {
             tbUserName.Text = config.Username;
             cbUpdateAutomatically.Checked = config.UpdateAutomatically;
+            cbUpdateChannel.Text = config.UpdateChannel.ToString( );
+
             UpdateState( );
             Refresh( );
         }
 
+        /// <summary>
+        /// Saves the current state of the form to the given configuration.
+        /// </summary>
         private void SaveToConfiguration( Configuration config )
         {
             config.UpdateAutomatically = cbUpdateAutomatically.Checked;
+            config.UpdateChannel = ChannelFunctions.Parse( cbUpdateChannel.Text );
             config.Username = tbUserName.Text;
         }
 
         private void UpdateState( )
         {
+            cbUpdateChannel.Enabled = cbUpdateAutomatically.Checked;
         }
 
         private void btnSave_Click( object sender, EventArgs e )
@@ -47,7 +60,7 @@ namespace LANdrop.UI
                 LoadFromConfiguration( Configuration.DefaultSettings );
         }
 
-        private void cbAutomaticUpdates_CheckedChanged( object sender, EventArgs e )
+        private void cbUpdateAutomatically_CheckedChanged( object sender, EventArgs e )
         {
             UpdateState( );
         }

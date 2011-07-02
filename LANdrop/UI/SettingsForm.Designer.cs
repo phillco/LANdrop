@@ -39,6 +39,8 @@
             this.cbUpdateAutomatically = new System.Windows.Forms.CheckBox( );
             this.tbUserName = new System.Windows.Forms.TextBox( );
             this.label1 = new System.Windows.Forms.Label( );
+            this.label2 = new System.Windows.Forms.Label( );
+            this.cbUpdateChannel = new System.Windows.Forms.ComboBox( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
             this.tabControl1.SuspendLayout( );
@@ -51,7 +53,7 @@
             this.panel1.Controls.Add( this.btnCancel );
             this.panel1.Controls.Add( this.btnSave );
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point( 8, 146 );
+            this.panel1.Location = new System.Drawing.Point( 8, 174 );
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size( 362, 43 );
             this.panel1.TabIndex = 1;
@@ -96,7 +98,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point( 8, 16 );
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size( 362, 130 );
+            this.panel2.Size = new System.Drawing.Size( 362, 158 );
             this.panel2.TabIndex = 2;
             // 
             // tabControl1
@@ -106,18 +108,20 @@
             this.tabControl1.Location = new System.Drawing.Point( 0, 0 );
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size( 362, 130 );
+            this.tabControl1.Size = new System.Drawing.Size( 362, 158 );
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add( this.cbUpdateChannel );
+            this.tabPage1.Controls.Add( this.label2 );
             this.tabPage1.Controls.Add( this.cbUpdateAutomatically );
             this.tabPage1.Controls.Add( this.tbUserName );
             this.tabPage1.Controls.Add( this.label1 );
             this.tabPage1.Location = new System.Drawing.Point( 4, 22 );
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding( 3 );
-            this.tabPage1.Size = new System.Drawing.Size( 354, 104 );
+            this.tabPage1.Size = new System.Drawing.Size( 354, 132 );
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -131,6 +135,7 @@
             this.cbUpdateAutomatically.TabIndex = 5;
             this.cbUpdateAutomatically.Text = "Keep LANdrop up to date";
             this.cbUpdateAutomatically.UseVisualStyleBackColor = true;
+            this.cbUpdateAutomatically.CheckedChanged += new System.EventHandler( this.cbUpdateAutomatically_CheckedChanged );
             // 
             // tbUserName
             // 
@@ -148,13 +153,35 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Name:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point( 74, 84 );
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size( 50, 13 );
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Channel:";
+            // 
+            // cbUpdateChannel
+            // 
+            this.cbUpdateChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUpdateChannel.FormattingEnabled = true;
+            this.cbUpdateChannel.Items.AddRange( new object[] {
+            "Release",
+            "Beta",
+            "Dev"} );
+            this.cbUpdateChannel.Location = new System.Drawing.Point( 130, 81 );
+            this.cbUpdateChannel.Name = "cbUpdateChannel";
+            this.cbUpdateChannel.Size = new System.Drawing.Size( 72, 21 );
+            this.cbUpdateChannel.TabIndex = 7;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size( 378, 189 );
+            this.ClientSize = new System.Drawing.Size( 378, 217 );
             this.Controls.Add( this.panel2 );
             this.Controls.Add( this.panel1 );
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
@@ -186,5 +213,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.LinkLabel llblResetToDefaults;
         private System.Windows.Forms.CheckBox cbUpdateAutomatically;
+        private System.Windows.Forms.ComboBox cbUpdateChannel;
+        private System.Windows.Forms.Label label2;
     }
 }
