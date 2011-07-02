@@ -131,7 +131,7 @@ namespace LANdrop
 
             IConfig config = source.AddConfig( "General" );
             config.Set( "Username", Username );
-            config.Set( "", ConfigFileVersion );
+            config.Set( "ConfigVersion", ConfigFileVersion );
 
             config = source.AddConfig( "Updates" );
             config.Set( "Enabled", UpdateAutomatically );
