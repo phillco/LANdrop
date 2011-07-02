@@ -57,7 +57,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.sendFeedbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.applyUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
@@ -154,7 +154,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
+            this.pictureBox2.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
@@ -272,7 +272,7 @@
             this.mainMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem1} );
+            this.helpToolStripMenuItem} );
             this.mainMenu.Location = new System.Drawing.Point( 0, 0 );
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size( 255, 24 );
@@ -306,26 +306,26 @@
             // 
             this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
             // 
-            // helpToolStripMenuItem1
+            // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem1.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem.DropDownItems.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFeedbackToolStripMenuItem,
             this.applyUpdateToolStripMenuItem,
             this.toolStripSeparator1,
             this.aboutToolStripMenuItem} );
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size( 44, 20 );
-            this.helpToolStripMenuItem1.Text = "&Help";
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size( 44, 20 );
+            this.helpToolStripMenuItem.Text = "&Help";
             // 
             // sendFeedbackToolStripMenuItem
             // 
             this.sendFeedbackToolStripMenuItem.Image = global::LANdrop.Properties.Resources.thumb_up_right;
             this.sendFeedbackToolStripMenuItem.Name = "sendFeedbackToolStripMenuItem";
-            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.sendFeedbackToolStripMenuItem.Size = new System.Drawing.Size( 151, 22 );
             this.sendFeedbackToolStripMenuItem.Text = "Send feedback";
             this.sendFeedbackToolStripMenuItem.Click += new System.EventHandler( this.sendFeedbackToolStripMenuItem_Click );
             // 
@@ -334,7 +334,7 @@
             this.applyUpdateToolStripMenuItem.Font = new System.Drawing.Font( "Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.applyUpdateToolStripMenuItem.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.applyUpdateToolStripMenuItem.Name = "applyUpdateToolStripMenuItem";
-            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.applyUpdateToolStripMenuItem.Size = new System.Drawing.Size( 151, 22 );
             this.applyUpdateToolStripMenuItem.Text = "Apply update";
             this.applyUpdateToolStripMenuItem.Visible = false;
             this.applyUpdateToolStripMenuItem.Click += new System.EventHandler( this.applyUpdateToolStripMenuItem_Click );
@@ -342,13 +342,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size( 149, 6 );
+            this.toolStripSeparator1.Size = new System.Drawing.Size( 148, 6 );
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::LANdrop.Properties.Resources.information16;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size( 151, 22 );
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler( this.aboutToolStripMenuItem_Click );
             // 
@@ -454,7 +454,7 @@
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;

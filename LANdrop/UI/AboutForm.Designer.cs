@@ -155,7 +155,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.pictureBox2.Image = global::LANdrop.Properties.Resources.information16;
+            this.pictureBox2.Image = global::LANdrop.Properties.Resources.arrow_refresh;
             this.pictureBox2.Location = new System.Drawing.Point( 5, 3 );
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size( 16, 16 );
