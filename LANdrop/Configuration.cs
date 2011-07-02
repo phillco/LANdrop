@@ -61,7 +61,7 @@ namespace LANdrop
                 {
                     Username = Environment.UserName + " (" + Dns.GetHostName( ) + ")",
                     UpdateAutomatically = true,
-                    UpdateChannel = Channel.Dev,
+                    UpdateChannel = BuildInfo.Version.Channel,
                 };
             }
         }
