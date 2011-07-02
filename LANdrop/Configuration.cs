@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
 using System.Threading;
 using LANdrop.Updates;
 using System.ComponentModel;
+using Nini;
+using Nini.Config;
 
 namespace LANdrop
 {
@@ -21,12 +22,11 @@ namespace LANdrop
             {
                 var config = new Configuration
                 {
-                    Username = Environment.UserName + " on " + Dns.GetHostName( ),
+                    Username = Environment.UserName + " (" + Dns.GetHostName( ) + ")",
+                    UpdateAutomatically = true,
                     UpdateChannel = Channel.Dev,
-                    UpdateAutomatically = true
                 };
 
-                LastSavedVersion = config.Clone( );
                 return config;
             }
         }
@@ -37,39 +37,18 @@ namespace LANdrop
 
         public Channel UpdateChannel { get; set; }
 
-        // The last version of the configuration that we saved; used for diffing.
-        private static Configuration LastSavedVersion;
-
         /// <summary>
         /// Called when the configuration is modified (and saved to disk).
         /// </summary>
         public static event ChangeHandler Changed;
 
-        public delegate void ChangeHandler( Configuration oldVersion, Configuration newVersion );
-
+        public delegate void ChangeHandler( );
 
         public static void Initialize( )
         {
-            if ( File.Exists( "LANdrop.json" ) )
-            {
-                using ( StreamReader file = new StreamReader( "LANdrop.json" ) )
-                {
-                    Instance = JsonConvert.DeserializeObject<Configuration>( file.ReadToEnd( ) );
-                    LastSavedVersion = Instance.Clone( );
-                }
-            }
-            else
-                LoadDefaultSettings( );
-        }
-
-        public Configuration Clone( )
-        {
-            return JsonConvert.DeserializeObject<Configuration>( ToJsonString() );
-        }
-
-        public string ToJsonString( )
-        {
-            return JsonConvert.SerializeObject( this, Formatting.Indented );
+            Instance = DefaultSettings;
+            if ( File.Exists( "LANdrop.ini" ) )
+                Load( "LANdrop.ini" );
         }
 
         public static void LoadDefaultSettings( )
@@ -78,22 +57,38 @@ namespace LANdrop
             Instance.Save( );
         }
 
-        public void Save( )
+        public static void Load( string filename )
         {
-            if ( Instance.ToJsonString( ) != LastSavedVersion.ToJsonString() )
-            {
-                if ( Changed != null )
-                    Changed( LastSavedVersion, this );
+            IConfigSource source = new IniConfigSource( filename );
 
-                LastSavedVersion = Clone( );
-                ThreadPool.QueueUserWorkItem( delegate { Instance.SaveToFile( ); } );
+            try
+            {
+                Instance.Username = source.Configs["General"].Get( "Username", DefaultSettings.Username );
+                Instance.UpdateAutomatically = source.Configs["Updates"].GetBoolean( "Enabled", DefaultSettings.UpdateAutomatically );
+                Instance.UpdateChannel = ChannelFunctions.Parse( source.Configs["Updates"].Get( "Channel", DefaultSettings.UpdateChannel.ToString( ) ) );
+            }
+            catch ( ArgumentException )
+            {
+                Instance = DefaultSettings;
+                MessageBox.Show( "There was an error reading the configuration file. The default settings have been loaded.", "LANdrop", MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
 
-        private void SaveToFile( )
-        {            
-            using ( StreamWriter file = new StreamWriter( "LANdrop.json" ) )
-                file.Write( ToJsonString() );
+        public void Save( )
+        {
+            IniConfigSource source = new IniConfigSource( );
+
+            IConfig config = source.AddConfig( "General" );
+            config.Set( "Username", Username );
+
+            config = source.AddConfig( "Updates" );
+            config.Set( "Enabled", UpdateAutomatically );
+            config.Set( "Channel", UpdateChannel.ToString( ) );
+
+            source.Save( "LANdrop.ini" );
+
+            if ( Changed != null )
+                Changed( );
         }
     }
 }

@@ -97,9 +97,9 @@ namespace LANdrop.Updates
         /// </summary>
         private static void UpdateLogic( )
         {
-            Configuration.Changed += ( oldVersion, newVersion ) =>
+            Configuration.Changed += ( ) =>
             {
-                if ( !newVersion.UpdateAutomatically )
+                if ( !Configuration.Instance.UpdateAutomatically )
                 {
                     BuildDownloader.RemoveDownloadedBuilds( );
                     CurrentState = State.SLEEPING;

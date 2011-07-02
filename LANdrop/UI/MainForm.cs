@@ -56,7 +56,7 @@ namespace LANdrop.UI
             };
 
             // Update the UI when the configuration changes...
-            Configuration.Changed += ( oldVersion, newVersion ) => UpdateState( );
+            Configuration.Changed += () => UpdateState( );
 
             // Show a little notification when builds get updated.
             if ( UpdateApplier.RunningNewVersion )
