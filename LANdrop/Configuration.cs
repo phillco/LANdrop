@@ -67,18 +67,23 @@ namespace LANdrop
         }
 
         /// <summary>
+        /// The last set of settings that LANdrop saved - used for diffing.
+        /// </summary>
+        public static Configuration LastSavedSettings { get; private set; }
+
+        /// <summary>
         /// Called whenever the configuration is saved.
         /// </summary>
         public static event ChangeHandler Changed;
 
-        public delegate void ChangeHandler( );
+        public delegate void ChangeHandler( Configuration oldVersion );
 
         /// <summary>
         /// Initializes the configuration module and loads the user's settings.
         /// </summary>
         public static void Initialize( )
         {
-            CurrentSettings = DefaultSettings;
+            CurrentSettings = LastSavedSettings = DefaultSettings;
             if ( File.Exists( ConfigFileName ) )
                 Load( ConfigFileName );
             CurrentSettings.Save( );
@@ -108,7 +113,7 @@ namespace LANdrop
         }
 
         /// <summary>
-        /// Corrects any inconsistencies in the configuration.
+        /// Corrects any inconsistencies in this configuration.
         /// </summary>
         public void Repair( )
         {
@@ -118,6 +123,19 @@ namespace LANdrop
                 UpdateChannel = BuildInfo.Version.Channel;
                 UpdateAutomatically = false;
             }
+        }
+
+        /// <summary>
+        /// Returns a deep copy of this configuration.
+        /// </summary>
+        public Configuration Clone( )
+        {
+            return new Configuration
+            {
+                Username = Username,
+                UpdateAutomatically = UpdateAutomatically,
+                UpdateChannel = UpdateChannel
+            };
         }
 
         /// <summary>
@@ -138,9 +156,11 @@ namespace LANdrop
             config.Set( "Channel", UpdateChannel.ToString( ) );
 
             source.Save( ConfigFileName );
-
+            
             if ( Changed != null )
-                Changed( );
+                Changed( LastSavedSettings );
+            
+            LastSavedSettings = Clone();
         }
 
         /// <summary>

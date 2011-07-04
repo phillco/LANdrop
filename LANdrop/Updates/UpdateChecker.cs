@@ -69,7 +69,7 @@ namespace LANdrop.Updates
         /// <summary>
         /// Thread which runs the update logic.
         /// </summary>
-        private static Thread updateThread = new Thread( UpdateLogic );        
+        private static Thread updateThread = new Thread( UpdateLogic );
 
         /// <summary>
         /// Starts up the update thread in the background.
@@ -94,17 +94,24 @@ namespace LANdrop.Updates
         }
 
         /// <summary>
+        /// Deletes all downloaded builds and resets the current state.
+        /// </summary>
+        public static void Reset( )
+        {
+            BuildDownloader.RemoveDownloadedBuilds( );
+            CurrentState = State.SLEEPING;
+            CheckNowAsync( );
+        }
+
+        /// <summary>
         /// The update engine's main loop.
         /// </summary>
         private static void UpdateLogic( )
         {
-            Configuration.Changed += ( ) =>
+            Configuration.Changed += ( oldSettings ) =>
             {
-                if ( !Configuration.CurrentSettings.UpdateAutomatically )
-                {
-                    BuildDownloader.RemoveDownloadedBuilds( );
-                    CurrentState = State.SLEEPING;
-                }
+                if ( !Configuration.CurrentSettings.UpdateAutomatically || ( Configuration.CurrentSettings.UpdateChannel != oldSettings.UpdateChannel ) )
+                    Reset( );
                 else
                     CheckNowAsync( );
             };
@@ -112,8 +119,8 @@ namespace LANdrop.Updates
             while ( true )
             {
                 // By default, we check for updates every 15 minutes.
-                int secondsToSleep = 15;                
-                
+                int secondsToSleep = 15;
+
                 if ( Configuration.CurrentSettings.UpdateAutomatically )
                 {
                     // Check landrop.net to see if an update is available.
