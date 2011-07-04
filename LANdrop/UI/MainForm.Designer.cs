@@ -48,7 +48,6 @@
             this.receipientList = new System.Windows.Forms.ListView( );
             this.recipientContextMenu = new System.Windows.Forms.ContextMenuStrip( this.components );
             this.sendFileToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
-            this.sendTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.recipientContextSeparator1 = new System.Windows.Forms.ToolStripSeparator( );
             this.copyIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.refreshPeerListTimer = new System.Windows.Forms.Timer( this.components );
@@ -228,36 +227,29 @@
             // 
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFileToToolStripMenuItem,
-            this.sendTextToolStripMenuItem,
             this.recipientContextSeparator1,
             this.copyIPAddressToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 132, 76 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 153, 76 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
             // 
             this.sendFileToToolStripMenuItem.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.sendFileToToolStripMenuItem.Name = "sendFileToToolStripMenuItem";
-            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
+            this.sendFileToToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.sendFileToToolStripMenuItem.Text = "Send file...";
             this.sendFileToToolStripMenuItem.Click += new System.EventHandler( this.sendFileToToolStripMenuItem_Click );
-            // 
-            // sendTextToolStripMenuItem
-            // 
-            this.sendTextToolStripMenuItem.Name = "sendTextToolStripMenuItem";
-            this.sendTextToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
-            this.sendTextToolStripMenuItem.Text = "Send text...";
             // 
             // recipientContextSeparator1
             // 
             this.recipientContextSeparator1.Name = "recipientContextSeparator1";
-            this.recipientContextSeparator1.Size = new System.Drawing.Size( 128, 6 );
+            this.recipientContextSeparator1.Size = new System.Drawing.Size( 149, 6 );
             // 
             // copyIPAddressToolStripMenuItem
             // 
             this.copyIPAddressToolStripMenuItem.Name = "copyIPAddressToolStripMenuItem";
-            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 131, 22 );
+            this.copyIPAddressToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
             this.copyIPAddressToolStripMenuItem.Text = "Copy IP";
             this.copyIPAddressToolStripMenuItem.Click += new System.EventHandler( this.copyIPAddressToolStripMenuItem_Click );
             // 
@@ -306,7 +298,7 @@
             // 
             this.optionsToolStripMenuItem.Image = global::LANdrop.Properties.Resources.setting_tools;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size( 116, 22 );
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler( this.optionsToolStripMenuItem_Click );
             // 
@@ -449,7 +441,6 @@
         private System.Windows.Forms.ToolStripMenuItem sendFileToToolStripMenuItem;
         private System.Windows.Forms.Timer refreshPeerListTimer;
         private System.Windows.Forms.ToolStripMenuItem copyIPAddressToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sendTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator recipientContextSeparator1;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;

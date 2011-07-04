@@ -258,11 +258,11 @@ namespace LANdrop.UI
             // Hide certain elements when click on the "not using LANdrop" item.
             if ( receipientList.SelectedItems[0] == notUsingLandrop )
             {
-                sendTextToolStripMenuItem.Visible = copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = false;
+                copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = false;
                 return;
             }
             else
-                sendTextToolStripMenuItem.Visible = copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;            
+                copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;            
         }
 
         private void optionsToolStripMenuItem_Click( object sender, EventArgs e )
