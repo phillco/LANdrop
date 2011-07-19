@@ -86,7 +86,7 @@ namespace LANdrop.UI
             // Hide or show the little "update ready!" banner as needed.
             if ( !panelApplyUpdate.Visible && Configuration.CurrentSettings.UpdateAutomatically && UpdateChecker.CurrentState == UpdateChecker.State.READY_TO_APPLY )
                 ShowUpdateCues( );
-            else if ( panelApplyUpdate.Visible && ( !Configuration.CurrentSettings.UpdateAutomatically || UpdateChecker.CurrentState != UpdateChecker.State.READY_TO_APPLY ) )
+            else if ( panelApplyUpdate.Visible && ( !Configuration.CurrentSettings.UpdateAutomatically || UpdateChecker.CurrentState == UpdateChecker.State.SLEEPING ) )
                 HideUpdateCues( );
         }
 
@@ -262,7 +262,7 @@ namespace LANdrop.UI
                 return;
             }
             else
-                copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;            
+                copyIPAddressToolStripMenuItem.Visible = recipientContextSeparator1.Visible = true;
         }
 
         private void optionsToolStripMenuItem_Click( object sender, EventArgs e )

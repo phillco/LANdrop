@@ -139,7 +139,7 @@ namespace LANdrop.Updates
                         }
                     }
                     else
-                        CurrentState = State.SLEEPING;
+                        CurrentState = BuildDownloader.IsUpdateDownloaded() ? State.READY_TO_APPLY : State.SLEEPING;
                 }
 
                 // Wait to refresh again.
