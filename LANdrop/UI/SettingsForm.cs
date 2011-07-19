@@ -27,11 +27,11 @@ namespace LANdrop.UI
         {
             tbUserName.Text = config.Username;
             cbUpdateAutomatically.Checked = config.UpdateAutomatically;
-            cbUpdateChannel.Text = config.UpdateChannel.ToString( );
+            comboUpdateChannel.Text = config.UpdateChannel.ToString( );
 
             // Hide the "Dev" channel, unless the user is currently using it.
             if ( config.UpdateChannel != Channel.Dev )
-                cbUpdateChannel.Items.Remove( "Dev" );
+                comboUpdateChannel.Items.Remove( "Dev" );
 
             UpdateState( );
             Refresh( );
@@ -43,16 +43,16 @@ namespace LANdrop.UI
         private void SaveToConfiguration( Configuration config )
         {
             config.UpdateAutomatically = cbUpdateAutomatically.Checked;
-            config.UpdateChannel = ChannelFunctions.Parse( cbUpdateChannel.Text );
+            config.UpdateChannel = ChannelFunctions.Parse( comboUpdateChannel.Text );
             config.Username = tbUserName.Text;
         }
 
         private void UpdateState( )
         {
             if ( BuildInfo.DoesUpdate )
-                cbUpdateChannel.Enabled = lblChannel.Enabled = cbUpdateAutomatically.Checked;
+                comboUpdateChannel.Enabled = lblChannel.Enabled = cbUpdateAutomatically.Checked;
             else
-                cbUpdateChannel.Visible = lblChannel.Visible = cbUpdateAutomatically.Visible = false; // No updates in this build!
+                comboUpdateChannel.Visible = lblChannel.Visible = cbUpdateAutomatically.Visible = false; // No updates in this build!
         }
 
         private void btnSave_Click( object sender, EventArgs e )

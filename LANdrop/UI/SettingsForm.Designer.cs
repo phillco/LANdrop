@@ -36,11 +36,11 @@
             this.panel2 = new System.Windows.Forms.Panel( );
             this.tabControl1 = new System.Windows.Forms.TabControl( );
             this.tabPage1 = new System.Windows.Forms.TabPage( );
+            this.comboUpdateChannel = new System.Windows.Forms.ComboBox( );
+            this.lblChannel = new System.Windows.Forms.Label( );
             this.cbUpdateAutomatically = new System.Windows.Forms.CheckBox( );
             this.tbUserName = new System.Windows.Forms.TextBox( );
             this.label1 = new System.Windows.Forms.Label( );
-            this.lblChannel = new System.Windows.Forms.Label( );
-            this.cbUpdateChannel = new System.Windows.Forms.ComboBox( );
             this.panel1.SuspendLayout( );
             this.panel2.SuspendLayout( );
             this.tabControl1.SuspendLayout( );
@@ -113,7 +113,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add( this.cbUpdateChannel );
+            this.tabPage1.Controls.Add( this.comboUpdateChannel );
             this.tabPage1.Controls.Add( this.lblChannel );
             this.tabPage1.Controls.Add( this.cbUpdateAutomatically );
             this.tabPage1.Controls.Add( this.tbUserName );
@@ -125,6 +125,28 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // comboUpdateChannel
+            // 
+            this.comboUpdateChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboUpdateChannel.FormattingEnabled = true;
+            this.comboUpdateChannel.Items.AddRange( new object[] {
+            "Release",
+            "Beta",
+            "Dev"} );
+            this.comboUpdateChannel.Location = new System.Drawing.Point( 130, 81 );
+            this.comboUpdateChannel.Name = "comboUpdateChannel";
+            this.comboUpdateChannel.Size = new System.Drawing.Size( 72, 21 );
+            this.comboUpdateChannel.TabIndex = 7;
+            // 
+            // lblChannel
+            // 
+            this.lblChannel.AutoSize = true;
+            this.lblChannel.Location = new System.Drawing.Point( 74, 84 );
+            this.lblChannel.Name = "lblChannel";
+            this.lblChannel.Size = new System.Drawing.Size( 50, 13 );
+            this.lblChannel.TabIndex = 6;
+            this.lblChannel.Text = "Channel:";
             // 
             // cbUpdateAutomatically
             // 
@@ -152,28 +174,6 @@
             this.label1.Size = new System.Drawing.Size( 63, 13 );
             this.label1.TabIndex = 0;
             this.label1.Text = "Your Name:";
-            // 
-            // lblChannel
-            // 
-            this.lblChannel.AutoSize = true;
-            this.lblChannel.Location = new System.Drawing.Point( 74, 84 );
-            this.lblChannel.Name = "lblChannel";
-            this.lblChannel.Size = new System.Drawing.Size( 50, 13 );
-            this.lblChannel.TabIndex = 6;
-            this.lblChannel.Text = "Channel:";
-            // 
-            // cbUpdateChannel
-            // 
-            this.cbUpdateChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUpdateChannel.FormattingEnabled = true;
-            this.cbUpdateChannel.Items.AddRange( new object[] {
-            "Release",
-            "Beta",
-            "Dev"} );
-            this.cbUpdateChannel.Location = new System.Drawing.Point( 130, 81 );
-            this.cbUpdateChannel.Name = "cbUpdateChannel";
-            this.cbUpdateChannel.Size = new System.Drawing.Size( 72, 21 );
-            this.cbUpdateChannel.TabIndex = 7;
             // 
             // SettingsForm
             // 
@@ -213,7 +213,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.LinkLabel llblResetToDefaults;
         private System.Windows.Forms.CheckBox cbUpdateAutomatically;
-        private System.Windows.Forms.ComboBox cbUpdateChannel;
+        private System.Windows.Forms.ComboBox comboUpdateChannel;
         private System.Windows.Forms.Label lblChannel;
     }
 }
