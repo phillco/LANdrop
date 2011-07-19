@@ -29,6 +29,10 @@ namespace LANdrop.UI
             cbUpdateAutomatically.Checked = config.UpdateAutomatically;
             cbUpdateChannel.Text = config.UpdateChannel.ToString( );
 
+            // Hide the "Dev" channel, unless the user is currently using it.
+            if ( config.UpdateChannel != Channel.Dev )
+                cbUpdateChannel.Items.Remove( "Dev" );
+
             UpdateState( );
             Refresh( );
         }
