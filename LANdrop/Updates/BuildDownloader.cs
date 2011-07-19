@@ -89,7 +89,7 @@ namespace LANdrop.Updates
                 string tempFileName = fileName + ".part";
 
                 // Download the file.
-                new WebClient( ).DownloadFile( ServerAddress + "/downloads/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo[channel].BuildNumber + "/LANdrop.exe", tempFileName );
+                new WebClient( ).DownloadFile( ServerAddress + "/files/" + channel.ToString( ).ToLower( ) + "/" + LastVersionInfo[channel].BuildNumber + "/LANdrop.exe", tempFileName );
 
                 // Success! Remove other updates and the .part suffix.
                 foreach ( var file in new DirectoryInfo( @"LANdrop\Update" ).GetFiles( "LANdrop_" + ChannelFunctions.ToUrlPart( channel ) + "*.exe" ) )
