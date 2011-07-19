@@ -48,7 +48,7 @@ namespace LANdrop.UI
             if ( BuildInfo.DoesUpdate )
                 cbUpdateChannel.Enabled = lblChannel.Enabled = cbUpdateAutomatically.Checked;
             else
-                cbUpdateChannel.Enabled = lblChannel.Enabled = cbUpdateAutomatically.Enabled = false; // No updates in this build!
+                cbUpdateChannel.Visible = lblChannel.Visible = cbUpdateAutomatically.Visible = false; // No updates in this build!
         }
 
         private void btnSave_Click( object sender, EventArgs e )
