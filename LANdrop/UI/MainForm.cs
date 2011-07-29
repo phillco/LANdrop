@@ -149,7 +149,7 @@ namespace LANdrop.UI
         {
             // Select the item under the cursor.
             ListViewItem itemUnderMouse = getItemUnderMouse( receipientList, e.X, e.Y );
-            if ( itemUnderMouse != lastItemHovered )
+            if ( itemUnderMouse != null && itemUnderMouse != lastItemHovered )
             {
                 foreach ( ListViewItem i in receipientList.Items )
                     i.Selected = false;
