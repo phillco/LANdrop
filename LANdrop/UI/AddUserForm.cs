@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using LANdrop.Networking;
+using System.Net;
 
 namespace LANdrop.UI
 {
@@ -44,17 +45,21 @@ namespace LANdrop.UI
             }
 
             // Don't let the user add themself.
-            if ( ip == Util.GetLocalAddress().ToString() || ip == "127.0.0.1" )
+            if ( ip == Util.GetLocalAddress( ).ToString( ) || ip == "127.0.0.1" )
             {
                 MessageBox.Show( "You cannot add yourself!", "Add user", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 tbTheirIP.Text = "";
                 return;
             }
 
-            MulticastManager.AddUserManually( tbTheirIP.Text );
+            PeerManager.Add( new Peer
+            {
+                Name = "User at " + tbTheirIP.Text,
+                EndPoint = new IPEndPoint( IPAddress.Parse( tbTheirIP.Text ), Protocol.DefaultServerPort )
+            } );
             Close( );
         }
-    
+
         private void btnAdd_Click( object sender, EventArgs e )
         {
             AddUser( );

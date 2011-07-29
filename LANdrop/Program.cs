@@ -66,8 +66,7 @@ namespace LANdrop
         /// </summary>
         public static void Shutdown( )
         {
-            MulticastManager.Disconnect( );
-            WebServer.Stop( );
+            Server.Stop( );
             Trace.Flush( );
             Environment.Exit( 0 ); // Kill all remaining threads.
         }

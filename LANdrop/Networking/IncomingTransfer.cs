@@ -38,11 +38,11 @@ namespace LANdrop.Networking
             string peerName = NetworkInStream.ReadString( );
 
             // If we already know this peer, use our stored information. TODO: merge the information like we do elsewhere
-            Sender = MulticastManager.GetPeerForAddress( peerAddress );
+            Sender = PeerManager.GetPeerForAddress( peerAddress );
             if ( Sender == null ) // ...otherwise, add it!
             {
                 Sender = new Peer { Name = peerName, EndPoint = new IPEndPoint( peerAddress, Protocol.DefaultServerPort ) };
-                MulticastManager.ProcessPeer( Sender, true );
+                PeerManager.Add( Sender );
             }
 
             FileName = NetworkInStream.ReadString( );

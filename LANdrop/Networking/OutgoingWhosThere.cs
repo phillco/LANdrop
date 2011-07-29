@@ -48,23 +48,23 @@ namespace LANdrop.Networking
                     // Read in their attributes...
                     Peer.Name = NetworkInStream.ReadString( );
                     Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
-                    MulticastManager.ProcessPeer( Peer, true );
+                    PeerManager.Add( Peer );
+                    Trace.WriteLine( "Success! (" + Peer.Name + ")" );
 
                     // ...and their peer list!
                     if ( NetworkInStream.ReadBoolean( ) )
                     {
                         Peer.LastExchangedPeers = DateTime.Now;
-                        for ( int i = 0, num = NetworkInStream.ReadInt32( ); i < num; i++ )
-                        {
-                            Peer newPeer = new Peer( NetworkInStream );
-                            Trace.WriteLine( "Received " + newPeer + " from " + Peer + "'s peer exchange..." );
-                            MulticastManager.ProcessPeer( newPeer, true );
-                        }
+                        int numPeers = NetworkInStream.ReadInt32( );
+                        for ( int i = 0; i < numPeers; i++ )
+                            PeerManager.Add( new Peer( NetworkInStream ) );
+
+                        Trace.WriteLine( numPeers + " peers received from " + Peer.Name );
                     }
                 }
             }
-            catch ( SocketException ) { }
-            catch ( IOException ) { }
+            catch ( SocketException ex ) { Trace.WriteLine( "Error during outgoing who's-there: " + ex.ToString( ) ); }
+            catch ( IOException ex ) { Trace.WriteLine( "Error during outgoing who's-there: " + ex.ToString( ) ); }
         }
     }
 }

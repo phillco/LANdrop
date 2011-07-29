@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
 using LANdrop.UI;
+using LANdrop.Networking.PeerDiscovery;
 
 namespace LANdrop.Networking
 {
@@ -45,12 +46,27 @@ namespace LANdrop.Networking
         /// </summary>
         private static TcpListener listener;
 
+        private static Thread ListenThread;
+
+        private static MulticastPeerDiscoverer multicastDiscoverer = new MulticastPeerDiscoverer( );
+
+        static Server( )
+        {
+            ListenThread = new Thread( Connect );
+        }
+
         /// <summary>
         /// Starts the listening server on a new thread, where it runs perpetually.
         /// </summary>
         public static void Start( )
         {
-            new Thread( new ThreadStart( Connect ) ).Start( );
+            ListenThread.Start( );
+        }
+
+        public static void Stop()
+        {
+            ListenThread.Abort( );
+            multicastDiscoverer.Stop( );
         }
 
         /// <summary>
@@ -75,7 +91,7 @@ namespace LANdrop.Networking
 
             if ( Connected )
             {
-                MulticastManager.Init( );
+                multicastDiscoverer.Start( );
                 ListenForClients( );
             }
             else
