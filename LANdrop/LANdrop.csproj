@@ -42,6 +42,9 @@
     <Reference Include="HybridDSP.Net">
       <HintPath>..\Assemblies\HybridDSP.Net.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Assemblies\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json.Net20">
       <HintPath>..\Assemblies\Newtonsoft.Json.Net20.dll</HintPath>
     </Reference>
@@ -193,6 +196,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -45,7 +45,7 @@
   <!-- Compacts all the assemblies down to one EXE. -->
   <Target Name="MergeAssemblies" DependsOnTargets="Compile">
     <MakeDir Directories="LANdrop/bin/Publish"/>
-    <Exec Command="netz -w -z -s -o ../Publish LANdrop.exe BugzScout.dll Nini.dll HybridDSP.Net.dll Newtonsoft.Json.Net20.dll" WorkingDirectory="LANdrop/bin/Release"/>
+    <Exec Command="netz -w -z -s -o ../Publish LANdrop.exe BugzScout.dll Nini.dll HybridDSP.Net.dll Newtonsoft.Json.Net20.dll log4net.dll" WorkingDirectory="LANdrop/bin/Release"/>
   </Target>
   
   <!-- Uplods the build and <channel>json to LANdrop.net. -->
