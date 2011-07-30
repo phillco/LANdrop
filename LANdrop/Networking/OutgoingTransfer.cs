@@ -7,7 +7,6 @@ using System.Net.Sockets;
 using LANdrop.UI;
 using System.Threading;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using LANdrop.UI.TransferForms;
 
@@ -15,6 +14,8 @@ namespace LANdrop.Networking
 {
     public class OutgoingTransfer : Transfer
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         public FileInfo File { get; protected set; }
 
         public Peer Recipient { get; protected set; }
@@ -56,11 +57,7 @@ namespace LANdrop.Networking
 
         private void SendInvitation( )
         {
-            Debug.WriteLine( "OUTGOING FILE TRANSFER!" );
-            Debug.Indent( );
-            Debug.WriteLine( "Name: " + File.Name );
-            Debug.WriteLine( "Size: " + Util.FormatFileSize( File.Length ) );
-            Debug.Unindent( );
+            log.InfoFormat( "Outgoing file transfer started: Offering {0} ({1}) to {2}", File.Name, Util.FormatFileSize( File.Length ), Recipient );
 
             // Send the file information.
             NetworkOutStream.Write( (Int32) Protocol.Version );
@@ -75,14 +72,14 @@ namespace LANdrop.Networking
                 SendFile( );
             else
             {
-                Debug.WriteLine( "Outgoing: Transfer rejected!" );
+                log.DebugFormat( "Outgoing file transfer ({0}) was denied!", File.Name );
                 SetState( State.REJECTED );
             }
         }
 
         private void SendFile( )
         {
-            Debug.WriteLine( "Outgoing: Transfer accepted!" );
+            log.DebugFormat( "Outgoing file transfer ({0}) was accepted!", File.Name );
             SetState( State.TRANSFERRING );
 
             // Create the MD5 checksummer.
@@ -109,7 +106,7 @@ namespace LANdrop.Networking
 
             // Finalize the hash.
             hasher.TransformFinalBlock( new byte[0], 0, 0 );
-            Console.WriteLine( "Outgoing: Finished sending data, with hash of: " + Util.HashToHexString( hasher.Hash ));           
+            log.DebugFormat( "Outgoing: Finished sending data, with hash of: {0}", Util.HashToHexString( hasher.Hash ) );
             
             SetState( State.VERIFYING );
             NetworkOutStream.Write( Util.HashToHexString( hasher.Hash ) );
@@ -117,7 +114,7 @@ namespace LANdrop.Networking
             bool success = NetworkInStream.ReadBoolean( );
             SetState( success ? State.FINISHED : State.FAILED );            
 
-            Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " sent in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + "/s)." );
+            log.InfoFormat( "Outgoing file transfer succeeded! {0} ({1}) was sent to {2} in {3} seconds ({4}/s)", FileName, Util.FormatFileSize( FileSize ), Recipient, ( StopTime - StartTime ) / 1000.0, Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) );
         }
     }
 }

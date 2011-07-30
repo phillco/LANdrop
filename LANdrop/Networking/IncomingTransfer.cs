@@ -6,7 +6,6 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 using LANdrop.UI;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Net;
 using LANdrop.UI.TransferForms;
@@ -15,6 +14,8 @@ namespace LANdrop.Networking
 {
     public class IncomingTransfer : Transfer
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         public Peer Sender { get; private set; }
 
         public string FileSaveLocation { get; private set; }
@@ -85,11 +86,7 @@ namespace LANdrop.Networking
 
         protected override void Connect( )
         {
-            Debug.WriteLine( "INCOMING FILE TRANSFER!" );
-            Debug.Indent( );
-            Debug.WriteLine( "Name: " + FileName );
-            Debug.WriteLine( "Size: " + Util.FormatFileSize( FileSize ) );
-            Debug.Unindent( );
+            log.InfoFormat( "Incoming file transfer offerred: {0} wants to send us {1} ({2})", Sender, FileName, Util.FormatFileSize( FileSize ) );
 
             // Open handle to the file.
             SetState( State.TRANSFERRING );
@@ -121,7 +118,7 @@ namespace LANdrop.Networking
 
             // Finalize the hash.
             hasher.TransformFinalBlock( new byte[0], 0, 0 );
-            Console.WriteLine( "Incoming: Finished receiving data, with hash of: " + Util.HashToHexString( hasher.Hash ) );
+            log.DebugFormat( "Incoming: Finished receiving data, with hash of: {0}", Util.HashToHexString( hasher.Hash ) );
 
             // Wait for the senders's hash code.
             if ( NetworkInStream.ReadString( ) == Util.HashToHexString( hasher.Hash ) )
@@ -137,7 +134,7 @@ namespace LANdrop.Networking
 
             NetworkOutStream.Flush( );
             SetState( State.FINISHED );
-            Trace.WriteLine( FileName + ": " + Util.FormatFileSize( FileSize ) + " received in " + ( StopTime - StartTime ) / 1000.0 + " seconds (" + Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) + ")." );
+            log.InfoFormat( "Incoming file transfer succeeded! {0} ({1}) was received from {2} in {3} seconds ({4}/s) ", FileName, Util.FormatFileSize( FileSize ), Sender, ( StopTime - StartTime ) / 1000.0, Util.FormatFileSize( GetCurrentSpeed( ) * 1000 ) );
         }
     }
 }

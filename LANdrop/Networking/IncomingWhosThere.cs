@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Sockets;
 using System.IO;
-using System.Diagnostics;
 using System.Net;
 
 namespace LANdrop.Networking
 {
     class IncomingWhosThere
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         private TcpClient client;
         private BinaryReader NetworkInStream;
         private BinaryWriter NetworkOutStream;
@@ -30,7 +31,7 @@ namespace LANdrop.Networking
             Peer existingPeer = PeerList.GetPeerForAddress( address );
 
             // Send our basic information.
-            Trace.WriteLine( String.Format( "\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
+            log.Debug( String.Format( "\nReplying to a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
             NetworkOutStream.Write( Configuration.CurrentSettings.Username );
 
             // ...and our peer list, if they want it.
@@ -41,21 +42,20 @@ namespace LANdrop.Networking
                 // Only send fresh, active peers.
                 List<Peer> peersToSend = PeerList.GetList( true );
                 peersToSend.Remove( existingPeer );
-
-                Trace.WriteLine( "Sending " + peersToSend.Count + " peers as part of the peer exchange...." );
+                log.Info( "Sending " + peersToSend.Count + " peers to " + existingPeer + " as part of the peer exchange...." );
 
                 NetworkOutStream.Write( (Int32) peersToSend.Count );
                 foreach ( Peer p in peersToSend )
                 {
                     p.ToStream( NetworkOutStream );
-                    Trace.WriteLine( "\tSent " + p );
+                    log.Debug( "\tSent " + p );
                 }
             }
 
             // If this is a brand new peer to us, immediately look them up, too.
             if ( existingPeer == null )
             {
-                Trace.WriteLine( "\nUser is unknown, so we'll look them up too." );
+                log.Debug( "\nUser is unknown, so we'll look them up too." );
                 new OutgoingWhosThere( new Peer { EndPoint = address } );
             }
         }

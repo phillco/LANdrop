@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
-using System.Diagnostics;
 
 namespace LANdrop.Networking
 {
@@ -14,6 +13,8 @@ namespace LANdrop.Networking
     /// </summary>
     class OutgoingWhosThere
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         private Peer Peer;
 
         public OutgoingWhosThere( Peer peerToUpdate )
@@ -43,13 +44,12 @@ namespace LANdrop.Networking
                     // Is it time to do a peer exchange?
                     bool doPeerExchange = Peer.ShouldDoPeerExchange();
                     NetworkOutStream.Write( doPeerExchange );
-                    Trace.WriteLine( String.Format( "SENDING a who's-there request to {0}{1}.", Peer, doPeerExchange ? " (with peer list request)" : "" ) );
+                    log.DebugFormat( "Sending a who's-there request to {0}{1}.", Peer.EndPoint, ( doPeerExchange ? " (with peer list request)" : "" ) );
 
                     // Read in their attributes...
                     Peer.Name = NetworkInStream.ReadString( );
                     Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
                     PeerList.Add( Peer );
-                    Trace.WriteLine( "Success! (" + Peer.Name + ")" );
 
                     // ...and their peer list!
                     if ( NetworkInStream.ReadBoolean( ) )
@@ -59,12 +59,12 @@ namespace LANdrop.Networking
                         for ( int i = 0; i < numPeers; i++ )
                             PeerList.Add( new Peer( NetworkInStream ) );
 
-                        Trace.WriteLine( numPeers + " peers received from " + Peer.Name );
+                        log.InfoFormat( "{0} peers received from {1} via peer exchange.", numPeers, Peer );
                     }
                 }
             }
-            catch ( SocketException ex ) { Trace.WriteLine( "Error during outgoing who's-there: " + ex.ToString( ) ); }
-            catch ( IOException ex ) { Trace.WriteLine( "Error during outgoing who's-there: " + ex.ToString( ) ); }
+            catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }
+            catch ( IOException e ) { log.Info( "Error during outgoing who's-there: " + e ); }
         }
     }
 }

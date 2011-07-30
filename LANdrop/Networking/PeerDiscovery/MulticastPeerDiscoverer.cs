@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading;
 using System.Net.Sockets;
 using System.Windows.Forms;
-using System.Diagnostics;
 using System.IO;
 
 namespace LANdrop.Networking.PeerDiscovery
@@ -15,6 +14,8 @@ namespace LANdrop.Networking.PeerDiscovery
     /// </summary>
     class MulticastPeerDiscoverer : IPeerDiscoverer
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
         private bool connected;
@@ -29,13 +30,13 @@ namespace LANdrop.Networking.PeerDiscovery
             sendThread = new Thread( SendLoop );
             sendThread.Name = "MulticastPeerDiscoverer Broadcast";
             sendThread.IsBackground = true;
-            sendThread.Priority = ThreadPriority.BelowNormal;            
+            sendThread.Priority = ThreadPriority.BelowNormal;
 
             // Set up the thread to listen for new accouncements.
             listenThread = new Thread( ListenLoop );
             listenThread.Name = "MulticastPeerDiscoverer Listen";
             listenThread.IsBackground = true;
-            listenThread.Priority = ThreadPriority.BelowNormal;                                   
+            listenThread.Priority = ThreadPriority.BelowNormal;
         }
 
         public void Start( )
@@ -44,17 +45,17 @@ namespace LANdrop.Networking.PeerDiscovery
             listenThread.Start( );
         }
 
-        public void Refresh()
+        public void Refresh( )
         {
             sendThread.Interrupt( );
         }
 
         public void Stop( )
-        {            
+        {
             connected = false;
             sendThread.Interrupt( ); // Will send a "goodbye" message to remove us from other peer lists immediately.
             listenThread.Abort( );
-        }     
+        }
 
         /// <summary>
         /// Perpetually announces our information every second.
@@ -64,7 +65,7 @@ namespace LANdrop.Networking.PeerDiscovery
             using ( Socket socket = new Socket( AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp ) )
             {
                 InitializeOutgoingSocket( socket );
-  
+
                 while ( connected )
                 {
                     SendAnnouncement( socket );
@@ -115,7 +116,7 @@ namespace LANdrop.Networking.PeerDiscovery
                 Environment.Exit( -1 );
             }
             else
-                Trace.WriteLine( "Multicast sender bound to port " + sendPort + "." );
+                log.Info( "Multicast sender bound to port " + sendPort + "." );
 
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
             socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
@@ -127,14 +128,20 @@ namespace LANdrop.Networking.PeerDiscovery
             int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPort ); // Must get this one to receive the multicast messages.
             if ( listenPort == -1 )
             {
-                MessageBox.Show( "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                var message = "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.";
+                log.Fatal( message );
+                MessageBox.Show( message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
             else if ( listenPort != Protocol.MulticastPort )
-                MessageBox.Show( "The multicast listener was unable to bind to port " + Protocol.MulticastPort + " (instead, it got " + listenPort + ")." +
-                    "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+            {
+                var message = String.Format( "The multicast listener was unable to bind to port {0} (instead, it got {1})." +
+                    "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", Protocol.MulticastPort, listenPort );
+                log.Warn( message );
+                MessageBox.Show( message, "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+            }
 
-            Trace.WriteLine( "Multicast listener bound to port " + listenPort + "." );
+            log.Info( "Multicast listener bound to port " + listenPort + "." );
             listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
 
         }
@@ -173,7 +180,8 @@ namespace LANdrop.Networking.PeerDiscovery
                     LastSeen = DateTime.Now,
                     LastLookedUp = DateTime.Now
                 };
-                Debug.WriteLine( "Received a multicast announcement from " + peer.Name );
+
+                log.Debug( "Received a multicast announcement from " + peer.Name + " (" + peer.EndPoint + ")" );
 
                 if ( message.ReadBoolean( ) ) // Are they saying goodbye?
                     PeerList.Add( peer );

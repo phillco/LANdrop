@@ -6,7 +6,6 @@ using System.Threading;
 using System.Net;
 using System.IO;
 using System.Windows.Forms;
-using System.Diagnostics;
 using LANdrop.UI;
 using LANdrop.Networking.PeerDiscovery;
 
@@ -17,6 +16,8 @@ namespace LANdrop.Networking
     /// </summary>
     class Server
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         /// <summary>
         /// Whether the server is active and listening for new connections.
         /// </summary>
@@ -83,7 +84,7 @@ namespace LANdrop.Networking
                     listener.Start( );
                     Port = port;
                     Connected = true;
-                    Trace.WriteLine( "Server started on port " + Port + "!" );
+                    log.Info( "Server started on port " + Port + "!" );
                     break;
                 }
                 catch ( SocketException ) { }
@@ -96,7 +97,9 @@ namespace LANdrop.Networking
             }
             else
             {
-                MessageBox.Show( "Failed to bind the listener.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                var message = "Failed to bind the listener.\nAnother instance of LANdrop might be running.";
+                log.Fatal( message );
+                MessageBox.Show( message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
                 Environment.Exit( -1 );
             }
         }

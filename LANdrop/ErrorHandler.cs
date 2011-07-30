@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using FogCreek;
 using LANdrop.UI;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;
 

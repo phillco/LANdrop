@@ -107,29 +107,7 @@ namespace LANdrop
                 safeVersion = safeVersion.Replace( c.ToString( ), "_" );
 
             return safeVersion;
-        }
-
-        /// <summary>
-        /// Returns the path to use for the application's log file. The filename is based on the local computer name and the current time.
-        /// </summary>
-        public static string GetLogFileName( )
-        {
-            // The "Logs" folder is in LANdrop's application folder.
-            string logFolder = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ), "LANdrop\\Logs\\" );
-            Directory.CreateDirectory( logFolder );
-
-            // Create the filename based on the information we have.
-            string logFilename = "LANdrop_" + Dns.GetHostName( ) + "_" + DateTime.Now.ToString( "yyyy_MM_dd-H_MM_ss" ) + ".log";
-
-            // Remove any naughty characters.
-            logFilename = Util.MakeFilenameSafe( logFilename );
-
-            // Put it in the logs directory.
-            logFilename = Path.Combine( logFolder, logFilename );
-
-            // Lastly, just in case there's already a file with this name, add a (2) to the end.
-            return Util.FindFreeFileName( logFilename );
-        }
+        }     
 
         /// <summary>
         /// Returns the computer's IP list.

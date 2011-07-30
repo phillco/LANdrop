@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
-using System.Diagnostics;
 using System.Threading;
 
 namespace LANdrop.Networking
@@ -13,6 +12,8 @@ namespace LANdrop.Networking
     /// </summary>
     static class PeerList
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         public static event ListChangedHandler ListChanged;
 
         public delegate void ListChangedHandler( List<Peer> peers );
@@ -127,8 +128,8 @@ namespace LANdrop.Networking
                     peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp( ) );
                 foreach ( Peer p in peersToLookUp )
                 {
-                    Trace.WriteLine( String.Format( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
-                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastExchangedPeers ).TotalSeconds ) );
+                    log.DebugFormat( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
+                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastExchangedPeers ).TotalSeconds );
                     new OutgoingWhosThere( p );
                 }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using LANdrop.UI;
 using LANdrop.Networking;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using HybridDSP.Net.HTTP;
@@ -34,13 +33,7 @@ namespace LANdrop
             {
                 // Set up crucial modules.
                 Application.EnableVisualStyles( );
-                Application.SetCompatibleTextRenderingDefault( false );
-
-                if ( File.Exists( "LANdrop\\Logging.xml" ))
-                    XmlConfigurator.ConfigureAndWatch( new FileInfo( "LANdrop\\Logging.xml" ) );
-                else // Read the embedded configuration.
-                    XmlConfigurator.Configure( new MemoryStream( Encoding.UTF8.GetBytes( Resources.log4net ) ) );
-
+                Application.SetCompatibleTextRenderingDefault( false );            
                 SetupLog( );
                 ErrorHandler.Initialize( );
                 Configuration.Initialize( );
@@ -78,8 +71,7 @@ namespace LANdrop
         /// </summary>
         public static void Shutdown( )
         {
-            Server.Stop( );
-            Trace.Flush( );
+            Server.Stop( );            
             Environment.Exit( 0 ); // Kill all remaining threads.
         }
 
@@ -88,15 +80,15 @@ namespace LANdrop
         /// </summary>
         private static void SetupLog( )
         {
-            Trace.Listeners.Add( new TextWriterTraceListener( new FileStream( Util.GetLogFileName( ), FileMode.Create ) ) );
-            Trace.AutoFlush = true;
-            Trace.WriteLine( "LANdrop started!" );
-            Trace.Indent( );
-            Trace.WriteLine( "Date: " + DateTime.Now.ToString( "MM/dd/yyyy h:mm:ss tt" ) );
-            Trace.WriteLine( "Host: " + Dns.GetHostName( ) );
-            Trace.WriteLine( "User: " + Environment.UserName );
-            Trace.WriteLine( "Protocol Version: " + Protocol.Version );
-            Trace.Unindent( );
+            if ( File.Exists( "LANdrop\\Logging.xml" ) )
+                XmlConfigurator.ConfigureAndWatch( new FileInfo( "LANdrop\\Logging.xml" ) );
+            else // Read the embedded configuration.
+                XmlConfigurator.Configure( new MemoryStream( Encoding.UTF8.GetBytes( Resources.log4net ) ) );
+
+            log.Info( "LANdrop started! v" + Util.GetProgramVersion( ) + " (" + BuildInfo.Version.ToString( ) + ")" );
+            log.Info( "Host: " + Dns.GetHostName( ) );
+            log.Info( "User: " + Environment.UserName );
+            log.Info( "Protocol Version: " + Protocol.Version );
         }
     }
 }
