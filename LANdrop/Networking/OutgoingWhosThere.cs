@@ -49,7 +49,7 @@ namespace LANdrop.Networking
                     // Read in their attributes...
                     Peer.Name = NetworkInStream.ReadString( );
                     Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
-                    PeerList.Add( Peer );
+                    PeerList.AddOrUpdate( Peer );
 
                     // ...and their peer list!
                     if ( NetworkInStream.ReadBoolean( ) )
@@ -57,7 +57,7 @@ namespace LANdrop.Networking
                         Peer.LastExchangedPeers = DateTime.Now;
                         int numPeers = NetworkInStream.ReadInt32( );
                         for ( int i = 0; i < numPeers; i++ )
-                            PeerList.Add( new Peer( NetworkInStream ) );
+                            PeerList.AddOrUpdate( new Peer( NetworkInStream ) );
 
                         log.InfoFormat( "{0} peers received from {1} via peer exchange.", numPeers, Peer );
                     }

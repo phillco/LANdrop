@@ -52,7 +52,7 @@ namespace LANdrop.UI
                 return;
             }
 
-            PeerList.Add( new Peer
+            PeerList.AddOrUpdate( new Peer
             {
                 Name = "User at " + tbTheirIP.Text,
                 EndPoint = new IPEndPoint( IPAddress.Parse( tbTheirIP.Text ), Protocol.DefaultServerPort )

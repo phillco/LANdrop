@@ -43,7 +43,7 @@ namespace LANdrop.Networking
             if ( Sender == null ) // ...otherwise, add it!
             {
                 Sender = new Peer { Name = peerName, EndPoint = new IPEndPoint( peerAddress, Protocol.DefaultServerPort ) };
-                PeerList.Add( Sender );
+                PeerList.AddOrUpdate( Sender );
             }
 
             FileName = NetworkInStream.ReadString( );

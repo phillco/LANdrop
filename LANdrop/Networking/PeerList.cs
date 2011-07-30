@@ -46,13 +46,19 @@ namespace LANdrop.Networking
             MaintenanceThread.Start( );
         }
 
+        /// <summary>
+        /// Returns the peer list (or a subset) based on the given parameters.
+        /// </summary>
         public static List<Peer> GetList( bool freshPeersOnly )
         {
             lock ( _masterList )
                 return _masterList.FindAll( p => !freshPeersOnly || DateTime.Now.Subtract( p.LastSeen ).TotalMinutes < 1.0 );
         }
 
-        public static void Add( Peer peer )
+        /// <summary>
+        /// Adds the given peer to the list (if its address is new), or updates the existing peer.
+        /// </summary>
+        public static void AddOrUpdate( Peer peer )
         {
             // Ignore our own announcements.
             if ( Server.Connected && peer.EndPoint.Equals( Server.LocalServerEndpoint ) )
@@ -79,18 +85,27 @@ namespace LANdrop.Networking
             }
         }
 
-        public static void Add( IEnumerable<Peer> peers )
+        /// <summary>
+        /// Adds/Updates the given collection of peers.
+        /// </summary>
+        public static void AddOrUpdate( IEnumerable<Peer> peers )
         {
             foreach ( Peer p in peers )
-                Add( p );
+                AddOrUpdate( p );
         }
 
+        /// <summary>
+        /// Removes the given peer from the list (use with care!)
+        /// </summary>
         public static void Remove( Peer peer )
         {
             lock ( _masterList )
                 _masterList.Remove( peer );
         }
 
+        /// <summary>
+        /// Returns the peer at the given address and port.
+        /// </summary>
         public static Peer GetPeerForAddress( IPEndPoint address )
         {
             lock ( _masterList )
@@ -98,18 +113,12 @@ namespace LANdrop.Networking
         }
 
         /// <summary>
-        /// This one's port-insensitive.
+        /// Returns the peer at the given address. (port-insensitive!)
         /// </summary>
         public static Peer GetPeerForAddress( IPAddress address )
         {
             lock ( _masterList )
                 return _masterList.Find( p => p.EndPoint.Address.Equals( address ) );
-        }
-
-        public static void RemoveOldPeers( )
-        {
-            lock ( _masterList )
-                _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
         }
 
         /// <summary>
@@ -140,6 +149,18 @@ namespace LANdrop.Networking
             }
         }
 
+        /// <summary>
+        /// Remove peers that have not been heard from recently.
+        /// </summary>
+        private static void RemoveOldPeers( )
+        {
+            lock ( _masterList )
+                _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
+        }
+
+        /// <summary>
+        /// Fires the "list changed" event.
+        /// </summary>
         private static void NotifyChangedEvent( )
         {
             if ( ListChanged != null )
