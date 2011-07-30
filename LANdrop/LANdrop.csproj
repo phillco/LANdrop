@@ -196,7 +196,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config">
+    <None Include="Resources\log4net.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">

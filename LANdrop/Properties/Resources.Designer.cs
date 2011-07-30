@@ -137,6 +137,29 @@ namespace LANdrop.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;configuration&gt;
+        ///
+        /// &lt;configSections&gt;
+        ///   &lt;section name=&quot;log4net&quot; type=&quot;log4net.Config.Log4NetConfigurationSectionHandler, log4net&quot; /&gt;
+        /// &lt;/configSections&gt;
+        ///
+        /// &lt;!-- Configure application logging. --&gt;
+        /// &lt;log4net&gt;
+        ///               
+        ///   &lt;!-- Log to a file in the application directory. --&gt;
+        ///   &lt;appender name=&quot;FileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt; 
+        ///		&lt;file value=&quot;LANdrop.log&quot; /&gt; 
+        ///		&lt;appendToFile value=&quot;false&quot; /&gt; 
+        ///		&lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string log4net {
+            get {
+                return ResourceManager.GetString("log4net", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap note_go {
             get {
                 object obj = ResourceManager.GetObject("note_go", resourceCulture);

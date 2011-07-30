@@ -10,11 +10,17 @@ using HybridDSP.Net.HTTP;
 using System.Threading;
 using System.Text.RegularExpressions;
 using LANdrop.Updates;
+using log4net.Config;
+using LANdrop.Properties;
+using System.Reflection;
+using System.Text;
 
 namespace LANdrop
 {
     static class Program
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
+
         // Convert command line arguments to a list.
         public static readonly List<String> CommandLineArgs = new List<string>( Environment.GetCommandLineArgs( ) );
 
@@ -29,6 +35,12 @@ namespace LANdrop
                 // Set up crucial modules.
                 Application.EnableVisualStyles( );
                 Application.SetCompatibleTextRenderingDefault( false );
+
+                if ( File.Exists( "LANdrop\\Logging.xml" ))
+                    XmlConfigurator.ConfigureAndWatch( new FileInfo( "LANdrop\\Logging.xml" ) );
+                else // Read the embedded configuration.
+                    XmlConfigurator.Configure( new MemoryStream( Encoding.UTF8.GetBytes( Resources.log4net ) ) );
+
                 SetupLog( );
                 ErrorHandler.Initialize( );
                 Configuration.Initialize( );

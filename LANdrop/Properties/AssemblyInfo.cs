@@ -34,6 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion( "0.5.3.0" )]
 [assembly: AssemblyFileVersion( "0.5.3.0" )]
-
-// Use the log4net logging framework, and allow it to be configured via file.
-[assembly: log4net.Config.XmlConfigurator( ConfigFile = "LANdrop.exe.config", Watch = true )]
