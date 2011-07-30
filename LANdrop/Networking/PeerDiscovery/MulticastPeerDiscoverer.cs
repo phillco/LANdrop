@@ -10,15 +10,15 @@ using System.IO;
 namespace LANdrop.Networking.PeerDiscovery
 {
     /// <summary>
-    /// Discovers peers using IPv6 multicasting.
+    /// Discovers peers using IPv6 multicasting. This is the LANdrop's #1 way to detect peers on the network; it is reliable and works around routers.
     /// </summary>
     class MulticastPeerDiscoverer : IPeerDiscoverer
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
 
-        private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
-
         private bool connected;
+
+        private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );        
 
         private Thread sendThread, listenThread;
 
@@ -53,7 +53,7 @@ namespace LANdrop.Networking.PeerDiscovery
         public void Stop( )
         {
             connected = false;
-            sendThread.Interrupt( ); // Will send a "goodbye" message to remove us from other peer lists immediately.
+            Refresh( ); // Will send a "goodbye" message to remove us from other peer lists immediately.
             listenThread.Abort( );
         }
 
@@ -98,54 +98,13 @@ namespace LANdrop.Networking.PeerDiscovery
                     listenSocket.Receive( packet ); // Halt here until a packet is received.
 
                     ParseAnnouncement( packet );
-
-                    // Update the UI.
-                    // MainForm.Instance.UpdatePeerList( );
                 }
             }
         }
 
-        protected void InitializeOutgoingSocket( Socket socket )
-        {
-            int sendPort = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPort + 50 );
-            if ( sendPort == -1 )
-            {
-                // TODO: Smarter handling of this error.
-                // TODO: Detect other instances of LANdrop at startup.
-                MessageBox.Show( "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.", "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                Environment.Exit( -1 );
-            }
-            else
-                log.Info( "Multicast sender bound to port " + sendPort + "." );
-
-            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
-            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 8 );
-            socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPort ) );
-        }
-
-        protected void InitializeIncomingSocket( Socket listenSocket )
-        {
-            int listenPort = Util.BindToFirstPossiblePort( listenSocket, Protocol.MulticastPort ); // Must get this one to receive the multicast messages.
-            if ( listenPort == -1 )
-            {
-                var message = "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.";
-                log.Fatal( message );
-                MessageBox.Show( message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                Environment.Exit( -1 );
-            }
-            else if ( listenPort != Protocol.MulticastPort )
-            {
-                var message = String.Format( "The multicast listener was unable to bind to port {0} (instead, it got {1})." +
-                    "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", Protocol.MulticastPort, listenPort );
-                log.Warn( message );
-                MessageBox.Show( message, "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            }
-
-            log.Info( "Multicast listener bound to port " + listenPort + "." );
-            listenSocket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
-
-        }
-
+        /// <summary>
+        /// Sends our multicast announcement to the given socket.
+        /// </summary>
         protected void SendAnnouncement( Socket socket )
         {
             using ( BinaryWriter message = new BinaryWriter( new MemoryStream( ) ) )
@@ -164,6 +123,9 @@ namespace LANdrop.Networking.PeerDiscovery
             }
         }
 
+        /// <summary>
+        /// Parses the given multicast announcement.
+        /// </summary>
         protected void ParseAnnouncement( byte[] packet )
         {
             using ( BinaryReader message = new BinaryReader( new MemoryStream( packet ) ) )
@@ -188,6 +150,57 @@ namespace LANdrop.Networking.PeerDiscovery
                 else
                     PeerList.Remove( peer );
             }
+        }
+
+        /// <summary>
+        /// Sets up the outgoing socket, which broadcasts to the multicast group.
+        /// </summary>
+        protected void InitializeOutgoingSocket( Socket socket )
+        {
+            int port = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPort + 50 );
+            if ( port == -1 )
+            {
+                // TODO: Smarter handling of this error.
+                var message = "Failed to bind the multicast sender.\nAnother instance of LANdrop might be running.";
+                log.Fatal( message );
+                MessageBox.Show( message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Environment.Exit( -1 );
+            }
+            else
+                log.Info( "Multicast sender bound to port " + port + "." );
+
+            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress ) );
+            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.MulticastTimeToLive, 16 );
+            socket.Connect( new IPEndPoint( multicastAddress, Protocol.MulticastPort ) );
+        }
+
+        /// <summary>
+        /// Sets up the incoming socket, which listens to the multicast group.
+        /// </summary>
+        protected void InitializeIncomingSocket( Socket socket )
+        {
+            int port = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPort );
+            
+            // Unlike the sending socket, we *must* get this port to receive any multicast messages.
+            if ( port == -1 )
+            {
+                var message = "Failed to bind the multicast listener.\nAnother instance of LANdrop might be running.";
+                log.Fatal( message );
+                MessageBox.Show( message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                Environment.Exit( -1 );
+            }
+            else if ( port != Protocol.MulticastPort )
+            {
+                // TODO: Smarter handling of this error.
+                // TODO: Detect other instances of LANdrop at startup.
+                var message = String.Format( "The multicast listener was unable to bind to port {0} (instead, it got {1})." +
+                    "\n\nLANdrop will still work, but you won't probably won't see any clients to connect to.", Protocol.MulticastPort, port );
+                log.Warn( message );
+                MessageBox.Show( message, "Startup Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+            }
+
+            log.Info( "Multicast listener bound to port " + port + "." );
+            socket.SetSocketOption( SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption( multicastAddress, IPAddress.Any ) );
         }
     }
 }
