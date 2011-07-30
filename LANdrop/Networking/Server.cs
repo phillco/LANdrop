@@ -84,7 +84,7 @@ namespace LANdrop.Networking
                     listener.Start( );
                     Port = port;
                     Connected = true;
-                    log.Info( "Server started on port " + Port + "!" );
+                    log.Info( "Server started; address is " + LocalServerEndpoint+ "." );
                     break;
                 }
                 catch ( SocketException ) { }

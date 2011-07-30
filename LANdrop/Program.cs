@@ -86,7 +86,8 @@ namespace LANdrop
                 XmlConfigurator.Configure( new MemoryStream( Encoding.UTF8.GetBytes( Resources.log4net ) ) );
 
             log.Info( "LANdrop started! v" + Util.GetProgramVersion( ) + " (" + BuildInfo.Version.ToString( ) + ")" );
-            log.Info( "Host: " + Dns.GetHostName( ) );
+            log.Info( "Address: " + Util.GetLocalAddress( ) );
+            log.Info( "Host: " + Dns.GetHostName( ) );            
             log.Info( "User: " + Environment.UserName );
             log.Info( "Protocol Version: " + Protocol.Version );
         }
