@@ -167,7 +167,7 @@ namespace LANdrop.Networking.PeerDiscovery
                 if ( message.ReadInt32( ) != Protocol.Version )
                     return;
 
-                // Parse in the peer, and forward it to the PeerManager.
+                // Parse in the peer, and forward it to the PeerManager.                
                 var peer = new Peer
                 {
                     Name = message.ReadString( ),
@@ -175,6 +175,7 @@ namespace LANdrop.Networking.PeerDiscovery
                     LastSeen = DateTime.Now,
                     LastLookedUp = DateTime.Now
                 };
+                Debug.WriteLine( "Received a multicast announcement from " + peer.Name );
 
                 if ( message.ReadBoolean( ) ) // Are they saying goodbye?
                     PeerManager.Add( peer );
