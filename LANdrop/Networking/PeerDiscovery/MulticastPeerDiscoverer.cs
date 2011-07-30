@@ -178,9 +178,9 @@ namespace LANdrop.Networking.PeerDiscovery
                 Debug.WriteLine( "Received a multicast announcement from " + peer.Name );
 
                 if ( message.ReadBoolean( ) ) // Are they saying goodbye?
-                    PeerManager.Add( peer );
+                    PeerList.Add( peer );
                 else
-                    PeerManager.Remove( peer );
+                    PeerList.Remove( peer );
             }
         }
     }

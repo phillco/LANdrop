@@ -65,7 +65,7 @@
     <Compile Include="Networking\IncomingTransfer.cs" />
     <Compile Include="Networking\PeerDiscovery\IPeerDiscoverer.cs" />
     <Compile Include="Networking\PeerDiscovery\MulticastPeerDiscoverer.cs" />
-    <Compile Include="Networking\PeerManager.cs" />
+    <Compile Include="Networking\PeerList.cs" />
     <Compile Include="Networking\Server.cs" />
     <Compile Include="Networking\OutgoingTransfer.cs" />
     <Compile Include="Networking\Protocol.cs" />

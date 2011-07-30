@@ -58,7 +58,7 @@ namespace LANdrop.UI
             // Update the UI when the configuration changes...
             Configuration.Changed += ( oldSettings ) => UpdateState( );
 
-            PeerManager.ListChanged += ( peers ) => UpdatePeerList( );
+            PeerList.ListChanged += ( peers ) => UpdatePeerList( );
 
             // Show a little notification when builds get updated.
             if ( UpdateApplier.RunningNewVersion )
@@ -111,7 +111,7 @@ namespace LANdrop.UI
 
             // Recreate the listview from the peer list.
             receipientList.Items.Clear( );
-            foreach ( Peer p in PeerManager.PeerList )
+            foreach ( Peer p in PeerList.Peers )
             {
                 receipientList.Items.Add( new ListViewItem
                 {
@@ -330,7 +330,7 @@ namespace LANdrop.UI
 
             // Populate the "Send to" menu with a list of the recipients.
             sendToToolStripMenuItem.DropDownItems.Clear( );
-            foreach ( Peer peer in PeerManager.PeerList )
+            foreach ( Peer peer in PeerList.Peers )
             {
                 // Set up the entry's properties.
                 ToolStripMenuItem item = new ToolStripMenuItem( peer.Name, onlineIcons.Images[peer.IsOnline( ) ? (int) OnlineIconStates.Online : (int) OnlineIconStates.Offline] );

@@ -27,7 +27,7 @@ namespace LANdrop.Networking
         {
             int port = NetworkInStream.ReadInt32( );
             IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, port );
-            Peer existingPeer = PeerManager.GetPeerForAddress( address );
+            Peer existingPeer = PeerList.GetPeerForAddress( address );
 
             // Send our basic information.
             Trace.WriteLine( String.Format( "\nREPLYING TO a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
@@ -39,7 +39,7 @@ namespace LANdrop.Networking
                 NetworkOutStream.Write( true ); // Yes, we're sending the list (TODO: we might want to prevent flooding)
 
                 // Only send fresh, active peers.
-                List<Peer> peersToSend = PeerManager.GetList( true );
+                List<Peer> peersToSend = PeerList.GetList( true );
                 peersToSend.Remove( existingPeer );
 
                 Trace.WriteLine( "Sending " + peersToSend.Count + " peers as part of the peer exchange...." );

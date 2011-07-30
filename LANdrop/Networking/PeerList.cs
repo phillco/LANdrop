@@ -11,18 +11,18 @@ namespace LANdrop.Networking
     /// Manages the master list of other LANdrop clients (peers).
     /// Peers are added to this list manually (through the UI) as well as via the automatic discovery methods (see the PeerDiscovery namespace).
     /// </summary>
-    static class PeerManager
+    static class PeerList
     {
         public static event ListChangedHandler ListChanged;
 
         public delegate void ListChangedHandler( List<Peer> peers );
 
-        private static Thread MaintenanceThread = new Thread( MaintainLoop );
+        private static Thread MaintenanceThread = new Thread( MaintenanceLoop );
 
         /// <summary>
         /// Returns a thread-safe copy of the current peer list.
         /// </summary>
-        public static List<Peer> PeerList
+        public static List<Peer> Peers
         {
             get
             {
@@ -36,7 +36,7 @@ namespace LANdrop.Networking
         /// </summary>
         private static List<Peer> _masterList = new List<Peer>( );
 
-        static PeerManager( )
+        static PeerList( )
         {
             _masterList = new List<Peer>( );
             MaintenanceThread.Name = "PeerManager Maitenance";
@@ -111,10 +111,14 @@ namespace LANdrop.Networking
                 _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
         }
 
-        private static void MaintainLoop()
+        /// <summary>
+        /// Keeps the list in good shape.
+        /// </summary>
+        private static void MaintenanceLoop()
         {
             while ( true )
             {
+                // Remove old peers.
                 RemoveOldPeers( );
 
                 // Look up peers we haven't looked up in a while.                
@@ -138,7 +142,7 @@ namespace LANdrop.Networking
         private static void NotifyChangedEvent( )
         {
             if ( ListChanged != null )
-                ListChanged( PeerList );
+                ListChanged( Peers );
         }
     }
 }
