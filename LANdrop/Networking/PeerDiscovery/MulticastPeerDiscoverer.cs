@@ -15,8 +15,6 @@ namespace LANdrop.Networking.PeerDiscovery
     /// </summary>
     class MulticastPeerDiscoverer : IPeerDiscoverer
     {
-        public event DiscoveryUtils.PeersDiscoveredHandler PeersDiscovered;
-
         private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
         private bool connected;
