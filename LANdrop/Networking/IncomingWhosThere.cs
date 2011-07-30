@@ -20,7 +20,6 @@ namespace LANdrop.Networking
             this.client = client;
             this.NetworkInStream = netInStream;
             this.NetworkOutStream = netOutStream;
-
             this.Respond( );
         }
 
@@ -28,10 +27,15 @@ namespace LANdrop.Networking
         {
             int port = NetworkInStream.ReadInt32( );
             IPEndPoint address = new IPEndPoint( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address, port );
+
+            // Ignore incoming connections from ourselves.
+            if ( Server.Connected && ( address.Equals( Server.LocalServerEndpoint ) ) )
+                return;
+
             Peer existingPeer = PeerList.GetPeerForAddress( address );
 
             // Send our basic information.
-            log.Debug( String.Format( "\nReplying to a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
+            log.Debug( String.Format( "Replying to a who's there from {0}...", existingPeer == null ? "a new peer at " + address : existingPeer.ToString( ) ) );
             NetworkOutStream.Write( Configuration.CurrentSettings.Username );
 
             // ...and our peer list, if they want it.
@@ -55,7 +59,7 @@ namespace LANdrop.Networking
             // If this is a brand new peer to us, immediately look them up, too.
             if ( existingPeer == null )
             {
-                log.Debug( "\nUser is unknown, so we'll look them up too." );
+                log.Debug( "User is unknown, so we'll look them up too." );
                 new OutgoingWhosThere( new Peer { EndPoint = address } );
             }
         }

@@ -40,7 +40,7 @@ namespace LANdrop.Networking
         static PeerList( )
         {
             _masterList = new List<Peer>( );
-            MaintenanceThread.Name = "PeerManager Maitenance";
+            MaintenanceThread.Name = "PeerList Maintenance";
             MaintenanceThread.IsBackground = true;
             MaintenanceThread.Priority = ThreadPriority.BelowNormal;
             MaintenanceThread.Start( );
@@ -128,7 +128,7 @@ namespace LANdrop.Networking
                     peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp( ) );
                 foreach ( Peer p in peersToLookUp )
                 {
-                    log.DebugFormat( "\nIt's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
+                    log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
                         p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastExchangedPeers ).TotalSeconds );
                     new OutgoingWhosThere( p );
                 }
