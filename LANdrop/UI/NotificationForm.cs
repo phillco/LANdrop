@@ -28,9 +28,13 @@ namespace LANdrop.UI
         // All the notifications that we're showing (used for positioning).
         private static List<NotificationForm> allNotifications = new List<NotificationForm>( );
 
+        // Cache the current screen's working area.
+        private Rectangle WorkingArea;
+
         public NotificationForm( )
         {
             InitializeComponent( );
+            WorkingArea = Screen.GetWorkingArea( this );
 
             lock ( allNotifications )
                 allNotifications.Add( this );
@@ -70,7 +74,7 @@ namespace LANdrop.UI
 
         private void ReflowNotifications( )
         {
-            int y = Screen.GetWorkingArea( this ).Height - 15;
+            int y = WorkingArea.Height - 15;
 
             lock ( allNotifications )
             {
