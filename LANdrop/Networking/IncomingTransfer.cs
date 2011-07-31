@@ -102,7 +102,7 @@ namespace LANdrop.Networking
                 while ( NumBytesTransferred < FileSize )
                 {
                     byte[] chunk = new byte[Protocol.TransferChunkSize * 10];
-                    int numBytes = TcpClient.GetStream( ).Read( chunk, 0, chunk.Length );
+                    int numBytes = NetworkInStream.Read( chunk, 0, (int) Math.Min( FileSize - NumBytesTransferred, chunk.Length ));
                     hasher.TransformBlock( chunk, 0, numBytes, null, 0 );
 
                     if ( chunk.Length > 0 )
