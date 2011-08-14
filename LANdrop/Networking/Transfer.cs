@@ -52,7 +52,7 @@ namespace LANdrop.Networking
             {
                 Connect( );
             }
-            catch ( IOException ex )
+            catch ( IOException )
             {
                 SetState( State.FAILED );
                 return;
