@@ -136,10 +136,14 @@ namespace LANdrop.Networking
                     var header = Header.Parse( NetworkInStream.ReadString( ) );
                     var peerAddress = ( (IPEndPoint) client.Client.RemoteEndPoint ).Address;
                     ProcessHeader( peerAddress, header );
+                    var peer = PeerList.GetPeerForAddress( peerAddress );
 
                     // Are they sending us a file?
                     if ( header.Transfer != null )
                         new IncomingTransfer( header, client, NetworkInStream, NetworkOutStream );
+                    else
+                        peer.RegisterEvent( PeerStatistics.EventType.ReceivedInfo );
+
                 }
             }
             catch ( SocketException ) { }
