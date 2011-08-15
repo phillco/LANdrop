@@ -37,6 +37,8 @@
             this.lblIncomingPeerExchanges = new System.Windows.Forms.Label( );
             this.label1 = new System.Windows.Forms.Label( );
             this.updateInfoTimer = new System.Windows.Forms.Timer( this.components );
+            this.lblLastSeen = new System.Windows.Forms.Label( );
+            this.lblNumCommunications = new System.Windows.Forms.Label( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.groupBox1.SuspendLayout( );
             this.SuspendLayout( );
@@ -55,7 +57,7 @@
             // 
             this.lblPeerName.AutoSize = true;
             this.lblPeerName.Font = new System.Drawing.Font( "Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.lblPeerName.Location = new System.Drawing.Point( 50, 15 );
+            this.lblPeerName.Location = new System.Drawing.Point( 44, 15 );
             this.lblPeerName.Name = "lblPeerName";
             this.lblPeerName.Size = new System.Drawing.Size( 164, 25 );
             this.lblPeerName.TabIndex = 1;
@@ -65,7 +67,7 @@
             // 
             this.btnClose.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point( 291, 179 );
+            this.btnClose.Location = new System.Drawing.Point( 291, 216 );
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size( 75, 24 );
             this.btnClose.TabIndex = 2;
@@ -78,7 +80,7 @@
             this.groupBox1.Controls.Add( this.lblOutgoingPeerExchanges );
             this.groupBox1.Controls.Add( this.lblIncomingPeerExchanges );
             this.groupBox1.Controls.Add( this.label1 );
-            this.groupBox1.Location = new System.Drawing.Point( 29, 59 );
+            this.groupBox1.Location = new System.Drawing.Point( 29, 97 );
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size( 321, 96 );
             this.groupBox1.TabIndex = 3;
@@ -88,7 +90,7 @@
             // lblOutgoingPeerExchanges
             // 
             this.lblOutgoingPeerExchanges.AutoSize = true;
-            this.lblOutgoingPeerExchanges.Location = new System.Drawing.Point( 37, 57 );
+            this.lblOutgoingPeerExchanges.Location = new System.Drawing.Point( 31, 57 );
             this.lblOutgoingPeerExchanges.Name = "lblOutgoingPeerExchanges";
             this.lblOutgoingPeerExchanges.Size = new System.Drawing.Size( 150, 13 );
             this.lblOutgoingPeerExchanges.TabIndex = 2;
@@ -97,7 +99,7 @@
             // lblIncomingPeerExchanges
             // 
             this.lblIncomingPeerExchanges.AutoSize = true;
-            this.lblIncomingPeerExchanges.Location = new System.Drawing.Point( 37, 40 );
+            this.lblIncomingPeerExchanges.Location = new System.Drawing.Point( 31, 40 );
             this.lblIncomingPeerExchanges.Name = "lblIncomingPeerExchanges";
             this.lblIncomingPeerExchanges.Size = new System.Drawing.Size( 149, 13 );
             this.lblIncomingPeerExchanges.TabIndex = 1;
@@ -119,13 +121,33 @@
             this.updateInfoTimer.Enabled = true;
             this.updateInfoTimer.Tick += new System.EventHandler( this.updateInfoTimer_Tick );
             // 
+            // lblLastSeen
+            // 
+            this.lblLastSeen.AutoSize = true;
+            this.lblLastSeen.Location = new System.Drawing.Point( 26, 57 );
+            this.lblLastSeen.Name = "lblLastSeen";
+            this.lblLastSeen.Size = new System.Drawing.Size( 137, 13 );
+            this.lblLastSeen.TabIndex = 4;
+            this.lblLastSeen.Text = "Last seen xxx seconds ago";
+            // 
+            // lblNumCommunications
+            // 
+            this.lblNumCommunications.AutoSize = true;
+            this.lblNumCommunications.Location = new System.Drawing.Point( 26, 72 );
+            this.lblNumCommunications.Name = "lblNumCommunications";
+            this.lblNumCommunications.Size = new System.Drawing.Size( 126, 13 );
+            this.lblNumCommunications.TabIndex = 5;
+            this.lblNumCommunications.Text = "Communicated xxx times";
+            // 
             // PeerInfoForm
             // 
             this.AcceptButton = this.btnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size( 378, 214 );
+            this.ClientSize = new System.Drawing.Size( 378, 251 );
+            this.Controls.Add( this.lblNumCommunications );
+            this.Controls.Add( this.lblLastSeen );
             this.Controls.Add( this.groupBox1 );
             this.Controls.Add( this.btnClose );
             this.Controls.Add( this.lblPeerName );
@@ -153,5 +175,7 @@
         private System.Windows.Forms.Label lblIncomingPeerExchanges;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer updateInfoTimer;
+        private System.Windows.Forms.Label lblLastSeen;
+        private System.Windows.Forms.Label lblNumCommunications;
     }
 }

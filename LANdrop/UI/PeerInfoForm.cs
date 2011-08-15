@@ -24,6 +24,10 @@ namespace LANdrop.UI
         {
             lblPeerName.Text = Peer.Name;
 
+            lblLastSeen.Text = String.Format( "Last seen {0} seconds ago", (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.Any ).TotalSeconds );
+            lblNumCommunications.Text = String.Format( "Communicated {0} times", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.Any ) );
+
+            // Record peer list exchanges.
             int numIncoming = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.ReceivedPeerList );
             int numOutgoing = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentPeerList );
 
