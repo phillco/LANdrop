@@ -21,6 +21,10 @@ namespace LANdrop.Networking
 
         private Dictionary<EventType, DateTime> LastTimeOccurred = new Dictionary<EventType, DateTime>( );
 
+        public event StatisticsChangedHandler StatisticsChanged;
+        
+        public delegate void StatisticsChangedHandler( EventType type );
+
         public PeerStatistics( )
         {
             // Initialize the maps so we don't have to worry about missing keys.
@@ -53,7 +57,11 @@ namespace LANdrop.Networking
             Counts[type]++;
             LastTimeOccurred[type] = DateTime.Now;
 
-            // Update the master communication log.
+            // Fire the event.
+            if ( StatisticsChanged != null )
+                StatisticsChanged( type );
+
+            // Update the "Any" statistic.
             if ( type != EventType.Any )
                 RegisterEvent( EventType.Any );
         }
