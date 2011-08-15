@@ -32,16 +32,8 @@ namespace LANdrop.UI
             lblNumOutgoingInquiries.Text = String.Format( "{0} outgoing", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentInfo ) );
 
             // Record peer list exchanges.
-            int numIncoming = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.ReceivedPeerList );
-            int numOutgoing = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentPeerList );
-
-            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming", numIncoming );
-            if ( numIncoming > 0 )
-                lblIncomingPeerExchanges.Text += String.Format( " (last was {0} seconds ago)", (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.ReceivedPeerList ).TotalSeconds );
-            
-            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing", numOutgoing );
-            if ( numOutgoing > 0 )
-                lblOutgoingPeerExchanges.Text += String.Format( " (last was {0} seconds ago)", (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalSeconds );
+            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.ReceivedPeerList ) );
+            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentPeerList ) );
         }
 
         private void btnClose_Click( object sender, EventArgs e )

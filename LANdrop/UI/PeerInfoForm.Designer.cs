@@ -62,6 +62,7 @@
             // updateInfoTimer
             // 
             this.updateInfoTimer.Enabled = true;
+            this.updateInfoTimer.Interval = 1000;
             this.updateInfoTimer.Tick += new System.EventHandler( this.updateInfoTimer_Tick );
             // 
             // panel1
@@ -89,18 +90,18 @@
             this.lblOutgoingPeerExchanges.AutoSize = true;
             this.lblOutgoingPeerExchanges.Location = new System.Drawing.Point( 26, 147 );
             this.lblOutgoingPeerExchanges.Name = "lblOutgoingPeerExchanges";
-            this.lblOutgoingPeerExchanges.Size = new System.Drawing.Size( 150, 13 );
+            this.lblOutgoingPeerExchanges.Size = new System.Drawing.Size( 64, 13 );
             this.lblOutgoingPeerExchanges.TabIndex = 15;
-            this.lblOutgoingPeerExchanges.Text = "15 outgoing (20 seconds ago)";
+            this.lblOutgoingPeerExchanges.Text = "15 outgoing";
             // 
             // lblIncomingPeerExchanges
             // 
             this.lblIncomingPeerExchanges.AutoSize = true;
             this.lblIncomingPeerExchanges.Location = new System.Drawing.Point( 26, 130 );
             this.lblIncomingPeerExchanges.Name = "lblIncomingPeerExchanges";
-            this.lblIncomingPeerExchanges.Size = new System.Drawing.Size( 149, 13 );
+            this.lblIncomingPeerExchanges.Size = new System.Drawing.Size( 63, 13 );
             this.lblIncomingPeerExchanges.TabIndex = 14;
-            this.lblIncomingPeerExchanges.Text = "25 incoming (20 seconds ago)";
+            this.lblIncomingPeerExchanges.Text = "25 incoming";
             // 
             // label1
             // 
