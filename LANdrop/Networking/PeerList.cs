@@ -133,7 +133,7 @@ namespace LANdrop.Networking
                 // Look up peers we haven't looked up in a while.                
                 List<Peer> peersToLookUp;
                 lock ( _masterList )
-                    peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp );
+                    peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp && p.SafeToCommunicateWith );
                 foreach ( Peer p in peersToLookUp )
                 {
                     log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since sending info; {2} seconds since sending peers); sending a who's-there.",

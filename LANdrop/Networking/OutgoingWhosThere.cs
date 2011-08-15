@@ -20,22 +20,13 @@ namespace LANdrop.Networking
         public OutgoingWhosThere( Peer peerToUpdate )
         {
             this.Peer = peerToUpdate;
+            this.Peer.LastAttemptedCommunication = DateTime.Now;
             ThreadPool.QueueUserWorkItem( delegate { SendAsync( ); } );
         }
 
         private void SendAsync( )
         {
-            TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
-            Peer.RegisterEvent( PeerStatistics.EventType.SentInfo );
-            
-            bool sendPeers = false;
-            if ( Peer.ShouldSendPeers )
-            {
-                log.InfoFormat( "Sending {0} peers to {1}", PeerList.Peers.Count, Peer );
-                sendPeers = true;
-                Peer.RegisterEvent( PeerStatistics.EventType.SentPeerList );
-                // TODO: Register these events only once they succeed; use a LastAttemptedCommunication field to prevent spamming.
-            }
+            TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );                                 
 
             try
             {
@@ -45,9 +36,18 @@ namespace LANdrop.Networking
                 using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
                 using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
                 {
+                    bool sendPeers = Peer.ShouldSendPeers;
                     var header = new Header( sendPeers );
                     NetworkOutStream.Write( header.ToString( ) );
                     NetworkOutStream.Flush( );
+
+                    // Update the statistics.
+                    Peer.RegisterEvent( PeerStatistics.EventType.SentInfo );
+                    if ( sendPeers )
+                    {
+                        log.InfoFormat( "Sent {0} peers to {1}", PeerList.Peers.Count, Peer );
+                        Peer.RegisterEvent( PeerStatistics.EventType.SentPeerList );
+                    }
                 }
             }
             catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }

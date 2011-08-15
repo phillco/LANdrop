@@ -15,7 +15,7 @@ namespace LANdrop.Networking
             SentInfo,
             SentFile,
             ReceivedFile
-        }
+        }        
 
         private Dictionary<EventType, int> Counts = new Dictionary<EventType, int>( );
 

@@ -32,6 +32,10 @@
             this.btnClose = new System.Windows.Forms.Button( );
             this.updateInfoTimer = new System.Windows.Forms.Timer( this.components );
             this.panel1 = new System.Windows.Forms.Panel( );
+            this.lblNumOutgoingInquiries = new System.Windows.Forms.Label( );
+            this.lblNumIncomingInquiries = new System.Windows.Forms.Label( );
+            this.label5 = new System.Windows.Forms.Label( );
+            this.label2 = new System.Windows.Forms.Label( );
             this.lblOutgoingPeerExchanges = new System.Windows.Forms.Label( );
             this.lblIncomingPeerExchanges = new System.Windows.Forms.Label( );
             this.label1 = new System.Windows.Forms.Label( );
@@ -39,10 +43,6 @@
             this.lblLastSeen = new System.Windows.Forms.Label( );
             this.lblPeerName = new System.Windows.Forms.Label( );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
-            this.label2 = new System.Windows.Forms.Label( );
-            this.lblNumOutgoingInquiries = new System.Windows.Forms.Label( );
-            this.lblNumIncomingInquiries = new System.Windows.Forms.Label( );
-            this.label5 = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -85,6 +85,44 @@
             this.panel1.Size = new System.Drawing.Size( 443, 192 );
             this.panel1.TabIndex = 9;
             // 
+            // lblNumOutgoingInquiries
+            // 
+            this.lblNumOutgoingInquiries.AutoSize = true;
+            this.lblNumOutgoingInquiries.Location = new System.Drawing.Point( 289, 147 );
+            this.lblNumOutgoingInquiries.Name = "lblNumOutgoingInquiries";
+            this.lblNumOutgoingInquiries.Size = new System.Drawing.Size( 64, 13 );
+            this.lblNumOutgoingInquiries.TabIndex = 19;
+            this.lblNumOutgoingInquiries.Text = "15 outgoing";
+            // 
+            // lblNumIncomingInquiries
+            // 
+            this.lblNumIncomingInquiries.AutoSize = true;
+            this.lblNumIncomingInquiries.Location = new System.Drawing.Point( 289, 130 );
+            this.lblNumIncomingInquiries.Name = "lblNumIncomingInquiries";
+            this.lblNumIncomingInquiries.Size = new System.Drawing.Size( 63, 13 );
+            this.lblNumIncomingInquiries.TabIndex = 18;
+            this.lblNumIncomingInquiries.Text = "25 incoming";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point( 276, 109 );
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size( 138, 16 );
+            this.label5.TabIndex = 17;
+            this.label5.Text = "General salutations:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point( -64, 190 );
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size( 600, 2 );
+            this.label2.TabIndex = 16;
+            // 
             // lblOutgoingPeerExchanges
             // 
             this.lblOutgoingPeerExchanges.AutoSize = true;
@@ -117,7 +155,7 @@
             // lblNumCommunications
             // 
             this.lblNumCommunications.AutoSize = true;
-            this.lblNumCommunications.Location = new System.Drawing.Point( 26, 72 );
+            this.lblNumCommunications.Location = new System.Drawing.Point( 276, 57 );
             this.lblNumCommunications.Name = "lblNumCommunications";
             this.lblNumCommunications.Size = new System.Drawing.Size( 126, 13 );
             this.lblNumCommunications.TabIndex = 12;
@@ -151,44 +189,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point( -64, 190 );
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size( 600, 2 );
-            this.label2.TabIndex = 16;
-            // 
-            // lblNumOutgoingInquiries
-            // 
-            this.lblNumOutgoingInquiries.AutoSize = true;
-            this.lblNumOutgoingInquiries.Location = new System.Drawing.Point( 289, 147 );
-            this.lblNumOutgoingInquiries.Name = "lblNumOutgoingInquiries";
-            this.lblNumOutgoingInquiries.Size = new System.Drawing.Size( 64, 13 );
-            this.lblNumOutgoingInquiries.TabIndex = 19;
-            this.lblNumOutgoingInquiries.Text = "15 outgoing";
-            // 
-            // lblNumIncomingInquiries
-            // 
-            this.lblNumIncomingInquiries.AutoSize = true;
-            this.lblNumIncomingInquiries.Location = new System.Drawing.Point( 289, 130 );
-            this.lblNumIncomingInquiries.Name = "lblNumIncomingInquiries";
-            this.lblNumIncomingInquiries.Size = new System.Drawing.Size( 63, 13 );
-            this.lblNumIncomingInquiries.TabIndex = 18;
-            this.lblNumIncomingInquiries.Text = "25 incoming";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point( 276, 109 );
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size( 138, 16 );
-            this.label5.TabIndex = 17;
-            this.label5.Text = "General salutations:";
             // 
             // PeerInfoForm
             // 

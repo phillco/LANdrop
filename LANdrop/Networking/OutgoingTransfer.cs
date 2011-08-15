@@ -27,6 +27,7 @@ namespace LANdrop.Networking
             this.FileSize = file.Length;
             this.FileName = file.Name;
             this.Partner = recipient.Name;
+            this.Recipient.LastAttemptedCommunication = DateTime.Now;
 
             // Create a progress notification for this form.
             TransferNotificationForm.CreateForTransfer( this );

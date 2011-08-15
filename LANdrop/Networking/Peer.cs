@@ -34,7 +34,11 @@ namespace LANdrop.Networking
             }
         }
 
+        public DateTime LastAttemptedCommunication { get; set; }
+
         public PeerStatistics Statistics { get; private set; }
+
+        public bool SafeToCommunicateWith { get { return DateTime.Now.Subtract( LastAttemptedCommunication ).TotalSeconds >= 1.0; } }
 
         public bool ShouldSendPeers { get { return Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalMinutes > 2.0; } }
 
