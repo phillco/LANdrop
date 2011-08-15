@@ -17,8 +17,6 @@ namespace LANdrop.Networking
             ReceivedFile
         }
 
-        public DateTime LastSeen { get { return LastOccurred( EventType.Any ); } }
-
         private Dictionary<EventType, int> Counts = new Dictionary<EventType, int>( );
 
         private Dictionary<EventType, DateTime> LastTimeOccurred = new Dictionary<EventType, DateTime>( );

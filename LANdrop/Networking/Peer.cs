@@ -47,7 +47,7 @@ namespace LANdrop.Networking
 
         public bool IsOnline( )
         {
-            return ( DateTime.Now.Subtract( Statistics.LastSeen ).TotalSeconds < 60 );
+            return ( Statistics.TimeSince(PeerStatistics.EventType.Any).TotalSeconds < 60 );
         }
 
         public override String ToString( )

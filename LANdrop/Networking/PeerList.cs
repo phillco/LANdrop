@@ -52,7 +52,7 @@ namespace LANdrop.Networking
         public static List<Peer> GetList( bool freshPeersOnly )
         {
             lock ( _masterList )
-                return _masterList.FindAll( p => !freshPeersOnly || DateTime.Now.Subtract( p.Statistics.LastSeen ).TotalMinutes < 1.0 );
+                return _masterList.FindAll( p => !freshPeersOnly || p.Statistics.TimeSince(PeerStatistics.EventType.Any).TotalMinutes < 1.0 );
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace LANdrop.Networking
         private static void RemoveOldPeers( )
         {
             lock ( _masterList )
-                _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.Statistics.LastSeen ).TotalMinutes > 2.0 );
+                _masterList.RemoveAll( ( Peer p ) => p.Statistics.TimeSince(PeerStatistics.EventType.Any).TotalMinutes > 2.0 );
         }
 
         /// <summary>
