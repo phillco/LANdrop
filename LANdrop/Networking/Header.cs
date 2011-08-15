@@ -23,22 +23,21 @@ namespace LANdrop.Networking
         public List<Peer> Peers { get; set; }
 
         public Header( )
-            : this( false )
         {
+            IncludeSenderDetails( );
         }
 
-        public Header( bool includePeerList = false )
-        {
-            SetSenderDetails( );
-
-            if ( includePeerList )
-                SetPeerList( );
-        }
-
-        public Header( FileInfo file )
+        public Header( bool includePeerList )
             : this( )
         {
-            SetFileDetails( file );
+            if ( includePeerList )
+                IncludePeerList( );
+        }
+
+        public Header( FileInfo file, bool includePeerList = false )
+            : this( includePeerList )
+        {
+            IncludeFileDetails( file );
         }
 
         public static Header Parse( string json )
@@ -51,7 +50,7 @@ namespace LANdrop.Networking
             return JsonConvert.SerializeObject( this );
         }
 
-        private void SetSenderDetails( )
+        public void IncludeSenderDetails( )
         {
             Sender = new SenderDetails
             {
@@ -61,7 +60,7 @@ namespace LANdrop.Networking
             };
         }
 
-        private void SetFileDetails( FileInfo file )
+        public void IncludeFileDetails( FileInfo file )
         {
             Transfer = new TransferDetails
             {
@@ -70,14 +69,14 @@ namespace LANdrop.Networking
             };
         }
 
-        private void SetPeerList( )
+        public void IncludePeerList( )
         {
             Peers = PeerList.Peers;
         }
 
         //===============================================
         //
-        //  SPECIFIC CLASSES BELOW
+        //  SUBCLASSES
         //
         //===============================================
 
