@@ -25,16 +25,17 @@ namespace LANdrop.Networking
 
         private void SendAsync( )
         {
+            TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
+            Peer.RegisterEvent( PeerStatistics.EventType.SentInfo );
+            
             bool sendPeers = false;
-
             if ( Peer.ShouldSendPeers )
             {
                 log.InfoFormat( "Sending {0} peers to {1}", PeerList.Peers.Count, Peer );
                 sendPeers = true;
-                Peer.Statistics.LastSentPeers = DateTime.Now;
+                Peer.RegisterEvent( PeerStatistics.EventType.SentPeerList );
+                // TODO: Register these events only once they succeed; use a LastAttemptedCommunication field to prevent spamming.
             }
-            Peer.Statistics.LastLookedUp = DateTime.Now;
-            TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
 
             try
             {
@@ -47,7 +48,6 @@ namespace LANdrop.Networking
                     var header = new Header( sendPeers );
                     NetworkOutStream.Write( header.ToString( ) );
                     NetworkOutStream.Flush( );
-                    Peer.Statistics.NumTimesSentPeers++;
                 }
             }
             catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }

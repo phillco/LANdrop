@@ -73,7 +73,7 @@ namespace LANdrop.Networking
                     {
                         p.Name = peer.Name;
                         p.EndPoint = peer.EndPoint;
-                        p.Statistics.LastLookedUp = p.Statistics.LastLookedUp = DateTime.Now;
+                        p.RegisterEvent( PeerStatistics.EventType.ReceivedInfo );
                         NotifyChangedEvent( );
                         return;
                     }
@@ -137,8 +137,8 @@ namespace LANdrop.Networking
                     peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp );
                 foreach ( Peer p in peersToLookUp )
                 {
-                    log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since sending peers); sending a who's-there.",
-                        p, DateTime.Now.Subtract( p.Statistics.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.Statistics.LastSentPeers ).TotalSeconds );
+                    log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since sending info; {2} seconds since sending peers); sending a who's-there.",
+                        p, p.Statistics.TimeSince(PeerStatistics.EventType.SentInfo).TotalSeconds, p.Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalSeconds );
                     new OutgoingWhosThere( p );
                 }
 

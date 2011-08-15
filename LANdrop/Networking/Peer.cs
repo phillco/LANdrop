@@ -16,9 +16,9 @@ namespace LANdrop.Networking
     {
         [JsonProperty]
         public string Name { get; set; }
-   
+
         public IPEndPoint EndPoint { get; set; }
-   
+
         [JsonProperty]
         public string EndPointString
         {
@@ -36,9 +36,9 @@ namespace LANdrop.Networking
 
         public PeerStatistics Statistics { get; private set; }
 
-        public bool ShouldSendPeers { get { return DateTime.Now.Subtract( Statistics.LastSentPeers ).TotalMinutes > 2.0; }}
+        public bool ShouldSendPeers { get { return Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalMinutes > 2.0; } }
 
-        public bool ShouldLookUp { get { return ( ShouldSendPeers || DateTime.Now.Subtract( Statistics.LastLookedUp ).TotalSeconds > 30 ); } }
+        public bool ShouldLookUp { get { return ( ShouldSendPeers || Statistics.TimeSince( PeerStatistics.EventType.SentInfo ).TotalSeconds > 30 ); } }
 
         public Peer( )
         {
@@ -64,6 +64,11 @@ namespace LANdrop.Networking
                 return false;
 
             return EndPoint.Equals( ( (Peer) other ).EndPoint );
+        }
+
+        public void RegisterEvent( PeerStatistics.EventType type ) // Just a simplifier
+        {
+            Statistics.RegisterEvent( type );
         }
 
         public void ToStream( BinaryWriter output )

@@ -6,16 +6,51 @@ namespace LANdrop.Networking
 {
     public class PeerStatistics
     {
+        public enum EventType
+        {
+            ReceivedPeerList,
+            SentPeerList,
+            ReceivedInfo,
+            SentInfo,
+            SentFile,
+            ReceivedFile
+        }
+        
         public DateTime LastSeen { get; set; }
 
-        public DateTime LastLookedUp { get; set; }
+        private Dictionary<EventType, int> Counts = new Dictionary<EventType, int>( );
 
-        public DateTime LastSentPeers { get; set; }
+        private Dictionary<EventType, DateTime> LastTimeOccurred = new Dictionary<EventType, DateTime>( );
 
-        public DateTime LastReceivedPeers { get; set; }
+        public PeerStatistics( )
+        {
+            foreach ( EventType type in Enum.GetValues(typeof(EventType)))
+            {
+                LastTimeOccurred[type] = DateTime.MinValue;
+                Counts[type] = 0;
+            }
+        }
 
-        public int NumTimesSentPeers { get; set; }
+        public int NumOccurrences( EventType type )
+        {
+            return Counts[type];
+        }
 
-        public int NumTimesReceivedPeers { get; set; }
+        public DateTime LastOccurred( EventType type )
+        {
+            return LastTimeOccurred[type];
+        }
+
+        public TimeSpan TimeSince( EventType type )
+        {
+            return DateTime.Now.Subtract( LastOccurred( type ) );
+        }
+
+        public void RegisterEvent( EventType type )
+        {
+            Counts[type]++;
+            LastTimeOccurred[type] = DateTime.Now;
+            LastSeen = DateTime.Now;
+        }
     }
 }
