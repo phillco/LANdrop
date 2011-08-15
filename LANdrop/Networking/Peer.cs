@@ -42,10 +42,7 @@ namespace LANdrop.Networking
 
         public Peer( )
         {
-            Statistics = new PeerStatistics
-            {
-                LastSeen = DateTime.Now
-            };
+            Statistics = new PeerStatistics( );
         }
 
         public bool IsOnline( )

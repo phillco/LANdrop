@@ -8,6 +8,7 @@ namespace LANdrop.Networking
     {
         public enum EventType
         {
+            Any,
             ReceivedPeerList,
             SentPeerList,
             ReceivedInfo,
@@ -15,8 +16,8 @@ namespace LANdrop.Networking
             SentFile,
             ReceivedFile
         }
-        
-        public DateTime LastSeen { get; set; }
+
+        public DateTime LastSeen { get { return LastOccurred( EventType.Any ); } }
 
         private Dictionary<EventType, int> Counts = new Dictionary<EventType, int>( );
 
@@ -24,11 +25,14 @@ namespace LANdrop.Networking
 
         public PeerStatistics( )
         {
+            // Initialize the maps so we don't have to worry about missing keys.
             foreach ( EventType type in Enum.GetValues(typeof(EventType)))
             {
                 LastTimeOccurred[type] = DateTime.MinValue;
                 Counts[type] = 0;
             }
+
+            RegisterEvent( EventType.Any );
         }
 
         public int NumOccurrences( EventType type )
@@ -50,7 +54,10 @@ namespace LANdrop.Networking
         {
             Counts[type]++;
             LastTimeOccurred[type] = DateTime.Now;
-            LastSeen = DateTime.Now;
+
+            // Update the master communication log.
+            if ( type != EventType.Any )
+                RegisterEvent( EventType.Any );
         }
     }
 }
