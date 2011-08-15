@@ -139,7 +139,7 @@ namespace LANdrop.Networking
                 foreach ( Peer p in peersToLookUp )
                 {
                     log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
-                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastExchangedPeers ).TotalSeconds );
+                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastSentPeers ).TotalSeconds );
                     new OutgoingWhosThere( p );
                 }
 

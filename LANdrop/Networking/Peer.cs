@@ -38,11 +38,11 @@ namespace LANdrop.Networking
 
         public DateTime LastLookedUp { get; set; }
 
-        public DateTime LastExchangedPeers { get; set; }
+        public DateTime LastSentPeers { get; set; }
 
-        public bool ShouldDoPeerExchange { get { return DateTime.Now.Subtract( LastExchangedPeers ).TotalMinutes > 2.0; }}
+        public bool ShouldSendPeers { get { return DateTime.Now.Subtract( LastSentPeers ).TotalMinutes > 2.0; }}
 
-        public bool ShouldLookUp { get { return ( ShouldDoPeerExchange || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 ); } }
+        public bool ShouldLookUp { get { return ( ShouldSendPeers || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 ); } }
 
         public Peer( )
         {

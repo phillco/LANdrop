@@ -27,11 +27,11 @@ namespace LANdrop.Networking
         {
             bool sendPeers = false;
 
-            if ( Peer.ShouldDoPeerExchange )
+            if ( Peer.ShouldSendPeers )
             {
                 log.InfoFormat( "Sending {0} peers to {1}", PeerList.Peers.Count, Peer );
                 sendPeers = true;
-                Peer.LastExchangedPeers = DateTime.Now;
+                Peer.LastSentPeers = DateTime.Now;
             }
             Peer.LastLookedUp = DateTime.Now;
             TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );

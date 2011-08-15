@@ -62,10 +62,10 @@ namespace LANdrop.Networking
             // Send our header with the file information.
             var header = new Header( File );
 
-            if ( Recipient.ShouldDoPeerExchange ) // Send our peer list too, if it's time.
+            if ( Recipient.ShouldSendPeers ) // Send our peer list too, if it's time.
             {
                 header.IncludePeerList( );
-                Recipient.LastExchangedPeers = DateTime.Now;
+                Recipient.LastSentPeers = DateTime.Now;
             }
 
             NetworkOutStream.Write( header.ToString( ) );
