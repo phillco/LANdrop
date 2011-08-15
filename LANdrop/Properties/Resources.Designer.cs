@@ -150,9 +150,10 @@ namespace LANdrop.Properties {
         ///               
         ///   &lt;!-- Log to a file in the application directory. --&gt;
         ///   &lt;appender name=&quot;FileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt; 
-        ///		&lt;file value=&quot;LANdrop.log&quot; /&gt; 
-        ///		&lt;appendToFile value=&quot;false&quot; /&gt; 
-        ///		&lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt; [rest of string was truncated]&quot;;.
+        ///		&lt;file value=&quot;LANdrop//LANdrop.log&quot; /&gt;
+        ///     &lt;threshold value=&quot;INFO&quot; /&gt;
+        ///     &lt;appendToFile value=&quot;false&quot; /&gt; 
+        ///		 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string log4net {
             get {
@@ -232,6 +233,13 @@ namespace LANdrop.Properties {
         internal static System.Drawing.Bitmap thumb_up_right {
             get {
                 object obj = ResourceManager.GetObject("thumb_up_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap user {
+            get {
+                object obj = ResourceManager.GetObject("user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

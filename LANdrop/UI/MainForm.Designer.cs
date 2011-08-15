@@ -68,6 +68,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator( );
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem( );
             this.selectFileToSendDialog = new System.Windows.Forms.OpenFileDialog( );
+            this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem( );
             this.statusStrip.SuspendLayout( );
             this.contentPanel.SuspendLayout( );
             this.panelApplyUpdate.SuspendLayout( );
@@ -228,9 +229,10 @@
             this.recipientContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
             this.sendFileToToolStripMenuItem,
             this.recipientContextSeparator1,
-            this.copyIPAddressToolStripMenuItem} );
+            this.copyIPAddressToolStripMenuItem,
+            this.informationToolStripMenuItem} );
             this.recipientContextMenu.Name = "recipientConextMenu";
-            this.recipientContextMenu.Size = new System.Drawing.Size( 153, 76 );
+            this.recipientContextMenu.Size = new System.Drawing.Size( 153, 98 );
             this.recipientContextMenu.Opening += new System.ComponentModel.CancelEventHandler( this.recipientContextMenu_Opening );
             // 
             // sendFileToToolStripMenuItem
@@ -393,6 +395,13 @@
             // 
             this.selectFileToSendDialog.Title = "Select a file to send";
             // 
+            // informationToolStripMenuItem
+            // 
+            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size( 152, 22 );
+            this.informationToolStripMenuItem.Text = "About...";
+            this.informationToolStripMenuItem.Click += new System.EventHandler( this.informationToolStripMenuItem_Click );
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
@@ -463,6 +472,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem sendFeedbackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
     }
 }
 

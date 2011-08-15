@@ -40,6 +40,12 @@ namespace LANdrop.Networking
 
         public DateTime LastSentPeers { get; set; }
 
+        public DateTime LastReceivedPeers { get; set; }
+
+        public int NumTimesSentPeers { get; set; }
+
+        public int NumTimesReceivedPeers { get; set; }
+
         public bool ShouldSendPeers { get { return DateTime.Now.Subtract( LastSentPeers ).TotalMinutes > 2.0; }}
 
         public bool ShouldLookUp { get { return ( ShouldSendPeers || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 ); } }

@@ -47,6 +47,7 @@ namespace LANdrop.Networking
                     var header = new Header( sendPeers );
                     NetworkOutStream.Write( header.ToString( ) );
                     NetworkOutStream.Flush( );
+                    Peer.NumTimesSentPeers++;
                 }
             }
             catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }

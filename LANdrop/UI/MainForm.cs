@@ -410,5 +410,10 @@ namespace LANdrop.UI
         {
             new SendFeedbackForm( ).ShowDialog( this );
         }
+
+        private void informationToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new PeerInfoForm( (Peer) receipientList.SelectedItems[0].Tag ).ShowDialog( this );
+        }
     }
 }
