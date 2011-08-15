@@ -23,8 +23,17 @@ namespace LANdrop.UI
         public void UpdateInformation( )
         {
             lblPeerName.Text = Peer.Name;
-            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming (last was {1} seconds ago)", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.ReceivedPeerList ), (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.ReceivedPeerList ).TotalSeconds );
-            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing (last was {1} seconds ago)", Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentPeerList ), (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalSeconds );
+
+            int numIncoming = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.ReceivedPeerList );
+            int numOutgoing = Peer.Statistics.NumOccurrences( PeerStatistics.EventType.SentPeerList );
+
+            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming", numIncoming );
+            if ( numIncoming > 0 )
+                lblIncomingPeerExchanges.Text += String.Format( " (last was {0} seconds ago)", (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.ReceivedPeerList ).TotalSeconds );
+            
+            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing", numOutgoing );
+            if ( numOutgoing > 0 )
+                lblOutgoingPeerExchanges.Text += String.Format( " (last was {0} seconds ago)", (int) Peer.Statistics.TimeSince( PeerStatistics.EventType.SentPeerList ).TotalSeconds );
         }
 
         private void btnClose_Click( object sender, EventArgs e )
