@@ -64,7 +64,7 @@ namespace LANdrop.Networking
             ListenThread.Start( );
         }
 
-        public static void Stop()
+        public static void Stop( )
         {
             ListenThread.Abort( );
             multicastDiscoverer.Stop( );
@@ -84,7 +84,7 @@ namespace LANdrop.Networking
                     listener.Start( );
                     Port = port;
                     Connected = true;
-                    log.Info( "Server started; address is " + LocalServerEndpoint+ "." );
+                    log.Info( "Server started; address is " + LocalServerEndpoint + "." );
                     break;
                 }
                 catch ( SocketException ) { }
@@ -132,24 +132,35 @@ namespace LANdrop.Networking
                 using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
                 using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
                 {
-                    // First check the protocol version. Don't accept requests from different protocol versions.
-                    int protocolVersion = NetworkInStream.ReadInt32( );
-                    if ( protocolVersion != Protocol.Version )
-                        return;
+                    // Process the header.
+                    var header = Header.Parse( NetworkInStream.ReadString( ) );
+                    var peerAddress = ( (IPEndPoint) client.Client.RemoteEndPoint ).Address;
+                    ProcessHeader( peerAddress, header );
 
-                    // Determine what kind of transfer this is.
-                    switch ( (Protocol.IncomingCommunicationTypes) NetworkInStream.ReadInt32( ) )
-                    {
-                        case Protocol.IncomingCommunicationTypes.FileTransfer:
-                            new IncomingTransfer( client, NetworkInStream, NetworkOutStream );
-                            break;                        
-                        case Protocol.IncomingCommunicationTypes.WhosThere:
-                            new IncomingWhosThere( client, NetworkInStream, NetworkOutStream );
-                            break;
-                    }
+                    // Are they sending us a file?
+                    if ( header.Transfer != null )
+                        new IncomingTransfer( header, client, NetworkInStream, NetworkOutStream );
                 }
             }
             catch ( SocketException ) { }
+        }
+
+        private static void ProcessHeader( IPAddress sender, Header header )
+        {
+            var peer = new Peer
+            {
+                Name = header.Sender.Username,
+                EndPoint = new IPEndPoint( sender, header.Sender.ListenPort )
+            };
+
+            PeerList.AddOrUpdate( peer );
+
+            // Did they send their peer list, too?
+            if ( header.Peers != null && header.Peers.Count > 0 )
+            {
+                PeerList.AddOrUpdate( header.Peers );
+                log.InfoFormat( "{0} peers received from {1} via peer exchange.", header.Peers.Count, peer );
+            }
         }
     }
 }

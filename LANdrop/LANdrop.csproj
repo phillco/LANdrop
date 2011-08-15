@@ -62,7 +62,7 @@
     <Compile Include="BuildInfo.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ErrorHandler.cs" />
-    <Compile Include="Networking\IncomingWhosThere.cs" />
+    <Compile Include="Networking\Header.cs" />
     <Compile Include="Networking\OutgoingWhosThere.cs" />
     <Compile Include="Networking\Peer.cs" />
     <Compile Include="Networking\IncomingTransfer.cs" />

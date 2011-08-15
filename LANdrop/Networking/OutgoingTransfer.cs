@@ -59,12 +59,8 @@ namespace LANdrop.Networking
         {
             log.InfoFormat( "Outgoing file transfer started: Offering {0} ({1}) to {2}", File.Name, Util.FormatFileSize( File.Length ), Recipient );
 
-            // Send the file information.
-            NetworkOutStream.Write( (Int32) Protocol.Version );
-            NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.FileTransfer );
-            NetworkOutStream.Write( Configuration.CurrentSettings.Username );
-            NetworkOutStream.Write( File.Name );
-            NetworkOutStream.Write( File.Length );
+            // Send our header with the file information.
+            NetworkOutStream.Write( new Header( File ).ToString( ) );
             NetworkOutStream.Flush( );
 
             // Wait for the response.

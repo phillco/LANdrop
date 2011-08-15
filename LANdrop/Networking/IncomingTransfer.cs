@@ -16,11 +16,11 @@ namespace LANdrop.Networking
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod( ).DeclaringType );
 
+        public Header Header { get; private set; }
+
         public Peer Sender { get; private set; }
 
-        public string FileSaveLocation { get; private set; }
-
-        private StreamWriter fileOutputStream;
+        public string FileSaveLocation { get; private set; }     
 
         private static string DefaultSaveFolder = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
 
@@ -28,26 +28,15 @@ namespace LANdrop.Networking
 
         private bool Accepted = false;
 
-        public IncomingTransfer( TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
+        public IncomingTransfer( Header header, TcpClient client, BinaryReader netInStream, BinaryWriter netOutStream )
         {
+            this.Header = header;
             this.TcpClient = client;
             this.NetworkInStream = netInStream;
             this.NetworkOutStream = netOutStream;
-
-            // Read in information about the sender.
-            IPAddress peerAddress = ( (IPEndPoint) client.Client.RemoteEndPoint ).Address;
-            string peerName = NetworkInStream.ReadString( );
-
-            // If we already know this peer, use our stored information. TODO: merge the information like we do elsewhere
-            Sender = PeerList.GetPeerForAddress( peerAddress );
-            if ( Sender == null ) // ...otherwise, add it!
-            {
-                Sender = new Peer { Name = peerName, EndPoint = new IPEndPoint( peerAddress, Protocol.DefaultServerPort ) };
-                PeerList.AddOrUpdate( Sender );
-            }
-
-            FileName = NetworkInStream.ReadString( );
-            FileSize = NetworkInStream.ReadInt64( );
+            this.FileName = header.Transfer.FileName;
+            this.FileSize = header.Transfer.FileSizeBytes;
+            this.Sender = PeerList.GetPeerForAddress( ( (IPEndPoint) client.Client.RemoteEndPoint ).Address );            
 
             // Ask the user if they want to receive this file.       
             TransferNotificationForm.CreateForTransfer( this );

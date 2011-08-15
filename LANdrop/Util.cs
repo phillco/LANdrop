@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using LANdrop.Networking;
 using System.Reflection;
+using System.Globalization;
 
 namespace LANdrop
 {
@@ -195,6 +196,24 @@ namespace LANdrop
             IPAddress dummy;
             return IPAddress.TryParse( entry, out dummy );
         }
+
+        public static IPEndPoint CreateIPEndPoint( string endPoint )
+        {
+            string[] ep = endPoint.Split( ':' );
+            if ( ep.Length != 2 ) throw new FormatException( "Invalid endpoint format" );
+            IPAddress ip;
+            if ( !IPAddress.TryParse( ep[0], out ip ) )
+            {
+                throw new FormatException( "Invalid ip-adress" );
+            }
+            int port;
+            if ( !int.TryParse( ep[1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port ) )
+            {
+                throw new FormatException( "Invalid port" );
+            }
+            return new IPEndPoint( ip, port );
+        }
+
 
         // For the base36 encode/decode methods.
         private const string base36Chars = "0123456789abcdefghijklmnopqrstuvwxyz";

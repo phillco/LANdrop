@@ -61,7 +61,7 @@ namespace LANdrop.Networking
         public static void AddOrUpdate( Peer peer )
         {
             // Ignore our own announcements.
-            if ( Server.Connected && peer.EndPoint.Equals( Server.LocalServerEndpoint ) )
+            if ( Server.Connected && peer.EndPoint.Address.Equals( Server.LocalServerEndpoint.Address ) )
                 return;
 
             lock ( _masterList )
@@ -72,6 +72,7 @@ namespace LANdrop.Networking
                     if ( p.Equals( peer ) )
                     {
                         p.Name = peer.Name;
+                        p.EndPoint = peer.EndPoint;
                         p.LastSeen = DateTime.Now;
                         p.LastLookedUp = DateTime.Now;
                         NotifyChangedEvent( );
@@ -134,7 +135,7 @@ namespace LANdrop.Networking
                 // Look up peers we haven't looked up in a while.                
                 List<Peer> peersToLookUp;
                 lock ( _masterList )
-                    peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp( ) );
+                    peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp );
                 foreach ( Peer p in peersToLookUp )
                 {
                     log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",

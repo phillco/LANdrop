@@ -25,6 +25,15 @@ namespace LANdrop.Networking
 
         private void SendAsync( )
         {
+            bool sendPeers = false;
+
+            if ( Peer.ShouldDoPeerExchange )
+            {
+                log.InfoFormat( "Sending {0} peers to {1}", PeerList.Peers.Count, Peer );
+                sendPeers = true;
+                Peer.LastExchangedPeers = DateTime.Now;
+            }
+            Peer.LastLookedUp = DateTime.Now;
             TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
 
             try
@@ -35,32 +44,9 @@ namespace LANdrop.Networking
                 using ( BinaryReader NetworkInStream = new BinaryReader( client.GetStream( ) ) )
                 using ( BinaryWriter NetworkOutStream = new BinaryWriter( client.GetStream( ) ) )
                 {
-                    // Send protocol information.
-                    NetworkOutStream.Write( (Int32) Protocol.Version );
-                    NetworkOutStream.Write( (Int32) Protocol.IncomingCommunicationTypes.WhosThere );
-                    NetworkOutStream.Write( (Int32) Protocol.DefaultServerPort );
+                    var header = new Header( sendPeers );
+                    NetworkOutStream.Write( header.ToString( ) );
                     NetworkOutStream.Flush( );
-
-                    // Is it time to do a peer exchange?
-                    bool doPeerExchange = Peer.ShouldDoPeerExchange();
-                    NetworkOutStream.Write( doPeerExchange );
-                    log.DebugFormat( "Sending a who's-there request to {0}{1}.", Peer.EndPoint, ( doPeerExchange ? " (with peer list request)" : "" ) );
-
-                    // Read in their attributes...
-                    Peer.Name = NetworkInStream.ReadString( );
-                    Peer.LastLookedUp = Peer.LastSeen = DateTime.Now;
-                    PeerList.AddOrUpdate( Peer );
-
-                    // ...and their peer list!
-                    if ( NetworkInStream.ReadBoolean( ) )
-                    {
-                        Peer.LastExchangedPeers = DateTime.Now;
-                        int numPeers = NetworkInStream.ReadInt32( );
-                        for ( int i = 0; i < numPeers; i++ )
-                            PeerList.AddOrUpdate( new Peer( NetworkInStream ) );
-
-                        log.InfoFormat( "{0} peers received from {1} via peer exchange.", numPeers, Peer );
-                    }
                 }
             }
             catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }

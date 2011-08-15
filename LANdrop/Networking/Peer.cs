@@ -3,23 +3,46 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace LANdrop.Networking
 {
     /// <summary>
     /// Another LANdrop client on the network that we might interact with.
     /// </summary>
+    [JsonObject( MemberSerialization.OptIn )]
     public class Peer
     {
+        [JsonProperty]
         public string Name { get; set; }
-
+   
         public IPEndPoint EndPoint { get; set; }
+   
+        [JsonProperty]
+        public string EndPointString
+        {
+            get
+            {
+                if ( EndPoint != null )
+                    return EndPoint.ToString( );
+                return null;
+            }
+            set
+            {
+                EndPoint = Util.CreateIPEndPoint( value );
+            }
+        }
 
         public DateTime LastSeen { get; set; }
 
         public DateTime LastLookedUp { get; set; }
 
         public DateTime LastExchangedPeers { get; set; }
+
+        public bool ShouldDoPeerExchange { get { return DateTime.Now.Subtract( LastExchangedPeers ).TotalMinutes > 2.0; }}
+
+        public bool ShouldLookUp { get { return ( ShouldDoPeerExchange || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 ); } }
 
         public Peer( )
         {
@@ -44,20 +67,10 @@ namespace LANdrop.Networking
             return EndPoint.Equals( ( (Peer) other ).EndPoint );
         }
 
-        public bool ShouldDoPeerExchange( )
-        {
-            return ( DateTime.Now.Subtract( LastExchangedPeers ).TotalMinutes > 2.0 );
-        }
-
-        public bool ShouldLookUp( )
-        {
-            return ( ShouldDoPeerExchange( ) || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 );
-        }
-
         public void ToStream( BinaryWriter output )
         {
             output.Write( Name );
-            output.Write( EndPoint.Address.ToString() );
+            output.Write( EndPoint.Address.ToString( ) );
             output.Write( (Int32) EndPoint.Port );
         }
 
