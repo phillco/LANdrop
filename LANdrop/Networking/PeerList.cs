@@ -73,7 +73,6 @@ namespace LANdrop.Networking
                     {
                         p.Name = peer.Name;
                         p.EndPoint = peer.EndPoint;
-                        p.RegisterEvent( PeerStatistics.EventType.ReceivedInfo );
                         NotifyChangedEvent( );
                         return;
                     }
