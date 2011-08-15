@@ -22,13 +22,13 @@ namespace LANdrop.Networking
         private Dictionary<EventType, DateTime> LastTimeOccurred = new Dictionary<EventType, DateTime>( );
 
         public event StatisticsChangedHandler StatisticsChanged;
-        
+
         public delegate void StatisticsChangedHandler( EventType type );
 
         public PeerStatistics( )
         {
             // Initialize the maps so we don't have to worry about missing keys.
-            foreach ( EventType type in Enum.GetValues(typeof(EventType)))
+            foreach ( EventType type in Enum.GetValues( typeof( EventType ) ) )
             {
                 LastTimeOccurred[type] = DateTime.MinValue;
                 Counts[type] = 0;
@@ -39,12 +39,14 @@ namespace LANdrop.Networking
 
         public int NumOccurrences( EventType type )
         {
-            return Counts[type];
+            lock ( Counts )
+                return Counts[type];
         }
 
         public DateTime LastOccurred( EventType type )
         {
-            return LastTimeOccurred[type];
+            lock ( LastTimeOccurred )
+                return LastTimeOccurred[type];
         }
 
         public TimeSpan TimeSince( EventType type )
@@ -54,8 +56,11 @@ namespace LANdrop.Networking
 
         public void RegisterEvent( EventType type )
         {
-            Counts[type]++;
-            LastTimeOccurred[type] = DateTime.Now;
+            lock ( Counts )
+                Counts[type]++;
+
+            lock ( LastTimeOccurred )
+                LastTimeOccurred[type] = DateTime.Now;
 
             // Fire the event.
             if ( StatisticsChanged != null )
