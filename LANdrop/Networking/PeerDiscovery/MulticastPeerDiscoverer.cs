@@ -18,7 +18,7 @@ namespace LANdrop.Networking.PeerDiscovery
 
         private bool connected;
 
-        private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );        
+        private IPAddress multicastAddress = IPAddress.Parse( Protocol.MulticastGroupAddress );
 
         private Thread sendThread, listenThread;
 
@@ -147,6 +147,10 @@ namespace LANdrop.Networking.PeerDiscovery
                     PeerList.AddOrUpdate( peer );
                 else
                     PeerList.Remove( peer );
+
+                var originalPeer = PeerList.GetPeerForAddress( peer.EndPoint.Address );
+                if ( originalPeer != null )
+                    originalPeer.RegisterEvent( PeerStatistics.EventType.ReceivedAnnouncement );
             }
         }
 
@@ -178,7 +182,7 @@ namespace LANdrop.Networking.PeerDiscovery
         protected void InitializeIncomingSocket( Socket socket )
         {
             int port = Util.BindToFirstPossiblePort( socket, Protocol.MulticastPort );
-            
+
             // Unlike the sending socket, we *must* get this port to receive any multicast messages.
             if ( port == -1 )
             {

@@ -13,9 +13,10 @@ namespace LANdrop.Networking
             SentPeerList,
             ReceivedInfo,
             SentInfo,
+            ReceivedAnnouncement,
             SentFile,
             ReceivedFile
-        }        
+        }
 
         private Dictionary<EventType, int> Counts = new Dictionary<EventType, int>( );
 
@@ -41,6 +42,12 @@ namespace LANdrop.Networking
         {
             lock ( Counts )
                 return Counts[type];
+        }
+
+        public int NumDirectOccurrences( )
+        {
+            lock ( Counts )
+                return ( Counts[EventType.Any] - Counts[EventType.ReceivedAnnouncement] );
         }
 
         public DateTime LastOccurred( EventType type )

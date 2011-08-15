@@ -43,6 +43,8 @@
             this.lblLastSeen = new System.Windows.Forms.Label( );
             this.lblPeerName = new System.Windows.Forms.Label( );
             this.pictureBox1 = new System.Windows.Forms.PictureBox( );
+            this.lblNumMulticast = new System.Windows.Forms.Label( );
+            this.label6 = new System.Windows.Forms.Label( );
             this.panel1.SuspendLayout( );
             ( (System.ComponentModel.ISupportInitialize) ( this.pictureBox1 ) ).BeginInit( );
             this.SuspendLayout( );
@@ -51,7 +53,7 @@
             // 
             this.btnClose.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point( 356, 198 );
+            this.btnClose.Location = new System.Drawing.Point( 369, 198 );
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size( 75, 24 );
             this.btnClose.TabIndex = 2;
@@ -68,6 +70,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add( this.lblNumMulticast );
+            this.panel1.Controls.Add( this.label6 );
             this.panel1.Controls.Add( this.lblNumOutgoingInquiries );
             this.panel1.Controls.Add( this.lblNumIncomingInquiries );
             this.panel1.Controls.Add( this.label5 );
@@ -82,13 +86,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point( 0, 0 );
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size( 443, 192 );
+            this.panel1.Size = new System.Drawing.Size( 456, 192 );
             this.panel1.TabIndex = 9;
             // 
             // lblNumOutgoingInquiries
             // 
             this.lblNumOutgoingInquiries.AutoSize = true;
-            this.lblNumOutgoingInquiries.Location = new System.Drawing.Point( 289, 147 );
+            this.lblNumOutgoingInquiries.Location = new System.Drawing.Point( 165, 147 );
             this.lblNumOutgoingInquiries.Name = "lblNumOutgoingInquiries";
             this.lblNumOutgoingInquiries.Size = new System.Drawing.Size( 64, 13 );
             this.lblNumOutgoingInquiries.TabIndex = 19;
@@ -97,7 +101,7 @@
             // lblNumIncomingInquiries
             // 
             this.lblNumIncomingInquiries.AutoSize = true;
-            this.lblNumIncomingInquiries.Location = new System.Drawing.Point( 289, 130 );
+            this.lblNumIncomingInquiries.Location = new System.Drawing.Point( 165, 130 );
             this.lblNumIncomingInquiries.Name = "lblNumIncomingInquiries";
             this.lblNumIncomingInquiries.Size = new System.Drawing.Size( 63, 13 );
             this.lblNumIncomingInquiries.TabIndex = 18;
@@ -108,7 +112,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point( 276, 109 );
+            this.label5.Location = new System.Drawing.Point( 155, 109 );
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size( 138, 16 );
             this.label5.TabIndex = 17;
@@ -118,7 +122,7 @@
             // 
             this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles) ( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point( -64, 190 );
+            this.label2.Location = new System.Drawing.Point( -51, 190 );
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size( 600, 2 );
             this.label2.TabIndex = 16;
@@ -155,7 +159,7 @@
             // lblNumCommunications
             // 
             this.lblNumCommunications.AutoSize = true;
-            this.lblNumCommunications.Location = new System.Drawing.Point( 276, 57 );
+            this.lblNumCommunications.Location = new System.Drawing.Point( 272, 57 );
             this.lblNumCommunications.Name = "lblNumCommunications";
             this.lblNumCommunications.Size = new System.Drawing.Size( 126, 13 );
             this.lblNumCommunications.TabIndex = 12;
@@ -190,13 +194,33 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // lblNumMulticast
+            // 
+            this.lblNumMulticast.AutoSize = true;
+            this.lblNumMulticast.Location = new System.Drawing.Point( 331, 130 );
+            this.lblNumMulticast.Name = "lblNumMulticast";
+            this.lblNumMulticast.Size = new System.Drawing.Size( 64, 13 );
+            this.lblNumMulticast.TabIndex = 22;
+            this.lblNumMulticast.Text = "25 multicast";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font( "Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
+            this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label6.Location = new System.Drawing.Point( 321, 109 );
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size( 77, 16 );
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Discovery:";
+            // 
             // PeerInfoForm
             // 
             this.AcceptButton = this.btnClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF( 6F, 13F );
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size( 443, 231 );
+            this.ClientSize = new System.Drawing.Size( 456, 231 );
             this.Controls.Add( this.panel1 );
             this.Controls.Add( this.btnClose );
             this.Font = new System.Drawing.Font( "Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte) ( 0 ) ) );
@@ -227,5 +251,7 @@
         private System.Windows.Forms.Label lblNumOutgoingInquiries;
         private System.Windows.Forms.Label lblNumIncomingInquiries;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblNumMulticast;
+        private System.Windows.Forms.Label label6;
     }
 }
