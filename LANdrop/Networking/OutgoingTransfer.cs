@@ -60,10 +60,18 @@ namespace LANdrop.Networking
             log.InfoFormat( "Outgoing file transfer started: Offering {0} ({1}) to {2}", File.Name, Util.FormatFileSize( File.Length ), Recipient );
 
             // Send our header with the file information.
-            NetworkOutStream.Write( new Header( File ).ToString( ) );
+            var header = new Header( File );
+
+            if ( Recipient.ShouldDoPeerExchange ) // Send our peer list too, if it's time.
+            {
+                header.IncludePeerList( );
+                Recipient.LastExchangedPeers = DateTime.Now;
+            }
+
+            NetworkOutStream.Write( header.ToString( ) );
             NetworkOutStream.Flush( );
 
-            // Wait for the response.
+            // Wait for the response.            
             if ( NetworkInStream.ReadBoolean( ) )
                 SendFile( );
             else
