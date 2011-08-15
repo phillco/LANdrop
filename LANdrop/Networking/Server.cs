@@ -159,8 +159,8 @@ namespace LANdrop.Networking
             if ( header.Peers != null && header.Peers.Count > 0 )
             {
                 PeerList.AddOrUpdate( header.Peers );
-                peer.LastReceivedPeers = DateTime.Now;
-                peer.NumTimesReceivedPeers++;
+                peer.Statistics.LastReceivedPeers = DateTime.Now;
+                peer.Statistics.NumTimesReceivedPeers++;
                 log.InfoFormat( "{0} peers received from {1} via peer exchange.", header.Peers.Count, peer );
             }
         }

@@ -31,9 +31,9 @@ namespace LANdrop.Networking
             {
                 log.InfoFormat( "Sending {0} peers to {1}", PeerList.Peers.Count, Peer );
                 sendPeers = true;
-                Peer.LastSentPeers = DateTime.Now;
+                Peer.Statistics.LastSentPeers = DateTime.Now;
             }
-            Peer.LastLookedUp = DateTime.Now;
+            Peer.Statistics.LastLookedUp = DateTime.Now;
             TcpClient client = new TcpClient( Peer.EndPoint.AddressFamily );
 
             try
@@ -47,7 +47,7 @@ namespace LANdrop.Networking
                     var header = new Header( sendPeers );
                     NetworkOutStream.Write( header.ToString( ) );
                     NetworkOutStream.Flush( );
-                    Peer.NumTimesSentPeers++;
+                    Peer.Statistics.NumTimesSentPeers++;
                 }
             }
             catch ( SocketException e ) { log.Info( "Error during outgoing who's-there: " + e ); }

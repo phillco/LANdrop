@@ -23,8 +23,8 @@ namespace LANdrop.UI
         public void UpdateInformation( )
         {
             lblPeerName.Text = Peer.Name;
-            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming (last was {1} seconds ago)", Peer.NumTimesReceivedPeers, (int) DateTime.Now.Subtract( Peer.LastReceivedPeers ).TotalSeconds );
-            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing (last was {1} seconds ago)", Peer.NumTimesSentPeers, (int) DateTime.Now.Subtract( Peer.LastSentPeers ).TotalSeconds );
+            lblIncomingPeerExchanges.Text = String.Format( "{0} incoming (last was {1} seconds ago)", Peer.Statistics.NumTimesReceivedPeers, (int) DateTime.Now.Subtract( Peer.Statistics.LastReceivedPeers ).TotalSeconds );
+            lblOutgoingPeerExchanges.Text = String.Format( "{0} outgoing (last was {1} seconds ago)", Peer.Statistics.NumTimesSentPeers, (int) DateTime.Now.Subtract( Peer.Statistics.LastSentPeers ).TotalSeconds );
         }
 
         private void btnClose_Click( object sender, EventArgs e )

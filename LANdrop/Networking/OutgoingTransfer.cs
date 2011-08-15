@@ -65,7 +65,8 @@ namespace LANdrop.Networking
             if ( Recipient.ShouldSendPeers ) // Send our peer list too, if it's time.
             {
                 header.IncludePeerList( );
-                Recipient.LastSentPeers = DateTime.Now;
+                Recipient.Statistics.LastSentPeers = DateTime.Now;
+                Recipient.Statistics.NumTimesSentPeers++;
             }
 
             NetworkOutStream.Write( header.ToString( ) );

@@ -138,9 +138,7 @@ namespace LANdrop.Networking.PeerDiscovery
                 var peer = new Peer
                 {
                     Name = message.ReadString( ),
-                    EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.DefaultServerPort ),
-                    LastSeen = DateTime.Now,
-                    LastLookedUp = DateTime.Now
+                    EndPoint = new IPEndPoint( IPAddress.Parse( message.ReadString( ) ), Protocol.DefaultServerPort )
                 };
 
                 log.Debug( "Received a multicast announcement from " + peer.Name + " (" + peer.EndPoint + ")" );

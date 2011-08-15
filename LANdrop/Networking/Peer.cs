@@ -34,30 +34,23 @@ namespace LANdrop.Networking
             }
         }
 
-        public DateTime LastSeen { get; set; }
+        public PeerStatistics Statistics { get; private set; }
 
-        public DateTime LastLookedUp { get; set; }
+        public bool ShouldSendPeers { get { return DateTime.Now.Subtract( Statistics.LastSentPeers ).TotalMinutes > 2.0; }}
 
-        public DateTime LastSentPeers { get; set; }
-
-        public DateTime LastReceivedPeers { get; set; }
-
-        public int NumTimesSentPeers { get; set; }
-
-        public int NumTimesReceivedPeers { get; set; }
-
-        public bool ShouldSendPeers { get { return DateTime.Now.Subtract( LastSentPeers ).TotalMinutes > 2.0; }}
-
-        public bool ShouldLookUp { get { return ( ShouldSendPeers || DateTime.Now.Subtract( LastLookedUp ).TotalSeconds > 30 ); } }
+        public bool ShouldLookUp { get { return ( ShouldSendPeers || DateTime.Now.Subtract( Statistics.LastLookedUp ).TotalSeconds > 30 ); } }
 
         public Peer( )
         {
-            LastSeen = DateTime.Now;
+            Statistics = new PeerStatistics
+            {
+                LastSeen = DateTime.Now
+            };
         }
 
         public bool IsOnline( )
         {
-            return ( DateTime.Now.Subtract( LastSeen ).TotalSeconds < 60 );
+            return ( DateTime.Now.Subtract( Statistics.LastSeen ).TotalSeconds < 60 );
         }
 
         public override String ToString( )

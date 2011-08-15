@@ -52,7 +52,7 @@ namespace LANdrop.Networking
         public static List<Peer> GetList( bool freshPeersOnly )
         {
             lock ( _masterList )
-                return _masterList.FindAll( p => !freshPeersOnly || DateTime.Now.Subtract( p.LastSeen ).TotalMinutes < 1.0 );
+                return _masterList.FindAll( p => !freshPeersOnly || DateTime.Now.Subtract( p.Statistics.LastSeen ).TotalMinutes < 1.0 );
         }
 
         /// <summary>
@@ -73,8 +73,7 @@ namespace LANdrop.Networking
                     {
                         p.Name = peer.Name;
                         p.EndPoint = peer.EndPoint;
-                        p.LastSeen = DateTime.Now;
-                        p.LastLookedUp = DateTime.Now;
+                        p.Statistics.LastLookedUp = p.Statistics.LastLookedUp = DateTime.Now;
                         NotifyChangedEvent( );
                         return;
                     }
@@ -138,8 +137,8 @@ namespace LANdrop.Networking
                     peersToLookUp = _masterList.FindAll( p => p.ShouldLookUp );
                 foreach ( Peer p in peersToLookUp )
                 {
-                    log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since peer exchange); sending a who's-there.",
-                        p, DateTime.Now.Subtract( p.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.LastSentPeers ).TotalSeconds );
+                    log.DebugFormat( "It's been a while since we looked up {0} ({1} seconds since last looked up; {2} seconds since sending peers); sending a who's-there.",
+                        p, DateTime.Now.Subtract( p.Statistics.LastLookedUp ).TotalSeconds, DateTime.Now.Subtract( p.Statistics.LastSentPeers ).TotalSeconds );
                     new OutgoingWhosThere( p );
                 }
 
@@ -156,7 +155,7 @@ namespace LANdrop.Networking
         private static void RemoveOldPeers( )
         {
             lock ( _masterList )
-                _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.LastSeen ).TotalMinutes > 2.0 );
+                _masterList.RemoveAll( ( Peer p ) => DateTime.Now.Subtract( p.Statistics.LastSeen ).TotalMinutes > 2.0 );
         }
 
         /// <summary>
